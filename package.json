@@ -1,0 +1,41 @@
+{
+  "name": "warcraft3sounds",
+  "version": "0.1.0",
+  "description": "A basic API for Warcraft 3 sounds",
+  "main": "lib/main.js",
+  "scripts": {
+    "start": "node lib/main.js",
+    "test": "npm update && gulp mocha"
+  },
+  "pre-commit": [
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Psychopoulet/warcraft3sounds"
+  },
+  "keywords": [
+    "plugin",
+    "manage"
+  ],
+  "author": "Sébastien VIDAL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Psychopoulet/warcraft3sounds/issues"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-mocha": "^4.3.1",
+    "pre-commit": "^1.2.2"
+  },
+  "homepage": "https://github.com/Psychopoulet/warcraft3sounds#readme",
+  "engines": {
+    "node": ">=4.0.0"
+  }
+}
