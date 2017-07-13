@@ -1,0 +1,144 @@
+
+<!doctype html>
+<html>
+
+	<head>
+
+		<title>Warcraft 3 sounds</title>
+
+		<meta charset="UTF-8" />
+		<link rel="shortcut icon" href="/favicon.png" />
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+
+	</head>
+
+	<body data-ng-app="Warcraft3SoundsApp">
+
+		<div class="container-fluid" data-ng-controller="SoundsController">
+
+			<div class="row">
+
+				<div class="offset-md-3 col-md-6" data-ng-show="racesLoading">
+
+					<div class="alert alert-info">
+						Loading races...
+					</div>
+
+				</div>
+
+				<div class="offset-md-1 col-md-10" data-ng-hide="racesLoading">
+
+					<div class="row">
+
+						<div class="col-sm-6 col-md-4 col-lg-3" data-ng-repeat="race in races">
+
+							<div class="card" data-ng-class="{ 'card-warning': race.loading }">
+
+								<div class="card-header">
+									<h5 class="float-left">{{race.name}}</h5>
+								</div>
+
+								<div class="card-block" data-ng-show="race.loading">
+									loading
+								</div>
+
+								<div class="card-block" data-ng-hide="race.loading">
+									{{race}}
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+		
+		<!-- scripts -->
+
+			<!-- angular -->
+			
+			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+			<script type="text/javascript">
+				
+				"use strict";
+
+				angular.module('Warcraft3SoundsApp', []).controller('SoundsController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+
+					// public
+
+						// attributes
+
+							// race
+							$scope.races = [];
+							$scope.racesError = "";
+							$scope.racesLoading = false;
+
+					// load data
+
+						$scope.racesLoading = true;
+						$http({
+							method: 'GET',
+							url: '/api/v1/fr/races'
+						}).then(function(response) {
+
+							$timeout(function() {
+
+								angular.forEach(response.data, function(race, i) {
+									response.data[i].loading = true;
+									response.data[i].error = "";
+								});
+
+								$scope.races = response.data;
+								$scope.racesError = "";
+								$scope.racesLoading = false;
+
+								angular.forEach($scope.races, function(race, i) {
+
+									$http({
+										method: 'GET',
+										url: race.url
+									}).then(function(response) {
+
+										$timeout(function() {
+
+											$scope.races[i].characters = response.data.characters;
+											$scope.races[i].musics = response.data.musics;
+											$scope.races[i].warnings = response.data.warnings;
+
+											$scope.races[i].error = "";
+											$scope.races[i].loading = false;
+
+										}, 2000);
+
+									}).catch(function (err) {
+
+										$scope.races[i].error = (err.message) ? err.message : err;
+										$scope.races[i].loading = false;
+
+									});
+
+								});
+
+							}, 1000);
+
+						}).catch(function (err) {
+
+							$scope.racesError = (err.message) ? err.message : err;
+							$scope.racesLoading = false;
+
+						});
+
+				}]);
+
+			</script>
+
+	</body>
+
+</html>
