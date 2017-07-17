@@ -5,7 +5,7 @@
   "main": "lib/main.js",
   "scripts": {
     "start": "node lib/main.js",
-    "test": "npm update && gulp mocha"
+    "test": "gulp coveralls"
   },
   "pre-commit": [
     "test"
@@ -32,6 +32,8 @@
     "gulp": "^3.9.1",
     "gulp-plumber": "^1.1.0",
     "gulp-eslint": "^3.0.1",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-istanbul": "^1.1.2",
     "gulp-mocha": "^4.3.1",
     "pre-commit": "^1.2.2"
   },
