@@ -73,7 +73,7 @@
 
 	gulp.task("coveralls", ["mocha"], () => {
 
-		return gulp.src("test/coverage/**/lcov.info")
+		return gulp.src(path.join(__dirname, ".." , "coverage", "**", "lcov.info"))
 			.pipe(coveralls());
 
 	});
