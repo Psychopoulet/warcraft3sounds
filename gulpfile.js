@@ -10,22 +10,33 @@
 	const plumber = require("gulp-plumber");
 
 	// tests
+	const istanbul = require("gulp-istanbul");
 	const eslint = require("gulp-eslint");
 	const mocha = require("gulp-mocha");
+	const coveralls = require("gulp-coveralls");
 
 // private
 
 	var _unitTestsFiles = path.join(__dirname, "tests", "*.js");
+	var _libFiles = path.join(__dirname, "lib", "*.js");
 	
 	var _toTestFiles = [
 		path.join(__dirname, "gulpfile.js"),
-		path.join(__dirname, "lib", "*.js"),
+		_libFiles,
 		_unitTestsFiles
 	];
 
 // tasks
 
-	gulp.task("eslint", () => {
+	gulp.task("pre-test", () => {
+
+		return gulp.src([ _libFiles ])
+			.pipe(istanbul())
+			.pipe(istanbul.hookRequire());
+
+	});
+
+	gulp.task("eslint", ["pre-test"], () => {
 
 		return gulp.src(_toTestFiles)
 			.pipe(plumber())
@@ -54,18 +65,27 @@
 
 		return gulp.src(_unitTestsFiles)
 			.pipe(plumber())
-			.pipe(mocha({reporter: "spec"}));
+			.pipe(mocha())
+			.pipe(istanbul.writeReports())
+			.pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }));
+
+	});
+
+	gulp.task("coveralls", ["mocha"], () => {
+
+		return gulp.src("test/coverage/**/lcov.info")
+			.pipe(coveralls());
 
 	});
 
 // watcher
 
 	gulp.task("watch", () => {
-		gulp.watch(_toTestFiles, ["mocha"]);
+		gulp.watch(_toTestFiles, ["coveralls"]);
 	});
 
 
 // default
 
-	gulp.task("default", ["mocha"]);
+	gulp.task("default", ["coveralls"]);
 	
