@@ -81,11 +81,11 @@
 // watcher
 
 	gulp.task("watch", () => {
-		gulp.watch(_toTestFiles, ["coveralls"]);
+		gulp.watch(_toTestFiles, ["mocha"]);
 	});
 
 
 // default
 
-	gulp.task("default", ["coveralls"]);
+	gulp.task("default", ["mocha"]);
 	
