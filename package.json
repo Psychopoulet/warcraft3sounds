@@ -5,7 +5,8 @@
   "main": "lib/main.js",
   "scripts": {
     "start": "node lib/main.js",
-    "test": "gulp coveralls"
+    "test": "gulp mocha",
+    "test-travis": "gulp coveralls"
   },
   "pre-commit": [
     "test"
