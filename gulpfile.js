@@ -13,17 +13,20 @@
 	const istanbul = require("gulp-istanbul");
 	const eslint = require("gulp-eslint");
 	const mocha = require("gulp-mocha");
+
+	// report
+	const isCI = require("is-ci");
 	const coveralls = require("gulp-coveralls");
 
 // private
 
 	var _unitTestsFiles = path.join(__dirname, "tests", "*.js");
 	var _libFiles = path.join(__dirname, "lib", "*.js");
-	var _APIFiles = path.join(__dirname, "lib", "api", "**", "*.js");
 	
 	var _toTestFiles = [
 		path.join(__dirname, "gulpfile.js"),
 		_libFiles,
+		path.join(__dirname, "lib", "api", "**", "*.js"),
 		_unitTestsFiles
 	];
 
@@ -56,7 +59,7 @@
 
 	gulp.task("istanbul", ["eslint"], () => {
 
-		return gulp.src([ _libFiles ])
+		return gulp.src(_toTestFiles)
 			.pipe(istanbul())
 			.pipe(istanbul.hookRequire());
 
@@ -67,15 +70,23 @@
 		return gulp.src(_unitTestsFiles)
 			.pipe(plumber())
 			.pipe(mocha())
-			.pipe(istanbul.writeReports())
-			.pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }));
+			.pipe(istanbul.writeReports());
 
 	});
 
+// report
+
 	gulp.task("coveralls", ["mocha"], () => {
 
-		return gulp.src(path.join(__dirname, "coverage", "lcov.info"))
-			.pipe(coveralls());
+		if (!isCI) {
+			return Promise.resolve();
+		}
+		else {
+
+			return gulp.src(path.join(__dirname, "coverage", "lcov.info"))
+				.pipe(coveralls());
+			
+		}
 
 	});
 
