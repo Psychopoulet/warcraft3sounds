@@ -19,6 +19,7 @@
 
 	var _unitTestsFiles = path.join(__dirname, "tests", "*.js");
 	var _libFiles = path.join(__dirname, "lib", "*.js");
+	var _APIFiles = path.join(__dirname, "lib", "api", "**", "*.js");
 	
 	var _toTestFiles = [
 		path.join(__dirname, "gulpfile.js"),
@@ -28,15 +29,7 @@
 
 // tasks
 
-	gulp.task("pre-test", () => {
-
-		return gulp.src([ _libFiles ])
-			.pipe(istanbul())
-			.pipe(istanbul.hookRequire());
-
-	});
-
-	gulp.task("eslint", ["pre-test"], () => {
+	gulp.task("eslint", () => {
 
 		return gulp.src(_toTestFiles)
 			.pipe(plumber())
@@ -61,7 +54,15 @@
 
 	});
 
-	gulp.task("mocha", ["eslint"], () => {
+	gulp.task("istanbul", ["eslint"], () => {
+
+		return gulp.src([ _libFiles ])
+			.pipe(istanbul())
+			.pipe(istanbul.hookRequire());
+
+	});
+
+	gulp.task("mocha", ["istanbul"], () => {
 
 		return gulp.src(_unitTestsFiles)
 			.pipe(plumber())
@@ -73,7 +74,7 @@
 
 	gulp.task("coveralls", ["mocha"], () => {
 
-		return gulp.src(path.join(__dirname, ".." , "coverage", "**", "lcov.info"))
+		return gulp.src(path.join(__dirname, "coverage", "lcov.info"))
 			.pipe(coveralls());
 
 	});
