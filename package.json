@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node lib/main.js",
     "test": "gulp eslint",
-    "test-travis": "gulp coveralls"
+    "test-travis": "gulp mocha"
   },
   "pre-commit": [
     "test"
@@ -29,6 +29,8 @@
   "dependencies": {
     "express": "^4.15.3",
     "helmet": "^3.6.1",
+    "cors": "^2.8.4",
+    "compression": "^1.7.0",
     "sqlite3": "^3.1.8",
     "node-confmanager": "^0.5.1"
   },
