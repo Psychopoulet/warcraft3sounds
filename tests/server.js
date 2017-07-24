@@ -18,7 +18,7 @@
 
 describe("server", () => {
 
-	let server = null;
+	let child = null;
 
 	it("should run the server", () => {
 
@@ -26,7 +26,7 @@ describe("server", () => {
 
 			let timeout = null;
 
-			server = spawn("node", [ path.join(__dirname, "..", "lib", "main.js") ], { cwd: path.join(__dirname, "..") }).on("error", (err) => {
+			child = spawn("node", [ path.join(__dirname, "..", "lib", "main.js") ], { cwd: path.join(__dirname, "..") }).on("error", (err) => {
 
 				if (timeout) {
 					clearTimeout(timeout);
@@ -77,6 +77,13 @@ describe("server", () => {
 				});
 
 			});
+
+		}).then(() => {
+
+			child.stdin.pause();
+			child.kill();
+
+			return Promise.resolve();
 
 		});
 
