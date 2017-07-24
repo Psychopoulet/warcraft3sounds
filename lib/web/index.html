@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html>
 
@@ -7,16 +6,40 @@
 		<title>Warcraft 3 sounds</title>
 
 		<meta charset="UTF-8" />
-		<link rel="shortcut icon" href="/favicon.png" />
+		<link rel="shortcut icon" href="/public/pictures/warcraft3.png" /> <!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
 
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+		<!-- design -->
+
+			<!-- bootstrap -->
+
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+
+			<!-- font-awesome -->
+
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
 
 	</head>
 
 	<body data-ng-app="Warcraft3SoundsApp">
 
-		<div class="container-fluid" data-ng-controller="SoundsController">
+		<div class="container-fluid" data-ng-controller="RacesController">
+
+			<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<span class="navbar-brand">
+					<img src="/public/pictures/warcraft3.png" width="30" height="30" class="d-inline-block align-top" alt="Warcraft 3" />
+					<!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
+				</span>
+
+  				<div id="navbarText" class="collapse navbar-collapse">
+					<span class="navbar-text">IP : {{clientip}}</span>
+				</div>
+
+			</nav>
 
 			<div class="row">
 
@@ -30,73 +53,113 @@
 
 				<div class="offset-md-1 col-md-10" data-ng-hide="racesLoading">
 
-					<div class="row">
+					<div class="card-deck">
 
-						<div class="col-sm-6 col-lg-4" data-ng-repeat="race in races">
+						<div class="card" data-ng-class="{ 'card-outline-warning': raceLoading }" data-ng-repeat="race in races" data-ng-controller="RaceController">
 
-							<div class="card" data-ng-class="{ 'card-outline-warning': race.loading }">
+							<div class="card-header" data-ng-class="{ 'card-warning': raceLoading }">
+								<h5 class="float-left">{{race.name}}</h5>
+							</div>
 
-								<div class="card-header" data-ng-class="{ 'card-warning': race.loading }">
-									<h5 class="float-left">{{race.name}}</h5>
-								</div>
+							<div class="card-block" data-ng-show="raceLoading">
+								loading
+							</div>
 
-								<div class="card-block" data-ng-show="race.loading">
-									loading
-								</div>
+							<div class="card-block" data-ng-hide="raceLoading">
 
-								<div class="card-block" data-ng-hide="race.loading">
+								<div class="form-group">
 
-									<div class="form-group row">
+									<label for="{{race.code}}Musics">Musics</label>
 
-										<label for="{{race.code}}Musics" class="col-12 col-xl-4">Musics</label>
+									<div class="form-control-static" data-ng-hide="race.musics.length">There is no musics</div>
 
-										<div class="input-group col-12 col-xl-8">
+									<div class="input-group" data-ng-show="race.musics.length">
 
-											<select id="{{race.code}}Musics" class="form-control">
-												<option data-ng-repeat="music in race.musics" value="{{music.code}}">{{music.name}}</option>
-											</select>
-										
-											<span class="input-group-btn">
-												<button class="btn btn-secondary" type="button">
-													<span class="fa fa-play-circle"></span>
-												</button>
-											</span>
+										<select
+											id="{{race.code}}Musics" class="form-control"
+											data-ng-options="music as music.name for music in race.musics track by music.code" data-ng-model="music"
+										>
+											<option value="">--</option>
+										</select>
 
-										</div>
+										<span class="input-group-btn">
 
-									</div>
+											<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !music }" data-ng-disabled="!music" data-ng-click="playMusic();">
+												<span class="fa fa-play-circle"></span>
+											</button>
 
-									<div class="form-group row">
-
-										<label for="{{race.code}}Warnings" class="col-12 col-xl-4">Warnings</label>
-
-										<div class="input-group col-12 col-xl-8">
-
-											<select id="{{race.code}}Warnings" class="form-control">
-												<option data-ng-repeat="warning in race.warnings" value="{{warning.code}}">{{warning.name}}</option>
-											</select>
-											
-											<span class="input-group-btn">
-												<button class="btn btn-secondary" type="button">
-													<span class="fa fa-play-circle"></span>
-												</button>
-											</span>
-
-										</div>
+										</span>
 
 									</div>
 
-									<div class="row">
-										
-										<div class="form-group">
+								</div>
 
-											<label for="{{race.code}}Characters">Characters</label>
+								<div class="form-group">
 
-											<select id="{{race.code}}Characters" class="form-control">
-												<option data-ng-repeat="character in race.characters" value="{{character.code}}">{{character.name}}</option>
-											</select>
-												
-										</div>
+									<label for="{{race.code}}Warnings">Warnings</label>
+
+									<div class="form-control-static" data-ng-hide="race.warnings.length">There is no warnings</div>
+
+									<div class="input-group" data-ng-show="race.warnings.length">
+
+										<select
+											id="{{race.code}}Warnings" class="form-control"
+											data-ng-options="warning as warning.name for warning in race.warnings track by warning.code" data-ng-model="warning"
+										>
+											<option value="">--</option>
+										</select>
+
+										<span class="input-group-btn">
+
+											<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !warning }" data-ng-disabled="!warning" data-ng-click="playWarning();">
+												<span class="fa fa-play-circle"></span>
+											</button>
+
+										</span>
+
+									</div>
+
+								</div>
+
+								<div class="form-group">
+
+									<label for="{{race.code}}Characters">Characters</label>
+
+									<div class="form-control-static" data-ng-hide="race.characters.length">There is no character</div>
+
+									<select
+										id="{{race.code}}Characters" class="form-control"
+										data-ng-options="character as character.name for character in race.characters track by character.code" data-ng-model="character"
+										data-ng-change="loadActions();"
+										data-ng-show="race.characters.length"
+									>
+										<option value="">--</option>
+									</select>
+
+								</div>
+
+								<div class="form-group" data-ng-show="character && !actionsLoading">
+
+									<label for="{{race.code}}{{character.code}}Action">Actions</label>
+
+									<div class="form-control-static" data-ng-hide="actions.length">There is no action</div>
+
+									<div class="input-group" data-ng-show="actions.length">
+
+										<select
+											id="{{race.code}}{{character.code}}Action" class="form-control"
+											data-ng-options="action as action.name group by action.type.name for action in actions track by action.code" data-ng-model="action"
+										>
+											<option value="">--</option>
+										</select>
+
+										<span class="input-group-btn">
+
+											<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !action }" data-ng-disabled="!action" data-ng-click="playAction();">
+												<span class="fa fa-play-circle"></span>
+											</button>
+
+										</span>
 
 									</div>
 
@@ -116,75 +179,19 @@
 		
 		<!-- scripts -->
 
+			<!-- bootstrap -->
+			
+			<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
 			<!-- angular -->
 			
 			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
-			<script type="text/javascript">
-				
-				"use strict";
-
-				angular.module('Warcraft3SoundsApp', []).controller('SoundsController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
-
-					// public
-
-						// attributes
-
-							// race
-							$scope.races = [];
-							$scope.racesError = "";
-							$scope.racesLoading = false;
-
-					// load data
-
-						$scope.racesLoading = true;
-						$http({
-							method: 'GET',
-							url: '/api/v1/fr/races'
-						}).then(function(response) {
-
-							angular.forEach(response.data, function(race, i) {
-								response.data[i].loading = true;
-								response.data[i].error = "";
-							});
-
-							$scope.races = response.data;
-							$scope.racesError = "";
-							$scope.racesLoading = false;
-
-							angular.forEach($scope.races, function(race, i) {
-
-								$http({
-									method: 'GET',
-									url: race.url
-								}).then(function(response) {
-
-									$scope.races[i].characters = response.data.characters;
-									$scope.races[i].musics = response.data.musics;
-									$scope.races[i].warnings = response.data.warnings;
-
-									$scope.races[i].error = "";
-									$scope.races[i].loading = false;
-
-								}).catch(function(err) {
-
-									$scope.races[i].error = (err.message) ? err.message : err;
-									$scope.races[i].loading = false;
-
-								});
-
-							});
-
-						}).catch(function (err) {
-
-							$scope.racesError = (err.message) ? err.message : err;
-							$scope.racesLoading = false;
-
-						});
-
-				}]);
-
-			</script>
+			<!-- app -->
+			
+			<script type="text/javascript" src="/public/app.js"></script>
 
 	</body>
 
