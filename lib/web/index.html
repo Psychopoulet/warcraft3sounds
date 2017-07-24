@@ -10,6 +10,7 @@
 		<link rel="shortcut icon" href="/favicon.png" />
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
 
 	</head>
 
@@ -31,11 +32,11 @@
 
 					<div class="row">
 
-						<div class="col-sm-6 col-md-4 col-lg-3" data-ng-repeat="race in races">
+						<div class="col-sm-6 col-lg-4" data-ng-repeat="race in races">
 
-							<div class="card" data-ng-class="{ 'card-warning': race.loading }">
+							<div class="card" data-ng-class="{ 'card-outline-warning': race.loading }">
 
-								<div class="card-header">
+								<div class="card-header" data-ng-class="{ 'card-warning': race.loading }">
 									<h5 class="float-left">{{race.name}}</h5>
 								</div>
 
@@ -44,7 +45,61 @@
 								</div>
 
 								<div class="card-block" data-ng-hide="race.loading">
-									{{race}}
+
+									<div class="form-group row">
+
+										<label for="{{race.code}}Musics" class="col-12 col-xl-4">Musics</label>
+
+										<div class="input-group col-12 col-xl-8">
+
+											<select id="{{race.code}}Musics" class="form-control">
+												<option data-ng-repeat="music in race.musics" value="{{music.code}}">{{music.name}}</option>
+											</select>
+										
+											<span class="input-group-btn">
+												<button class="btn btn-secondary" type="button">
+													<span class="fa fa-play-circle"></span>
+												</button>
+											</span>
+
+										</div>
+
+									</div>
+
+									<div class="form-group row">
+
+										<label for="{{race.code}}Warnings" class="col-12 col-xl-4">Warnings</label>
+
+										<div class="input-group col-12 col-xl-8">
+
+											<select id="{{race.code}}Warnings" class="form-control">
+												<option data-ng-repeat="warning in race.warnings" value="{{warning.code}}">{{warning.name}}</option>
+											</select>
+											
+											<span class="input-group-btn">
+												<button class="btn btn-secondary" type="button">
+													<span class="fa fa-play-circle"></span>
+												</button>
+											</span>
+
+										</div>
+
+									</div>
+
+									<div class="row">
+										
+										<div class="form-group">
+
+											<label for="{{race.code}}Characters">Characters</label>
+
+											<select id="{{race.code}}Characters" class="form-control">
+												<option data-ng-repeat="character in race.characters" value="{{character.code}}">{{character.name}}</option>
+											</select>
+												
+										</div>
+
+									</div>
+
 								</div>
 
 							</div>
@@ -88,45 +143,37 @@
 							url: '/api/v1/fr/races'
 						}).then(function(response) {
 
-							$timeout(function() {
+							angular.forEach(response.data, function(race, i) {
+								response.data[i].loading = true;
+								response.data[i].error = "";
+							});
 
-								angular.forEach(response.data, function(race, i) {
-									response.data[i].loading = true;
-									response.data[i].error = "";
-								});
+							$scope.races = response.data;
+							$scope.racesError = "";
+							$scope.racesLoading = false;
 
-								$scope.races = response.data;
-								$scope.racesError = "";
-								$scope.racesLoading = false;
+							angular.forEach($scope.races, function(race, i) {
 
-								angular.forEach($scope.races, function(race, i) {
+								$http({
+									method: 'GET',
+									url: race.url
+								}).then(function(response) {
 
-									$http({
-										method: 'GET',
-										url: race.url
-									}).then(function(response) {
+									$scope.races[i].characters = response.data.characters;
+									$scope.races[i].musics = response.data.musics;
+									$scope.races[i].warnings = response.data.warnings;
 
-										$timeout(function() {
+									$scope.races[i].error = "";
+									$scope.races[i].loading = false;
 
-											$scope.races[i].characters = response.data.characters;
-											$scope.races[i].musics = response.data.musics;
-											$scope.races[i].warnings = response.data.warnings;
+								}).catch(function(err) {
 
-											$scope.races[i].error = "";
-											$scope.races[i].loading = false;
-
-										}, 2000);
-
-									}).catch(function (err) {
-
-										$scope.races[i].error = (err.message) ? err.message : err;
-										$scope.races[i].loading = false;
-
-									});
+									$scope.races[i].error = (err.message) ? err.message : err;
+									$scope.races[i].loading = false;
 
 								});
 
-							}, 1000);
+							});
 
 						}).catch(function (err) {
 
