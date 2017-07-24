@@ -20,6 +20,21 @@ describe("server", () => {
 
 	let child = null;
 
+	after(() => {
+
+		return Promise.resolve().then(() => {
+
+			if (child) {
+				child.stdin.pause();
+				child.kill();
+			}
+
+			return Promise.resolve();
+
+		});
+
+	});
+
 	it("should run the server", () => {
 
 		return new Promise((resolve, reject) => {
@@ -77,13 +92,6 @@ describe("server", () => {
 				});
 
 			});
-
-		}).then(() => {
-
-			child.stdin.pause();
-			child.kill();
-
-			return Promise.resolve();
 
 		});
 
