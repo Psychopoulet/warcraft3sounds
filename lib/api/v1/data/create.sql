@@ -27,7 +27,7 @@ CREATE TABLE actions_types (
 INSERT INTO actions_types (id, code, name) VALUES
 (1, 'ready', 'Prêt !'),
 (2, 'warcry', 'Cri de guerre'),
-(3, 'what', 'What ?'),
+(3, 'what', 'Quoi ?'),
 (4, 'yes', 'Oui ?'),
 (5, 'attack', 'Attaque'),
 (6, 'fun', 'Fun'),
