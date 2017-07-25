@@ -22,11 +22,11 @@
 
 	<body data-ng-app="Warcraft3SoundsApp">
 
-		<div class="container-fluid" data-ng-controller="RacesController">
+		<div class="container-fluid" data-ng-controller="MainController">
 
 			<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
 
-				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText">
+				<button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#IPS">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
@@ -35,8 +35,16 @@
 					<!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
 				</span>
 
-  				<div id="navbarText" class="collapse navbar-collapse">
-					<span class="navbar-text">IP : {{clientip}}</span>
+				<div id="IPS" class="collapse navbar-collapse" data-ng-controller="IPsControllers">
+
+					<div class="navbar-nav">
+
+						<span class="nav-item nav-link" data-ng-show="ipsLoading">Loading IPs...</span>
+						<span class="nav-item nav-link" data-ng-show="!ipsLoading && !ips.length">There is no IP detected</span>
+						<span class="nav-item nav-link" data-ng-show="!ipsLoading && ips.length" data-ng-repeat="ip in ips">{{ip.name}} : {{ip.address}}</span>
+
+					</div>
+
 				</div>
 
 			</nav>
