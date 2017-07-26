@@ -28,10 +28,8 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 		return Promise.resolve().then(() => {
 
-			if (child) {
-				child.stdin.pause();
-				child.kill();
-			}
+			child.stdin.pause();
+			child.kill();
 
 			return Promise.resolve();
 
@@ -41,7 +39,7 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 	it("should run the server", () => {
 
-		return new Promise((resolve) => {
+		return Promise.resolve().then(() => {
 
 			child = spawn(
 				"node",
@@ -49,7 +47,7 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 				{ cwd: path.join(__dirname, "..") }
 			);
 
-			resolve();
+			return Promise.resolve();
 
 		});
 
