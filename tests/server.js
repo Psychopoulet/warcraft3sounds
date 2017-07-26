@@ -20,7 +20,7 @@
 
 // module
 
-describe("server (127.0.0.1 on port " + PORT + ")", () => {
+describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 	let child = null;
 
@@ -41,34 +41,23 @@ describe("server (127.0.0.1 on port " + PORT + ")", () => {
 
 	it("should run the server", () => {
 
-		return new Promise((resolve, reject) => {
-
-			let timeout = null;
+		return new Promise((resolve) => {
 
 			child = spawn(
 				"node",
 				[ path.join(__dirname, "..", "lib", "main.js"), "--port", PORT ],
 				{ cwd: path.join(__dirname, "..") }
-			).on("error", (err) => {
+			);
 
-				if (timeout) {
-					clearTimeout(timeout);
-					timeout = null;
-				}
-
-				reject(err);
-
-			});
-
-			timeout = setTimeout(resolve, 1000);
+			resolve();
 
 		});
 
 	}).timeout(MAX_TIMEOUT_REQUEST);
 
-	it("should get the main page", () => {
+	it("should get the main page (" + MAIN_URL + ")", () => {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 
 			http.get(MAIN_URL, (res) => {
 
@@ -87,21 +76,16 @@ describe("server (127.0.0.1 on port " + PORT + ")", () => {
 
 					fs.readFile(path.join(__dirname, "..", "lib", "web", "index.html"), "utf8", (err, content) => {
 
-						if (err) {
-							reject(err);
-						}
-						else {
-							assert.strictEqual(rawData.length, content.length, "The returned content's length is not the same that the file content");
-							resolve();
-						}
+						assert.strictEqual(null, err, "The returned content's generate an error");
+						assert.strictEqual(rawData.length, content.length, "The returned content's length is not the same that the file content");
+
+						resolve();
 
 					});
 
 				});
 
-			}).on("error", (err) => {
-				reject(err);
-			}).end();
+			});
 
 		});
 
@@ -111,7 +95,7 @@ describe("server (127.0.0.1 on port " + PORT + ")", () => {
 
 		it("should get the IPs recovery (" + API_URL + "ips)", () => {
 
-			return new Promise((resolve, reject) => {
+			return new Promise((resolve) => {
 
 				http.get(API_URL + "ips", (res) => {
 
@@ -136,9 +120,7 @@ describe("server (127.0.0.1 on port " + PORT + ")", () => {
 
 					});
 
-				}).on("error", (err) => {
-					reject(err);
-				}).end();
+				});
 
 			});
 
