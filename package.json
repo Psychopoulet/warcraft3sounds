@@ -35,14 +35,18 @@
     "node-confmanager": "^0.5.1"
   },
   "devDependencies": {
+
     "gulp": "^3.9.1",
     "gulp-plumber": "^1.1.0",
-    "gulp-eslint": "^3.0.1",
+
+    "gulp-eslint": "^4.0.0",
     "gulp-mocha": "^3.0.1",
     "gulp-istanbul": "^1.1.2",
     "is-ci": "^1.0.10",
     "gulp-coveralls": "^0.1.4",
+
     "pre-commit": "^1.2.2"
+    
   },
   "homepage": "https://github.com/Psychopoulet/warcraft3sounds#readme",
   "engines": {

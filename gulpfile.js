@@ -18,56 +18,53 @@
 	const isCI = require("is-ci");
 	const coveralls = require("gulp-coveralls");
 
-// private
+// consts
 
-	var _unitTestsFiles = path.join(__dirname, "tests", "*.js");
-	var _libFiles = path.join(__dirname, "lib", "*.js");
-	
-	var _toTestFiles = [
+	const UNITTESTSFILES = path.join(__dirname, "tests", "*.js");
+	const LIBFILES = path.join(__dirname, "lib", "*.js");
+
+	const TOTESTFILES = [
 		path.join(__dirname, "gulpfile.js"),
-		_libFiles,
+		LIBFILES,
 		path.join(__dirname, "lib", "api", "**", "*.js"),
-		_unitTestsFiles
+		UNITTESTSFILES
 	];
+
+	const ESLINTRULES = require(path.join(__dirname, "gulpfileeslintrules.json"));
 
 // tasks
 
 	gulp.task("eslint", () => {
 
-		return gulp.src(_toTestFiles)
+		return gulp.src(TOTESTFILES)
 			.pipe(plumber())
 			.pipe(eslint({
+				"env": {
+					"es6": true,
+					"mocha": true,
+					"node": true
+				},
 				"parserOptions": {
 					"ecmaVersion": 6
 				},
-				"rules": {
-					"linebreak-style": 0,
-					"quotes": [ 1, "double" ],
-					"indent": 0,
-					// "indent": [ 2, "tab" ],
-					"semi": [ 2, "always" ]
-				},
-				"env": {
-					"node": true, "es6": true, "mocha": true
-				},
-				"extends": "eslint:recommended"
+				"rules": ESLINTRULES
 			}))
 			.pipe(eslint.format())
 			.pipe(eslint.failAfterError());
 
 	});
 
-	gulp.task("istanbul", ["eslint"], () => {
+	gulp.task("istanbul", [ "eslint" ], () => {
 
-		return gulp.src(_toTestFiles)
+		return gulp.src(TOTESTFILES)
 			.pipe(istanbul())
 			.pipe(istanbul.hookRequire());
 
 	});
 
-	gulp.task("mocha", ["istanbul"], () => {
+	gulp.task("mocha", [ "istanbul" ], () => {
 
-		return gulp.src(_unitTestsFiles)
+		return gulp.src(UNITTESTSFILES)
 			.pipe(plumber())
 			.pipe(mocha())
 			.pipe(istanbul.writeReports());
@@ -76,28 +73,20 @@
 
 // report
 
-	gulp.task("coveralls", ["mocha"], () => {
+	gulp.task("coveralls", [ "mocha" ], () => {
 
-		if (!isCI) {
-			return Promise.resolve();
-		}
-		else {
-
-			return gulp.src(path.join(__dirname, "coverage", "lcov.info"))
-				.pipe(coveralls());
-			
-		}
+		return !isCI
+			? Promise.resolve()
+			: gulp.src(path.join(__dirname, "coverage", "lcov.info")).pipe(coveralls());
 
 	});
 
 // watcher
 
 	gulp.task("watch", () => {
-		gulp.watch(_toTestFiles, ["mocha"]);
+		gulp.watch(TOTESTFILES, [ "eslint" ]);
 	});
-
 
 // default
 
-	gulp.task("default", ["mocha"]);
-	
+	gulp.task("default", [ "mocha" ]);
