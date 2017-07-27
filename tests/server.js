@@ -11,7 +11,6 @@
 
 // consts
 
-	const MAIN_FILE = path.join(__dirname, "..", "lib", "main.js");
 	const MAX_TIMEOUT_REQUEST = 3000;
 
 	const PORT = "3000";
@@ -42,9 +41,13 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 		return Promise.resolve().then(() => {
 
 			child = spawn(
-				"node",
-				[ path.join(__dirname, "..", "lib", "main.js"), "--port", PORT ],
-				{ cwd: path.join(__dirname, "..") }
+				"node", [
+					path.join(__dirname, "..", "lib", "main.js"),
+					"--port",
+					PORT
+				], {
+					"cwd": path.join(__dirname, "..")
+				}
 			);
 
 			return Promise.resolve();
@@ -67,8 +70,10 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 				res.setEncoding("utf8");
 
 				let rawData = "";
-				res.on("data", (chunk) => { rawData += chunk; });
-				res.on("end", () => {
+
+				res.on("data", (chunk) => {
+					rawData += chunk;
+				}).on("end", () => {
 
 					assert.strictEqual("string", typeof rawData, "The returned content is not a text");
 
@@ -105,8 +110,10 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 					res.setEncoding("utf8");
 
 					let rawData = "";
-					res.on("data", (chunk) => { rawData += chunk; });
-					res.on("end", () => {
+
+					res.on("data", (chunk) => {
+						rawData += chunk;
+					}).on("end", () => {
 
 						assert.strictEqual("string", typeof rawData, "The the returned content is not a string");
 
