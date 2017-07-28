@@ -30,6 +30,7 @@
 		UNITTESTSFILES
 	];
 
+	// http://eslint.org/docs/rules/
 	const ESLINTRULES = require(path.join(__dirname, "gulpfileeslintrules.json"));
 
 // tasks
@@ -44,6 +45,16 @@
 					"mocha": true,
 					"node": true
 				},
+				"globals": [
+					"after",
+					"console",
+					"describe",
+					"it",
+					"Promise",
+					"module",
+					"require",
+					"__dirname"
+				],
 				"parserOptions": {
 					"ecmaVersion": 6
 				},
