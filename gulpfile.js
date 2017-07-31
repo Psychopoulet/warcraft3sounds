@@ -14,10 +14,6 @@
 	const eslint = require("gulp-eslint");
 	const mocha = require("gulp-mocha");
 
-	// report
-	const isCI = require("is-ci");
-	const coveralls = require("gulp-coveralls");
-
 // consts
 
 	const UNITTESTSFILES = path.join(__dirname, "tests", "*.js");
@@ -65,16 +61,6 @@
 			.pipe(plumber())
 			.pipe(mocha())
 			.pipe(istanbul.writeReports());
-
-	});
-
-// report
-
-	gulp.task("coveralls", [ "mocha" ], () => {
-
-		return !isCI ?
-			Promise.resolve() :
-			gulp.src(path.join(__dirname, "coverage", "lcov.info")).pipe(coveralls());
 
 	});
 
