@@ -1,6 +1,7 @@
 [
 	"after",
 	"angular",
+	"before",
 	"console",
 	"describe",
 	"it",
