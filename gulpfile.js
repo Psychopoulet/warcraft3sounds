@@ -14,24 +14,17 @@
 	const eslint = require("gulp-eslint");
 	const mocha = require("gulp-mocha");
 
-	// report
-	const isCI = require("is-ci");
-	const coveralls = require("gulp-coveralls");
-
 // consts
 
 	const UNITTESTSFILES = path.join(__dirname, "tests", "*.js");
-	const LIBFILES = path.join(__dirname, "lib", "*.js");
 
 	const TOTESTFILES = [
 		path.join(__dirname, "gulpfile.js"),
-		LIBFILES,
+		path.join(__dirname, "lib", "*.js"),
 		path.join(__dirname, "lib", "api", "**", "*.js"),
+		path.join(__dirname, "lib", "web", "*.js"),
 		UNITTESTSFILES
 	];
-
-	// http://eslint.org/docs/rules/
-	const ESLINTRULES = require(path.join(__dirname, "gulpfileeslintrules.json"));
 
 // tasks
 
@@ -40,25 +33,14 @@
 		return gulp.src(TOTESTFILES)
 			.pipe(plumber())
 			.pipe(eslint({
-				"env": {
-					"es6": true,
-					"mocha": true,
-					"node": true
-				},
-				"globals": [
-					"after",
-					"console",
-					"describe",
-					"it",
-					"Promise",
-					"module",
-					"require",
-					"__dirname"
-				],
+				"env": require(path.join(__dirname, "gulpfile", "eslint", "env.json")),
+				"globals": require(path.join(__dirname, "gulpfile", "eslint", "globals.json")),
 				"parserOptions": {
 					"ecmaVersion": 6
 				},
-				"rules": ESLINTRULES
+				// http://eslint.org/docs/rules/
+				"rules": require(path.join(__dirname, "gulpfile", "eslint", "rules.json"))
+
 			}))
 			.pipe(eslint.format())
 			.pipe(eslint.failAfterError());
@@ -79,16 +61,6 @@
 			.pipe(plumber())
 			.pipe(mocha())
 			.pipe(istanbul.writeReports());
-
-	});
-
-// report
-
-	gulp.task("coveralls", [ "mocha" ], () => {
-
-		return !isCI
-			? Promise.resolve()
-			: gulp.src(path.join(__dirname, "coverage", "lcov.info")).pipe(coveralls());
 
 	});
 

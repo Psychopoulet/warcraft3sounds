@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node lib/main.js",
     "test": "gulp eslint",
-    "test-travis": "gulp coveralls"
+    "test-travis": "gulp mocha"
   },
   "pre-commit": [
     "test"
@@ -42,8 +42,6 @@
     "gulp-eslint": "^4.0.0",
     "gulp-mocha": "^3.0.1",
     "gulp-istanbul": "^1.1.2",
-    "is-ci": "^1.0.10",
-    "gulp-coveralls": "^0.1.4",
 
     "pre-commit": "^1.2.2"
     

@@ -4,7 +4,7 @@
 // deps
 
 	const path = require("path");
-	const spawn = require("child_process").spawn;
+	const { spawn } = require("child_process");
 	const http = require("http");
 	const fs = require("fs");
 	const assert = require("assert");
@@ -65,7 +65,11 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 				assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
 				assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
 				assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-				assert.strictEqual("text/html; charset=utf-8", res.headers["content-type"].toLowerCase(), "The content-type header are not html/utf8");
+				assert.strictEqual(
+					"text/html; charset=utf-8",
+					res.headers["content-type"].toLowerCase(),
+					"The content-type header are not html/utf8"
+				);
 
 				res.setEncoding("utf8");
 
@@ -105,7 +109,11 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
 					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
 					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-					assert.strictEqual("application/json; charset=utf-8", res.headers["content-type"].toLowerCase(), "The content-type header are not html/utf8");
+					assert.strictEqual(
+						"application/json; charset=utf-8",
+						res.headers["content-type"].toLowerCase(),
+						"The content-type header are not html/utf8"
+					);
 
 					res.setEncoding("utf8");
 
