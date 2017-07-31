@@ -8,5 +8,6 @@
 	"Promise",
 	"module",
 	"require",
-	"__dirname"
+	"__dirname",
+	"__filename"
 ]
