@@ -4,7 +4,7 @@
 // deps
 
 	const path = require("path");
-	const spawn = require("child_process").spawn;
+	const { spawn } = require("child_process");
 	const http = require("http");
 	const fs = require("fs");
 	const assert = require("assert");
