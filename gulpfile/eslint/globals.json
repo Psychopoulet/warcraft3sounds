@@ -6,6 +6,7 @@
 	"describe",
 	"it",
 	"jQuery",
+	"process",
 	"Promise",
 	"module",
 	"require",
