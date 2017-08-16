@@ -16,21 +16,22 @@
 
 // consts
 
-	const UNITTESTSFILES = path.join(__dirname, "tests", "*.js");
-
-	const TOTESTFILES = [
+	const APP_FILES = [
 		path.join(__dirname, "gulpfile.js"),
 		path.join(__dirname, "lib", "*.js"),
 		path.join(__dirname, "lib", "api", "**", "*.js"),
-		path.join(__dirname, "lib", "web", "*.js"),
-		UNITTESTSFILES
+		path.join(__dirname, "lib", "web", "*.js")
 	];
+
+	const UNITTESTS_FILES = [ path.join(__dirname, "tests", "*.js") ];
+
+	const ALL_FILES = [ path.join(__dirname, "gulpfile.js") ].concat(APP_FILES).concat(UNITTESTS_FILES);
 
 // tasks
 
 	gulp.task("eslint", () => {
 
-		return gulp.src(TOTESTFILES)
+		return gulp.src(ALL_FILES)
 			.pipe(plumber())
 			.pipe(eslint({
 				"env": require(path.join(__dirname, "gulpfile", "eslint", "env.json")),
@@ -49,7 +50,7 @@
 
 	gulp.task("istanbul", [ "eslint" ], () => {
 
-		return gulp.src(TOTESTFILES)
+		return gulp.src(APP_FILES)
 			.pipe(istanbul())
 			.pipe(istanbul.hookRequire());
 
@@ -57,17 +58,18 @@
 
 	gulp.task("mocha", [ "istanbul" ], () => {
 
-		return gulp.src(UNITTESTSFILES)
+		return gulp.src(UNITTESTS_FILES)
 			.pipe(plumber())
 			.pipe(mocha())
-			.pipe(istanbul.writeReports());
+			.pipe(istanbul.writeReports())
+			.pipe(istanbul.enforceThresholds({ "thresholds": { "global": 85 } }));
 
 	});
 
 // watcher
 
 	gulp.task("watch", () => {
-		gulp.watch(TOTESTFILES, [ "eslint" ]);
+		gulp.watch(ALL_FILES, [ "eslint" ]);
 	});
 
 // default
