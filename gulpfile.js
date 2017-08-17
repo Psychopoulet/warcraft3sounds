@@ -17,10 +17,9 @@
 // consts
 
 	const APP_FILES = [
-		path.join(__dirname, "gulpfile.js"),
-		path.join(__dirname, "lib", "*.js"),
+		path.join(__dirname, "lib", "**", "*.js"),
 		path.join(__dirname, "lib", "api", "**", "*.js"),
-		path.join(__dirname, "lib", "web", "*.js")
+		path.join(__dirname, "lib", "web", "**", "*.js")
 	];
 
 	const UNITTESTS_FILES = [ path.join(__dirname, "tests", "*.js") ];
@@ -52,6 +51,7 @@
 
 		return gulp.src(APP_FILES)
 			.pipe(istanbul())
+			.pipe(istanbul({ "includeUntested": true }))
 			.pipe(istanbul.hookRequire());
 
 	});
