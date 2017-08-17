@@ -50,7 +50,7 @@
 	gulp.task("istanbul", [ "eslint" ], () => {
 
 		return gulp.src(APP_FILES)
-			.pipe(istanbul())
+			.pipe(plumber())
 			.pipe(istanbul({ "includeUntested": true }))
 			.pipe(istanbul.hookRequire());
 
