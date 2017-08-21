@@ -10,6 +10,7 @@
 	"Promise",
 	"module",
 	"require",
+	"setTimeout",
 	"__dirname",
 	"__filename"
 ]
