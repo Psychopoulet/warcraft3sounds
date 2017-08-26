@@ -56,7 +56,7 @@
 
 	gulp.task("istanbul", [ "eslint" ], () => {
 
-		return gulp.src(APP_FILES)
+		return gulp.src(APP_FILES.concat([ "!" + path.join(__dirname, "lib", "main.js") ]))
 			.pipe(plumber())
 			.pipe(istanbul({ "includeUntested": true }))
 			.pipe(istanbul.hookRequire());
