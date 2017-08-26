@@ -76,17 +76,17 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			});
 
-			_serverProcess.stderr.on("data", (data) => {
-				err += data.toString("utf8");
-			});
+			_serverProcess.stdout.on("data", (data) => {
 
-			setTimeout(() => {
-
-				if (!err) {
+				if ("started on port " + PORT === data.toString("utf8").trim()) {
 					resolve();
 				}
 
-			}, 1000);
+			});
+
+			_serverProcess.stderr.on("data", (data) => {
+				err += data.toString("utf8");
+			});
 
 		}).catch((err) => {
 
@@ -96,7 +96,7 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 		});
 
-	}).timeout(5000);
+	}).timeout(MAX_TIMEOUT_REQUEST);
 
 	it("should get the main page (" + MAIN_URL + ")", () => {
 
@@ -123,9 +123,9 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 					assert.strictEqual("string", typeof rawData, "The returned content is not a text");
 
-					fs.readFile(join(__dirname, "..", "lib", "web", "index.html"), "utf8", (err, content) => {
+					fs.readFile(join(__dirname, "..", "lib", "public", "index.html"), "utf8", (err, content) => {
 
-						assert.strictEqual(null, err, "The returned content's generate an error");
+						assert.strictEqual(null, err, "The returned content generate an error");
 						assert.strictEqual(rawData.length, content.length, "The returned content's length is not the same that the file content");
 
 						resolve();
@@ -178,21 +178,5 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 		});
 
 	}).timeout(MAX_TIMEOUT_REQUEST);
-
-	describe("API V1", () => {
-
-		// const API_V1_URL = MAIN_URL + "api/v1/";
-
-		// describe("Model", () => {
-
-		// 	const Model = require(join(__dirname, "..", "lib", "api", "v1", "model.js"));
-
-		// });
-
-		// describe("routes", () => {
-
-		// });
-
-	});
 
 });
