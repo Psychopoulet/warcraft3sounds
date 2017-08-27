@@ -89,12 +89,50 @@ describe("API V1", () => {
 
 	});
 
-	// @TODO : model
-	// describe("Model", () => {
+	describe("Model", () => {
 
-		// 	const Model = require(join(__dirname, "..", "lib", "api", "v1", "model.js"));
+		const Model = require(join(__dirname, "..", "lib", "api", "v1", "model.js"));
+		const model = new Model();
 
-	// });
+		it("should init the model", () => {
+			return model.init();
+		});
+
+		it("should get races", () => {
+
+			return model.getRaces().then((races) => {
+
+				assert.strictEqual("object", typeof races, "The returned races is not an object");
+				assert.strictEqual(true, races instanceof Array, "The returned races is not an Array");
+				assert.strictEqual(5, races.length, "The returned races has an invalid length");
+
+				return Promise.resolve();
+
+			});
+
+		});
+
+		it("should get race", () => {
+
+			return model.getRace("humans").then((race) => {
+
+				assert.strictEqual("object", typeof race, "The returned race is not an object");
+					assert.strictEqual("string", typeof race.code, "The returned race's code is not a string");
+					assert.strictEqual("string", typeof race.name, "The returned race's name is not a string");
+					assert.strictEqual("object", typeof race.characters, "The returned race's characters is not an object");
+					assert.strictEqual(true, race.characters instanceof Array, "The returned race's characters is not an Array");
+					assert.strictEqual("object", typeof race.musics, "The returned race's musics is not an object");
+					assert.strictEqual(true, race.musics instanceof Array, "The returned race's musics is not an Array");
+					assert.strictEqual("object", typeof race.warnings, "The returned race's warnings is not an object");
+					assert.strictEqual(true, race.warnings instanceof Array, "The returned race's warnings is not an Array");
+
+				return Promise.resolve();
+
+			});
+
+		});
+
+	});
 
 	describe("routes", () => {
 
@@ -201,11 +239,11 @@ describe("API V1", () => {
 						rawData += chunk;
 					}).on("end", () => {
 
-						assert.strictEqual("string", typeof rawData, "The the returned content is not a string");
+						assert.strictEqual("string", typeof rawData, "The returned content is not a string");
 
 						assert.doesNotThrow(() => {
 							JSON.parse(rawData);
-						}, "The the returned content is not a JSON");
+						}, "The returned content is not a JSON");
 
 						resolve();
 
