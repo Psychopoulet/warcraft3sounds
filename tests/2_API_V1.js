@@ -112,6 +112,18 @@ describe("API V1", () => {
 
 		});
 
+		it("should get unknown race", () => {
+
+			return model.getRace("qcqdvsvdsrsv").then((race) => {
+
+				assert.strictEqual(null, race, "The returned race is not null");
+
+				return Promise.resolve();
+
+			});
+
+		});
+
 		it("should get race", () => {
 
 			return model.getRace("humans").then((race) => {
@@ -130,6 +142,38 @@ describe("API V1", () => {
 
 			});
 
+		});
+
+		it("should get unknown character", () => {
+
+			return model.getCharacter("humans", "qcqdvsvdsrsv").then((character) => {
+
+				assert.strictEqual(null, character, "The returned character is not null");
+
+				return Promise.resolve();
+
+			});
+
+		});
+
+		it("should get character", () => {
+
+			return model.getCharacter("humans", "archmage").then((character) => {
+
+				assert.strictEqual("object", typeof character, "The returned character is not an object");
+					assert.strictEqual("string", typeof character.code, "The returned character's code is not a string");
+					assert.strictEqual("string", typeof character.name, "The returned character's name is not a string");
+					assert.strictEqual("object", typeof character.actions, "The returned character's actions is not an object");
+					assert.strictEqual(true, character.actions instanceof Array, "The returned character's actions is not an Array");
+
+				return Promise.resolve();
+
+			});
+
+		});
+
+		it("should release the model", () => {
+			return model.release();
 		});
 
 	});
