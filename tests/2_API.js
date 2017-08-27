@@ -8,7 +8,7 @@
 	const http = require("http");
 	const assert = require("assert");
 
-	const checksum = require(join(__dirname, "..", "lib", "api", "v1", "checksum.js"));
+	const checksum = require(join(__dirname, "..", "lib", "api", "checksum.js"));
 
 // consts
 
@@ -70,7 +70,7 @@ describe("API V1", () => {
 
 		it("should check valid file parameter", () => {
 
-			const fileCheckSum = join(__dirname, "..", "lib", "api", "v1", "checksum.js");
+			const fileCheckSum = join(__dirname, "..", "lib", "api", "checksum.js");
 
 			return checksum(fileCheckSum).then((data) => {
 
@@ -91,7 +91,7 @@ describe("API V1", () => {
 
 	describe("Model", () => {
 
-		const Model = require(join(__dirname, "..", "lib", "api", "v1", "model.js"));
+		const Model = require(join(__dirname, "..", "lib", "api", "model.js"));
 		const model = new Model();
 
 		it("should init the model", () => {
@@ -180,7 +180,7 @@ describe("API V1", () => {
 
 	describe("routes", () => {
 
-		const API_V1_URL = MAIN_URL + "api/v1/fr/";
+		const API_V1_URL = MAIN_URL + "api/fr/";
 
 		let _serverProcess = null;
 
