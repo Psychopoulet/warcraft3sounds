@@ -39,9 +39,9 @@
 
 					<div class="navbar-nav">
 
-						<span class="nav-item nav-link" data-ng-show="ipsLoading">Loading IPs...</span>
-						<span class="nav-item nav-link" data-ng-show="!ipsLoading && !ips.length">There is no IP detected</span>
-						<span class="nav-item nav-link" data-ng-show="!ipsLoading && ips.length" data-ng-repeat="ip in ips">{{ip.name}} : {{ip.address}}</span>
+						<span class="nav-item nav-link" data-ng-class="{ 'hidden-xs-up': !ipsLoading }">Loading IPs...</span>
+						<span class="nav-item nav-link" data-ng-class="{ 'hidden-xs-up': ipsLoading || ips.length }">There is no IP detected</span>
+						<span class="nav-item nav-link" data-ng-class="{ 'hidden-xs-up': ipsLoading || !ips.length }" data-ng-repeat="ip in ips">{{ip.name}} : {{ip.address}}</span>
 
 					</div>
 

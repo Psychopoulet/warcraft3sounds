@@ -180,7 +180,8 @@ describe("API V1", () => {
 
 	describe("routes", () => {
 
-		const API_V1_URL = MAIN_URL + "api/fr/";
+		const API_URL = MAIN_URL + "api/";
+		const API_FR_URL = API_URL + "fr/";
 
 		let _serverProcess = null;
 
@@ -260,11 +261,50 @@ describe("API V1", () => {
 
 		}).timeout(MAX_TIMEOUT_REQUEST);
 
-		it("should get the races (" + API_V1_URL + "races)", () => {
+		it("should get the IPs recovery (" + API_URL + "ips)", () => {
 
 			return new Promise((resolve) => {
 
-				http.get(API_V1_URL + "races", (res) => {
+				http.get(API_URL + "ips", (res) => {
+
+					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
+					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
+					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
+					assert.strictEqual(
+						"application/json; charset=utf-8",
+						res.headers["content-type"].toLowerCase(),
+						"The content-type header are not html/utf8"
+					);
+
+					res.setEncoding("utf8");
+
+					let rawData = "";
+
+					res.on("data", (chunk) => {
+						rawData += chunk;
+					}).on("end", () => {
+
+						assert.strictEqual("string", typeof rawData, "The the returned content is not a string");
+
+						assert.doesNotThrow(() => {
+							JSON.parse(rawData);
+						}, "The the returned content is not a JSON");
+
+						resolve();
+
+					});
+
+				});
+
+			});
+
+		}).timeout(MAX_TIMEOUT_REQUEST);
+
+		it("should get the races (" + API_FR_URL + "races)", () => {
+
+			return new Promise((resolve) => {
+
+				http.get(API_FR_URL + "races", (res) => {
 
 					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
 					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");

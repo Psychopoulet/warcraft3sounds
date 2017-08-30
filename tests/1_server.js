@@ -140,43 +140,4 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 	}).timeout(MAX_TIMEOUT_REQUEST);
 
-	it("should get the IPs recovery (" + MAIN_URL + "ips)", () => {
-
-		return new Promise((resolve) => {
-
-			http.get(MAIN_URL + "ips", (res) => {
-
-				assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
-				assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
-				assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-				assert.strictEqual(
-					"application/json; charset=utf-8",
-					res.headers["content-type"].toLowerCase(),
-					"The content-type header are not html/utf8"
-				);
-
-				res.setEncoding("utf8");
-
-				let rawData = "";
-
-				res.on("data", (chunk) => {
-					rawData += chunk;
-				}).on("end", () => {
-
-					assert.strictEqual("string", typeof rawData, "The the returned content is not a string");
-
-					assert.doesNotThrow(() => {
-						JSON.parse(rawData);
-					}, "The the returned content is not a JSON");
-
-					resolve();
-
-				});
-
-			});
-
-		});
-
-	}).timeout(MAX_TIMEOUT_REQUEST);
-
 });
