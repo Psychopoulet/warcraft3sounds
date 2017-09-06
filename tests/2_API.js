@@ -76,7 +76,7 @@ describe("API V1", () => {
 
 				assert.deepStrictEqual("string", typeof data, "Check \"" + fileCheckSum + "\" file parameter does not generate a valid checksum");
 				assert.deepStrictEqual(
-					"19ab4f7ec8c5934c0657200696804e03189f5549",
+					"f27d7f288217f9c8c1103afad5642b5824cf5e19638207d75bf334e344f94c13",
 					data,
 					"Check \"" + fileCheckSum + "\" valid file parameter does not generate a valid checksum"
 				);
@@ -181,7 +181,6 @@ describe("API V1", () => {
 	describe("routes", () => {
 
 		const API_URL = MAIN_URL + "api/";
-		const API_FR_URL = API_URL + "fr/";
 
 		let _serverProcess = null;
 
@@ -300,11 +299,11 @@ describe("API V1", () => {
 
 		}).timeout(MAX_TIMEOUT_REQUEST);
 
-		it("should get the races (" + API_FR_URL + "races)", () => {
+		it("should get the races (" + API_URL + "races)", () => {
 
 			return new Promise((resolve) => {
 
-				http.get(API_FR_URL + "races", (res) => {
+				http.get(API_URL + "races", (res) => {
 
 					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
 					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
@@ -329,6 +328,173 @@ describe("API V1", () => {
 							JSON.parse(rawData);
 						}, "The returned content is not a JSON");
 
+						const data = JSON.parse(rawData);
+
+						assert.strictEqual(5, data.length, "The returned data does not have the right length");
+						assert.strictEqual("nightelfs", data[0].code, "The first returned data does not have the right value");
+						assert.strictEqual("Elfes de la nuit", data[0].name, "The first returned data does not have the right value");
+						assert.strictEqual("/api/races/nightelfs", data[0].url, "The first returned data does not have the right value");
+
+						resolve();
+
+					});
+
+				});
+
+			});
+
+		}).timeout(MAX_TIMEOUT_REQUEST);
+
+		it("should get an unknown race (" + API_URL + "races/test)", () => {
+
+			return new Promise((resolve) => {
+
+				http.get(API_URL + "races/test", (res) => {
+
+					assert.strictEqual(404, res.statusCode, "The statusCode is not 404");
+					assert.strictEqual("Not Found", res.statusMessage, "The statusMessage is not valid");
+					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
+					assert.strictEqual(
+						"application/json; charset=utf-8",
+						res.headers["content-type"].toLowerCase(),
+						"The content-type header are not html/utf8"
+					);
+
+					res.setEncoding("utf8");
+
+					let rawData = "";
+
+					res.on("data", (chunk) => {
+						rawData += chunk;
+					}).on("end", () => {
+
+						assert.strictEqual("string", typeof rawData, "The returned content is not a string");
+
+						assert.doesNotThrow(() => {
+							JSON.parse(rawData);
+						}, "The returned content is not a JSON");
+
+						const data = JSON.parse(rawData);
+
+						assert.strictEqual("object", typeof data, "The returned data are not an object");
+						assert.strictEqual("number", typeof data.code, "The returned code are not an object");
+						assert.strictEqual(404, data.code, "The returned code are not as expected");
+						assert.strictEqual("string", typeof data.message, "The returned message are not an object");
+						assert.strictEqual("Impossible to find \"test\"", data.message, "The returned message are not as expected");
+
+						resolve();
+
+					});
+
+				});
+
+			});
+
+		}).timeout(MAX_TIMEOUT_REQUEST);
+
+		it("should get a valid race (" + API_URL + "races/nightelfs)", () => {
+
+			return new Promise((resolve) => {
+
+				http.get(API_URL + "races/nightelfs", (res) => {
+
+					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
+					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
+					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
+					assert.strictEqual(
+						"application/json; charset=utf-8",
+						res.headers["content-type"].toLowerCase(),
+						"The content-type header are not html/utf8"
+					);
+
+					res.setEncoding("utf8");
+
+					let rawData = "";
+
+					res.on("data", (chunk) => {
+						rawData += chunk;
+					}).on("end", () => {
+
+						assert.strictEqual("string", typeof rawData, "The returned content is not a string");
+
+						assert.doesNotThrow(() => {
+							JSON.parse(rawData);
+						}, "The returned content is not a JSON");
+
+						const data = JSON.parse(rawData);
+
+						assert.strictEqual("object", typeof data, "The returned data are not an object");
+						assert.strictEqual("nightelfs", data.code, "The returned data does not have the right code");
+						assert.strictEqual("Elfes de la nuit", data.name, "The returned data does not have the right name");
+
+						assert.strictEqual("object", typeof data.characters, "The returned data does not have valid characters");
+						assert.strictEqual(true, data.characters instanceof Array, "The returned data does not have valid characters");
+
+							assert.strictEqual(true, 0 < data.characters.length, "The returned data does not have characters");
+							assert.strictEqual("archer", data.characters[0].code, "The first character does not have valid code");
+							assert.strictEqual("Archer", data.characters[0].name, "The first character does not have valid name");
+							assert.strictEqual(
+								"/api/races/nightelfs/characters/archer",
+								data.characters[0].url,
+								"The first character does not have valid url"
+							);
+
+						assert.strictEqual("object", typeof data.musics, "The returned data does not have valid musics");
+						assert.strictEqual(true, data.musics instanceof Array, "The returned data does not have valid musics");
+
+							assert.strictEqual(true, 0 < data.musics.length, "The returned data does not have musics");
+							assert.strictEqual("defeat", data.musics[0].code, "The first music does not have valid code");
+							assert.strictEqual("Défaite", data.musics[0].name, "The first music does not have valid name");
+							assert.strictEqual(
+								"/api/sounds/NightElfDefeat.mp3",
+								data.musics[0].url,
+								"The first music does not have valid url"
+							);
+
+						assert.strictEqual("object", typeof data.warnings, "The returned data does not have valid warnings");
+						assert.strictEqual(true, data.warnings instanceof Array, "The returned data does not have valid warnings");
+
+							assert.strictEqual(true, 0 < data.warnings.length, "The returned data does not have warnings");
+							assert.strictEqual("upgradecomplete", data.warnings[0].code, "The first warning does not have valid code");
+							assert.strictEqual("Amélioration terminée", data.warnings[0].name, "The first warning does not have valid name");
+							assert.strictEqual(
+								"/api/sounds/SentinelUpgradeComplete1.wav",
+								data.warnings[0].url,
+								"The first warning does not have valid url"
+							);
+
+						resolve();
+
+					});
+
+				});
+
+			});
+
+		}).timeout(MAX_TIMEOUT_REQUEST);
+
+		it("should get a valid music (" + MAIN_URL + "sounds/NightElfDefeat.mp3)", () => {
+
+			return new Promise((resolve) => {
+
+				http.get(MAIN_URL + "sounds/NightElfDefeat.mp3", (res) => {
+
+					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
+					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
+					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
+					assert.strictEqual(
+						"application/json; charset=utf-8",
+						res.headers["content-type"].toLowerCase(),
+						"The content-type header are not html/utf8"
+					);
+
+					let rawData = "";
+
+					res.on("data", (chunk) => {
+						rawData += chunk;
+					}).on("end", () => {
+
+						(0, console).log(rawData);
 						resolve();
 
 					});

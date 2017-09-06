@@ -98,37 +98,41 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 	}).timeout(MAX_TIMEOUT_REQUEST);
 
-	it("should get the main page (" + MAIN_URL + ")", () => {
+	describe("routes", () => {
 
-		return new Promise((resolve) => {
+		it("should get the main page (" + MAIN_URL + ")", () => {
 
-			http.get(MAIN_URL, (res) => {
+			return new Promise((resolve) => {
 
-				assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
-				assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
-				assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-				assert.strictEqual(
-					"text/html; charset=utf-8",
-					res.headers["content-type"].toLowerCase(),
-					"The content-type header are not html/utf8"
-				);
+				http.get(MAIN_URL, (res) => {
 
-				res.setEncoding("utf8");
+					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
+					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
+					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
+					assert.strictEqual(
+						"text/html; charset=utf-8",
+						res.headers["content-type"].toLowerCase(),
+						"The content-type header are not html/utf8"
+					);
 
-				let rawData = "";
+					res.setEncoding("utf8");
 
-				res.on("data", (chunk) => {
-					rawData += chunk;
-				}).on("end", () => {
+					let rawData = "";
 
-					assert.strictEqual("string", typeof rawData, "The returned content is not a text");
+					res.on("data", (chunk) => {
+						rawData += chunk;
+					}).on("end", () => {
 
-					fs.readFile(join(__dirname, "..", "lib", "public", "index.html"), "utf8", (err, content) => {
+						assert.strictEqual("string", typeof rawData, "The returned content is not a text");
 
-						assert.strictEqual(null, err, "The returned content generate an error");
-						assert.strictEqual(rawData.length, content.length, "The returned content's length is not the same that the file content");
+						fs.readFile(join(__dirname, "..", "lib", "public", "index.html"), "utf8", (err, content) => {
 
-						resolve();
+							assert.strictEqual(null, err, "The returned content generate an error");
+							assert.strictEqual(rawData.length, content.length, "The returned content's length is not the same that the file content");
+
+							resolve();
+
+						});
 
 					});
 
@@ -136,8 +140,50 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			});
 
-		});
+		}).timeout(MAX_TIMEOUT_REQUEST);
 
-	}).timeout(MAX_TIMEOUT_REQUEST);
+		it("should get the js app (" + MAIN_URL + "public/app.js)", () => {
+
+			return new Promise((resolve) => {
+
+				http.get(MAIN_URL + "public/app.js", (res) => {
+
+					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
+					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
+					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
+					assert.strictEqual(
+						"application/javascript",
+						res.headers["content-type"].toLowerCase(),
+						"The content-type header are not js"
+					);
+
+					res.setEncoding("utf8");
+
+					let rawData = "";
+
+					res.on("data", (chunk) => {
+						rawData += chunk;
+					}).on("end", () => {
+
+						assert.strictEqual("string", typeof rawData, "The returned content is not a text");
+
+						fs.readFile(join(__dirname, "..", "lib", "public", "app.js"), "utf8", (err, content) => {
+
+							assert.strictEqual(null, err, "The returned content generate an error");
+							assert.strictEqual(rawData.length, content.length, "The returned content's length is not the same that the file content");
+
+							resolve();
+
+						});
+
+					});
+
+				});
+
+			});
+
+		}).timeout(MAX_TIMEOUT_REQUEST);
+
+	});
 
 });
