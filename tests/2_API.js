@@ -448,7 +448,7 @@ describe("API V1", () => {
 								assert.strictEqual("defeat", data.musics[0].code, "The first music does not have valid code");
 								assert.strictEqual("Défaite", data.musics[0].name, "The first music does not have valid name");
 								assert.strictEqual(
-									"/api/sounds/NightElfDefeat.mp3",
+									"/public/sounds/NightElfDefeat.mp3",
 									data.musics[0].url,
 									"The first music does not have valid url"
 								);
@@ -460,7 +460,7 @@ describe("API V1", () => {
 								assert.strictEqual("upgradecomplete", data.warnings[0].code, "The first warning does not have valid code");
 								assert.strictEqual("Amélioration terminée", data.warnings[0].name, "The first warning does not have valid name");
 								assert.strictEqual(
-									"/api/sounds/SentinelUpgradeComplete1.wav",
+									"/public/sounds/SentinelUpgradeComplete1.wav",
 									data.warnings[0].url,
 									"The first warning does not have valid url"
 								);
@@ -584,7 +584,7 @@ describe("API V1", () => {
 									assert.strictEqual("J'attend vos ordres", data.actions[0].name, "The first action does not have valid name");
 									assert.strictEqual("KnightReady1.wav", data.actions[0].file, "The first action does not have valid file");
 									assert.strictEqual(
-										"/api/sounds/KnightReady1.wav",
+										"/public/sounds/KnightReady1.wav",
 										data.actions[0].url,
 										"The first action does not have valid url"
 									);
