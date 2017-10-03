@@ -27,29 +27,22 @@
     "url": "https://github.com/Psychopoulet/warcraft3sounds/issues"
   },
   "dependencies": {
-
-    "express": "^4.15.3",
-    "helmet": "^3.6.1",
-    "cors": "^2.8.4",
-    "compression": "^1.7.0",
-    "express-fileupload": "^0.1.4",
-
-    "sqlite3": "^3.1.8",
-
+    "express": "4.15.3",
+    "helmet": "3.6.1",
+    "cors": "2.8.4",
+    "compression": "1.7.0",
+    "express-fileupload": "0.1.4",
+    "checksum": "0.1.1",
+    "sqlite3": "3.1.8",
     "node-confmanager": "^0.5.1"
-
   },
   "devDependencies": {
-
-    "gulp": "^3.9.1",
-    "gulp-plumber": "^1.1.0",
-
-    "gulp-eslint": "^4.0.0",
-    "gulp-mocha": "^3.0.1",
-    "gulp-istanbul": "^1.1.2",
-
-    "pre-commit": "^1.2.2"
-
+    "gulp": "3.9.1",
+    "gulp-plumber": "1.1.0",
+    "gulp-eslint": "4.0.0",
+    "gulp-mocha": "3.0.1",
+    "gulp-istanbul": "1.1.2",
+    "pre-commit": "1.2.2"
   },
   "homepage": "https://github.com/Psychopoulet/warcraft3sounds#readme",
   "engines": {

@@ -79,7 +79,7 @@ describe("API V1", () => {
 
 				assert.deepStrictEqual("string", typeof data, "Check \"" + fileCheckSum + "\" file parameter does not generate a valid checksum");
 				assert.deepStrictEqual(
-					"f27d7f288217f9c8c1103afad5642b5824cf5e19638207d75bf334e344f94c13",
+					"0505c288474ed8ff150d5ebbf5a33d24c34af13f052d785a1cf10f9348850c4a",
 					data,
 					"Check \"" + fileCheckSum + "\" valid file parameter does not generate a valid checksum"
 				);
