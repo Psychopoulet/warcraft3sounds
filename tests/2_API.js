@@ -15,8 +15,6 @@
 
 // consts
 
-	const MAX_TIMEOUT_REQUEST = 3000;
-
 	const PORT = "3000";
 	const MAIN_URL = "http://127.0.0.1:" + PORT + "/";
 
@@ -195,7 +193,7 @@ describe("API V1", () => {
 					assert.strictEqual(
 						"application/json; charset=utf-8",
 						res.headers["content-type"].toLowerCase(),
-						"The content-type header are not html/utf8"
+						"The content-type header are not json/utf8"
 					);
 
 					res.setEncoding("utf8");
@@ -220,7 +218,46 @@ describe("API V1", () => {
 
 			});
 
-		}).timeout(MAX_TIMEOUT_REQUEST);
+		});
+
+		it("should test error (" + API_URL + "err)", () => {
+
+			return new Promise((resolve) => {
+
+				http.get(API_URL + "err", (res) => {
+
+					assert.strictEqual(500, res.statusCode, "The statusCode is not 500");
+					assert.strictEqual("Internal Server Error", res.statusMessage, "The statusMessage is not valid");
+					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
+					assert.strictEqual(
+						"application/json; charset=utf-8",
+						res.headers["content-type"].toLowerCase(),
+						"The content-type header are not json/utf8"
+					);
+
+					res.setEncoding("utf8");
+
+					let rawData = "";
+
+					res.on("data", (chunk) => {
+						rawData += chunk;
+					}).on("end", () => {
+
+						assert.strictEqual("string", typeof rawData, "The the returned content is not a string");
+
+						assert.doesNotThrow(() => {
+							JSON.parse(rawData);
+						}, "The the returned content is not a JSON");
+
+						resolve();
+
+					});
+
+				});
+
+			});
+
+		});
 
 		describe("races", () => {
 
@@ -236,7 +273,7 @@ describe("API V1", () => {
 						assert.strictEqual(
 							"application/json; charset=utf-8",
 							res.headers["content-type"].toLowerCase(),
-							"The content-type header are not html/utf8"
+							"The content-type header are not json/utf8"
 						);
 
 						res.setEncoding("utf8");
@@ -268,7 +305,7 @@ describe("API V1", () => {
 
 				});
 
-			}).timeout(MAX_TIMEOUT_REQUEST);
+			});
 
 			it("should get an unknown race (" + API_URL + "races/test)", () => {
 
@@ -282,7 +319,7 @@ describe("API V1", () => {
 						assert.strictEqual(
 							"application/json; charset=utf-8",
 							res.headers["content-type"].toLowerCase(),
-							"The content-type header are not html/utf8"
+							"The content-type header are not json/utf8"
 						);
 
 						res.setEncoding("utf8");
@@ -315,7 +352,7 @@ describe("API V1", () => {
 
 				});
 
-			}).timeout(MAX_TIMEOUT_REQUEST);
+			});
 
 			it("should get a valid race (" + API_URL + "races/nightelfs)", () => {
 
@@ -329,7 +366,7 @@ describe("API V1", () => {
 						assert.strictEqual(
 							"application/json; charset=utf-8",
 							res.headers["content-type"].toLowerCase(),
-							"The content-type header are not html/utf8"
+							"The content-type header are not json/utf8"
 						);
 
 						res.setEncoding("utf8");
@@ -396,73 +433,60 @@ describe("API V1", () => {
 
 				});
 
-			}).timeout(MAX_TIMEOUT_REQUEST);
-
-			// it("should get a valid music (" + MAIN_URL + "sounds/NightElfDefeat.mp3)", () => {
-
-			// 	return new Promise((resolve) => {
-
-			// 		http.get(MAIN_URL + "sounds/NightElfDefeat.mp3", (res) => {
-
-			// 			assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
-			// 			assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
-			// 			assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-			// 			assert.strictEqual(
-			// 				"application/json; charset=utf-8",
-			// 				res.headers["content-type"].toLowerCase(),
-			// 				"The content-type header are not html/utf8"
-			// 			);
-
-			// 			let rawData = "";
-
-			// 			res.on("data", (chunk) => {
-			// 				rawData += chunk;
-			// 			}).on("end", () => {
-
-			// 				(0, console).log(rawData);
-			// 				resolve();
-
-			// 			});
-
-			// 		});
-
-			// 	});
-
-			// }).timeout(MAX_TIMEOUT_REQUEST);
-
-			// it("should get a valid warning (" + MAIN_URL + "sounds/SentinelUpgradeComplete1.wav)", () => {
-
-			// 	return new Promise((resolve) => {
-
-			// 		http.get(MAIN_URL + "sounds/SentinelUpgradeComplete1.wav", (res) => {
-
-			// 			assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
-			// 			assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
-			// 			assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-			// 			assert.strictEqual(
-			// 				"application/json; charset=utf-8",
-			// 				res.headers["content-type"].toLowerCase(),
-			// 				"The content-type header are not html/utf8"
-			// 			);
-
-			// 			let rawData = "";
-
-			// 			res.on("data", (chunk) => {
-			// 				rawData += chunk;
-			// 			}).on("end", () => {
-
-			// 				(0, console).log(rawData);
-			// 				resolve();
-
-			// 			});
-
-			// 		});
-
-			// 	});
-
-			// }).timeout(MAX_TIMEOUT_REQUEST);
+			});
 
 			describe("characters", () => {
+
+				it("should get an unknown character (" + API_URL + "races/humans/characters/test)", () => {
+
+					return new Promise((resolve) => {
+
+						http.get(API_URL + "races/humans/characters/test", (res) => {
+
+							assert.strictEqual(404, res.statusCode, "The statusCode is not 404");
+							assert.strictEqual("Not Found", res.statusMessage, "The statusMessage is not valid");
+							assert.strictEqual("object", typeof res.headers, "The headers are not an object");
+							assert.strictEqual(
+								"application/json; charset=utf-8",
+								res.headers["content-type"].toLowerCase(),
+								"The content-type header are not json/utf8"
+							);
+
+							res.setEncoding("utf8");
+
+							let rawData = "";
+
+							res.on("data", (chunk) => {
+								rawData += chunk;
+							}).on("end", () => {
+
+								assert.strictEqual("string", typeof rawData, "The returned content is not a string");
+
+								assert.doesNotThrow(() => {
+									JSON.parse(rawData);
+								}, "The returned content is not a JSON");
+
+								const data = JSON.parse(rawData);
+
+								assert.strictEqual("object", typeof data, "The returned data are not an object");
+								assert.strictEqual("number", typeof data.code, "The returned code are not an object");
+								assert.strictEqual(404, data.code, "The returned code are not as expected");
+								assert.strictEqual("string", typeof data.message, "The returned message are not an object");
+								assert.strictEqual(
+									"Impossible to find \"test\" for race \"humans\"",
+									data.message,
+									"The returned message are not as expected"
+								);
+
+								resolve();
+
+							});
+
+						});
+
+					});
+
+				});
 
 				it("should get a valid character (" + API_URL + "races/humans/characters/knight)", () => {
 
@@ -476,7 +500,7 @@ describe("API V1", () => {
 							assert.strictEqual(
 								"application/json; charset=utf-8",
 								res.headers["content-type"].toLowerCase(),
-								"The content-type header are not html/utf8"
+								"The content-type header are not json/utf8"
 							);
 
 							res.setEncoding("utf8");

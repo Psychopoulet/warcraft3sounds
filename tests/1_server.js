@@ -14,8 +14,6 @@
 
 // consts
 
-	const MAX_TIMEOUT_REQUEST = 3000;
-
 	const PORT = "3000";
 	const MAIN_URL = "http://127.0.0.1:" + PORT + "/";
 
@@ -108,7 +106,7 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			});
 
-		}).timeout(MAX_TIMEOUT_REQUEST);
+		});
 
 		it("should get the js app (" + MAIN_URL + "public/app.js)", () => {
 
@@ -150,7 +148,7 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			});
 
-		}).timeout(MAX_TIMEOUT_REQUEST);
+		});
 
 		it("should get the warcraft3 picture (" + MAIN_URL + "public/pictures/warcraft3.png)", () => {
 
@@ -192,7 +190,7 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			});
 
-		}).timeout(MAX_TIMEOUT_REQUEST);
+		});
 
 		it("should get the TFT picture (" + MAIN_URL + "public/pictures/warcraft3TFT.png)", () => {
 
@@ -234,7 +232,7 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			});
 
-		}).timeout(MAX_TIMEOUT_REQUEST);
+		});
 
 		it("should get the an inexistant sound (" + MAIN_URL + "public/pictures/test.wav)", () => {
 
@@ -248,7 +246,7 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 					assert.strictEqual(
 						"text/html; charset=utf-8",
 						res.headers["content-type"].toLowerCase(),
-						"The content-type header is not wav"
+						"The content-type header is not html"
 					);
 
 					res.setEncoding("utf8");
@@ -259,7 +257,57 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			});
 
-		}).timeout(MAX_TIMEOUT_REQUEST);
+		});
+
+		it("should get the an existant wav sound (" + MAIN_URL + "public/pictures/testsound.wav)", () => {
+
+			return new Promise((resolve) => {
+
+				http.get(MAIN_URL + "public/sounds/testsound.wav", (res) => {
+
+					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
+					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
+					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
+					assert.strictEqual(
+						"audio/wav",
+						res.headers["content-type"].toLowerCase(),
+						"The content-type header is not mpeg"
+					);
+
+					res.setEncoding("utf8");
+
+					resolve();
+
+				});
+
+			});
+
+		});
+
+		it("should get the an existant mp3 sound (" + MAIN_URL + "public/pictures/testsound.mp3)", () => {
+
+			return new Promise((resolve) => {
+
+				http.get(MAIN_URL + "public/sounds/testsound.mp3", (res) => {
+
+					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
+					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
+					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
+					assert.strictEqual(
+						"audio/mpeg",
+						res.headers["content-type"].toLowerCase(),
+						"The content-type header is not mpeg"
+					);
+
+					res.setEncoding("utf8");
+
+					resolve();
+
+				});
+
+			});
+
+		});
 
 	});
 
