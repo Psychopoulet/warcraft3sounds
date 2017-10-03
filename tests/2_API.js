@@ -7,7 +7,7 @@
 	const http = require("http");
 	const assert = require("assert");
 
-	const checksum = require(join(__dirname, "..", "lib", "api", "checksum.js"));
+	const checksum = require("checksum");
 
 	const generateServer = require(join(__dirname, "..", "lib", "server", "generateServer.js"));
 	const webRoutes = require(join(__dirname, "..", "lib", "server", "webRoutes.js"));
@@ -24,69 +24,24 @@
 
 describe("API V1", () => {
 
-	describe("chechsum", () => {
+	it("should check checksum", () => {
 
-		it("should check missing file parameter", (done) => {
+		return Promise.resolve().then(() => {
 
-			checksum().then(() => {
-				done(new Error("Check missing file parameter does not generate any error"));
-			}).catch((err) => {
+			return Promise.resolve(checksum("test", {
+				"algorithm": "sha256"
+			}));
 
-				assert.deepStrictEqual("object", typeof err, "Check missing file parameter does not generate a valid error");
-				assert.deepStrictEqual(true, err instanceof Error, "Check missing file parameter does not generate a valid error");
+		}).then((sum) => {
 
-				done();
+			assert.deepStrictEqual("string", typeof sum, "Check \"test\" parameter does not generate a valid checksum");
+			assert.deepStrictEqual(
+				"9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+				sum,
+				"Check \"test\" valid file parameter does not generate a valid checksum"
+			);
 
-			});
-
-		});
-
-		it("should check wrong file parameter", (done) => {
-
-			checksum(false).then(() => {
-				done(new Error("Check wrong file parameter does not generate any error"));
-			}).catch((err) => {
-
-				assert.deepStrictEqual("object", typeof err, "Check wrong file parameter does not generate a valid error");
-				assert.deepStrictEqual(true, err instanceof Error, "Check wrong file parameter does not generate a valid error");
-
-				done();
-
-			});
-
-		});
-
-		it("should check empty file parameter", (done) => {
-
-			checksum("").then(() => {
-				done(new Error("Check empty file parameter does not generate any error"));
-			}).catch((err) => {
-
-				assert.deepStrictEqual("object", typeof err, "Check empty file parameter does not generate a valid error");
-				assert.deepStrictEqual(true, err instanceof Error, "Check empty file parameter does not generate a valid error");
-
-				done();
-
-			});
-
-		});
-
-		it("should check valid file parameter", () => {
-
-			const fileCheckSum = join(__dirname, "..", "lib", "api", "checksum.js");
-
-			return checksum(fileCheckSum).then((data) => {
-
-				assert.deepStrictEqual("string", typeof data, "Check \"" + fileCheckSum + "\" file parameter does not generate a valid checksum");
-				assert.deepStrictEqual(
-					"0505c288474ed8ff150d5ebbf5a33d24c34af13f052d785a1cf10f9348850c4a",
-					data,
-					"Check \"" + fileCheckSum + "\" valid file parameter does not generate a valid checksum"
-				);
-
-				return Promise.resolve();
-
-			});
+			return Promise.resolve();
 
 		});
 
