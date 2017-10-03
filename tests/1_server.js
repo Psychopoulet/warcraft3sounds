@@ -4,10 +4,12 @@
 // deps
 
 	const { join } = require("path");
-	const { spawn } = require("child_process");
 	const http = require("http");
 	const fs = require("fs");
 	const assert = require("assert");
+
+	const generateServer = require(join(__dirname, "..", "lib", "server", "generateServer.js"));
+	const webRoutes = require(join(__dirname, "..", "lib", "server", "webRoutes.js"));
 
 // consts
 
@@ -20,83 +22,42 @@
 
 describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
-	let _serverProcess = null;
+	let server = null;
 
-	/**
-	* Kill the server's process
-	* @returns {void}
-	*/
-	function _killServerProcess () {
+	beforeEach(() => {
 
-		return Promise.resolve().then(() => {
+		return generateServer().then((APP) => {
 
-			if (_serverProcess) {
-				_serverProcess.stdin.pause();
-				_serverProcess.stderr.pause();
-				_serverProcess.kill();
-				_serverProcess = null;
-			}
+			return webRoutes(APP).then(() => {
+				return Promise.resolve(APP);
+			});
 
-			return Promise.resolve();
+		}).then((APP) => {
+
+			return new Promise((resolve) => {
+
+				server = APP.listen(PORT, () => {
+					resolve(APP);
+				});
+
+			});
 
 		});
 
-	}
-
-	after(() => {
-		return _killServerProcess();
 	});
 
-	it("should run the server", () => {
+	afterEach(() => {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve) => {
 
-			let err = "";
-
-			_serverProcess = spawn(
-				"node", [
-					join(__dirname, "..", "lib", "main.js"),
-					"--port",
-					PORT
-				], {
-					"cwd": join(__dirname, "..")
-				}
-			);
-
-			_serverProcess.on("error", (_err) => {
-				err = "";
-				reject(_err);
-			}).on("close", (code) => {
-
-				if (code) {
-					if (err) {
-						reject(new Error(err));
-					}
-				}
-
-			});
-
-			_serverProcess.stdout.on("data", (data) => {
-
-				if ("started on port " + PORT === data.toString("utf8").trim()) {
-					resolve();
-				}
-
-			});
-
-			_serverProcess.stderr.on("data", (data) => {
-				err += data.toString("utf8");
-			});
-
-		}).catch((err) => {
-
-			return _killServerProcess().then(() => {
-				return Promise.reject(err);
+			server.close(() => {
+				server = null;
+				resolve();
 			});
 
 		});
 
-	}).timeout(MAX_TIMEOUT_REQUEST);
+	});
 
 	describe("routes", () => {
 

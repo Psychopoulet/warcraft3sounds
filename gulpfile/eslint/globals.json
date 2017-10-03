@@ -1,7 +1,9 @@
 [
 	"after",
+	"afterEach",
 	"angular",
 	"before",
+	"beforeEach",
 	"console",
 	"describe",
 	"it",
