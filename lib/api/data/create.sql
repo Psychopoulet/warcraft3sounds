@@ -257,6 +257,7 @@ CREATE TABLE actions (
   code varchar(20) NOT NULL,
   name varchar(25) NOT NULL,
   file varchar(50) NOT NULL,
+  UNIQUE (k_character, k_action_type, code),
   FOREIGN KEY (k_character) REFERENCES characters (id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (k_action_type) REFERENCES actions_types (id) ON DELETE CASCADE ON UPDATE CASCADE
 );

@@ -1,3 +1,5 @@
 coverage/
 node_modules/
-lib/sounds/
+lib/public/sounds/*.wav
+lib/public/sounds/*.mp3
+package-lock.json

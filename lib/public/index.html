@@ -6,17 +6,28 @@
 		<title>Warcraft 3 sounds</title>
 
 		<meta charset="UTF-8" />
-		<link rel="shortcut icon" href="/public/pictures/warcraft3.png" /> <!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
+		<!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
+		<link rel="shortcut icon" href="/public/pictures/warcraft3.png" />
 
 		<!-- design -->
 
 			<!-- bootstrap -->
 
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous" />
 
 			<!-- font-awesome -->
 
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
+			<!-- specific -->
+
+			<style type="text/css">
+
+				.card {
+					margin-top: 1em;
+				}
+
+			</style>
 
 	</head>
 
@@ -24,24 +35,24 @@
 
 		<div class="container-fluid" data-ng-controller="MainController">
 
-			<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-
-				<button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#IPS">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+			<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 
 				<span class="navbar-brand">
 					<img src="/public/pictures/warcraft3.png" width="30" height="30" class="d-inline-block align-top" alt="Warcraft 3" />
 					<!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
 				</span>
 
+				<button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#IPS">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
 				<div id="IPS" class="collapse navbar-collapse" data-ng-controller="IPsControllers">
 
 					<div class="navbar-nav">
 
-						<span class="nav-item nav-link" data-ng-show="ipsLoading">Loading IPs...</span>
-						<span class="nav-item nav-link" data-ng-show="!ipsLoading && !ips.length">There is no IP detected</span>
-						<span class="nav-item nav-link" data-ng-show="!ipsLoading && ips.length" data-ng-repeat="ip in ips">{{ip.name}} : {{ip.address}}</span>
+						<span class="nav-item nav-link" data-ng-class="{ 'd-none': !ipsLoading }">Loading IPs...</span>
+						<span class="nav-item nav-link" data-ng-class="{ 'd-none': ipsLoading || ips.length }">There is no IP detected</span>
+						<span class="nav-item nav-link" data-ng-class="{ 'd-none': ipsLoading || !ips.length }" data-ng-repeat="ip in ips">{{ip.name}} : {{ip.address}}</span>
 
 					</div>
 
@@ -63,17 +74,17 @@
 
 					<div class="card-deck">
 
-						<div class="card" data-ng-class="{ 'card-outline-warning': raceLoading }" data-ng-repeat="race in races" data-ng-controller="RaceController">
+						<div class="card" data-ng-class="{ 'border-warning': raceLoading }" data-ng-repeat="race in races" data-ng-controller="RaceController">
 
-							<div class="card-header" data-ng-class="{ 'card-warning': raceLoading }">
+							<div class="card-header" data-ng-class="{ 'bg-warning': raceLoading }">
 								<h5 class="float-left">{{race.name}}</h5>
 							</div>
 
-							<div class="card-block" data-ng-show="raceLoading">
+							<div class="card-body" data-ng-show="raceLoading">
 								loading
 							</div>
 
-							<div class="card-block" data-ng-hide="raceLoading">
+							<div class="card-body" data-ng-hide="raceLoading">
 
 								<div class="form-group">
 
@@ -189,13 +200,13 @@
 
 			<!-- bootstrap -->
 			
-			<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+			<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
 			<!-- angular -->
 			
-			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
 
 			<!-- app -->
 			

@@ -1,12 +1,18 @@
 [
 	"after",
+	"afterEach",
 	"angular",
+	"before",
+	"beforeEach",
 	"console",
 	"describe",
 	"it",
 	"jQuery",
+	"process",
 	"Promise",
 	"module",
 	"require",
-	"__dirname"
+	"setTimeout",
+	"__dirname",
+	"__filename"
 ]
