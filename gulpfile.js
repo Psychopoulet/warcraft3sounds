@@ -18,6 +18,7 @@
 
 	const APP_FILES = [
 		path.join(__dirname, "lib", "*.js"),
+		path.join(__dirname, "lib", "server", "**", "*.js"),
 		path.join(__dirname, "lib", "api", "**", "*.js")
 	];
 
