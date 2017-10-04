@@ -10,9 +10,12 @@
 	const plumber = require("gulp-plumber");
 
 	// tests
-	const istanbul = require("gulp-istanbul");
 	const eslint = require("gulp-eslint");
 	const mocha = require("gulp-mocha");
+
+	// reports
+	const istanbul = require("gulp-istanbul");
+	const coveralls = require("gulp-coveralls");
 
 // consts
 
@@ -64,11 +67,15 @@
 
 	});
 
-	// @TODO : add nsp control
-	// gulp.task("nsp", [ "istanbul" ], () => {
-	// });
+	gulp.task("coveralls", [ "istanbul" ], () => {
 
-	gulp.task("mocha", [ "istanbul" ], () => {
+		return gulp.src(path.join(__dirname, "coverage", "lcov.info"))
+			.pipe(plumber())
+			.pipe(coveralls());
+
+	});
+
+	gulp.task("mocha", [ "coveralls" ], () => {
 
 		return gulp.src(UNITTESTS_FILES)
 			.pipe(plumber())
