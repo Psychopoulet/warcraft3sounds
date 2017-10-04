@@ -33,8 +33,7 @@
     "compression": "1.7.0",
     "express-fileupload": "0.1.4",
     "checksum": "0.1.1",
-    "sqlite3": "3.1.8",
-    "node-confmanager": "^0.5.1"
+    "sqlite3": "3.1.8"
   },
   "devDependencies": {
     "gulp": "3.9.1",
