@@ -37,89 +37,9 @@ CREATE TABLE actions (
   FOREIGN KEY (k_action_type) REFERENCES actions_types (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- warnings
-
-INSERT INTO warnings (k_race, code, name, file) VALUES
-
-(4, 'nofood', 'nofood', 'NecromancerNoFood1.wav'),
-(4, 'noenergy', 'noenergy', 'NecromancerNoEnergy1.wav'),
-(4, 'nogold', 'nogold', 'NecromancerNoGold1.wav'),
-(4, 'nolumber', 'nolumber', 'NecromancerNoLumber1.wav'),
-(4, 'inventoryfull', 'inventoryfull', 'NecromancerInventoryFull1.wav'),
-(4, 'townattack', 'townattack', 'NecromancerTownAttack1.wav'),
-(4, 'unitattack', 'unitattack', 'NecromancerUnitAttack1.wav'),
-(4, 'herodies', 'herodies', 'NecromancerHeroDies1.wav'),
-(4, 'allytownattack', 'allytownattack', 'NecromancerAllyTownAttack1.wav'),
-(4, 'allyattack', 'allyattack', 'NecromancerAllyUnderAttack1.wav'),
-(4, 'allyherodies', 'allyherodies', 'NecromancerAllyHeroDies1.wav'),
-(4, 'upgradecomplete', 'upgradecomplete', 'NecromancerUpgradeComplete1.wav'),
-(4, 'researchcomplete', 'researchcomplete', 'NecromancerResearchComplete1.wav'),
-
-(5, 'cannotbuildthere', 'cannotbuildthere', 'neutrals_warnings_cannotbuildthere.wav'),
-(5, 'goldminelow', 'goldminelow', 'neutrals_warnings_goldminelow.wav'),
-(5, 'goldminecollapsed', 'goldminecollapsed', 'neutrals_warnings_goldminecollapsed.wav'),
-(5, 'nofood', 'nofood', 'neutrals_warnings_nofood.wav'),
-(5, 'noenergy', 'noenergy', 'neutrals_warnings_noenergy.wav'),
-(5, 'nogold', 'nogold', 'neutrals_warnings_nogold.wav'),
-(5, 'nolumber', 'nolumber', 'neutrals_warnings_nolumber.wav'),
-(5, 'inventoryfull', 'inventoryfull', 'neutrals_warnings_inventoryfull.wav'),
-(5, 'townattack', 'townattack', 'neutrals_warnings_townattack.wav'),
-(5, 'unitattack', 'unitattack', 'neutrals_warnings_unitattack.wav'),
-(5, 'herodies', 'herodies', 'neutrals_warnings_herodies.wav'),
-(5, 'allytownattack', 'allytownattack', 'neutrals_warnings_allytownattack.wav'),
-(5, 'allyattack', 'allyattack', 'neutrals_warnings_allyattack.wav'),
-(5, 'allyherodies', 'allyherodies', 'neutrals_warnings_allyherodies.wav'),
-(5, 'buildingcomplete', 'buildingcomplete', 'neutrals_warnings_buildingcomplete.wav'),
-(5, 'upgradecomplete', 'upgradecomplete', 'neutrals_warnings_upgradecomplete.wav'),
-(5, 'researchcomplete', 'researchcomplete', 'neutrals_warnings_researchcomplete.wav');
-
 -- actions
 
 INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
-
-(1, 1, 'ready1', 'Ma foi est mon glaive', 'humans_actions_paladin_ready_ready1.wav'),
-(1, 2, 'warcry1', 'Que lightbringer te montre la voie', 'humans_actions_paladin_warcry_warcry1.wav'),
-(1, 3, 'what1', 'Qu''attendez-vous de moi ?', 'humans_actions_paladin_what_what1.wav'),
-(1, 3, 'what2', 'Je n''ai aucune crainte', 'humans_actions_paladin_what_what2.wav'),
-(1, 3, 'what3', 'J''affronterai tous les périls', 'humans_actions_paladin_what_what3.wav'),
-(1, 3, 'what4', 'Comme il vous siéra', 'humans_actions_paladin_what_what4.wav'),
-(1, 4, 'yes1', 'Comme vous le souhaitez', 'humans_actions_paladin_yes_yes1.wav'),
-(1, 4, 'yes2', 'Pour l''honneur', 'humans_actions_paladin_yes_yes2.wav'),
-(1, 4, 'yes3', 'Pour la foi', 'humans_actions_paladin_yes_yes3.wav'),
-(1, 4, 'yes4', 'Il en sera ainsi', 'humans_actions_paladin_yes_yes4.wav'),
-(1, 5, 'attack1', 'Je suis le bras de la justice', 'humans_actions_paladin_attack_attack1.wav'),
-(1, 5, 'attack3', 'Mort aux infidèles', 'humans_actions_paladin_attack_attack3.wav'),
-(1, 5, 'attack2', 'En votre nom', 'humans_actions_paladin_attack_attack2.wav'),
-(1, 6, 'fun1', 'Je sers la foi', 'humans_actions_paladin_fun_fun1.wav'),
-(1, 6, 'fun2', 'Je suis le bouclier des croyants', 'humans_actions_paladin_fun_fun2.wav'),
-(1, 6, 'fun3', 'Bas les pattes ! J''ai fait voeux de chasteté.', 'humans_actions_paladin_fun_fun3.wav'),
-(1, 6, 'fun4', 'Oui JP, c''est mon dernier mot', 'humans_actions_paladin_fun_fun4.wav'),
-(1, 6, 'fun5', 'Je vais faire appel au public', 'humans_actions_paladin_fun_fun5.wav'),
-(1, 6, 'fun6', 'Le coté obscur n''est pas le plus fort, non. Plus rapide ! Plus facile. Plus séduisant...', 'humans_actions_paladin_fun_fun6.wav'),
-(1, 7, 'death1', 'Mort', 'humans_actions_paladin_death_death1.wav'),
-
-(2, 2, 'warcry2', 'Pour Khaz Modan !', 'humans_actions_mountainking_warcry_warcry2.wav'),
-
-(5, 1, 'ready1', 'Prêt à travailler !', 'humans_actions_peasant_ready_ready1.wav'),
-(5, 2, 'warcry1', 'Haaaaaa', 'humans_actions_peasant_warcry_warcry1.wav'),
-(5, 3, 'what1', 'Oui messire ?', 'humans_actions_peasant_what_what1.wav'),
-(5, 3, 'what2', 'Qu''y a-t-il ?', 'humans_actions_peasant_what_what2.wav'),
-(5, 3, 'what3', 'Encore du travail ?', 'humans_actions_peasant_what_what3.wav'),
-(5, 3, 'what4', 'Pardon ?', 'humans_actions_peasant_what_what4.wav'),
-(5, 4, 'yes1', 'Bien', 'humans_actions_peasant_yes_yes1.wav'),
-(5, 4, 'yes2', 'Oui monseigneur', 'humans_actions_peasant_yes_yes2.wav'),
-(5, 4, 'yes3', 'Très bien', 'humans_actions_peasant_yes_yes3.wav'),
-(5, 4, 'yes4', 'Je m''en charge', 'humans_actions_peasant_yes_yes4.wav'),
-(5, 5, 'attack1', 'Je peux essayer', 'humans_actions_peasant_attack_attack1.wav'),
-(5, 5, 'attack2', 'Si vous le voulez vraiment', 'humans_actions_peasant_attack_attack2.wav'),
-(5, 5, 'attack3', 'Vous n''avez personne d''autre ?', 'humans_actions_peasant_attack_attack3.wav'),
-(5, 5, 'attack4', 'Ça y est, je suis mort...', 'humans_actions_peasant_attack_attack4.wav'),
-(5, 6, 'fun1', 'Votre prénom, c''est François, c''est juste ?', 'humans_actions_peasant_fun_fun1.wav'),
-(5, 6, 'fun2', 'Il est bon ! C''est un champion du monde !', 'humans_actions_peasant_fun_fun2.wav'),
-(5, 6, 'fun3', 'Il pourrait me faire l''historique de la louche à travers les âges ?', 'humans_actions_peasant_fun_fun3.wav'),
-(5, 6, 'fun4', 'Ne m''invitez jamais à diner, j''aurais toujours un doute.', 'humans_actions_peasant_fun_fun4.wav'),
-(5, 6, 'fun5', 'il essaie de faire de l''humour ! Ecoutez ça, c''est pathétique.', 'humans_actions_peasant_fun_fun5.wav'),
-(5, 7, 'death1', 'Mort', 'humans_actions_peasant_death_death1.wav'),
 
 (7, 1, 'ready1', 'Armé, et paré !', 'humans_actions_rifleman_ready_ready1.wav'),
 (7, 2, 'warcry1', 'Pour Ironforge !', 'humans_actions_rifleman_warcry_warcry1.wav'),
