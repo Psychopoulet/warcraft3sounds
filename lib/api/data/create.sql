@@ -180,6 +180,9 @@ CREATE TABLE characters (
 );
 
 INSERT INTO characters (id, k_race, code, name, tft) VALUES
+
+-- humans
+
 (1, 1, 'paladin', 'Paladin', 0),
 (2, 1, 'mountainking', 'Roi de la montagne', 0),
 (3, 1, 'archmage', 'Archimage', 0),
@@ -202,6 +205,8 @@ INSERT INTO characters (id, k_race, code, name, tft) VALUES
 (20, 1, 'villager', 'Villageois', 0),
 (21, 1, 'captain', 'Capitaine', 0),
 
+-- nightelfs
+
 (22, 2, 'demonhunter', 'Chasseur de démons', 0),
 (23, 2, 'keeperofthegrove', 'keeperofthegrove', 0),
 (24, 2, 'moonpriestess', 'Prêtresse de la lune', 0),
@@ -218,6 +223,8 @@ INSERT INTO characters (id, k_race, code, name, tft) VALUES
 (35, 2, 'shandris', 'Shandris', 0),
 (36, 2, 'sylvanas', 'Sylvanas', 0),
 (37, 2, 'tyrande', 'Tyrande', 0),
+
+-- orcs
 
 (38, 3, 'blademaster', 'blademaster', 0),
 (39, 3, 'farseer', 'farseer', 0),
@@ -237,6 +244,8 @@ INSERT INTO characters (id, k_race, code, name, tft) VALUES
 (53, 3, 'thrall', 'Thrall', 0),
 (54, 3, 'warlord', 'Warlord', 0),
 
+-- undeads
+
 (55, 4, 'deathknight', 'Chevalier de la mort', 0),
 (56, 4, 'lich', 'Liche', 0),
 (57, 4, 'dreadlord', 'dreadlord', 0),
@@ -252,6 +261,8 @@ INSERT INTO characters (id, k_race, code, name, tft) VALUES
 (67, 4, 'kelthuzad', 'Kelthuzad', 0),
 (68, 4, 'tichondrius', 'Tichondrius', 0),
 
+-- neutrals
+
 (69, 5, 'alchemist', 'alchemist', 1),
 (70, 5, 'ladyvash', 'ladyvash', 1),
 (71, 5, 'tinker', 'tinker', 1),
@@ -260,7 +271,6 @@ INSERT INTO characters (id, k_race, code, name, tft) VALUES
 (74, 5, 'darkranger', 'darkranger', 1),
 (75, 5, 'pitlord', 'pitlord', 0),
 (76, 5, 'firelord', 'firelord', 1),
-
 (77, 5, 'bandit', 'Bandit', 0),
 (78, 5, 'foresttroll', 'foresttroll', 0),
 (79, 5, 'goblinmerchant', 'goblinmerchant', 0),
@@ -285,6 +295,8 @@ CREATE TABLE actions (
 );
 
 INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
+
+-- humans
 
 (1, 1, 'ready1', 'Ma foi est mon glaive', 'HeroPaladinReady1.wav'),
 (1, 2, 'warcry1', 'Que lightbringer te montre la voie', 'HeroPaladinWarcry1.wav'),
@@ -461,6 +473,28 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (9, 6, 'fun8', 'Ils ne sont pas à l''attention de savoir qu''ils existent', 'GyrocopterPissed8.wav'),
 (9, 7, 'death1', 'Mort', 'GyrocopterDeath1.wav'),
 
+(10, 1, 'ready1', 'Je vis pour servir', 'GryphonRiderReady1.wav'),
+(10, 2, 'warcry1', 'Pour Khaz Modan !', 'GryphonRiderWarcry1.wav'),
+(10, 3, 'what1', 'Ma vie est entre vos mains', 'GryphonRiderWhat1.wav'),
+(10, 3, 'what2', 'Oui, chef ?', 'GryphonRiderWhat2.wav'),
+(10, 3, 'what3', 'Je suis votre nain', 'GryphonRiderWhat3.wav'),
+(10, 3, 'what4', 'La fin justifie les moyens', 'GryphonRiderWhat4.wav'),
+(10, 3, 'what5', 'Yep !', 'GryphonRiderWhat5.wav'),
+(10, 4, 'yes1', 'Yep, comptez sur moi', 'GryphonRiderYes1.wav'),
+(10, 4, 'yes2', 'C''est vous le patron !', 'GryphonRiderYes2.wav'),
+(10, 4, 'yes3', 'Pas de problème !', 'GryphonRiderYes3.wav'),
+(10, 4, 'yes4', 'Super', 'GryphonRiderYes4.wav'),
+(10, 4, 'yes5', 'Vers les cieux !', 'GryphonRiderYes5.wav'),
+(10, 5, 'attack1', 'La mort vient du ciel !', 'GryphonRiderYesAttack1.wav'),
+(10, 5, 'attack2', 'Vers la victoire !', 'GryphonRiderYesAttack2.wav'),
+(10, 5, 'attack3', 'Par la barbe de Muradin !', 'GryphonRiderYesAttack3.wav'),
+(10, 6, 'fun1', 'Boire ou conduire, il faut choisir', 'GryphonRiderPissed1.wav'),
+(10, 6, 'fun2', 'C''est pas la taille qui compte, c''est le tranchant', 'GryphonRiderPissed2.wav'),
+(10, 6, 'fun3', 'Un p''tit clou ?', 'GryphonRiderPissed3.wav'),
+(10, 6, 'fun4', 'Que la force soit avec toi, Luke.', 'GryphonRiderPissed4.wav'),
+(10, 6, 'fun5', 'Un cavalier, qui surgit hors de la nuit... Part, à l''aventure au galop...', 'GryphonRiderPissed5.wav'),
+(10, 7, 'death1', 'Mort', 'GryphonRiderDeath1.wav'),
+
 (15, 2, 'warcry1', 'Pour Dalaran !', 'JainaWarcry1.wav'),
 (15, 3, 'what1', 'Je peux aider ?', 'JainaWhat1.wav'),
 (15, 3, 'what2', 'C''est étrange', 'JainaWhat2.wav'),
@@ -477,4 +511,30 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (15, 6, 'fun3', 'Il y a un grand trouble dans les courants magiques', 'JainaPissed3.wav'),
 (15, 6, 'fun4', 'Je prie que mon père soit sain et sauf', 'JainaPissed4.wav'),
 (15, 6, 'fun5', 'Les évènements commencent à être un peu bizarres', 'JainaPissed5.wav'),
-(15, 7, 'death1', 'Mort', 'JainaOnFootDeath1.wav');
+(15, 7, 'death1', 'Mort', 'JainaOnFootDeath1.wav'),
+
+-- nightelfs
+
+(26, 1, 'ready1', 'Je suis prête', 'ArcherReady1.wav'),
+(26, 2, 'warcry1', 'A la lumière de la lune !', 'ArcherWarcry1.wav'),
+(26, 3, 'what1', 'J''écoute.', 'ArcherWhat1.wav'),
+(26, 3, 'what2', 'Indiquez le chemin.', 'ArcherWhat2.wav'),
+(26, 3, 'what3', 'A vos ordres.', 'ArcherWhat3.wav'),
+(26, 3, 'what4', 'Je vous écoute.', 'ArcherWhat4.wav'),
+(26, 4, 'yes1', 'Bien compris.', 'ArcherYes1.wav'),
+(26, 4, 'yes2', 'Reçu.', 'ArcherYes2.wav'),
+(26, 4, 'yes3', 'Il en sera ainsi.', 'ArcherYes3.wav'),
+(26, 4, 'yes4', 'Trop facile...', 'ArcherYes4.wav'),
+(26, 5, 'attack1', 'Parée à décocher', 'ArcherYesAttack1.wav'),
+(26, 5, 'attack2', 'Feu !', 'ArcherYesAttack2.wav'),
+(26, 5, 'attack3', 'Une flèche, un mort', 'ArcherYesAttack3.wav'),
+(26, 5, 'attack4', 'Mon arc est à vos ordres !', 'ArcherYesAttack4.wav'),
+(26, 6, 'fun1', 'J''adore qu''un plan se déroule sans accroc', 'ArcherPissed1.wav'),
+(26, 6, 'fun2', 'J''aurai les salauds qui ont fait ça !', 'ArcherPissed2.wav'),
+(26, 6, 'fun3', 'Je prend aux riches pour donner aux pauvres.', 'ArcherPissed3.wav'),
+(26, 6, 'fun4', 'Où est ma pomme ?', 'ArcherPissed4.wav'),
+(26, 6, 'fun5', 'La vie c''est comme une boite de chocolats : on ne sait jamais sur quoi on va tomber.', 'ArcherPissed5.wav'),
+(26, 6, 'fun6', 'La culture, c''est comme la confiture : moins on en a, plus on l''étale.', 'ArcherPissed6.wav'),
+(26, 6, 'fun7', 'Secouez-moi, secouez-moi, sinon la pulpe, elle reste en bas.', 'ArcherPissed7.wav'),
+(26, 6, 'fun8', 'Moi je dynamite ! Je disperse, je ventile...', 'ArcherPissed8.wav'),
+(26, 7, 'death1', 'Mort', 'ArcherDeath1.wav');
