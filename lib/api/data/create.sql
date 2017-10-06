@@ -195,8 +195,8 @@ INSERT INTO characters (id, k_race, code, name, tft) VALUES
 (10, 1, 'gryphonrider', 'Chevaucheur de gryphon', 0),
 (11, 1, 'priest', 'Prêtre', 0),
 (12, 1, 'sorceress', 'Sorcière', 0),
-(13, 1, 'spellbreaker', 'spellbreaker', 1),
-(14, 1, 'hawkrider', 'hawkrider', 1),
+(13, 1, 'spellbreaker', 'Briseur de sorts', 1),
+(14, 1, 'hawkrider', 'Chevucheur de griffon', 1),
 (15, 1, 'jaina', 'Jaina', 0),
 (16, 1, 'mortarteam', 'Mortier', 0),
 (17, 1, 'muradin', 'Muradin', 0),
@@ -208,13 +208,13 @@ INSERT INTO characters (id, k_race, code, name, tft) VALUES
 -- nightelfs
 
 (22, 2, 'demonhunter', 'Chasseur de démons', 0),
-(23, 2, 'keeperofthegrove', 'keeperofthegrove', 0),
+(23, 2, 'keeperofthegrove', 'Gardien du bosquet', 0),
 (24, 2, 'moonpriestess', 'Prêtresse de la lune', 0),
 (25, 2, 'warden', 'warden', 1),
 (26, 2, 'archer', 'Archer', 0),
 (27, 2, 'huntress', 'Chasseresse', 0),
 (28, 2, 'dryad', 'Dryade', 0),
-(29, 2, 'druidoftheclaw', 'druidoftheclaw', 0),
+(29, 2, 'druidoftheclaw', 'Druide de la griffe', 0),
 (30, 2, 'druidofthetalon', 'druidofthetalon', 0),
 (31, 2, 'hippogryphrider', 'Chevaucheur d''hippogryphe', 0),
 (32, 2, 'furion', 'Furion', 0),
@@ -226,33 +226,33 @@ INSERT INTO characters (id, k_race, code, name, tft) VALUES
 
 -- orcs
 
-(38, 3, 'blademaster', 'blademaster', 0),
+(38, 3, 'blademaster', 'Maître d''arme', 0),
 (39, 3, 'farseer', 'farseer', 0),
 (40, 3, 'taurenchieftain', 'taurenchieftain', 0),
 (41, 3, 'shadowhunter', 'shadowhunter', 1),
-(42, 3, 'peon', 'peon', 0),
-(43, 3, 'grunt', 'grunt', 0),
+(42, 3, 'peon', 'Péon', 0),
+(43, 3, 'grunt', 'Grunt', 0),
 (44, 3, 'headhunter', 'headhunter', 0),
-(45, 3, 'wolfrider', 'wolfrider', 0),
+(45, 3, 'wolfrider', 'Chevaucheur de loup', 0),
 (46, 3, 'wyvernrider', 'wyvernrider', 0),
-(47, 3, 'tauren', 'tauren', 0),
-(48, 3, 'shaman', 'shaman', 0),
-(49, 3, 'witchdoctor', 'witchdoctor', 0),
-(50, 3, 'spiritwalker', 'spiritwalker', 1),
+(47, 3, 'tauren', 'Tauren', 0),
+(48, 3, 'shaman', 'Shaman', 0),
+(49, 3, 'witchdoctor', 'Docteur vaudou', 0),
+(50, 3, 'spiritwalker', 'Esprit marcheur', 1),
 (51, 3, 'cairne', 'Cairne', 0),
 (52, 3, 'grom', 'Grom', 0),
 (53, 3, 'thrall', 'Thrall', 0),
-(54, 3, 'warlord', 'Warlord', 0),
+(54, 3, 'warlord', 'warlord', 0),
 
 -- undeads
 
 (55, 4, 'deathknight', 'Chevalier de la mort', 0),
 (56, 4, 'lich', 'Liche', 0),
-(57, 4, 'dreadlord', 'dreadlord', 0),
+(57, 4, 'dreadlord', 'Seigneur de l''effroi', 0),
 (58, 4, 'cryptlord', 'cryptlord', 1),
 (59, 4, 'acolyte', 'Acolyte', 0),
 (60, 4, 'ghoul', 'Goule', 0),
-(61, 4, 'cryptfiend', 'cryptfiend', 0),
+(61, 4, 'cryptfiend', 'Démon des cryptes', 0),
 (62, 4, 'abomination', 'Abomination', 0),
 (63, 4, 'necromancer', 'Nécromancien', 0),
 (64, 4, 'banshee', 'Banshee', 0),
@@ -263,22 +263,22 @@ INSERT INTO characters (id, k_race, code, name, tft) VALUES
 
 -- neutrals
 
-(69, 5, 'alchemist', 'alchemist', 1),
-(70, 5, 'ladyvash', 'ladyvash', 1),
-(71, 5, 'tinker', 'tinker', 1),
-(72, 5, 'beastmaster', 'beastmaster', 1),
-(73, 5, 'pandaren', 'pandaren', 1),
+(69, 5, 'alchemist', 'Alchimiste', 1),
+(70, 5, 'ladyvash', 'Lady Vash', 1),
+(71, 5, 'tinker', 'Tinker', 1),
+(72, 5, 'beastmaster', 'Maître des bêtes', 1),
+(73, 5, 'pandaren', 'Pandaren', 1),
 (74, 5, 'darkranger', 'darkranger', 1),
-(75, 5, 'pitlord', 'pitlord', 0),
-(76, 5, 'firelord', 'firelord', 1),
+(75, 5, 'pitlord', 'Seigneur de la fosse', 0),
+(76, 5, 'firelord', 'Seigneur du feu', 1),
 (77, 5, 'bandit', 'Bandit', 0),
-(78, 5, 'foresttroll', 'foresttroll', 0),
-(79, 5, 'goblinmerchant', 'goblinmerchant', 0),
-(80, 5, 'goblinsapper', 'goblinsapper', 0),
-(81, 5, 'goblinzeppelin', 'goblinzeppelin', 0),
-(82, 5, 'icetroll', 'icetroll', 0),
-(83, 5, 'ogre', 'ogre', 0),
-(84, 5, 'satyre', 'satyre', 0);
+(78, 5, 'foresttroll', 'Troll des forêts', 0),
+(79, 5, 'goblinmerchant', 'Marchant gobelin', 0),
+(80, 5, 'goblinsapper', 'Sapeur gobelin', 0),
+(81, 5, 'goblinzeppelin', 'Zeppelin', 0),
+(82, 5, 'icetroll', 'Troll des glaces', 0),
+(83, 5, 'ogre', 'Ogre', 0),
+(84, 5, 'satyre', 'Satyre', 0);
 
 -- actions
 
@@ -512,6 +512,18 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (15, 6, 'fun4', 'Je prie que mon père soit sain et sauf', 'JainaPissed4.wav'),
 (15, 6, 'fun5', 'Les évènements commencent à être un peu bizarres', 'JainaPissed5.wav'),
 (15, 7, 'death1', 'Mort', 'JainaOnFootDeath1.wav'),
+
+(21, 2, 'warcry1', 'Pour le roi Térénas !', 'CaptainWarcry1.wav'),
+(21, 3, 'what1', 'Je suis prêt.', 'CaptainWhat1.wav'),
+(21, 3, 'what2', 'Que désirez-vous ?', 'CaptainWhat2.wav'),
+(21, 3, 'what3', 'Comment puis-je vous servir ?', 'CaptainWhat3.wav'),
+(21, 4, 'yes1', 'Je suis honoré.', 'CaptainYes1.wav'),
+(21, 4, 'yes2', 'Je ferai de mon mieux.', 'CaptainYes2.wav'),
+(21, 4, 'yes3', 'Pour Lordaeron !', 'CaptainYes3.wav'),
+(21, 5, 'attack1', 'Bête immonde !', 'CaptainYesAttack1.wav'),
+(21, 6, 'fun1', 'J''aurai dû écouter mon père, et devenir paysan...', 'CaptainPissed1.wav'),
+(21, 6, 'fun2', 'Danger permanent, solde de misère...', 'CaptainPissed2.wav'),
+(21, 6, 'fun3', 'Pose tes galons, qu''on s''explique entre hommes !', 'CaptainPissed3.wav'),
 
 -- nightelfs
 

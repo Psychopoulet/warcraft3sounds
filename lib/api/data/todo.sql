@@ -41,20 +41,6 @@ CREATE TABLE actions (
 
 INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
-(65, 2, 'warcry1', 'Pour le roi Térénas !', 'humans_actions_captain_warcry_warcry1.wav'),
-(65, 3, 'what1', 'Je suis prêt.', 'humans_actions_captain_what_what1.wav'),
-(65, 3, 'what2', 'Que désirez-vous ?', 'humans_actions_captain_what_what2.wav'),
-(65, 3, 'what3', 'Comment puis-je vous servir ?', 'humans_actions_captain_what_what3.wav'),
-(65, 4, 'yes1', 'Je suis honoré.', 'humans_actions_captain_yes_yes1.wav'),
-(65, 4, 'yes2', 'Je ferai de mon mieux.', 'humans_actions_captain_yes_yes2.wav'),
-(65, 4, 'yes3', 'Pour Lordaeron !', 'humans_actions_captain_yes_yes3.wav'),
-(65, 5, 'attack1', 'Bête immonde !', 'humans_actions_captain_attack_attack1.wav'),
-(65, 6, 'fun1', 'J''aurai dû écouter mon père, et devenir paysan...', 'humans_actions_captain_fun_fun1.wav'),
-(65, 6, 'fun2', 'Danger permanent, solde de misère...', 'humans_actions_captain_fun_fun2.wav'),
-(65, 6, 'fun3', 'Pose tes galons, qu''on s''explique entre hommes !', 'humans_actions_captain_fun_fun3.wav'),
-
-
-
 (11, 1, 'ready1', '', 'humans_actions_priest_ready_ready1.wav'),
 (11, 2, 'warcry1', '', 'humans_actions_priest_warcry_warcry1.wav'),
 (11, 3, 'what1', '', 'humans_actions_priest_what_what1.wav'),
