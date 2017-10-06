@@ -81,7 +81,7 @@
 			.pipe(plumber())
 			.pipe(mocha())
 			.pipe(istanbul.writeReports())
-			.pipe(istanbul.enforceThresholds({ "thresholds": { "global": 80 } }));
+			.pipe(istanbul.enforceThresholds({ "thresholds": { "global": 75 } }));
 
 	});
 
