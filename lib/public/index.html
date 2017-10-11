@@ -103,7 +103,7 @@
 
 									<span class="input-group-btn">
 
-										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !music }" data-ng-disabled="!music" data-ng-click="playMusic();">
+										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !music || !music.url }" data-ng-disabled="!music || !music.url" data-ng-click="play(music.url);">
 											<span class="fa fa-play-circle"></span>
 										</button>
 
@@ -128,7 +128,7 @@
 
 									<span class="input-group-btn">
 
-										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !warning }" data-ng-disabled="!warning" data-ng-click="playWarning();">
+										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !warning || !warning.url }" data-ng-disabled="!warning || !warning.url" data-ng-click="play(warning.url);">
 											<span class="fa fa-play-circle"></span>
 										</button>
 
@@ -170,7 +170,7 @@
 
 									<span class="input-group-btn">
 
-										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !action }" data-ng-disabled="!action" data-ng-click="playAction();">
+										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !action || !action.url }" data-ng-disabled="!action || !action.url" data-ng-click="play(action.url);">
 											<span class="fa fa-play-circle"></span>
 										</button>
 
