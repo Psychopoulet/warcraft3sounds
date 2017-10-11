@@ -9,6 +9,8 @@
 
 	const checksum = require("checksum");
 
+	const Model = require(join(__dirname, "..", "lib", "api", "model.js"));
+
 	const generateServer = require(join(__dirname, "..", "lib", "server", "generateServer.js"));
 	const webRoutes = require(join(__dirname, "..", "lib", "server", "webRoutes.js"));
 	const apiRoutes = require(join(__dirname, "..", "lib", "api", "routes.js"));
@@ -20,7 +22,7 @@
 
 // module
 
-describe("API V1", () => {
+describe("API", () => {
 
 	it("should check checksum", () => {
 
@@ -47,7 +49,6 @@ describe("API V1", () => {
 
 	describe("Model", () => {
 
-		const Model = require(join(__dirname, "..", "lib", "api", "model.js"));
 		const model = new Model();
 
 		it("should init the model", () => {
