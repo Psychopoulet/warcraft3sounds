@@ -1,4 +1,6 @@
 
+-- humans
+
 INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
 (17, 2, 'warcry1', '', 'MuradinWarcry1.wav'),
@@ -68,7 +70,11 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (20, 3, 'what10', '', 'VillagerMAWhat5.wav'),
 (20, 3, 'what11', '', 'VillagerMAWhat6.wav'),
 (20, 7, 'death1', 'Mort mâle', 'VillagerMaleDeath1.wav'),
-(20, 7, 'death2', 'Mort enfant', 'VillagerChildDeath1.wav'),
+(20, 7, 'death2', 'Mort enfant', 'VillagerChildDeath1.wav');
+
+-- nightelfs
+
+INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
 (101, 1, 'ready1', '', 'HeroDemonHunterReady1.wav'),
 (101, 1, 'ready-m-1', '', 'DemonHunterMorphedReady1.wav'),
@@ -364,9 +370,11 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (115, 6, 'fun2', '', 'TyrandePissed2.wav'),
 (115, 6, 'fun3', '', 'TyrandePissed3.wav'),
 (115, 6, 'fun4', '', 'TyrandePissed4.wav'),
-(115, 6, 'fun5', '', 'TyrandePissed5.wav'),
+(115, 6, 'fun5', '', 'TyrandePissed5.wav');
 
 -- orcs
+
+INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
 (201, 1, 'ready1', '', 'HeroBlademasterReady1.wav'),
 (201, 2, 'warcry1', '', 'HeroBlademasterWarcry1.wav'),
@@ -660,9 +668,11 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (217, 5, 'attack4', '', 'WarlordYesAttack4.wav'),
 (217, 5, 'attack5', '', 'WarlordYesAttack5.wav'),
 (217, 6, 'fun1', '', 'WarlordPissed1.wav'),
-(217, 6, 'fun2', '', 'WarlordPissed2.wav'),
+(217, 6, 'fun2', '', 'WarlordPissed2.wav');
 
 -- undeads
+
+INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
 (301, 1, 'ready1', '', 'DeathKnightReady1.wav'),
 (301, 2, 'warcry1', '', 'DeathKnightWarcry1.wav'),
@@ -820,7 +830,140 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (308, 6, 'fun6', '', 'AbominationPissed6.wav'),
 (308, 7, 'death1', 'Mort', 'AbominationAlternateDeath1.wav'),
 
+(309, 1, 'ready1', '', 'NecromancerReady1.wav'),
+(309, 2, 'warcry1', '', 'NecromancerWarcry1.wav'),
+(309, 3, 'what1', '', 'NecromancerWhat1.wav'),
+(309, 3, 'what2', '', 'NecromancerWhat2.wav'),
+(309, 3, 'what3', '', 'NecromancerWhat3.wav'),
+(309, 3, 'what4', '', 'NecromancerWhat4.wav'),
+(309, 4, 'yes1', '', 'NecromancerYes1.wav'),
+(309, 4, 'yes2', '', 'NecromancerYes2.wav'),
+(309, 4, 'yes3', '', 'NecromancerYes3.wav'),
+(309, 4, 'yes4', '', 'NecromancerYes4.wav'),
+(309, 5, 'attack1', '', 'NecromancerYesAttack1.wav'),
+(309, 5, 'attack2', '', 'NecromancerYesAttack2.wav'),
+(309, 5, 'attack3', '', 'NecromancerYesAttack3.wav'),
+(309, 6, 'fun1', '', 'NecromancerPissed1.wav'),
+(309, 6, 'fun2', '', 'NecromancerPissed2.wav'),
+(309, 6, 'fun3', '', 'NecromancerPissed3.wav'),
+(309, 6, 'fun4', '', 'NecromancerPissed4.wav'),
+(309, 6, 'fun5', '', 'NecromancerPissed5.wav'),
+(309, 7, 'death1', 'Mort', 'NecromancerDeath.wav'),
+
+(310, 1, 'ready1', '', 'BansheeReady1.wav'),
+(310, 2, 'warcry1', '', 'BansheeWarcry1.wav'),
+(310, 3, 'what1', '', 'BansheeWhat1.wav'),
+(310, 3, 'what2', '', 'BansheeWhat2.wav'),
+(310, 3, 'what3', '', 'BansheeWhat3.wav'),
+(310, 3, 'what4', '', 'BansheeWhat4.wav'),
+(310, 3, 'what5', '', 'BansheeWhat5.wav'),
+(310, 3, 'whatghost1', '', 'BansheeGhostWhat1.wav'),
+(310, 4, 'yes1', '', 'BansheeYes1.wav'),
+(310, 4, 'yes2', '', 'BansheeYes2.wav'),
+(310, 4, 'yes3', '', 'BansheeYes3.wav'),
+(310, 4, 'yes4', '', 'BansheeYes4.wav'),
+(310, 4, 'yes5', '', 'BansheeYes5.wav'),
+(310, 4, 'yesghost1', '', 'BansheeGhostYes1.wav'),
+(310, 4, 'yesghost2', '', 'BansheeGhostYes2.wav'),
+(310, 5, 'attack1', '', 'BansheeYesAttack1.wav'),
+(310, 5, 'attack2', '', 'BansheeYesAttack2.wav'),
+(310, 5, 'attack3', '', 'BansheeYesAttack3.wav'),
+(310, 5, 'attackghost1', '', 'BansheeGhostYesAttack1.wav'),
+(310, 5, 'attackghost2', '', 'BansheeGhostYesAttack2.wav'),
+(310, 6, 'fun1', '', 'BansheePissed1.wav'),
+(310, 6, 'fun2', '', 'BansheePissed2.wav'),
+(310, 6, 'fun3', '', 'BansheePissed3.wav'),
+(310, 6, 'fun4', '', 'BansheePissed4.wav'),
+(310, 6, 'fun5', '', 'BansheePissed5.wav'),
+(310, 7, 'death1', 'Mort', 'BansheeDeath.wav'),
+(310, 7, 'deathghost1', '', 'BansheeGhostDeath1.wav'),
+
+(311, 1, 'ready1', '', 'ShadeReady1.wav'),
+(311, 2, 'warcry1', '', 'ShadeWarcry1.wav'),
+(311, 3, 'what1', '', 'ShadeWhat1.wav'),
+(311, 3, 'what2', '', 'ShadeWhat2.wav'),
+(311, 3, 'what3', '', 'ShadeWhat3.wav'),
+(311, 4, 'yes1', '', 'ShadeYes1.wav'),
+(311, 4, 'yes2', '', 'ShadeYes2.wav'),
+(311, 4, 'yes3', '', 'ShadeYes3.wav'),
+(311, 4, 'yes4', '', 'ShadeYes4.wav'),
+(311, 5, 'attack1', '', 'ShadeYesAttack1.wav'),
+(311, 5, 'attack2', '', 'ShadeYesAttack2.wav'),
+(311, 5, 'attack3', '', 'ShadeYesAttack3.wav'),
+(311, 5, 'attack4', '', 'ShadeYesAttack4.wav'),
+(311, 5, 'attack5', '', 'ShadeYesAttack5.wav'),
+(311, 6, 'fun1', '', 'ShadePissed1.wav'),
+(311, 6, 'fun2', '', 'ShadePissed2.wav'),
+(311, 6, 'fun3', '', 'ShadePissed3.wav'),
+(311, 6, 'fun4', '', 'ShadePissed4.wav'),
+(311, 6, 'fun5', '', 'ShadePissed5.wav'),
+(311, 6, 'fun6', '', 'ShadePissed6.wav'),
+(311, 7, 'death1', 'Mort', 'ShadeDeath1.wav'),
+
+(312, 2, 'warcry1', '', 'ArthasWarcry1.wav'),
+(312, 3, 'what1', '', 'ArthasWhat1.wav'),
+(312, 3, 'what2', '', 'ArthasWhat2.wav'),
+(312, 3, 'what3', '', 'ArthasWhat3.wav'),
+(312, 3, 'what4', '', 'ArthasWhat4.wav'),
+(312, 3, 'what5', '', 'ArthasWhat5.wav'),
+(312, 4, 'yes1', '', 'ArthasYes1.wav'),
+(312, 4, 'yes2', '', 'ArthasYes2.wav'),
+(312, 4, 'yes3', '', 'ArthasYes3.wav'),
+(312, 4, 'yes4', '', 'ArthasYes4.wav'),
+(312, 5, 'attack1', '', 'ArthasYesAttack1.wav'),
+(312, 5, 'attack2', '', 'ArthasYesAttack2.wav'),
+(312, 5, 'attack3', '', 'ArthasYesAttack3.wav'),
+(312, 5, 'attack4', '', 'ArthasYesAttack4.wav'),
+(312, 5, 'attack5', '', 'ArthasYesAttack5.wav'),
+(312, 5, 'attack6', '', 'ArthasYesAttack6.wav'),
+(312, 6, 'fun1', '', 'ArthasPissed1.wav'),
+(312, 6, 'fun2', '', 'ArthasPissed2.wav'),
+(312, 6, 'fun3', '', 'ArthasPissed3.wav'),
+(312, 6, 'fun4', '', 'ArthasPissed4.wav'),
+(312, 6, 'fun5', '', 'ArthasPissed5.wav'),
+(312, 6, 'fun6', '', 'ArthasPissed6.wav'),
+(312, 6, 'fun7', '', 'ArthasPissed7.wav'),
+
+(313, 2, 'warcry1', '', 'KelThuzadWarcry1.wav'),
+(313, 3, 'what1', '', 'KelThuzadWhat1.wav'),
+(313, 3, 'what2', '', 'KelThuzadWhat2.wav'),
+(313, 3, 'what3', '', 'KelThuzadWhat3.wav'),
+(313, 3, 'what4', '', 'KelThuzadWhat4.wav'),
+(313, 4, 'yes1', '', 'KelThuzadYes1.wav'),
+(313, 4, 'yes2', '', 'KelThuzadYes2.wav'),
+(313, 4, 'yes3', '', 'KelThuzadYes3.wav'),
+(313, 4, 'yes4', '', 'KelThuzadYes4.wav'),
+(313, 5, 'attack1', '', 'KelThuzadYesAttack1.wav'),
+(313, 5, 'attack2', '', 'KelThuzadYesAttack2.wav'),
+(313, 5, 'attack3', '', 'KelThuzadYesAttack3.wav'),
+(313, 6, 'fun1', '', 'KelThuzadPissed1.wav'),
+(313, 6, 'fun2', '', 'KelThuzadPissed2.wav'),
+(313, 6, 'fun3', '', 'KelThuzadPissed3.wav'),
+(313, 6, 'fun4', '', 'KelThuzadPissed4.wav'),
+(313, 6, 'fun5', '', 'KelThuzadPissed5.wav'),
+(313, 7, 'death1', '', 'KelThuzadDeath1.mp3'),
+
+(314, 2, 'warcry1', '', 'TichondriusWarcry1.wav'),
+(314, 3, 'what1', '', 'TichondriusWhat1.wav'),
+(314, 3, 'what2', '', 'TichondriusWhat2.wav'),
+(314, 3, 'what3', '', 'TichondriusWhat3.wav'),
+(314, 3, 'what4', '', 'TichondriusWhat4.wav'),
+(314, 4, 'yes1', '', 'TichondriusYes1.wav'),
+(314, 4, 'yes2', '', 'TichondriusYes2.wav'),
+(314, 4, 'yes3', '', 'TichondriusYes3.wav'),
+(314, 4, 'yes4', '', 'TichondriusYes4.wav'),
+(314, 5, 'attack1', '', 'TichondriusYesAttack1.wav'),
+(314, 5, 'attack2', '', 'TichondriusYesAttack2.wav'),
+(314, 5, 'attack3', '', 'TichondriusYesAttack3.wav'),
+(314, 6, 'fun1', '', 'TichondriusPissed1.wav'),
+(314, 6, 'fun2', '', 'TichondriusPissed2.wav'),
+(314, 6, 'fun3', '', 'TichondriusPissed3.wav'),
+(314, 6, 'fun4', '', 'TichondriusPissed4.wav'),
+(314, 6, 'fun5', '', 'TichondriusPissed5.wav');
+
 -- neutrals
+
+INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
 (407, 3, 'what1', '', 'PitLordWhat1.wav'),
 (407, 3, 'what2', '', 'PitLordWhat2.wav'),

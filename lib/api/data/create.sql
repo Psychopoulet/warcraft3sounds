@@ -293,9 +293,9 @@ CREATE TABLE actions (
   FOREIGN KEY (k_action_type) REFERENCES actions_types (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
-
 -- humans
+
+INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
 (1, 1, 'ready1', 'Ma foi est mon glaive', 'HeroPaladinReady1.wav'),
 (1, 2, 'warcry1', 'Que lightbringer te montre la voie', 'HeroPaladinWarcry1.wav'),
@@ -592,9 +592,11 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (21, 5, 'attack1', 'Bête immonde !', 'CaptainYesAttack1.wav'),
 (21, 6, 'fun1', 'J''aurai dû écouter mon père, et devenir paysan...', 'CaptainPissed1.wav'),
 (21, 6, 'fun2', 'Danger permanent, solde de misère...', 'CaptainPissed2.wav'),
-(21, 6, 'fun3', 'Pose tes galons, qu''on s''explique entre hommes !', 'CaptainPissed3.wav'),
+(21, 6, 'fun3', 'Pose tes galons, qu''on s''explique entre hommes !', 'CaptainPissed3.wav');
 
 -- nightelfs
+
+INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
 (105, 1, 'ready1', 'Je suis prête', 'ArcherReady1.wav'),
 (105, 2, 'warcry1', 'A la lumière de la lune !', 'ArcherWarcry1.wav'),
