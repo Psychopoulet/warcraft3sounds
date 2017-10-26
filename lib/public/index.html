@@ -48,13 +48,27 @@
 
 				<div id="IPS" class="collapse navbar-collapse" data-ng-controller="IPsControllers">
 
-					<div class="navbar-nav">
+					<div class="navbar-nav mr-auto">
 
 						<span class="nav-item nav-link" data-ng-class="{ 'd-none': !ipsLoading }">Loading IPs...</span>
 						<span class="nav-item nav-link" data-ng-class="{ 'd-none': ipsLoading || ips.length }">There is no IP detected</span>
 						<span class="nav-item nav-link" data-ng-class="{ 'd-none': ipsLoading || !ips.length }" data-ng-repeat="ip in ips">{{ip.name}} : {{ip.address}}</span>
 
 					</div>
+
+					<form class="form-inline">
+
+						<div class="input-group  border-light">
+
+							<span class="input-group-addon">
+								<input id="notworded" type="checkbox" data-ng-model="notWorded" />
+							</span>
+
+							<label for="notworded" class="input-group-addon text-light bg-dark border-light">Include "not worded" sounds</label>
+
+						</div>
+
+					</form>
 
 				</div>
 
@@ -103,7 +117,7 @@
 
 									<span class="input-group-btn">
 
-										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !music }" data-ng-disabled="!music" data-ng-click="playMusic();">
+										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !music || !music.url }" data-ng-disabled="!music || !music.url" data-ng-click="play(music.url);">
 											<span class="fa fa-play-circle"></span>
 										</button>
 
@@ -128,7 +142,7 @@
 
 									<span class="input-group-btn">
 
-										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !warning }" data-ng-disabled="!warning" data-ng-click="playWarning();">
+										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !warning || !warning.url }" data-ng-disabled="!warning || !warning.url" data-ng-click="play(warning.url);">
 											<span class="fa fa-play-circle"></span>
 										</button>
 
@@ -170,7 +184,7 @@
 
 									<span class="input-group-btn">
 
-										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !action }" data-ng-disabled="!action" data-ng-click="playAction();">
+										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !action || !action.url }" data-ng-disabled="!action || !action.url" data-ng-click="play(action.url);">
 											<span class="fa fa-play-circle"></span>
 										</button>
 
