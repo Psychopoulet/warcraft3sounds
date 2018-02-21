@@ -3,23 +3,6 @@
 
 INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
-(18, 2, 'warcry1', 'Pour le roi, Terenas', 'UtherWarcry1.wav'),
-(18, 3, 'what1', '', 'UtherWhat1.wav'),
-(18, 3, 'what2', '', 'UtherWhat2.wav'),
-(18, 3, 'what3', '', 'UtherWhat3.wav'),
-(18, 3, 'what4', '', 'UtherWhat4.wav'),
-(18, 4, 'yes1', '', 'UtherYes1.wav'),
-(18, 4, 'yes2', '', 'UtherYes2.wav'),
-(18, 4, 'yes3', '', 'UtherYes3.wav'),
-(18, 4, 'yes4', '', 'UtherYes4.wav'),
-(18, 5, 'attack1', '', 'UtherYesAttack1.wav'),
-(18, 5, 'attack2', '', 'UtherYesAttack2.wav'),
-(18, 5, 'attack3', '', 'UtherYesAttack3.wav'),
-(18, 6, 'fun1', '', 'UtherPissed1.wav'),
-(18, 6, 'fun2', '', 'UtherPissed2.wav'),
-(18, 6, 'fun3', '', 'UtherPissed3.wav'),
-(18, 6, 'fun4', '', 'UtherPissed4.wav'),
-
 (19, 1, 'ready1', '', 'WindSerpentReady1.wav'),
 (19, 2, 'warcry1', '', 'WindSerpentWarcry1.wav'),
 (19, 3, 'what1', '', 'WindSerpentWhat1.wav'),
