@@ -19,6 +19,8 @@
 
 // consts
 
+	const ISTRAVIS = (0, process).env.TRAVIS || false;
+
 	const APP_FILES = [
 		path.join(__dirname, "lib", "*.js"),
 		path.join(__dirname, "lib", "server", "**", "*.js"),
@@ -67,15 +69,7 @@
 
 	});
 
-	gulp.task("coveralls", [ "istanbul" ], () => {
-
-		return gulp.src(path.join(__dirname, "coverage", "lcov.info"))
-			.pipe(plumber())
-			.pipe(coveralls());
-
-	});
-
-	gulp.task("mocha", [ "coveralls" ], () => {
+	gulp.task("mocha", [ "istanbul" ], () => {
 
 		return gulp.src(UNITTESTS_FILES)
 			.pipe(plumber())
@@ -84,6 +78,16 @@
 			.pipe(istanbul.enforceThresholds({ "thresholds": { "global": 75 } }));
 
 	});
+
+	gulp.task("coveralls", [ "mocha" ], () => {
+
+		return gulp.src(path.join(__dirname, "coverage", "lcov.info"))
+			.pipe(plumber())
+			.pipe(coveralls());
+
+	});
+
+	gulp.task("tests", [ ISTRAVIS ? "coveralls" : "mocha" ]);
 
 // watcher
 
