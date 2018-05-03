@@ -1,9 +1,12 @@
 # warcraft3sounds
 A basic API for Warcraft 3 sounds
 
-[![Build Status](https://api.travis-ci.org/Psychopoulet/warcraft3sounds.svg?branch=develop)](https://travis-ci.org/Psychopoulet/warcraft3sounds)
-[![Coverage Status](https://coveralls.io/repos/github/Psychopoulet/warcraft3sounds/badge.svg?branch=develop)](https://coveralls.io/github/Psychopoulet/warcraft3sounds)
-[![Dependency Status](https://img.shields.io/david/Psychopoulet/warcraft3sounds/develop.svg)](https://github.com/Psychopoulet/warcraft3sounds)
+[![Build status](https://api.travis-ci.org/Psychopoulet/warcraft3sounds.svg?branch=master)](https://travis-ci.org/Psychopoulet/warcraft3sounds)
+[![Coverage status](https://coveralls.io/repos/github/Psychopoulet/warcraft3sounds/badge.svg?branch=master)](https://coveralls.io/github/Psychopoulet/warcraft3sounds)
+[![Dependency status](https://david-dm.org/Psychopoulet/warcraft3sounds/status.svg)](https://david-dm.org/Psychopoulet/warcraft3sounds)
+[![Dev dependency status](https://david-dm.org/Psychopoulet/warcraft3sounds/dev-status.svg)](https://david-dm.org/Psychopoulet/warcraft3sounds?type=dev)
+[![Issues](https://img.shields.io/github/issues/Psychopoulet/warcraft3sounds.svg)](https://github.com/Psychopoulet/warcraft3sounds/issues)
+[![Pull requests](https://img.shields.io/github/issues-pr/Psychopoulet/warcraft3sounds.svg)](https://github.com/Psychopoulet/warcraft3sounds/pulls)
 
 ## Download
 
@@ -69,12 +72,12 @@ $ npm start
 
 Check the default basic interface http://localhost:3000
 
-### With specific port
+### With specific port | ssl activated
 
 In the "warcraft3sounds" folder, execute
 
 ```bash
-$ node lib/main.js [port]
+$ node lib/main.js [--port <port>] [--ssl]
 ```
 
-Check the basic interface http://localhost: [port]
+Check the basic interface on http[s]://localhost [:port]
