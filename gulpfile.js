@@ -21,22 +21,11 @@
 
 	const ISTRAVIS = (0, process).env.TRAVIS || false;
 
-	const APP_FILES = [
-		path.join(__dirname, "lib", "*.js"),
-		path.join(__dirname, "lib", "server", "**", "*.js"),
-		path.join(__dirname, "lib", "api", "**", "*.js")
-	];
-
-	const FRONT_FILES = [
-		path.join(__dirname, "lib", "web", "**", "*.js"),
-		"!" + path.join(__dirname, "lib", "web", "**", "*.min.js")
-	];
-
+	const APP_FILES = [ path.join(__dirname, "lib", "**", "*.js") ];
 	const UNITTESTS_FILES = [ path.join(__dirname, "tests", "**", "*.js") ];
 
 	const ALL_FILES = [ path.join(__dirname, "gulpfile.js") ]
 		.concat(APP_FILES)
-		.concat(FRONT_FILES)
 		.concat(UNITTESTS_FILES);
 
 // tasks
@@ -53,41 +42,40 @@
 				},
 				// http://eslint.org/docs/rules/
 				"rules": require(path.join(__dirname, "gulpfile", "eslint", "rules.json"))
-
 			}))
 			.pipe(eslint.format())
 			.pipe(eslint.failAfterError());
 
 	});
 
-	gulp.task("istanbul", [ "eslint" ], () => {
+	gulp.task("istanbul", gulp.series("eslint", () => {
 
-		return gulp.src(APP_FILES.concat([ "!" + path.join(__dirname, "lib", "main.js") ]))
+		return gulp.src(APP_FILES)
 			.pipe(plumber())
 			.pipe(istanbul({ "includeUntested": true }))
 			.pipe(istanbul.hookRequire());
 
-	});
+	}));
 
-	gulp.task("mocha", [ "istanbul" ], () => {
+	gulp.task("mocha", gulp.series("istanbul", () => {
 
 		return gulp.src(UNITTESTS_FILES)
 			.pipe(plumber())
 			.pipe(mocha())
 			.pipe(istanbul.writeReports())
-			.pipe(istanbul.enforceThresholds({ "thresholds": { "global": 75 } }));
+			.pipe(istanbul.enforceThresholds({ "thresholds": { "global": 85 } }));
 
-	});
+	}));
 
-	gulp.task("coveralls", [ "mocha" ], () => {
+	gulp.task("coveralls", gulp.series("mocha", () => {
 
 		return gulp.src(path.join(__dirname, "coverage", "lcov.info"))
 			.pipe(plumber())
 			.pipe(coveralls());
 
-	});
+	}));
 
-	gulp.task("tests", [ ISTRAVIS ? "coveralls" : "mocha" ]);
+	gulp.task("tests", gulp.series(ISTRAVIS ? "coveralls" : "mocha"));
 
 // watcher
 
@@ -95,6 +83,7 @@
 		gulp.watch(ALL_FILES, [ "eslint" ]);
 	});
 
+
 // default
 
-	gulp.task("default", [ "mocha" ]);
+	gulp.task("default", gulp.series("mocha"));

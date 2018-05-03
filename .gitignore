@@ -1,4 +1,7 @@
 coverage/
 node_modules/
 lib/public/sounds/
+lib/server.crt
+lib/server.csr
+lib/server.key
 package-lock.json

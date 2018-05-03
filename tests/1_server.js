@@ -4,9 +4,9 @@
 // deps
 
 	const { join } = require("path");
-	const http = require("http");
-	const fs = require("fs");
-	const assert = require("assert");
+	const { get } = require("http");
+	const { readFile } = require("fs");
+	const { strictEqual } = require("assert");
 
 	const generateServer = require(join(__dirname, "..", "lib", "server", "generateServer.js"));
 	const webRoutes = require(join(__dirname, "..", "lib", "server", "webRoutes.js"));
@@ -70,14 +70,14 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			return new Promise((resolve) => {
 
-				http.get(MAIN_URL, (res) => {
+				get(MAIN_URL, (res) => {
 
-					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
-					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
-					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-					assert.strictEqual(
-						"text/html; charset=utf-8",
+					strictEqual(res.statusCode, 200, "The statusCode is not 200");
+					strictEqual(res.statusMessage, "OK", "The statusMessage is not valid");
+					strictEqual(typeof res.headers, "object", "The headers are not an object");
+					strictEqual(
 						res.headers["content-type"].toLowerCase(),
+						"text/html; charset=utf-8",
 						"The content-type header are not html/utf8"
 					);
 
@@ -89,12 +89,12 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 						rawData += chunk;
 					}).on("end", () => {
 
-						assert.strictEqual("string", typeof rawData, "The returned content is not a text");
+						strictEqual(typeof rawData, "string", "The returned content is not a text");
 
-						fs.readFile(join(__dirname, "..", "lib", "public", "index.html"), "utf8", (err, content) => {
+						readFile(join(__dirname, "..", "lib", "public", "index.html"), "utf8", (err, content) => {
 
-							assert.strictEqual(null, err, "The returned content generate an error");
-							assert.strictEqual(rawData.length, content.length, "The returned content's length is not the same that the file content");
+							strictEqual(err, null, "The returned content generate an error");
+							strictEqual(content.length, rawData.length, "The returned content's length is not the same that the file content");
 
 							resolve();
 
@@ -112,14 +112,14 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			return new Promise((resolve) => {
 
-				http.get(MAIN_URL + "public/app.js", (res) => {
+				get(MAIN_URL + "public/app.js", (res) => {
 
-					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
-					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
-					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-					assert.strictEqual(
-						"application/javascript",
+					strictEqual(res.statusCode, 200, "The statusCode is not 200");
+					strictEqual(res.statusMessage, "OK", "The statusMessage is not valid");
+					strictEqual(typeof res.headers, "object", "The headers are not an object");
+					strictEqual(
 						res.headers["content-type"].toLowerCase(),
+						"application/javascript; charset=utf-8",
 						"The content-type header are not js"
 					);
 
@@ -131,12 +131,12 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 						rawData += chunk;
 					}).on("end", () => {
 
-						assert.strictEqual("string", typeof rawData, "The returned content is not a text");
+						strictEqual(typeof rawData, "string", "The returned content is not a text");
 
-						fs.readFile(join(__dirname, "..", "lib", "public", "app.js"), "utf8", (err, content) => {
+						readFile(join(__dirname, "..", "lib", "public", "app.js"), "utf8", (err, content) => {
 
-							assert.strictEqual(null, err, "The returned content generate an error");
-							assert.strictEqual(rawData.length, content.length, "The returned content's length is not the same that the file content");
+							strictEqual(err, null, "The returned content generate an error");
+							strictEqual(content.length, rawData.length, "The returned content's length is not the same that the file content");
 
 							resolve();
 
@@ -154,14 +154,14 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			return new Promise((resolve) => {
 
-				http.get(MAIN_URL + "public/pictures/warcraft3.png", (res) => {
+				get(MAIN_URL + "public/pictures/warcraft3.png", (res) => {
 
-					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
-					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
-					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-					assert.strictEqual(
-						"image/png",
+					strictEqual(res.statusCode, 200, "The statusCode is not 200");
+					strictEqual(res.statusMessage, "OK", "The statusMessage is not valid");
+					strictEqual(typeof res.headers, "object", "The headers are not an object");
+					strictEqual(
 						res.headers["content-type"].toLowerCase(),
+						"image/png",
 						"The content-type header is not png"
 					);
 
@@ -173,12 +173,12 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 						rawData += chunk;
 					}).on("end", () => {
 
-						assert.strictEqual("string", typeof rawData, "The returned content is not a text");
+						strictEqual(typeof rawData, "string", "The returned content is not a text");
 
-						fs.readFile(join(__dirname, "..", "lib", "public", "pictures", "warcraft3.png"), "utf8", (err, content) => {
+						readFile(join(__dirname, "..", "lib", "public", "pictures", "warcraft3.png"), "utf8", (err, content) => {
 
-							assert.strictEqual(null, err, "The returned content generate an error");
-							assert.strictEqual(rawData.length, content.length, "The returned content's length is not the same that the file content");
+							strictEqual(err, null, "The returned content generate an error");
+							strictEqual(content.length, rawData.length, "The returned content's length is not the same that the file content");
 
 							resolve();
 
@@ -196,14 +196,14 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			return new Promise((resolve) => {
 
-				http.get(MAIN_URL + "public/pictures/warcraft3TFT.png", (res) => {
+				get(MAIN_URL + "public/pictures/warcraft3TFT.png", (res) => {
 
-					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
-					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
-					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-					assert.strictEqual(
-						"image/png",
+					strictEqual(res.statusCode, 200, "The statusCode is not 200");
+					strictEqual(res.statusMessage, "OK", "The statusMessage is not valid");
+					strictEqual(typeof res.headers, "object", "The headers are not an object");
+					strictEqual(
 						res.headers["content-type"].toLowerCase(),
+						"image/png",
 						"The content-type header is not png"
 					);
 
@@ -215,12 +215,12 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 						rawData += chunk;
 					}).on("end", () => {
 
-						assert.strictEqual("string", typeof rawData, "The returned content is not a text");
+						strictEqual(typeof rawData, "string", "The returned content is not a text");
 
-						fs.readFile(join(__dirname, "..", "lib", "public", "pictures", "warcraft3TFT.png"), "utf8", (err, content) => {
+						readFile(join(__dirname, "..", "lib", "public", "pictures", "warcraft3TFT.png"), "utf8", (err, content) => {
 
-							assert.strictEqual(null, err, "The returned content generate an error");
-							assert.strictEqual(rawData.length, content.length, "The returned content's length is not the same that the file content");
+							strictEqual(err, null, "The returned content generate an error");
+							strictEqual(content.length, rawData.length, "The returned content's length is not the same that the file content");
 
 							resolve();
 
@@ -238,14 +238,14 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			return new Promise((resolve) => {
 
-				http.get(MAIN_URL + "public/sounds/test.wav", (res) => {
+				get(MAIN_URL + "public/sounds/test.wav", (res) => {
 
-					assert.strictEqual(404, res.statusCode, "The statusCode is not 404");
-					assert.strictEqual("Not Found", res.statusMessage, "The statusMessage is not valid");
-					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-					assert.strictEqual(
-						"text/html; charset=utf-8",
+					strictEqual(res.statusCode, 404, "The statusCode is not 404");
+					strictEqual(res.statusMessage, "Not Found", "The statusMessage is not valid");
+					strictEqual(typeof res.headers, "object", "The headers are not an object");
+					strictEqual(
 						res.headers["content-type"].toLowerCase(),
+						"text/html; charset=utf-8",
 						"The content-type header is not html"
 					);
 
@@ -263,14 +263,14 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			return new Promise((resolve) => {
 
-				http.get(MAIN_URL + "public/sounds/testsound.wav", (res) => {
+				get(MAIN_URL + "public/sounds/testsound.wav", (res) => {
 
-					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
-					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
-					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-					assert.strictEqual(
-						"audio/wav",
+					strictEqual(res.statusCode, 200, "The statusCode is not 200");
+					strictEqual(res.statusMessage, "OK", "The statusMessage is not valid");
+					strictEqual(typeof res.headers, "object", "The headers are not an object");
+					strictEqual(
 						res.headers["content-type"].toLowerCase(),
+						"audio/wav",
 						"The content-type header is not mpeg"
 					);
 
@@ -288,14 +288,14 @@ describe("server (address 127.0.0.1 on port " + PORT + ")", () => {
 
 			return new Promise((resolve) => {
 
-				http.get(MAIN_URL + "public/sounds/testsound.mp3", (res) => {
+				get(MAIN_URL + "public/sounds/testsound.mp3", (res) => {
 
-					assert.strictEqual(200, res.statusCode, "The statusCode is not 200");
-					assert.strictEqual("OK", res.statusMessage, "The statusMessage is not valid");
-					assert.strictEqual("object", typeof res.headers, "The headers are not an object");
-					assert.strictEqual(
-						"audio/mpeg",
+					strictEqual(res.statusCode, 200, "The statusCode is not 200");
+					strictEqual(res.statusMessage, "OK", "The statusMessage is not valid");
+					strictEqual(typeof res.headers, "object", "The headers are not an object");
+					strictEqual(
 						res.headers["content-type"].toLowerCase(),
+						"audio/mpeg",
 						"The content-type header is not mpeg"
 					);
 
