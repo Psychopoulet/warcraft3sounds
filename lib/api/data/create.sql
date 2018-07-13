@@ -684,3 +684,26 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (106, 6, 'fun6', 'Vous avez reçu... 1... Email.', 'HuntressPissed6.wav'),
 (106, 6, 'fun7', 'Vole, Bubo !', 'HuntressPissed7.wav'),
 (106, 6, 'fun8', 'La voie du click est impénétrable.', 'HuntressPissed8.wav');
+
+-- orcs
+
+INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
+
+(205, 1, 'ready1', 'Prêt à travailler', 'PeonReady1.wav'),
+(205, 2, 'warcry1', 'Pourquoi pas ?', 'PeonWarcry1.wav'),
+(205, 3, 'what1', 'Oui ?', 'PeonWhat1.wav'),
+(205, 3, 'what2', 'Huu ?', 'PeonWhat2.wav'),
+(205, 3, 'what3', 'Quoi ?', 'PeonWhat3.wav'),
+(205, 3, 'what4', 'Que dois-je faire ?', 'PeonWhat4.wav'),
+(205, 4, 'yes1', 'Je peux le faire !', 'PeonYes1.wav'),
+(205, 4, 'yes2', 'Avec plaisir', 'PeonYes2.wav'),
+(205, 4, 'yes3', 'Du travail, encore du travail...', 'PeonYes3.wav'),
+(205, 4, 'yes4', 'Oki doki !', 'PeonYes4.wav'),
+(205, 5, 'attack1', 'Okay !', 'PeonYesAttack1.wav'),
+(205, 5, 'attack2', 'Tuez-les !', 'PeonYesAttack2.wav'),
+(205, 5, 'attack3', 'J''vais essayer', 'PeonYesAttack3.wav'),
+(205, 6, 'fun1', 'Quoiiii ?', 'PeonPissed1.wav'),
+(205, 6, 'fun2', 'Occupé. Oubliez-moi !', 'PeonPissed2.wav'),
+(205, 6, 'fun3', 'Je n''ai pas le temps de jouer !', 'PeonPissed3.wav'),
+(205, 6, 'fun4', 'Je n''suis pas un gentil orc !', 'PeonPissed4.wav'),
+(205, 7, 'death1', 'Mort', 'PeonDeath.wav');
