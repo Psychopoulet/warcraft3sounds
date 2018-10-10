@@ -666,6 +666,24 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
 INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
+(101, 6, 'fun1', 'Je combattrai le feu par le feu.', 'HeroDemonHunterPissed1.wav'),
+(101, 6, 'fun2', 'Est-ce vous le maître des clefs ?', 'HeroDemonHunterPissed2.wav'),
+(101, 6, 'fun3', 'Qu''est-ce qu''on fait ce soir, Zool ?', 'HeroDemonHunterPissed3.wav'),
+(101, 6, 'fun4', 'J''aime ma lame chaude et mes ennemis froids !', 'HeroDemonHunterPissed4.wav'),
+(101, 6, 'fun5', 'T''as pas une tête de porte bonheur...', 'HeroDemonHunterPissed5.wav'),
+(101, 6, 'fun6', 'C''est ton destin !', 'HeroDemonHunterPissed6.wav'),
+(101, 6, 'fun7', 'Je vais te tuer, jusqu''à ce que tu sois mort !', 'HeroDemonHunterPissed7.wav'),
+(101, 7, 'death1', 'Mort', 'HeroDemonHunterDeath1.wav'),
+(101, 7, 'death2', 'Mort transformé', 'DemonHunterDeathAlternate1.wav'),
+
+(102, 6, 'fun1', 'Les réceptions de l''ambassadeur sont toujours un succès.', 'KeeperOfTheGrovePissed1.wav'),
+(102, 6, 'fun2', 'Fais-le, ou ne le fais pas, mais il n''y a pas d''essai.', 'KeeperOfTheGrovePissed2.wav'),
+(102, 6, 'fun3', 'Tu dois désapprendre tout ce que tu as appris.', 'KeeperOfTheGrovePissed3.wav'),
+(102, 6, 'fun4', 'Du pain, du vin, du Warcraft 3.', 'KeeperOfTheGrovePissed4.wav'),
+(102, 6, 'fun5', 'Entrée libre pour les dames !', 'KeeperOfTheGrovePissed5.wav'),
+(102, 6, 'fun6', 'Allô ? Le 22 à Asnières ?', 'KeeperOfTheGrovePissed6.wav'),
+(102, 7, 'death1', 'Mort', 'HeroKeeperOfTheGroveDeath1.wav'),
+
 (103, 6, 'fun1', 'Tu sais bien que nos amis n''aiment pas les friandises.', 'HeroMoonPriestessPissed1.wav'),
 (103, 6, 'fun2', 'Il y en a même qui m''appellent madame le prêtre !', 'HeroMoonPriestessPissed2.wav'),
 (103, 6, 'fun3', 'Il n''y a pas un type de femme, il y a un type d''amour !', 'HeroMoonPriestessPissed3.wav'),
@@ -745,15 +763,43 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (108, 7, 'death-m-1', 'Mort transformé', 'DruidOfTheClawDeathAlternate1.wav'),
 (108, 7, 'death1', 'Mort', 'DruidOfTheClawDeath1.wav'),
 
-(109, 6, 'fun1', 'N’allez pas croire que tout cela se terminera par de folles soirées aux bains douches.', 'DruidOfTheTalonPissed1.wav'),
+(109, 6, 'fun1', 'N''allez pas croire que tout cela se terminera par de folles soirées aux bains douches.', 'DruidOfTheTalonPissed1.wav'),
 (109, 6, 'fun2', 'Si je vous en dis plus, je devrais vous tuer...', 'DruidOfTheTalonPissed2.wav'),
 (109, 6, 'fun3', 'Je suis ton père Luke.', 'DruidOfTheTalonPissed3.wav'),
-(109, 6, 'fun4', 'La plume des corbeaux est plus forte que l’épée.', 'DruidOfTheTalonPissed4.wav'),
+(109, 6, 'fun4', 'La plume des corbeaux est plus forte que l''épée.', 'DruidOfTheTalonPissed4.wav'),
 (109, 6, 'fun5', 'La force a toujours été puissante dans ta famille.', 'DruidOfTheTalonPissed5.wav'),
 (109, 6, 'fun6', 'Vous... exercez une activité... professionnelle ?', 'DruidOfTheTalonPissed6.wav'),
 (109, 6, 'fun7', 'OOOOh ! Une serpillière...', 'DruidOfTheTalonPissed7.wav'),
 (109, 7, 'death1', 'Mort', 'DruidOfTheTalonDeath1.wav'),
-(109, 7, 'death-m-1', 'Mort transformé', 'DruidOfTheTalonDeathAlternate1.wav');
+(109, 7, 'death-m-1', 'Mort transformé', 'DruidOfTheTalonDeathAlternate1.wav'),
+
+(110, 6, 'fun1', 'Allo Houston ? On a un problème...', 'HippogryphWithRiderPissed1.wav'),
+(110, 6, 'fun2', 'C''était pas le jour pour arrêter le café.', 'HippogryphWithRiderPissed2.wav'),
+(110, 6, 'fun3', 'Maiday ! Maiday ! J''ai un cliqueur fou sur le dos !', 'HippogryphWithRiderPissed3.wav'),
+(110, 6, 'fun4', 'Base Alpha, ici Aigle Noir.', 'HippogryphWithRiderPissed4.wav'),
+
+(111, 6, 'fun1', 'Je sens l''approche des ténèbres.', 'FurionPissed1.wav'),
+(111, 6, 'fun2', 'La légion est de retour.', 'FurionPissed2.wav'),
+(111, 6, 'fun3', 'Ce sera difficile, sans l''aide de Cénarius.', 'FurionPissed3.wav'),
+(111, 6, 'fun4', 'Nos péchés reviennent nous hanter.', 'FurionPissed4.wav'),
+(111, 6, 'fun5', 'Kalimdor doit être sauvé, à tout prix.', 'FurionPissed5.wav'),
+
+(112, 6, 'fun1', 'Je suis enfermé dans les ténèbres.', 'IllidanPissed1.wav'),
+(112, 6, 'fun2', 'Mon âme a soif de vengeance.', 'IllidanPissed2.wav'),
+(112, 6, 'fun3', 'Je suis resté seul pendant cent siècles...', 'IllidanPissed3.wav'),
+(112, 6, 'fun4', 'Mon frère paiera cher sa trahison.', 'IllidanPissed4.wav'),
+(112, 6, 'fun5', 'Nul ne connaît ma vraie puissance...', 'IllidanPissed5.wav'),
+
+(113, 6, 'fun1', 'Que puis-je pour vous ?', 'ShandrisPissed1.wav'),
+(113, 6, 'fun2', 'Arrêtez de me chatouiller !', 'ShandrisPissed2.wav'),
+(113, 6, 'fun3', 'Une chance que mon carquois soit inépuisable.', 'ShandrisPissed3.wav'),
+(113, 6, 'fun4', 'Je vais vous transformer en pelote d''épingle.', 'ShandrisPissed4.wav'),
+
+(115, 6, 'fun1', 'Nous attendons, et nous voyons.', 'TyrandePissed1.wav'),
+(115, 6, 'fun2', 'Pendant que les druides se reposent dans leur tanière.', 'TyrandePissed2.wav'),
+(115, 6, 'fun3', 'Qu''Elune me donne force et vaillance.', 'TyrandePissed3.wav'),
+(115, 6, 'fun4', 'Alu, Serador, Mali.', 'TyrandePissed4.wav'),
+(115, 6, 'fun5', 'Mon coeur sommeille dans le rêve d''émeraude.', 'TyrandePissed5.wav');
 
 -- orcs
 
