@@ -849,13 +849,13 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
 (207, 6, 'fun1', 'Quoi vous vouloir ?', 'HeadHunterPissed1.wav'),
 (207, 6, 'fun2', 'Tout de suite arrêter, sinon...', 'HeadHunterPissed2.wav'),
-(207, 6, 'fun3', 'Je prie Grom, mais je ne le fais pas trop souvent: il n''écoute rien !', 'HeadHunterPissed3.wav'),
+(207, 6, 'fun3', 'Je prie Grom, mais je ne le fais pas trop souvent : il n''écoute rien !', 'HeadHunterPissed3.wav'),
 (207, 6, 'fun4', 'Troll, Trollesse : mode d''emploi', 'HeadHunterPissed4.wav'),
 (207, 6, 'fun5', 'Tu as tué mon père, tu as tué ma mère, tu as tué mon peuple et tu as volé l''épée de mon père !', 'HeadHunterPissed5.wav'),
 (207, 7, 'death1', 'Mort', 'HeadHunterDeath.wav'),
 
 (208, 6, 'fun1', 'C''est vraiment trop injuste.', 'WolfriderPissed1.wav'),
-(208, 6, 'fun2', 'Attention: loup méchant !', 'WolfriderPissed2.wav'),
+(208, 6, 'fun2', 'Attention : loup méchant !', 'WolfriderPissed2.wav'),
 (208, 6, 'fun3', 'Tire la bobinette, et la chevillette cherra.', 'WolfriderPissed3.wav'),
 (208, 6, 'fun4', 'Ce soir, je sens que je vais conclure...', 'WolfriderPissed4.wav'),
 (208, 7, 'death1', 'Mort', 'RaiderDeath.wav'),
@@ -874,7 +874,7 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (210, 6, 'fun3', 'Trop typé ! Trop lourd !', 'TaurenPissed3.wav'),
 (210, 6, 'fun4', 'Mais où est le vase du seigneur Markham ?', 'TaurenPissed4.wav'),
 (210, 6, 'fun5', 'Hmmm ! Il sentait bon le sable chaud...', 'TaurenPissed5.wav'),
-(210, 6, 'fun6', 'Son cou portait: pas vu pas pris, sur son coeur on lisait: personne, sur son bras droit un mot: résonne.', 'TaurenPissed6.wav'),
+(210, 6, 'fun6', 'Son cou portait : pas vu pas pris, sur son coeur on lisait : personne, sur son bras droit un mot : résonne.', 'TaurenPissed6.wav'),
 (210, 6, 'fun7', 'Il y avait du soleil sur son front qui mettait dans ses cheveux blonds de la lumière.', 'TaurenPissed7.wav'),
 (210, 7, 'death1', 'Mort', 'TaurenDeath1.wav'),
 
@@ -882,7 +882,7 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (211, 6, 'fun2', 'Non. Tu es tombé dedans quand tu étais petit.', 'ShamanPissed2.wav'),
 (211, 6, 'fun3', 'Le ciel va vous tomber sur la tête.', 'ShamanPissed3.wav'),
 (211, 6, 'fun4', 'Ti bouffe, Ti bouffe pas, Ti crèves quand même.', 'ShamanPissed4.wav'),
-(211, 6, 'fun5', 'Ce n''est pas le moment de jouer: il y a la guerre.', 'ShamanPissed5.wav'),
+(211, 6, 'fun5', 'Ce n''est pas le moment de jouer : il y a la guerre.', 'ShamanPissed5.wav'),
 (211, 6, 'fun6', 'C''est... électrisant.', 'ShamanPissed6.wav'),
 (211, 6, 'fun7', 'Toute la pluie tombe sur toi. Hin hin hin hin hin.', 'ShamanPissed7.wav'),
 (211, 7, 'death1', 'Mort', 'ShamanDeath.wav'),
@@ -913,3 +913,41 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
 (217, 6, 'fun1', 'Je n''ai pas d''ennemis... en vie.', 'WarlordPissed1.wav'),
 (217, 6, 'fun2', 'Vous ne voulez pas que je vous ajoute à ma liste d''ennemis ?', 'WarlordPissed2.wav');
+
+-- undeads
+
+INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
+
+(305, 5, 'attack1', 'La mort, pour tous...', 'AcolyteYesAttack1.wav'),
+(305, 5, 'attack2', 'Par le trépas !', 'AcolyteYesAttack2.wav'),
+(305, 5, 'attack3', 'Pour la mort !', 'AcolyteYesAttack3.wav'),
+(305, 6, 'fun1', '30 millions de morts.', 'AcolytePissed1.wav'),
+(305, 6, 'fun2', 'De toute façon, on s''en fout : dans 100 ans on sera tous morts.', 'AcolytePissed2.wav'),
+(305, 6, 'fun3', 'Si vous n''avez pas peur, vous êtes déjà mort...', 'AcolytePissed3.wav'),
+(305, 6, 'fun4', 'La mort au trousse.', 'AcolytePissed4.wav'),
+(305, 6, 'fun5', 'Ma vie pour Aiur. Euuuh... Pour Nerzhul.', 'AcolytePissed5.wav'),
+(305, 6, 'fun6', 'Plutôt mourir que d''entendre ça...', 'AcolytePissed6.wav'),
+(305, 6, 'fun7', 'Au royaume des morts les acolyte sont rois.', 'AcolytePissed7.wav'),
+(305, 6, 'fun8', 'Vivre, et laisser mourir.', 'AcolytePissed8.wav'),
+(305, 7, 'death1', 'Mort', 'AcolyteDeath1.wav'),
+
+(306, 6, 'fun1', 'Mort je suis, mort je resterai.', 'GhoulPissed1.wav'),
+(306, 6, 'fun2', 'Je ne sens rien...', 'GhoulPissed2.wav'),
+(306, 6, 'fun3', 'J''ai faim...', 'GhoulPissed3.wav'),
+(306, 6, 'fun4', 'Un petit cerveau ?', 'GhoulPissed4.wav'),
+(306, 7, 'death1', 'Mort', 'GhoulDeath.wav'),
+
+(307, 6, 'fun1', 'On se fait une toile ?', 'CryptFiendPissed1.wav'),
+(307, 6, 'fun2', 'Pourquoi est-il aussi méchant ?', 'CryptFiendPissed2.wav'),
+(307, 6, 'fun3', 'Si vous continuez, vous allez vous prendre dans ma toile...', 'CryptFiendPissed3.wav'),
+(307, 6, 'fun4', 'Ce soir au menu : cliqueur sauce au poivre.', 'CryptFiendPissed4.wav'),
+(307, 6, 'fun5', 'Un inconnu vous offre des mouches.', 'CryptFiendPissed5.wav'),
+(307, 6, 'fun6', 'Je suis issu d''une expérience du professeur Brendel.', 'CryptFiendPissed6.wav'),
+(307, 6, 'fun7', 'Prends garde, car l''araignée est là !', 'CryptFiendPissed7.wav'),
+
+(309, 6, 'fun1', 'Bonjour chez vous !', 'NecromancerPissed1.wav'),
+(309, 6, 'fun2', 'Je ne suis pas un numéro ! Je suis un nécro libre !', 'NecromancerPissed2.wav'),
+(309, 6, 'fun3', 'Je vois des morts-vivants.', 'NecromancerPissed3.wav'),
+(309, 6, 'fun4', 'Qui est le numéro 1 ?', 'NecromancerPissed4.wav'),
+(309, 6, 'fun5', 'Y''a-t-il une vie, après la mort ?', 'NecromancerPissed5.wav'),
+(309, 7, 'death1', 'Mort', 'NecromancerDeath.wav');
