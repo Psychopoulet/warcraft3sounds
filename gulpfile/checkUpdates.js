@@ -6,6 +6,7 @@
 
 	const { get } = require("https");
 
+	require("colors");
 	const formateTime = require(require("path").join(__dirname, "formateTime.js"));
 
 // module
@@ -95,18 +96,26 @@ module.exports = (packageAbsoluteFile) => {
 					// diff
 					}).then((latest) => {
 
-						const latestVersions = latest.split(":");
-						const versions = dependency.version.split(":");
+						const latestVersions = latest.split(".");
+						const versions = dependency.version.split(".");
 
-						if (latestVersions[0] > versions[0] || latestVersions[1] > versions[1]) {
+						if (latestVersions[0] > versions[0]) {
 
 							(0, console).log(formateTime(),
-								"/!\\", "/!\\", dependency.name, "=>",
+								"/!\\".red, dependency.name, "=>",
 								dependency.version + " < " + latest
 							);
 
 						}
-						else if (latestVersions[2] > versions[2]) {
+						else if (latestVersions[0] === versions[0] && latestVersions[1] > versions[1]) {
+
+							(0, console).log(formateTime(),
+								"/!\\".yellow, dependency.name, "=>",
+								dependency.version + " < " + latest
+							);
+
+						}
+						else if (latestVersions[0] === versions[0] && latestVersions[1] === versions[1] && latestVersions[2] > versions[2]) {
 
 							(0, console).log(formateTime(),
 								"/!\\", dependency.name, "=>",
