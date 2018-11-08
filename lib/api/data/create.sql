@@ -795,6 +795,12 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (113, 6, 'fun3', 'Une chance que mon carquois soit inépuisable.', 'ShandrisPissed3.wav'),
 (113, 6, 'fun4', 'Je vais vous transformer en pelote d''épingle.', 'ShandrisPissed4.wav'),
 
+(114, 6, 'fun1', 'Je suis à la tête des rangers de cette terre', 'SylvanasPissed1.wav'),
+(114, 6, 'fun2', 'Je peux abattre un oiseau en plein vol, une flêche entre les yeux', 'SylvanasPissed2.wav'),
+(114, 6, 'fun3', 'Personne ne menacera les terres des elfes', 'SylvanasPissed3.wav'),
+(114, 6, 'fun4', 'Vous regretterez d''être entré dans mes forêts', 'SylvanasPissed4.wav'),
+(114, 6, 'fun5', 'Vous allez goûter à la colère des elfes', 'SylvanasPissed5.wav'),
+
 (115, 6, 'fun1', 'Nous attendons, et nous voyons.', 'TyrandePissed1.wav'),
 (115, 6, 'fun2', 'Pendant que les druides se reposent dans leur tanière.', 'TyrandePissed2.wav'),
 (115, 6, 'fun3', 'Qu''Elune me donne force et vaillance.', 'TyrandePissed3.wav'),
@@ -810,6 +816,13 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (201, 6, 'fun3', 'Deux lames, c''est mieux qu''une...', 'HeroBlademasterPissed3.wav'),
 (201, 6, 'fun4', 'La perfection au masculin !', 'HeroBlademasterPissed4.wav'),
 (201, 7, 'death1', 'Mort', 'HeroBladeMasterDeath.wav'),
+
+(202, 6, 'fun1', 'Je vois des morts', 'HeroFarseerPissed1.wav'),
+(202, 6, 'fun2', 'Ils sont morts, mais ils ne le savent pas', 'HeroFarseerPissed2.wav'),
+(202, 6, 'fun3', 'Elle est juste à côté de moi', 'HeroFarseerPissed3.wav'),
+(202, 6, 'fun4', 'Ils sont en colère', 'HeroFarseerPissed4.wav'),
+(202, 6, 'fun5', 'La vérité est ailleurs...', 'HeroFarseerPissed5.wav'),
+(202, 7, 'death1', 'Mort', 'HeroFarseerDeath1.wav'),
 
 (203, 6, 'fun1', 'Faites passer le calumet de la paix.', 'HeroTaurenChieftainPissed1.wav'),
 (203, 6, 'fun2', 'Tenez, c''est une tradition.', 'HeroTaurenChieftainPissed2.wav'),
@@ -917,6 +930,24 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 -- undeads
 
 INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
+
+(301, 6, 'fun1', 'Au pied, Cerbère', 'DeathKnightPissed1.wav'),
+(301, 6, 'fun2', 'C''est moi, le cavalier de l''apocalypse !', 'DeathKnightPissed2.wav'),
+(301, 6, 'fun3', 'L''enfer est pavé de bonnes intentions', 'DeathKnightPissed3.wav'),
+(301, 6, 'fun4', 'Si je dis la vérité, que le paradis s''ouvre sous mes pieds', 'DeathKnightPissed4.wav'),
+(301, 6, 'fun5', 'Une journée en enfer, c''est des vacances pour certains', 'DeathKnightPissed5.wav'),
+(301, 6, 'fun6', 'L''enfer du devoir', 'DeathKnightPissed6.wav'),
+(301, 7, 'death1', 'Mort', 'HeroDeathKnightDeath.wav'),
+
+(302, 6, 'fun1', 'Il sème ses morceaux dans tout Nerzhul', 'HeroLichPissed1.wav'),
+(302, 6, 'fun2', 'Il revient, et il est pas content...', 'HeroLichPissed2.wav'),
+(302, 6, 'fun3', 'Je suis le fantôme du Warcraft passé', 'HeroLichPissed3.wav'),
+(302, 6, 'fun4', 'Cet endroit est maudit', 'HeroLichPissed4.wav'),
+(302, 6, 'fun5', 'Je ne vous tromperais pas sur vos chances de survie, mais vous avez toute ma sympathie', 'HeroLichPissed5.wav'),
+(302, 6, 'fun6', 'C''était pas vraiment une brute, il manquait juste un peu d''amour', 'HeroLichPissed6.wav'),
+(302, 6, 'fun7', 'Il est vraiment à chier, ton déguisement', 'HeroLichPissed7.wav'),
+(302, 6, 'fun8', 'Je suis sûr que tu m''as flashouillé', 'HeroLichPissed8.wav'),
+(302, 7, 'death1', 'Mort', 'HeroLichDeath1.wav'),
 
 (305, 5, 'attack1', 'La mort, pour tous...', 'AcolyteYesAttack1.wav'),
 (305, 5, 'attack2', 'Par le trépas !', 'AcolyteYesAttack2.wav'),
