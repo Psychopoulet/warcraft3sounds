@@ -3,11 +3,13 @@
 
 // deps
 
+	// native
 	const { join } = require("path");
 	const { get } = require("http");
 	const { readFile } = require("fs");
 	const { strictEqual } = require("assert");
 
+	// internals
 	const generateServer = require(join(__dirname, "..", "lib", "server", "generateServer.js"));
 	const webRoutes = require(join(__dirname, "..", "lib", "server", "webRoutes.js"));
 	const soundsRoutes = require(join(__dirname, "..", "lib", "server", "soundsRoutes.js"));
