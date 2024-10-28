@@ -1,16 +1,19 @@
-
-"use strict";
-
 // deps
 
-	const { join } = require("path");
-	const { readFile } = require("fs");
+	// natives
+	import { join } from "node:path";
+	import { readFile } from "node:fs";
 
-	const sqlite3 = require("sqlite3").verbose();
+	// externals
+	import { verbose } from "sqlite3";
+
+// consts
+
+	const sqlite3 = verbose();
 
 // module
 
-module.exports = class WarcraftSoundsModel {
+export default class WarcraftSoundsModel {
 
 	constructor () {
 		this.db = new sqlite3.Database(":memory:");
@@ -319,4 +322,4 @@ module.exports = class WarcraftSoundsModel {
 
 	}
 
-};
+}

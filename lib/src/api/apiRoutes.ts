@@ -16,7 +16,7 @@
 
 // module
 
-module.exports = (app) => {
+export default function apiRoutes (app) {
 
 	let model = null;
 

@@ -1,10 +1,8 @@
-
-"use strict";
-
 // deps
 
-	const { join, extname } = require("path");
-	const { stat, createReadStream } = require("fs");
+	// natives
+	import { join, extname } from "node:path";
+	import { stat, createReadStream } from "node:fs";
 
 // consts
 
@@ -12,7 +10,7 @@
 
 // module
 
-module.exports = (app) => {
+export default function soundsRoutes (app) {
 
 	return Promise.resolve().then(() => {
 
@@ -51,4 +49,4 @@ module.exports = (app) => {
 
 	});
 
-};
+}

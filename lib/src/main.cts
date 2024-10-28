@@ -1,23 +1,23 @@
-
-"use strict";
-
 // deps
 
-	const { join } = require("path");
+	// natives
+	import { join } from "node:path";
 
-	const generateServer = require(join(__dirname, "server", "generateServer.js"));
-	const webRoutes = require(join(__dirname, "server", "webRoutes.js"));
-	const soundsRoutes = require(join(__dirname, "server", "soundsRoutes.js"));
-	const apiRoutes = require(join(__dirname, "api", "routes.js"));
+	// externals
+	import ConfManager from "node-confmanager";
+	import SimpleSSL from "simplessl";
 
-	const ConfManager = require("node-confmanager");
-	const SimpleSSL = require("simplessl");
+	// locals
+	import generateServer from "./server/generateServer";
+	import webRoutes from "./server/webRoutes";
+	import soundsRoutes from "./server/soundsRoutes";
+	import apiRoutes from "./api/apiRoutes";
 
 // module
 
 	Promise.resolve().then(() => {
 
-		const conf = new ConfManager();
+		const conf: ConfManager = new ConfManager("");
 
 		// generate web server
 		Promise.resolve().then(() => {
@@ -30,12 +30,12 @@
 				conf.set("port", conf.has("port") ? conf.get("port") : 3000);
 				conf.set("ssl", conf.has("ssl") ? conf.get("ssl") : false);
 
-				return generateServer(conf);
+				return generateServer();
 
 			}).then((APP) => {
 				return Promise.resolve(APP);
 			}).catch((err) => {
-				(0, console).error("Impossible to generate server", err);
+				console.error("Impossible to generate server", err);
 			});
 
 		// add web routes
@@ -44,7 +44,7 @@
 			return webRoutes(APP).then(() => {
 				return Promise.resolve(APP);
 			}).catch((err) => {
-				(0, console).error("Impossible to initiate web routes", err);
+				console.error("Impossible to initiate web routes", err);
 			});
 
 		// add API routes
@@ -53,7 +53,7 @@
 			return apiRoutes(APP).then(() => {
 				return Promise.resolve(APP);
 			}).catch((err) => {
-				(0, console).error("Impossible to initiate API routes", err);
+				console.error("Impossible to initiate API routes", err);
 			});
 
 		// add sounds routes
@@ -62,7 +62,7 @@
 			return soundsRoutes(APP).then(() => {
 				return Promise.resolve(APP);
 			}).catch((err) => {
-				(0, console).error("Impossible to initiate sounds routes", err);
+				console.error("Impossible to initiate sounds routes", err);
 			});
 
 		// catch error
@@ -70,7 +70,7 @@
 
 			APP.use((err, req, res, next) => {
 
-				(0, console).log(err);
+				console.log(err);
 
 				return res.headersSent ?
 					next(err) :
@@ -114,11 +114,11 @@
 		}).then((server) => {
 
 			server.listen(conf.get("port"), () => {
-				(0, console).info("started" + (conf.get("ssl") ? " with SSL" : "") + " on port " + conf.get("port"));
+				console.info("started" + (conf.get("ssl") ? " with SSL" : "") + " on port " + conf.get("port"));
 			});
 
 		}).catch((err) => {
-			(0, console).error("Impossible to initiate the configuration", err);
+			console.error("Impossible to initiate the configuration", err);
 		});
 
 	});

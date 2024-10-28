@@ -1,13 +1,11 @@
-
-"use strict";
-
 // deps
 
-	const { join } = require("path");
+	// natives
+	import { join } from "node:path";
 
 // module
 
-module.exports = (app) => {
+export default function webRoutes (app) {
 
 	return Promise.resolve().then(() => {
 
@@ -33,4 +31,4 @@ module.exports = (app) => {
 
 	});
 
-};
+}
