@@ -2,10 +2,40 @@
 
 	// natives
 	import { join } from "node:path";
-	import { readFile } from "node:fs";
+	import { readFile } from "node:fs/promises";
 
 	// externals
 	import { verbose } from "sqlite3";
+
+// types & interfaces
+
+	// externals
+	import type { Database } from "sqlite3";
+
+	// locals
+
+	interface iBasicData {
+		"code": string;
+		"name": string;
+	};
+
+	interface iBasicFileData extends iBasicData {
+		"file": string;
+	};
+
+	interface iActionData extends iBasicFileData {
+		"type": iBasicData;
+	};
+
+	interface iRace extends iBasicData {
+		"characters": iBasicData[];
+		"musics": iBasicFileData[];
+		"warnings": iBasicFileData[];
+	};
+
+	interface iCharacter extends iBasicData {
+		"actions": iActionData[];
+	};
 
 // consts
 
@@ -15,51 +45,56 @@
 
 export default class WarcraftSoundsModel {
 
-	constructor () {
-		this.db = new sqlite3.Database(":memory:");
+	// attributes
+
+		// private
+
+		private _db: Database;
+
+	// constructor
+
+	public constructor () {
+
+		this._db = new sqlite3.Database(":memory:");
+
 	}
 
-	init () {
+	// methods
+
+	public init (): Promise<void> {
 
 		// open db
-		return new Promise((resolve) => {
-			this.db.serialize(resolve);
+		return new Promise((resolve: (value?: unknown) => void): void => {
+
+			this._db.serialize(resolve);
 
 		// read file
-		}).then(() => {
+		}).then((): Promise<string[]> => {
 
-			return new Promise((resolve, reject) => {
+			return readFile(join(__dirname, "data", "create.sql"), "utf-8").then((content: string): Promise<string> => {
 
-				readFile(join(__dirname, "data", "create.sql"), "utf8", (err, content) => {
-					return err ? reject(err) : resolve(content);
-				});
+				return readFile(join(__dirname, "data", "toword.sql"), "utf-8").then((contenttoWord: string): string => {
 
-			}).then((content) => {
-
-				return new Promise((resolve, reject) => {
-
-					readFile(join(__dirname, "data", "toword.sql"), "utf8", (err, contenttoWord) => {
-						return err ? reject(err) : resolve(content + contenttoWord);
-					});
+					return content + contenttoWord;
 
 				});
 
-			}).then((content) => {
+			}).then((content: string): Promise<string[]> => {
 
-				return new Promise((resolve) => {
+				return new Promise((resolve: (value: string[]) => void): void => {
 
-					process.nextTick(() => {
+					process.nextTick((): void => {
 
-						const result = [];
+						const result: string[] = [];
 
-							content.split(";").forEach((request) => {
+							content.split(";").forEach((request: string): void => {
 
-								const data = request
+								const data: string = request
 											.trim()
 											.replace(/(?:\\[rn]|[\r\n]+)+/g, "\n")
 											.replace(/\t/g, "")
 											.split("\n")
-											.filter((line) => {
+											.filter((line: string): boolean => {
 												return "" !== line.trim() && "--" !== line.substring(0, 2);
 											})
 											.join(" ")
@@ -80,39 +115,45 @@ export default class WarcraftSoundsModel {
 			});
 
 		// execute requests
-		}).then((queries) => {
+		}).then((queries: string[]): Promise<void> => {
 
-			/**
-			* Execute queries one after one
-			* @param {database} db : Database used
-			* @param {number} i : Query iteraction
-			* @returns {Promise} A Promise instance
-			*/
-			function execQuery (db, i) {
+			const _execQuery = (i: number) => {
 
-				return i < queries.length ? new Promise((resolve, reject) => {
+				return i < queries.length ? new Promise((resolve: (value?: unknown) => void, reject: (err: Error) => void): void => {
 
-					db.run(queries[i], (err) => {
+					this._db.run(queries[i], (err: Error): void => {
 						return err ? reject(err) : resolve();
 					});
 
-				}).then(() => {
-					return execQuery(db, i + 1);
+				}).then((): Promise<void> => {
+					return _execQuery(i + 1);
 				}) : Promise.resolve();
 
 			}
 
-			return execQuery(this.db, 0);
+			return _execQuery(0);
 
 		});
 
 	}
 
-	getRaces () {
+	public release (): Promise<void> {
 
-		return new Promise((resolve, reject) => {
+		return new Promise((resolve: () => void, reject: (err: Error) => void): void => {
 
-			this.db.all("SELECT code, name FROM races ORDER BY name;", (err, data) => {
+			this._db.close((err: Error | null): void => {
+				return err ? reject(err) : resolve();
+			});
+
+		});
+
+	}
+
+	public getRaces (): Promise<iBasicData[]> {
+
+		return new Promise((resolve: (data: iBasicData[]) => void, reject: (err: Error) => void): void => {
+
+			this._db.all("SELECT code, name FROM races ORDER BY name;", (err: Error | null, data: iBasicData[]): void => {
 				return err ? reject(err) : resolve(data);
 			});
 
@@ -120,11 +161,25 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	getRace (code) {
+	public getRace (code: string): Promise<iRace | null> {
 
-		return new Promise((resolve, reject) => {
+		interface iSQLRequestResult {
+			"race_id": string;
+			"race_code": string;
+			"race_name": string;
+			"character_code": string;
+			"character_name": string;
+			"music_code": string;
+			"music_name": string;
+			"music_file": string;
+			"warning_code": string;
+			"warning_name": string;
+			"warning_file": string;
+		}
 
-			this.db.all(
+		return new Promise((resolve: (data: iSQLRequestResult[]) => void, reject: (err: Error) => void) => {
+
+			this._db.all(
 				" SELECT" +
 					" races.id AS race_id, races.code AS race_code, races.name AS race_name," +
 					" characters.code AS character_code, characters.name AS character_name," +
@@ -136,38 +191,31 @@ export default class WarcraftSoundsModel {
 					" LEFT JOIN warnings ON warnings.k_race = races.id" +
 				" WHERE races.code = ?" +
 				" ORDER BY races.name, characters.name, musics.name, warnings.name;"
-			, [ code ], (err, data) => {
+			, [ code ], (err: Error | null, data: iSQLRequestResult[]): void => {
 				return err ? reject(err) : resolve(data);
 			});
 
-		}).then((raceData) => {
+		}).then((racesData: iSQLRequestResult[]): Promise<iRace | null> => {
 
-			return !raceData || !raceData.length ? Promise.resolve(null) : new Promise((resolve) => {
+			return !racesData || !racesData.length ? Promise.resolve(null) : new Promise((resolve: (data: iRace) => void): void => {
 
-				process.nextTick(() => {
+				process.nextTick((): void => {
 
-					const result = {
-						"code": raceData[0].race_code,
-						"name": raceData[0].race_name,
+					const result: iRace = {
+						"code": racesData[0].race_code,
+						"name": racesData[0].race_name,
 						"characters": [],
 						"musics": [],
 						"warnings": []
 					};
 
-					raceData.forEach((data) => {
+					racesData.forEach((data: iSQLRequestResult): void => {
 
 						if (data.character_code) {
 
-							let characterFound = false;
-							for (let i = 0; i < result.characters.length; ++i) {
-
-								if (result.characters[i].code === data.character_code) {
-									characterFound = true; break;
-								}
-
-							}
-
-							if (!characterFound) {
+							if (-1 === result.characters.findIndex((character: iBasicData): boolean => {
+								return character.code === data.character_code;
+							})) {
 
 								result.characters.push({
 									"code": data.character_code,
@@ -180,16 +228,9 @@ export default class WarcraftSoundsModel {
 
 						if (data.music_code) {
 
-							let musicFound = false;
-							for (let i = 0; i < result.musics.length; ++i) {
-
-								if (result.musics[i].code === data.music_code) {
-									musicFound = true; break;
-								}
-
-							}
-
-							if (!musicFound) {
+							if (-1 === result.musics.findIndex((music: iBasicData): boolean => {
+								return music.code === data.music_code;
+							})) {
 
 								result.musics.push({
 									"code": data.music_code,
@@ -203,16 +244,9 @@ export default class WarcraftSoundsModel {
 
 						if (data.warning_code) {
 
-							let warningFound = false;
-							for (let i = 0; i < result.warnings.length; ++i) {
-
-								if (result.warnings[i].code === data.warning_code) {
-									warningFound = true; break;
-								}
-
-							}
-
-							if (!warningFound) {
+							if (-1 === result.warnings.findIndex((warning: iBasicData): boolean => {
+								return warning.code === data.warning_code;
+							})) {
 
 								result.warnings.push({
 									"code": data.warning_code,
@@ -226,7 +260,7 @@ export default class WarcraftSoundsModel {
 
 					});
 
-					resolve(result);
+					return resolve(result);
 
 				});
 
@@ -236,11 +270,17 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	getCharacter (codeRace, code, notWorded = false) {
+	public getCharacter (codeRace: string, code: string, notWorded: boolean = false): Promise<iCharacter | null> {
 
-		return new Promise((resolve, reject) => {
+		interface iSQLRequestResult {
+			"id": string;
+			"code": string;
+			"name": string;
+		}
 
-			this.db.get(
+		return new Promise((resolve: (data: iSQLRequestResult) => void, reject: (err: Error) => void) => {
+
+			this._db.get(
 				" SELECT characters.id, characters.code, characters.name" +
 				" FROM characters" +
 					" INNER JOIN races ON races.id = characters.k_race" +
@@ -248,41 +288,49 @@ export default class WarcraftSoundsModel {
 					" races.code = ?" +
 					" AND characters.code = ?" +
 				" ORDER BY characters.name;"
-			, [ codeRace, code ], (err, data) => {
+			, [ codeRace, code ], (err: Error | null, data: iSQLRequestResult): void => {
 				return err ? reject(err) : resolve(data);
 			});
 
-		}).then((characterData) => {
+		}).then((characterData: iSQLRequestResult): Promise<iCharacter | null> => {
 
-			return !characterData ? Promise.resolve(null) : Promise.resolve().then(() => {
+			return !characterData ? Promise.resolve(null) : Promise.resolve().then((): Promise<iCharacter | null> => {
 
-				return new Promise((resolve, reject) => {
+				interface iSQLActionRequestResult {
+					"code": string;
+					"name": string;
+					"file": string;
+					"type_code": string;
+					"type_name": string;
+				}
 
-					this.db.all(
+				return new Promise((resolve: (data: iSQLActionRequestResult[]) => void, reject: (err: Error) => void): void => {
+
+					this._db.all(
 						" SELECT " +
-							" actions.code, actions.name, actions.file, actions.file," +
+							" actions.code, actions.name, actions.file," +
 							" actions_types.code AS type_code, actions_types.name AS type_name" +
 						" FROM actions INNER JOIN actions_types ON actions_types.id = actions.k_action_type" +
 						" WHERE actions.k_character = ?" +
 							(notWorded ? "" : " AND \"\" != actions.name") +
 						";"
-					, [ characterData.id ], (err, data) => {
+					, [ characterData.id ], (err: Error | null, data: iSQLActionRequestResult[]): void => {
 						return err ? reject(err) : resolve(data);
 					});
 
-				}).then((data) => {
+				}).then((data: iSQLActionRequestResult[]): Promise<iCharacter | null> => {
 
-					return new Promise((resolve) => {
+					return new Promise((resolve: (data: iCharacter) => void): void => {
 
-						process.nextTick(() => {
+						process.nextTick((): void => {
 
-							const result = {
+							const result: iCharacter = {
 								"code": characterData.code,
 								"name": characterData.name,
 								"actions": []
 							};
 
-								data.forEach((action) => {
+								data.forEach((action: iSQLActionRequestResult): void => {
 
 									result.actions.push({
 										"code": action.code,
@@ -304,18 +352,6 @@ export default class WarcraftSoundsModel {
 
 				});
 
-			});
-
-		});
-
-	}
-
-	release () {
-
-		return new Promise((resolve, reject) => {
-
-			this.db.close((err) => {
-				return err ? reject(err) : resolve();
 			});
 
 		});

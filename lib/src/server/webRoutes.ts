@@ -3,32 +3,29 @@
 	// natives
 	import { join } from "node:path";
 
+// types & interfaces
+
+	// externals
+	import type { Express, Request, Response } from "express";
+
 // module
 
-export default function webRoutes (app) {
+export default function webRoutes (app: Express): void {
 
-	return Promise.resolve().then(() => {
+	// main page
 
-		// main page
+	app.get("/", (req: Request, res: Response): void => {
+		return res.sendFile(join(__dirname, "..", "public", "index.html"));
+	}).get("/public/app.js", (req: Request, res: Response): void  => {
+		return res.sendFile(join(__dirname, "..", "public", "app.js"));
+	})
 
-		app.get("/", (req, res) => {
-			res.sendFile(join(__dirname, "..", "public", "index.html"));
-		})
-		.get("/public/app.js", (req, res) => {
-			res.sendFile(join(__dirname, "..", "public", "app.js"));
-		})
+	// pictures
 
-		// pictures
-
-		.get("/public/pictures/warcraft3.png", (req, res) => {
-			res.sendFile(join(__dirname, "..", "public", "pictures", "warcraft3.png"));
-		})
-		.get("/public/pictures/warcraft3TFT.png", (req, res) => {
-			res.sendFile(join(__dirname, "..", "public", "pictures", "warcraft3TFT.png"));
-		});
-
-		return Promise.resolve();
-
+	.get("/public/pictures/warcraft3.png", (req: Request, res: Response): void  => {
+		return res.sendFile(join(__dirname, "..", "public", "pictures", "warcraft3.png"));
+	}).get("/public/pictures/warcraft3TFT.png", (req: Request, res: Response): void  => {
+		return res.sendFile(join(__dirname, "..", "public", "pictures", "warcraft3TFT.png"));
 	});
 
 }

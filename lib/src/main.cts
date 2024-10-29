@@ -2,6 +2,8 @@
 
 	// natives
 	import { join } from "node:path";
+	import { createServer as createSecureServer } from "node:https";
+	import { createServer as createServer } from "node:http";
 
 	// externals
 	import ConfManager from "node-confmanager";
@@ -13,112 +15,109 @@
 	import soundsRoutes from "./server/soundsRoutes";
 	import apiRoutes from "./api/apiRoutes";
 
+// types & interfaces
+
+	// natives
+	import type { Server as SecureServer } from "node:https";
+	import type { Server } from "node:http";
+
+	// externals
+	import type { Express, Request, Response, NextFunction } from "express";
+
+// consts
+
+	const CONF: ConfManager = new ConfManager("");
+
 // module
 
-	Promise.resolve().then(() => {
+	// generate conf
+	Promise.resolve().then((): Promise<void> => {
 
-		const conf: ConfManager = new ConfManager("");
+		CONF.skeleton("port", "integer").document("port", "Port used by the server");
+		CONF.skeleton("ssl", "boolean").document("ssl", "Is SSL activated ?");
 
-		// generate web server
-		Promise.resolve().then(() => {
+		return CONF.load().then((): void => {
 
-			conf.skeleton("port", "integer").document("port", "Port used by the server");
-			conf.skeleton("ssl", "boolean").document("ssl", "Is SSL activated ?");
+			CONF.set("port", CONF.has("port") ? CONF.get("port") : 3000);
+			CONF.set("ssl", CONF.has("ssl") ? CONF.get("ssl") : false);
 
-			return conf.load().then(() => {
+		});
 
-				conf.set("port", conf.has("port") ? conf.get("port") : 3000);
-				conf.set("ssl", conf.has("ssl") ? conf.get("ssl") : false);
+	}).then((): Express => {
 
-				return generateServer();
+		return generateServer();
 
-			}).then((APP) => {
-				return Promise.resolve(APP);
-			}).catch((err) => {
-				console.error("Impossible to generate server", err);
-			});
+	// generate routes
 
-		// add web routes
-		}).then((APP) => {
+	}).then((APP: Express): Promise<Express> => {
 
-			return webRoutes(APP).then(() => {
-				return Promise.resolve(APP);
-			}).catch((err) => {
-				console.error("Impossible to initiate web routes", err);
-			});
+		webRoutes(APP);
+		soundsRoutes(APP);
 
-		// add API routes
-		}).then((APP) => {
+		return apiRoutes(APP).then((): Express => {
+			return APP;
+		});
 
-			return apiRoutes(APP).then(() => {
-				return Promise.resolve(APP);
-			}).catch((err) => {
-				console.error("Impossible to initiate API routes", err);
-			});
+	// generate web server
 
-		// add sounds routes
-		}).then((APP) => {
-
-			return soundsRoutes(APP).then(() => {
-				return Promise.resolve(APP);
-			}).catch((err) => {
-				console.error("Impossible to initiate sounds routes", err);
-			});
+	}).then((APP: Express): Promise<SecureServer | Server> => {
 
 		// catch error
-		}).then((APP) => {
+		APP.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
 
-			APP.use((err, req, res, next) => {
+			console.log(err);
 
-				console.log(err);
+			if (res.headersSent) {
+				return next(err);
+			}
+			else {
+				res.status(500).send("An internal error occured");
+			}
 
-				return res.headersSent ?
-					next(err) :
-					res.status(500).send(
-					"Ouups ! Something broke !"
-				);
-
-			});
-
-			return Promise.resolve(APP);
+		});
 
 		// generate server
-		}).then((APP) => {
 
-			return !conf.get("ssl") ? Promise.resolve().then(() => {
+		if (CONF.get("ssl")) {
 
-				return Promise.resolve(
-					require("http").createServer(APP)
-				);
+			const ssl: SimpleSSL = new SimpleSSL();
 
-			}) : Promise.resolve().then(() => {
+			return ssl.createCertificate(
+				join(__dirname, "server.key"),
+				join(__dirname, "server.csr"),
+				join(__dirname, "server.crt"),
+				"medium"
+			).then((keys): SecureServer => {
 
-				const ssl = new SimpleSSL();
-
-				const serverkey = join(__dirname, "server.key");
-				const servercsr = join(__dirname, "server.csr");
-				const servercrt = join(__dirname, "server.crt");
-
-				return ssl.createCertificate(serverkey, servercsr, servercrt, "medium").then((keys) => {
-
-					return Promise.resolve(require("https").createServer({
-						"key": keys.privateKey,
-						"cert": keys.certificate
-					}, APP));
-
-				});
+				return createSecureServer({
+					"key": keys.privateKey,
+					"cert": keys.certificate
+				}, APP);
 
 			});
 
-		// run server
-		}).then((server) => {
+		}
+		else {
 
-			server.listen(conf.get("port"), () => {
-				console.info("started" + (conf.get("ssl") ? " with SSL" : "") + " on port " + conf.get("port"));
-			});
+			return Promise.resolve(createServer(APP));
 
-		}).catch((err) => {
-			console.error("Impossible to initiate the configuration", err);
+		}
+
+	// run server
+	}).then((server: SecureServer | Server): void => {
+
+		server.listen(CONF.get("port"), (): void => {
+			console.info("started" + (CONF.get("ssl") ? " with SSL" : "") + " on port " + CONF.get("port"));
 		});
+
+	}).catch((err: Error): void => {
+
+		console.error("");
+		console.error("Impossible to initiate the application");
+		console.error(err);
+		console.error("");
+
+		process.exitCode = 1;
+		process.exit(1);
 
 	});

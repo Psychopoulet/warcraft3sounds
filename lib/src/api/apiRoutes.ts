@@ -1,36 +1,32 @@
-
-"use strict";
-
 // deps
 
-	const { networkInterfaces } = require("os");
-	const { join } = require("path");
+	// natives
+	import { join } from "node:path";
+	import { networkInterfaces } from "node:os";
 
-	const Model = require(join(__dirname, "model.js"));
+// types & interfaces
+
+	// externals
+	import type { Express, Request, Response } from "express";
+
+	// locals
+	import Model from "./model";
 
 // consts
 
-	const ROUTE = "/api/";
-	const SOUNDS_ROUTE = "/public/sounds/";
-	const CODE_ERRORS = require(join(__dirname, "..", "server", "returncodes.json"));
+	const ROUTE: string = "/api/";
+	const SOUNDS_ROUTE: string = "/public/sounds/";
+	const CODE_ERRORS: Record<string, number> = require(join(__dirname, "..", "server", "returncodes.json"));
 
 // module
 
-export default function apiRoutes (app) {
+export default function apiRoutes (app: Express): Promise<void> {
 
-	let model = null;
+	const model: Model = new Model();
 
-	// init model
-	return new Promise((resolve) => {
-		model = new Model();
-		resolve();
-	}).then(() => {
-		return model.init();
+	return model.init().then(() => {
 
-	// ips
-	}).then(() => {
-
-		app.get(ROUTE + "ips", (req, res) => {
+		app.get(ROUTE + "ips", (req: Request, res: Response) => {
 
 			const result = [];
 

@@ -6,14 +6,18 @@
 	import helmet from "helmet";
 	import compression from "compression";
 
+// types & interfaces
+
+	// externals
+	import type { Express } from "express";
+
 // module
 
-export default function generateServer () {
+export default function generateServer (): Express {
 
-	return Promise.resolve(express()
+	return express()
 		.use(cors())
 		.use(helmet())
-		.use(compression())
-	);
+		.use(compression());
 
 }
