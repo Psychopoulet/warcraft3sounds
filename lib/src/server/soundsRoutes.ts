@@ -24,7 +24,7 @@ export default function soundsRoutes (app: Express): void {
 
 		const file: string = join(__dirname, "..", "public", "sounds", req.params.sound);
 
-		new Promise((resolve: (boolean) => void): void => {
+		new Promise((resolve: (exists: boolean) => void): void => {
 
 			stat(file, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
 				return resolve(!(err || !stats.isFile()));

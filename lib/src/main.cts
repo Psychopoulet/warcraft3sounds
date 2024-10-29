@@ -26,7 +26,7 @@
 
 // consts
 
-	const CONF: ConfManager = new ConfManager("");
+	const CONF: ConfManager = new ConfManager("test");
 
 // module
 
