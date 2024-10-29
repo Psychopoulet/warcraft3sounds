@@ -4,6 +4,9 @@
 	import { join, extname } from "node:path";
 	import { stat, createReadStream } from "node:fs";
 
+    // locals
+    import errorCodes from "../returncodes";
+
 // types & interfaces
 
 	// natives
@@ -11,10 +14,6 @@
 
 	// externals
 	import type { Express, Request, Response } from "express";
-
-// consts
-
-	const CODE_ERRORS: Record<string, number> = require(join(__dirname, "..", "..", "data", "returncodes.json"));
 
 // module
 
@@ -34,7 +33,7 @@ export default function soundsRoutes (app: Express): void {
 
 			if (exists) {
 
-				res.status(CODE_ERRORS.OK).set({
+				res.status(errorCodes.OK).set({
 					"Content-Type": ".wav" === extname(file) ? "audio/wav" : "audio/mpeg"
 				});
 
@@ -43,7 +42,9 @@ export default function soundsRoutes (app: Express): void {
 			}
 			else {
 
-				res.status(CODE_ERRORS.NOTFOUND).send("Impossible to find \"" + req.params.sound + "\"");
+                console.warn("Cannot find", file);
+
+				res.status(errorCodes.NOTFOUND).send("Impossible to find \"" + req.params.sound + "\"");
 
 			}
 
@@ -51,7 +52,7 @@ export default function soundsRoutes (app: Express): void {
 
 			console.error(err);
 
-			res.status(CODE_ERRORS.INTERNAL).send("An internal error occured");
+			res.status(errorCodes.INTERNAL).send("An internal error occured");
 
 		});
 

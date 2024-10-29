@@ -1,8 +1,11 @@
 // deps
 
 	// natives
-	import { join } from "node:path";
 	import { networkInterfaces } from "node:os";
+
+    // locals
+    import errorCodes from "../returncodes";
+	import Model from "./model";
 
 // types & interfaces
 
@@ -13,18 +16,12 @@
 	import type { Express, Request, Response, NextFunction } from "express";
 
 	// locals
-	import Model from "./model";
+	import type { iBasicDataWithUrl, iCharacter, iRace } from "./model";
 
 	interface iAddress {
 		"address": string;
 		"name": string;
 	}
-
-// consts
-
-	const ROUTE: string = "/api/";
-	const SOUNDS_ROUTE: string = "/public/sounds/";
-	const CODE_ERRORS: Record<string, number> = require(join(__dirname, "..", "..", "data", "returncodes.json"));
 
 // module
 
@@ -34,7 +31,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 	return model.init().then((): void => {
 
-		app.get(ROUTE + "ips", (req: Request, res: Response): void => {
+		app.get("/api/ips", (req: Request, res: Response): void => {
 
 			const result: iAddress[] = [];
 
@@ -61,22 +58,18 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 				});
 
-			res.status(CODE_ERRORS.OK).json(result);
+			res.status(errorCodes.OK).json(result);
 
 		});
 
 	// all races
 	}).then((): void => {
 
-		app.get(ROUTE + "races", (req: Request, res: Response, next: NextFunction): void => {
+		app.get("/api/races", (req: Request, res: Response, next: NextFunction): void => {
 
-			model.getRaces().then((races) => {
+			model.getRaces().then((races: iBasicDataWithUrl[]): void => {
 
-				races.forEach((race, i) => {
-					races[i].url = ROUTE + "races/" + race.code;
-				});
-
-				res.status(CODE_ERRORS.OK).json(races);
+				res.status(errorCodes.OK).json(races);
 
 			}).catch(next);
 
@@ -85,33 +78,21 @@ export default function apiRoutes (app: Express): Promise<void> {
 	// one race
 	}).then((): void => {
 
-		app.get(ROUTE + "races/:race", (req: Request, res: Response, next: NextFunction): void => {
+		app.get("/api/races/:race", (req: Request, res: Response, next: NextFunction): void => {
 
-			model.getRace(req.params.race).then((race) => {
+			model.getRace(req.params.race).then((race: iRace | null): void => {
 
-				if (!race) {
+				if (race) {
 
-					res.status(CODE_ERRORS.NOTFOUND).json({
-						"code": CODE_ERRORS.NOTFOUND,
-						"message": "Impossible to find \"" + req.params.race + "\""
-					});
+					res.status(errorCodes.OK).json(race);
 
 				}
 				else {
 
-					race.characters.forEach((character, i) => {
-						race.characters[i].url = ROUTE + "races/" + race.code + "/characters/" + character.code;
+					res.status(errorCodes.NOTFOUND).json({
+						"code": errorCodes.NOTFOUND,
+						"message": "Impossible to find \"" + req.params.race + "\" race"
 					});
-
-					race.musics.forEach((music, i) => {
-						race.musics[i].url = SOUNDS_ROUTE + music.file;
-					});
-
-					race.warnings.forEach((warning, i) => {
-						race.warnings[i].url = SOUNDS_ROUTE + warning.file;
-					});
-
-					res.status(CODE_ERRORS.OK).json(race);
 
 				}
 
@@ -122,29 +103,25 @@ export default function apiRoutes (app: Express): Promise<void> {
 	// characters
 	}).then((): void => {
 
-		app.get(ROUTE + "races/:race/characters/:character", (req: Request, res: Response, next: NextFunction): void => {
+		app.get("/api/races/:race/characters/:character", (req: Request, res: Response, next: NextFunction): void => {
 
 			model.getCharacter(
 				req.params.race,
 				req.params.character,
 				req.query && "undefined" !== typeof req.query.notworded ? Boolean(req.query.notworded) : false
-			).then((character) => {
+			).then((character: iCharacter | null): void => {
 
-				if (!character) {
+				if (character) {
 
-					res.status(CODE_ERRORS.NOTFOUND).json({
-						"code": CODE_ERRORS.NOTFOUND,
-						"message": "Impossible to find \"" + req.params.character + "\" for race \"" + req.params.race + "\""
-					});
+					res.status(errorCodes.OK).json(character);
 
 				}
 				else {
 
-					character.actions.forEach((action, i) => {
-						character.actions[i].url = SOUNDS_ROUTE + action.file;
+					res.status(errorCodes.NOTFOUND).json({
+						"code": errorCodes.NOTFOUND,
+						"message": "Impossible to find \"" + req.params.character + "\" character for race \"" + req.params.race + "\""
 					});
-
-					res.status(CODE_ERRORS.OK).json(character);
 
 				}
 
@@ -155,7 +132,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 	// test error
 	}).then((): void => {
 
-		app.get(ROUTE + "err", (req: Request, res: Response, next: NextFunction): void => {
+		app.get("/api/err", (req: Request, res: Response, next: NextFunction): void => {
 			next(new Error("This is a test error"));
 		});
 

@@ -19,7 +19,11 @@
 		"name": string;
 	};
 
-	interface iBasicFileData extends iBasicData {
+	export interface iBasicDataWithUrl extends iBasicData {
+        "url": string;
+	};
+
+	interface iBasicFileData extends iBasicDataWithUrl {
 		"file": string;
 	};
 
@@ -27,13 +31,13 @@
 		"type": iBasicData;
 	};
 
-	interface iRace extends iBasicData {
-		"characters": iBasicData[];
+	export interface iRace extends iBasicDataWithUrl {
+		"characters": iBasicDataWithUrl[];
 		"musics": iBasicFileData[];
 		"warnings": iBasicFileData[];
 	};
 
-	interface iCharacter extends iBasicData {
+	export interface iCharacter extends iBasicDataWithUrl {
 		"actions": iActionData[];
 	};
 
@@ -149,12 +153,23 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	public getRaces (): Promise<iBasicData[]> {
+	public getRaces (): Promise<iBasicDataWithUrl[]> {
 
-		return new Promise((resolve: (data: iBasicData[]) => void, reject: (err: Error) => void): void => {
+		return new Promise((resolve: (data: iBasicDataWithUrl[]) => void, reject: (err: Error) => void): void => {
 
-			this._db.all("SELECT code, name FROM races ORDER BY name;", (err: Error | null, data: iBasicData[]): void => {
-				return err ? reject(err) : resolve(data);
+			this._db.all("SELECT code, name FROM races ORDER BY name;", (err: Error | null, data: iBasicDataWithUrl[]): void => {
+
+                return err
+                    ? reject(err)
+                    : resolve(data.map((race) => {
+
+                        return {
+                            ...race,
+                            "url": "/api/races/" + race.code
+                        };
+
+                    }));
+
 			});
 
 		});
@@ -202,8 +217,9 @@ export default class WarcraftSoundsModel {
 				process.nextTick((): void => {
 
 					const result: iRace = {
-						"code": racesData[0].race_code,
+						"code": code,
 						"name": racesData[0].race_name,
+                        "url": "/api/race/" + code,
 						"characters": [],
 						"musics": [],
 						"warnings": []
@@ -213,13 +229,14 @@ export default class WarcraftSoundsModel {
 
 						if (data.character_code) {
 
-							if (-1 === result.characters.findIndex((character: iBasicData): boolean => {
+							if (-1 === result.characters.findIndex((character: iBasicDataWithUrl): boolean => {
 								return character.code === data.character_code;
 							})) {
 
 								result.characters.push({
 									"code": data.character_code,
-									"name": data.character_name
+									"name": data.character_name,
+                                    "url": "/api/races/" + code + "/characters/" + data.character_code
 								});
 
 							}
@@ -234,8 +251,9 @@ export default class WarcraftSoundsModel {
 
 								result.musics.push({
 									"code": data.music_code,
+									"name": data.music_name,
 									"file": data.music_file,
-									"name": data.music_name
+                                    "url": "/public/sounds/" + data.music_file
 								});
 
 							}
@@ -250,8 +268,9 @@ export default class WarcraftSoundsModel {
 
 								result.warnings.push({
 									"code": data.warning_code,
+									"name": data.warning_name,
 									"file": data.warning_file,
-									"name": data.warning_name
+                                    "url": "/public/sounds/" + data.warning_file
 								});
 
 							}
@@ -327,6 +346,7 @@ export default class WarcraftSoundsModel {
 							const result: iCharacter = {
 								"code": characterData.code,
 								"name": characterData.name,
+                                "url": "/api/race/" + codeRace + "/characters/" + code,
 								"actions": []
 							};
 
@@ -336,6 +356,7 @@ export default class WarcraftSoundsModel {
 										"code": action.code,
 										"name": action.name,
 										"file": action.file,
+                                        "url": "/public/sounds/" + action.file,
 										"type": {
 											"code": action.type_code,
 											"name": action.type_name

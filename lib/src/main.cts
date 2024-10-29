@@ -10,6 +10,9 @@
 	import SimpleSSL from "simplessl";
 
 	// locals
+
+    import errorCodes from "./returncodes";
+
 	import generateServer from "./server/generateServer";
 	import webRoutes from "./server/webRoutes";
 	import soundsRoutes from "./server/soundsRoutes";
@@ -27,7 +30,6 @@
 // consts
 
 	const CONF: ConfManager = new ConfManager("test");
-	const CODE_ERRORS: Record<string, number> = require(join(__dirname, "..", "data", "returncodes.json"));
 
 // module
 
@@ -72,7 +74,7 @@
 				return next(err);
 			}
 			else {
-				res.status(CODE_ERRORS.INTERNAL).send("An internal error occured");
+				res.status(errorCodes.INTERNAL).send("An internal error occured");
 			}
 
 		});
