@@ -10,7 +10,7 @@
 	import type { NetworkInterfaceInfo } from "node:os";
 
 	// externals
-	import type { Express, Request, Response } from "express";
+	import type { Express, Request, Response, NextFunction } from "express";
 
 	// locals
 	import Model from "./model";
@@ -66,9 +66,9 @@ export default function apiRoutes (app: Express): Promise<void> {
 		});
 
 	// all races
-	}).then(() => {
+	}).then((): void => {
 
-		app.get(ROUTE + "races", (req, res, next) => {
+		app.get(ROUTE + "races", (req: Request, res: Response, next: NextFunction): void => {
 
 			model.getRaces().then((races) => {
 
@@ -82,12 +82,10 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 		});
 
-		return Promise.resolve();
-
 	// one race
-	}).then(() => {
+	}).then((): void => {
 
-		app.get(ROUTE + "races/:race", (req, res, next) => {
+		app.get(ROUTE + "races/:race", (req: Request, res: Response, next: NextFunction): void => {
 
 			model.getRace(req.params.race).then((race) => {
 
@@ -121,12 +119,10 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 		});
 
-		return Promise.resolve();
-
 	// characters
-	}).then(() => {
+	}).then((): void => {
 
-		app.get(ROUTE + "races/:race/characters/:character", (req, res, next) => {
+		app.get(ROUTE + "races/:race/characters/:character", (req: Request, res: Response, next: NextFunction): void => {
 
 			model.getCharacter(
 				req.params.race,
@@ -156,27 +152,12 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 		});
 
-		return Promise.resolve();
+	// test error
+	}).then((): void => {
 
-	// error
-	}).then(() => {
-
-		app.get(ROUTE + "err", (req, res, next) => {
-
+		app.get(ROUTE + "err", (req: Request, res: Response, next: NextFunction): void => {
 			next(new Error("This is a test error"));
-
-		}).use((err, req, res, next) => {
-
-			(0, console).log(err);
-
-			return res.headersSent ? next(err) : res.status(CODE_ERRORS.INTERNAL).json({
-				"code": CODE_ERRORS.INTERNAL,
-				"message": err.message ? err.message : err
-			});
-
 		});
-
-		return Promise.resolve();
 
 	});
 

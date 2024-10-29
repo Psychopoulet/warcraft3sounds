@@ -27,6 +27,7 @@
 // consts
 
 	const CONF: ConfManager = new ConfManager("test");
+	const CODE_ERRORS: Record<string, number> = require(join(__dirname, "..", "data", "returncodes.json"));
 
 // module
 
@@ -71,7 +72,7 @@
 				return next(err);
 			}
 			else {
-				res.status(500).send("An internal error occured");
+				res.status(CODE_ERRORS.INTERNAL).send("An internal error occured");
 			}
 
 		});
