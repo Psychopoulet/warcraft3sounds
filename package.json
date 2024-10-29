@@ -43,6 +43,8 @@
     "sqlite3": "5.1.7"
   },
   "devDependencies": {
+    "@types/compression": "1.7.5",
+    "@types/cors": "2.8.17",
     "@types/express": "5.0.0",
     "@types/node": "22.7.8",
     "check-version-modules": "2.1.2",
