@@ -5,12 +5,6 @@
 
 	const BASEAPI = "/api/";
 
-// private
-
-	// attributes
-
-		let _sound = null;
-
 // module
 
 angular.module("Warcraft3SoundsApp", []).controller("MainController", [
@@ -75,29 +69,19 @@ angular.module("Warcraft3SoundsApp", []).controller("MainController", [
 
 			$scope.play = (url) => {
 
-				if (_sound) {
+				const sound = jQuery("#audio");
 
-					if (_sound[0]) {
+				if (sound && sound[0]) {
 
-						_sound[0].pause();
-						_sound[0].currentTime = 0;
-						_sound[0].src = "";
+					sound[0].pause();
 
-					}
+					sound[0].currentTime = 0;
+					sound[0].src = url;
+					sound[0].type = "audio/" + (-1 < url.indexOf(".mp3") ? "mp3" : "wav");
 
-					_sound.remove();
-					_sound = null;
+					sound[0].play();
 
 				}
-
-				_sound = jQuery(
-					"<audio>" +
-						"<source src=\"" + url + "\" type=\"audio/" + (-1 < url.indexOf(".mp3") ? "mp3" : "wav") + "\">" +
-						"Your browser does not support the audio element." +
-					"</audio>"
-				);
-
-				_sound[0].play();
 
 			};
 

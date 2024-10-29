@@ -6,7 +6,6 @@
 		<title>Warcraft 3 sounds</title>
 
 		<meta charset="UTF-8" />
-		<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://code.jquery.com 'unsafe-inline' 'unsafe-eval';">
 
 		<!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
 		<link rel="shortcut icon" href="/public/pictures/warcraft3.png" />
@@ -36,6 +35,11 @@
 	<body data-ng-app="Warcraft3SoundsApp">
 
 		<div class="container-fluid" data-ng-controller="MainController">
+
+			<audio id="audio">
+				<source src="#" type="audio" />
+				Your browser does not support the audio element.
+			</audio>
 
 			<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 
