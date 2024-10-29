@@ -1,13 +1,12 @@
 // deps
 
 	// natives
-	import { join } from "node:path";
 	import { createServer as createSecureServer } from "node:https";
 	import { createServer as createServer } from "node:http";
 
 	// externals
 	import ConfManager from "node-confmanager";
-	import SimpleSSL from "simplessl";
+    import { pki } from "node-forge";
 
 	// locals
 
@@ -63,7 +62,7 @@
 
 	// generate web server
 
-	}).then((APP: Express): Promise<SecureServer | Server> => {
+	}).then((APP: Express): SecureServer | Server => {
 
 		// catch error
 		APP.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
@@ -83,26 +82,82 @@
 
 		if (CONF.get("ssl")) {
 
-			const ssl: SimpleSSL = new SimpleSSL();
+			const keys: {
+				"publicKey": pki.PublicKey;
+				"privateKey": pki.PrivateKey;
+			} = pki.rsa.generateKeyPair(4096);
 
-			return ssl.createCertificate(
-				join(__dirname, "server.key"),
-				join(__dirname, "server.csr"),
-				join(__dirname, "server.crt"),
-				"medium"
-			).then((keys): SecureServer => {
+			const cert: pki.Certificate = pki.createCertificate();
 
-				return createSecureServer({
-					"key": keys.privateKey,
-					"cert": keys.certificate
-				}, APP);
+			cert.publicKey = keys.publicKey;
+			cert.serialNumber = "01";
+			cert.validity.notBefore = new Date();
+			cert.validity.notAfter = new Date();
+			cert.validity.notAfter.setFullYear(new Date().getFullYear() + 1); // one year validity
 
-			});
+			const SSL_OPTIONS: Array<{
+				"name": string;
+				"value": string;
+			}> = [
+				{
+					"name": "commonName",
+					"value": "localhost"
+				}, {
+					"name": "organizationName",
+					"value": "warcraft3sounds"
+				}, {
+					"name": "countryName",
+					"value": "FR"
+				}, {
+					"name": "stateOrProvinceName",
+					"value": "France"
+				}, {
+					"name": "localityName",
+					"value": "Paris"
+				}, {
+					"name": "emailAddress",
+					"value": "svida1@free.fr"
+				}
+			];
+
+			console.info("certificate options :", JSON.stringify(SSL_OPTIONS));
+
+			const SSL_EXTENSIONS: Array<Record<string, any>> = [
+				{
+					"name": "subjectAltName",
+					"altNames": [ // types : 2 = dns name, 6 = URI, 7 = IP
+						{
+							"type": 2,
+							"value": "warcraft3sounds"
+						}, {
+							"type": 2,
+							"value": "localhost"
+						}, {
+							"type": 7,
+							"value": "127.0.0.1"
+						}
+					]
+				}
+			];
+
+			cert.setSubject(SSL_OPTIONS);
+			cert.setIssuer(SSL_OPTIONS);
+			cert.setExtensions(SSL_EXTENSIONS);
+
+			cert.sign(keys.privateKey);
+
+			const pemPrivateKey: string = pki.privateKeyToPem(keys.privateKey);
+			const pemCertificate: string = pki.certificateToPem(cert);
+
+			return createSecureServer({
+				"key": pemPrivateKey,
+				"cert": pemCertificate
+			}, APP);
 
 		}
 		else {
 
-			return Promise.resolve(createServer(APP));
+			return createServer(APP);
 
 		}
 
@@ -110,7 +165,7 @@
 	}).then((server: SecureServer | Server): void => {
 
 		server.listen(CONF.get("port"), (): void => {
-			console.info("started" + (CONF.get("ssl") ? " with SSL" : "") + " on port " + CONF.get("port"));
+			console.info("started" + (CONF.get("ssl") ? " with SSL" : ""), "on port " + CONF.get("port"));
 		});
 
 	}).catch((err: Error): void => {
