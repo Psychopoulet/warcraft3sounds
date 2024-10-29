@@ -6,17 +6,25 @@
 
 // types & interfaces
 
+	// natives
+	import type { NetworkInterfaceInfo } from "node:os";
+
 	// externals
 	import type { Express, Request, Response } from "express";
 
 	// locals
 	import Model from "./model";
 
+	interface iAddress {
+		"address": string;
+		"name": string;
+	}
+
 // consts
 
 	const ROUTE: string = "/api/";
 	const SOUNDS_ROUTE: string = "/public/sounds/";
-	const CODE_ERRORS: Record<string, number> = require(join(__dirname, "..", "server", "returncodes.json"));
+	const CODE_ERRORS: Record<string, number> = require(join(__dirname, "..", "..", "data", "returncodes.json"));
 
 // module
 
@@ -24,19 +32,19 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 	const model: Model = new Model();
 
-	return model.init().then(() => {
+	return model.init().then((): void => {
 
-		app.get(ROUTE + "ips", (req: Request, res: Response) => {
+		app.get(ROUTE + "ips", (req: Request, res: Response): void => {
 
-			const result = [];
+			const result: iAddress[] = [];
 
-				const ifaces = networkInterfaces();
+				const ifaces: NodeJS.Dict<NetworkInterfaceInfo[]> = networkInterfaces();
 
-				Object.keys(ifaces).forEach((ifname) => {
+				Object.keys(ifaces).forEach((ifname: string): void => {
 
-					let alias = 0;
+					let alias: number = 0;
 
-					ifaces[ifname].forEach((iface) => {
+					(ifaces[ifname] as NetworkInterfaceInfo[]).forEach((iface: NetworkInterfaceInfo): void => {
 
 						if ("IPv4" === iface.family && false === iface.internal) {
 
@@ -56,8 +64,6 @@ export default function apiRoutes (app: Express): Promise<void> {
 			res.status(CODE_ERRORS.OK).json(result);
 
 		});
-
-		return Promise.resolve();
 
 	// all races
 	}).then(() => {

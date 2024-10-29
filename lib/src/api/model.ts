@@ -71,9 +71,9 @@ export default class WarcraftSoundsModel {
 		// read file
 		}).then((): Promise<string[]> => {
 
-			return readFile(join(__dirname, "data", "create.sql"), "utf-8").then((content: string): Promise<string> => {
+			return readFile(join(__dirname, "..", "..", "data", "create.sql"), "utf-8").then((content: string): Promise<string> => {
 
-				return readFile(join(__dirname, "data", "toword.sql"), "utf-8").then((contenttoWord: string): string => {
+				return readFile(join(__dirname, "..", "..", "data", "toword.sql"), "utf-8").then((contenttoWord: string): string => {
 
 					return content + contenttoWord;
 

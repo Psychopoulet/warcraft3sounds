@@ -14,7 +14,7 @@
 
 // consts
 
-	const CODE_ERRORS: Record<string, number> = require(join(__dirname, "returncodes.json"));
+	const CODE_ERRORS: Record<string, number> = require(join(__dirname, "..", "..", "data", "returncodes.json"));
 
 // module
 
@@ -22,7 +22,7 @@ export default function soundsRoutes (app: Express): void {
 
 	app.get("/public/sounds/:sound", (req: Request, res: Response): void  => {
 
-		const file: string = join(__dirname, "..", "public", "sounds", req.params.sound);
+		const file: string = join(__dirname, "..", "..", "..", "public", "sounds", req.params.sound);
 
 		new Promise((resolve: (exists: boolean) => void): void => {
 
