@@ -1,79 +1,56 @@
-<!doctype html>
-<html>
+"use strict";
 
-	<head>
+// deps
 
-		<title>Warcraft 3 sounds</title>
+	// externals
+	import * as React from "react";
 
-		<meta charset="UTF-8" />
+// types & interfaces
 
-		<!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
-		<link rel="shortcut icon" href="/public/pictures/warcraft3.png" />
+	// externals
+	import type { iPropsNode } from "react-bootstrap-fontawesome";
 
-		<!-- design -->
+// Props && States
 
-			<!-- bootstrap -->
+	interface iStates {};
 
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous" />
+	interface iProps extends iPropsNode {
+		"notWordedSounds": boolean;
+	}
 
-			<!-- font-awesome -->
+// component
 
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+export default class App extends React.Component<iProps, iStates> {
 
-			<!-- specific -->
+	// name
 
-			<style type="text/css">
+		public static displayName: string = "App";
 
-				.card {
-					margin-top: 1em;
-				}
+	// constructor
 
-			</style>
+	public constructor (props: iProps) {
 
-	</head>
+		super(props);
 
-	<body data-ng-app="Warcraft3SoundsApp">
+		// states
 
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		this.state = {};
 
-			<span class="navbar-brand">
-				<img src="/public/pictures/warcraft3.png" width="30" height="30" class="d-inline-block align-top" alt="Warcraft 3" />
-				<!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
-			</span>
+	}
 
-			<button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#IPS">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+	public componentDidMount (): void {
 
-			<div id="IPS" class="collapse navbar-collapse" data-ng-controller="IPsControllers">
+	}
 
-				<div class="navbar-nav mr-auto">
+	public componentWillUnmount (): void {
 
-					<span class="nav-item nav-link" data-ng-class="{ 'd-none': !ipsLoading }">Loading IPs...</span>
-					<span class="nav-item nav-link" data-ng-class="{ 'd-none': ipsLoading || ips.length }">There is no IP detected</span>
-					<span class="nav-item nav-link" data-ng-class="{ 'd-none': ipsLoading || !ips.length }" data-ng-repeat="ip in ips">{{ip.name}} : {{ip.address}}</span>
+	}
 
-				</div>
+	// render
 
-				<form class="form-inline">
+	public render (): JSX.Element {
 
-					<div class="input-group  border-light">
-
-						<span class="input-group-addon">
-							<input id="notworded" type="checkbox" data-ng-model="notWorded" />
-						</span>
-
-						<label for="notworded" class="input-group-addon text-light bg-dark border-light">Include "not worded" sounds</label>
-
-					</div>
-
-				</form>
-
-			</div>
-
-		</nav>
-
-		<div class="container-fluid" data-ng-controller="MainController">
+		return <div className="container-fluid" data-ng-controller="MainController">
 
 			<audio id="audio">
 				<source src="#" type="audio" />
@@ -208,24 +185,8 @@
 
 			</div>
 
-		</div>
+		</div>;
 
-		<!-- scripts -->
+	}
 
-			<!-- bootstrap -->
-
-			<script src="/public/jquery.min.js"></script>
-			<script src="/public/popper.min.js"></script>
-			<script src="/public/bootstrap.min.js"></script>
-
-			<!-- angular -->
-
-			<script src="/public/angular.min.js"></script>
-
-			<!-- app -->
-
-			<script type="text/javascript" src="/public/app.js"></script>
-
-	</body>
-
-</html>
+};
