@@ -10,6 +10,7 @@
 
 	// locals
 
+    import logRequest from "./tools/logRequest";
     import errorCodes from "./returncodes";
 
 	import generateServer from "./server/generateServer";
@@ -67,7 +68,9 @@
 		// catch error
 		APP.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
 
-			console.log(err);
+			logRequest(req);
+
+			console.error(err);
 
 			if (res.headersSent) {
 				return next(err);
