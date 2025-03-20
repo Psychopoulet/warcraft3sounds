@@ -7,33 +7,24 @@
 	import * as React from "react";
 	import { JSX } from "react";
 
-	import { Alert } from "react-bootstrap-fontawesome";
-
 	// internals
-	import Race from "./widgets/Race";
+	import Menu from "./widgets/Menu";
+	import Body from "./widgets/Body";
 
 // types & interfaces
 
 	// externals
 	import type { iPropsNode } from "react-bootstrap-fontawesome";
 
-	// locals
-	import type { iRace } from "./widgets/Race";
-
 // Props && States
 
 	interface iStates {
-		"racesLoading": boolean;
-		"races": iRace[];
-	};
-
-	interface iProps extends iPropsNode {
 		"notWordedSounds": boolean;
-	}
+	};
 
 // component
 
-export default class App extends React.Component<iProps, iStates> {
+export default class App extends React.Component<iPropsNode, iStates> {
 
 	// name
 
@@ -41,70 +32,36 @@ export default class App extends React.Component<iProps, iStates> {
 
 	// constructor
 
-	public constructor (props: iProps) {
+	public constructor (props: iPropsNode) {
 
 		super(props);
 
 		// states
 
 		this.state = {
-			"racesLoading": true,
-			"races": []
+			"notWordedSounds": false
 		};
 
 	}
 
-	public componentDidMount (): void {
+	// events
 
-	}
+	private _handleToogleNotWordedSounds (newValue: boolean): void {
 
-	public componentWillUnmount (): void {
+		this.setState({
+			"notWordedSounds": newValue
+		})
 
 	}
 
 	// render
 	
-	private _renderContent (): JSX.Element {
-
-		if (!this.state.racesLoading) {
-			
-			return <div className="row justify-content-center">
-
-				<div className="col-md-6">
-
-					<Alert variant="info">
-						Loading races...
-					</Alert>
-
-				</div>
-
-			</div>;
-
-		}
-		else {
-
-			return <div className="row">
-
-				{ this.state.races.map((race: iRace): JSX.Element => {
-					return <Race race={ race } />;
-				}) }
-
-			</div>;
-
-		}
-
-	}
-
 	public render (): JSX.Element {
 
-		return <div className="container-fluid">
+		return <div>
 
-			<audio id="audio">
-				<source src="#" type="audio" />
-				Your browser does not support the audio element.
-			</audio>
-
-			{ this._renderContent() }
+			<Menu onToogleNotWordedSounds={ this._handleToogleNotWordedSounds.bind(this) } />
+			<Body notWordedSounds={ this.state.notWordedSounds } />
 
 		</div>;
 
