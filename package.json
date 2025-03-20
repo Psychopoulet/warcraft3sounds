@@ -13,17 +13,25 @@
     }
   },
   "scripts": {
+
     "prepare": "husky",
-    "clean": "npx rimraf lib/cjs",
-    "build-api": "npm run-script clean && npx tsc --project \"./tsconfig-api.json\"",
-    "build-front": "echo @wip",
-    "lint": "npx eslint --config .eslintrc-src.js --ext .cts,.ts ./lib/src/**/* && npx eslint --config .eslintrc-tests.js ./bin/*.js ./test/**/*.js",
+
+    "lint": "npx eslint --config \".eslintrc-src.js\" --ext .cts,.ts \"./lib/src/**/*\" && npx eslint --config \".eslintrc-tests.js\" \"./bin/*.js\" \"./test/**/*.js\"",
     "check-requires": "npx used-deps-analyzer \"./package.json\" \"./lib/src\" --no-dev --overkill \"fs-extra\" \"node-promfs\"",
     "check-updates": "npx check-version-modules",
     "unit-tests": "npm run-script build-api && npx nyc --reporter=html --reporter=text mocha",
     "tests": "npm run-script lint && npm run-script check-requires && npm run-script check-updates && npm run-script unit-tests",
+
+    "clean-api": "npx rimraf \"./lib/cjs\"",
+    "build-api": "npm run-script clean-api && npx tsc --project \"./tsconfig-api.json\"",
+
+    "clean-front": "npx rimraf \"./public/bundle.js",
+    "build-front": "npx webpack --config \"./webpack.config.js\"",
+    
     "ci": "npm run-script tests && npx nyc report --reporter=text-lcov | coveralls",
+
     "start": "node lib/cjs/main.cjs"
+
   },
   "files": [
     "/bin",
@@ -64,9 +72,10 @@
     "rimraf": "6.0.1",
     "ts-loader": "9.5.2",
     "typescript": "5.8.2",
-    "used-deps-analyzer": "0.1.8"
+    "used-deps-analyzer": "0.1.8",
+    "webpack": "5.98.0",
+    "webpack-cli": "6.0.1"
   },
-  "optionalDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "npm run-script lint",

@@ -2,7 +2,10 @@
 	"compilerOptions": {
 
 		"target": "es5",
-		"module": "commonjs",
+		"module": "es6",
+
+		"outDir": "./public/",
+		"sourceMap": true,
 
 		"resolveJsonModule": true,
 
