@@ -4,6 +4,7 @@
 
     // externals
     import * as React from "react";
+	import { JSX } from "react";
     import { Image } from "react-bootstrap-fontawesome";
 
 // types & interfaces
