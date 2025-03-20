@@ -3,10 +3,10 @@
 // deps
 
 	// externals
+	
 	import * as React from "react";
 	import { JSX } from "react";
 
-	// externals
 	import { Alert } from "react-bootstrap-fontawesome";
 
 	// internals
@@ -17,11 +17,14 @@
 	// externals
 	import type { iPropsNode } from "react-bootstrap-fontawesome";
 
+	// locals
+	import type { iRace } from "./widgets/Race";
+
 // Props && States
 
 	interface iStates {
 		"racesLoading": boolean;
-		"races": string[];
+		"races": iRace[];
 	};
 
 	interface iProps extends iPropsNode {
@@ -82,7 +85,7 @@ export default class App extends React.Component<iProps, iStates> {
 
 			return <div className="row">
 
-				{ this.state.races.map((race: string): JSX.Element => {
+				{ this.state.races.map((race: iRace): JSX.Element => {
 					return <Race race={ race } />;
 				}) }
 

@@ -1,4 +1,5 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./node_modules/react-bootstrap-fontawesome/lib/Alert.js":
@@ -7,7 +8,6 @@
   \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -51,7 +51,6 @@ Alert.displayName = "Alert";
   \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -100,7 +99,6 @@ Badge.displayName = "Badge";
   \****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -170,7 +168,6 @@ Button.displayName = "Button";
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -217,7 +214,6 @@ ButtonGroup.displayName = "ButtonGroup";
   \**************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -333,7 +329,6 @@ Icon.displayName = "Icon";
   \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -368,7 +363,6 @@ Image.displayName = "Image";
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -408,7 +402,6 @@ MaxHeightContent.displayName = "MaxHeightContent";
   \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -474,7 +467,6 @@ Card.displayName = "Card";
   \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -520,7 +512,6 @@ CardBody.displayName = "CardBody";
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CardContext: () => (/* binding */ CardContext)
@@ -545,7 +536,6 @@ CardContext.displayName = "CardContext";
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -586,7 +576,6 @@ CardFooter.contextType = _CardContext__WEBPACK_IMPORTED_MODULE_1__.CardContext;
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -635,7 +624,6 @@ CardHeader.contextType = _CardContext__WEBPACK_IMPORTED_MODULE_1__.CardContext;
   \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -674,7 +662,6 @@ CardHeaderNav.displayName = "CardHeaderNav";
   \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -710,7 +697,6 @@ CardImage.displayName = "CardImage";
   \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -748,7 +734,6 @@ CardList.displayName = "CardList";
   \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -782,7 +767,6 @@ CardTable.displayName = "CardTable";
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CheckBox: () => (/* binding */ CheckBox),
@@ -846,7 +830,6 @@ CheckBoxLabel.displayName = "CheckBoxLabel";
   \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   InvalidFeedBack: () => (/* binding */ InvalidFeedBack),
@@ -939,7 +922,6 @@ InvalidFeedBackMaxLength.displayName = "InvalidFeedBackMaxLength";
   \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   InputArray: () => (/* binding */ InputArray),
@@ -1075,7 +1057,6 @@ InputArrayLabel.displayName = "iPropsInputArrayLabel";
   \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   InputColor: () => (/* binding */ InputColor),
@@ -1196,7 +1177,6 @@ InputColorLabel.displayName = "InputColorLabel";
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   InputFile: () => (/* binding */ InputFile),
@@ -1273,7 +1253,6 @@ InputFileLabel.displayName = "InputFileLabel";
   \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   InputFloat: () => (/* binding */ InputFloat),
@@ -1366,7 +1345,6 @@ InputFloatLabel.displayName = "InputFloatLabel";
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   InputIPV4: () => (/* binding */ InputIPV4),
@@ -1420,7 +1398,6 @@ InputIPV4Label.displayName = "InputIPV4Label";
   \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   InputInteger: () => (/* binding */ InputInteger),
@@ -1515,7 +1492,6 @@ InputIntegerLabel.displayName = "InputIntegerLabel";
   \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   InputReadOnly: () => (/* binding */ InputReadOnly),
@@ -1593,7 +1569,6 @@ InputReadOnlyLabel.displayName = "InputReadOnlyLabel";
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   InputText: () => (/* binding */ InputText),
@@ -1715,7 +1690,6 @@ InputTextLabel.displayName = "InputTextLabel";
   \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Range: () => (/* binding */ Range),
@@ -1831,7 +1805,6 @@ RangeLabel.displayName = "RangeLabel";
   \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Select: () => (/* binding */ Select),
@@ -1909,7 +1882,6 @@ SelectLabel.displayName = "SelectLabel";
   \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   SelectInteger: () => (/* binding */ SelectInteger),
@@ -1993,7 +1965,6 @@ SelectIntegerLabel.displayName = "SelectIntegerLabel";
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   TextArea: () => (/* binding */ TextArea),
@@ -2115,7 +2086,6 @@ TextAreaLabel.displayName = "iPropsTextAreaLabel";
   \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ generateFocus)
@@ -2144,7 +2114,6 @@ function generateFocus() {
   \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2206,7 +2175,6 @@ List.displayName = "List";
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ListContext: () => (/* binding */ ListContext)
@@ -2231,7 +2199,6 @@ ListContext.displayName = "ListContext";
   \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2290,7 +2257,6 @@ ListItem.displayName = "ListItem";
   \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2325,7 +2291,6 @@ ListItemHeader.displayName = "ListItemHeader";
   \**************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   Alert: () => (/* reexport safe */ _Alert__WEBPACK_IMPORTED_MODULE_1__["default"]),
@@ -2499,7 +2464,6 @@ __webpack_require__.r(__webpack_exports__);
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2636,7 +2600,6 @@ Modal.OPENED_MODALS_COUNT = 0;
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2671,7 +2634,6 @@ ModalBody.displayName = "ModalBody";
   \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2706,7 +2668,6 @@ ModalFooter.displayName = "ModalFooter";
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2742,7 +2703,6 @@ ModalImage.displayName = "ModalImage";
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2779,7 +2739,6 @@ ModalList.displayName = "ModalList";
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2813,7 +2772,6 @@ ModalTable.displayName = "ModalTable";
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2869,7 +2827,6 @@ NavItem.displayName = "NavItem";
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -2966,7 +2923,6 @@ NavTabs.displayName = "NavTabs";
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -3033,7 +2989,6 @@ Table.displayName = "Table";
   \*************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -3064,7 +3019,6 @@ TableBody.displayName = "TableBody";
   \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -3095,7 +3049,6 @@ TableFooter.displayName = "TableFooter";
   \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -3126,7 +3079,6 @@ TableHeader.displayName = "TableHeader";
   \********************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 /**
  * @license React
  * react-dom-client.development.js
@@ -27853,7 +27805,6 @@ TableHeader.displayName = "TableHeader";
   \*************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 /**
  * @license React
  * react-dom.development.js
@@ -28288,7 +28239,6 @@ TableHeader.displayName = "TableHeader";
   \******************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
 
 
 function checkDCE() {
@@ -28332,7 +28282,6 @@ if (false) {} else {
   \*****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
 
 
 function checkDCE() {
@@ -28376,7 +28325,6 @@ if (false) {} else {
   \*****************************************************/
 /***/ ((module, exports, __webpack_require__) => {
 
-"use strict";
 /* module decorator */ module = __webpack_require__.nmd(module);
 /**
  * @license React
@@ -29909,7 +29857,6 @@ if (false) {} else {
   \*************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
 
 
 if (false) {} else {
@@ -29925,7 +29872,6 @@ if (false) {} else {
   \*************************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 /**
  * @license React
  * scheduler.development.js
@@ -30300,7 +30246,6 @@ if (false) {} else {
   \*****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
 
 
 if (false) {} else {
@@ -30316,7 +30261,6 @@ if (false) {} else {
   \****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -30325,7 +30269,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/main.js");
 /* harmony import */ var _widgets_Race__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./widgets/Race */ "./public/src/widgets/Race.tsx");
-/* harmony import */ var _widgets_Race__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_widgets_Race__WEBPACK_IMPORTED_MODULE_2__);
 
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -30345,7 +30288,6 @@ var __extends = (undefined && undefined.__extends) || (function () {
 // deps
 // externals
 
-// externals
 
 // internals
 
@@ -30376,7 +30318,7 @@ var App = /** @class */ (function (_super) {
         }
         else {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row" }, this.state.races.map(function (race) {
-                return react__WEBPACK_IMPORTED_MODULE_0__.createElement((_widgets_Race__WEBPACK_IMPORTED_MODULE_2___default()), { race: race });
+                return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race });
             }));
         }
     };
@@ -30401,9 +30343,90 @@ var App = /** @class */ (function (_super) {
 /*!*****************************!*\
   !*** ./public/src/Menu.tsx ***!
   \*****************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module parse failed: Unexpected token (59:36)\nFile was processed with these loaders:\n * ./node_modules/ts-loader/index.js\nYou may need an additional loader to handle the result of these loaders.\n|             React.createElement(\"span\", { className: \"navbar-brand\" },\n|                 React.createElement(Image, { src: \"/public/pictures/warcraft3.png\", width: 30, height: 30, className: \"d-inline-block align-top\", alt: \"Warcraft 3\" }),\n>                 React.createElement(, null),\n|                 \"!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->\"),\n|             React.createElement(\"button\", { type: \"button\", className: \"navbar-toggler navbar-toggler-right\", \"data-toggle\": \"collapse\", \"data-target\": \"#IPS\" },");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/main.js");
+
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+// deps
+// externals
+
+
+// component
+var Menu = /** @class */ (function (_super) {
+    __extends(Menu, _super);
+    // constructor
+    function Menu(props) {
+        var _this = _super.call(this, props) || this;
+        // states
+        _this.state = {
+            "loading": true,
+            "ips": []
+        };
+        return _this;
+    }
+    Menu.prototype.componentDidMount = function () {
+    };
+    Menu.prototype.componentWillUnmount = function () {
+    };
+    // render
+    Menu.prototype._renderIps = function () {
+        if (this.state.loading) {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "nav-item nav-link" }, "Loading IPs...");
+        }
+        else if (0 >= this.state.ips.length) {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "nav-item nav-link" }, "There is no IP detected");
+        }
+        else {
+            return this.state.ips.map(function (ip) {
+                return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "nav-item nav-link" },
+                    ip.name,
+                    " : ",
+                    ip.address);
+            });
+        }
+    };
+    Menu.prototype.render = function () {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", { className: "navbar navbar-expand-md navbar-dark bg-dark" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "navbar-brand" },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: "/public/pictures/warcraft3.png", width: 30, height: 30, className: "d-inline-block align-top", alt: "Warcraft 3" }, "http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297")),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", className: "navbar-toggler navbar-toggler-right", "data-toggle": "collapse", "data-target": "#IPS" },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "navbar-toggler-icon" })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "IPS", className: "collapse navbar-collapse" },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "navbar-nav mr-auto" }, this._renderIps()),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { className: "form-inline" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "input-group border-light" },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-addon" },
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { id: "notworded", type: "checkbox", "data-ng-model": "notWorded" })),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "notworded", className: "input-group-addon text-light bg-dark border-light" }, "Include \"not worded\" sounds")))));
+    };
+    // name
+    Menu.displayName = "Menu";
+    return Menu;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Menu);
+;
+
 
 /***/ }),
 
@@ -30411,9 +30434,104 @@ throw new Error("Module parse failed: Unexpected token (59:36)\nFile was process
 /*!*************************************!*\
   !*** ./public/src/widgets/Race.tsx ***!
   \*************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module parse failed: Unexpected token (40:89)\nFile was processed with these loaders:\n * ./node_modules/ts-loader/index.js\nYou may need an additional loader to handle the result of these loaders.\n|             React.createElement(\"div\", { className: \"card\", \"data-ng-className\": \"{ 'border-warning': raceLoading }\" },\n|                 React.createElement(\"div\", { className: \"card-header\", \"data-ng-className\": \"{ 'bg-warning': raceLoading }\" },\n>                     React.createElement(\"h5\", { className: \"float-left\" }, { race: race, : .name })),\n|                 React.createElement(\"div\", { className: \"card-body\", \"data-ng-show\": \"raceLoading\" }, \"loading\"),\n|                 React.createElement(\"div\", { className: \"card-body\", \"data-ng-hide\": \"raceLoading\" },");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/main.js");
+
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+// deps
+// externals
+
+
+;
+// component
+var Race = /** @class */ (function (_super) {
+    __extends(Race, _super);
+    // constructor
+    function Race(props) {
+        var _this = _super.call(this, props) || this;
+        // states
+        _this.state = {
+            "loading": true
+        };
+        return _this;
+    }
+    Race.prototype.componentDidMount = function () {
+    };
+    Race.prototype.componentWillUnmount = function () {
+    };
+    // render
+    Race.prototype._renderBody = function () {
+        if (this.state.loading) {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null, "loading");
+        }
+        else {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-group", "data-ng-show": "race.musics.length" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "{{race.code}}Musics" }, "Musics"),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "input-group" },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", { id: "{{race.code}}Musics", className: "form-control", "data-ng-options": "music as music.name for music in race.musics track by music.code", "data-ng-model": "music" },
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--")),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-btn" },
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "btn btn-secondary", type: "button", "data-ng-className": "{ 'disabled' : !music || !music.url }", "data-ng-disabled": "!music || !music.url", "data-ng-click": "play(music.url);" },
+                                react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "fa fa-play-circle" }))))),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-group", "data-ng-show": "race.warnings.length" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "{{race.code}}Warnings" }, "Warnings"),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "input-group" },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", { id: "{{race.code}}Warnings", className: "form-control", "data-ng-options": "warning as warning.name for warning in race.warnings track by warning.code", "data-ng-model": "warning" },
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--")),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-btn" },
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "btn btn-secondary", type: "button", "data-ng-className": "{ 'disabled' : !warning || !warning.url }", "data-ng-disabled": "!warning || !warning.url", "data-ng-click": "play(warning.url);" },
+                                react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "fa fa-play-circle" }))))),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-group", "data-ng-show": "race.characters.length" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "{{race.code}}Characters" }, "Characters"),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", { id: "{{race.code}}Characters", className: "form-control", "data-ng-options": "character as character.name for character in race.characters track by character.code", "data-ng-model": "character", "data-ng-change": "loadActions();", "data-ng-show": "race.characters.length" },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"))),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-group", "data-ng-show": "character && !actionsLoading" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "{{race.code}}{{character.code}}Action" }, "Actions"),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-control-static", "data-ng-hide": "actions.length" }, "There is no action"),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "input-group", "data-ng-show": "actions.length" },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", { id: "{{race.code}}{{character.code}}Action", className: "form-control", "data-ng-options": "action as action.name group by action.type.name for action in actions track by action.code", "data-ng-model": "action" },
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--")),
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-btn" },
+                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "btn btn-secondary", type: "button", "data-ng-className": "{ 'disabled' : !action || !action.url }", "data-ng-disabled": "!action || !action.url", "data-ng-click": "play(action.url);" },
+                                react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "fa fa-play-circle" }))))));
+        }
+    };
+    Race.prototype.render = function () {
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, { variant: this.state.loading ? "warning" : undefined },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null,
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("h5", { className: "float-left" }, this.props.race.name)),
+                this._renderBody()));
+    };
+    // name
+    Race.displayName = "Race";
+    return Race;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Race);
+;
+
 
 /***/ })
 
@@ -30498,9 +30616,8 @@ throw new Error("Module parse failed: Unexpected token (40:89)\nFile was process
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
 (() => {
-"use strict";
 /*!******************************!*\
   !*** ./public/src/index.tsx ***!
   \******************************/
@@ -30510,7 +30627,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App */ "./public/src/App.tsx");
 /* harmony import */ var _Menu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Menu */ "./public/src/Menu.tsx");
-/* harmony import */ var _Menu__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_Menu__WEBPACK_IMPORTED_MODULE_3__);
 
 // deps
 // externals
@@ -30526,7 +30642,7 @@ function _handleToogleNotWordedSounds(newVal) {
 }
 // render
 (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(document.getElementById("Warcraft3SoundsApp")).render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-    react__WEBPACK_IMPORTED_MODULE_0__.createElement((_Menu__WEBPACK_IMPORTED_MODULE_3___default()), { notWordedSounds: _notWordedSounds, onToogleNotWordedSounds: _handleToogleNotWordedSounds }),
+    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Menu__WEBPACK_IMPORTED_MODULE_3__["default"], { notWordedSounds: _notWordedSounds, onToogleNotWordedSounds: _handleToogleNotWordedSounds }),
     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_App__WEBPACK_IMPORTED_MODULE_2__["default"], { notWordedSounds: _notWordedSounds })));
 
 })();

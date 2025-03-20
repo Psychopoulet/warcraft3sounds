@@ -3,8 +3,10 @@
 // deps
 
     // externals
+
     import * as React from "react";
 	import { JSX } from "react";
+    
     import { Image } from "react-bootstrap-fontawesome";
 
 // types & interfaces
@@ -63,7 +65,7 @@ export default class Menu extends React.Component<iProps, iStates> {
 
     // render
 
-    private _renderIps (): JSX.Element {
+    private _renderIps (): JSX.Element | JSX.Element[] {
 
         if (this.state.loading) {
             return <span className="nav-item nav-link">Loading IPs...</span>;
@@ -90,8 +92,11 @@ export default class Menu extends React.Component<iProps, iStates> {
         return <nav className="navbar navbar-expand-md navbar-dark bg-dark">
 
             <span className="navbar-brand">
-                <Image src="/public/pictures/warcraft3.png" width={ 30 } height={ 30 } className="d-inline-block align-top" alt="Warcraft 3" />
-                <!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
+
+                <Image src="/public/pictures/warcraft3.png" width={ 30 } height={ 30 } className="d-inline-block align-top" alt="Warcraft 3">
+                    http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297
+                </Image>
+
             </span>
 
             <button type="button" className="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#IPS">
