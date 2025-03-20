@@ -7,7 +7,7 @@
 		"outDir": "./public/",
 		"sourceMap": true,
 
-		"resolveJsonModule": true,
+		"moduleResolution": "node",
 
 		"alwaysStrict": true,
 		"strict": true,

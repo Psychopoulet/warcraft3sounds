@@ -19,24 +19,25 @@ module.exports = {
     "path": PUBLIC
   },
 
+  "devtool": "source-map",
+  
   "module": {
     "rules": [
       {
         "test": /\.tsx?$/,
+        "exclude": [ /node_modules/ ],
         "use": [
             {
                 "loader": "ts-loader",
                 "options": {
-                    "configFile": "tsconfig-front.json"
+                    "configFile": join(__dirname, "tsconfig-front.json")
                 }
             }
-        ],
-        "exclude": /node_modules/
+        ]
       }
     ]
   },
 
-  "devtool": "inline-source-map",
   "resolve": {
     "extensions": [ ".tsx", ".ts", ".js" ],
   }
