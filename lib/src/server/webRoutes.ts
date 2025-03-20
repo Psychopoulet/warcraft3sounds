@@ -18,7 +18,7 @@ export default function webRoutes (app: Express): void {
 		return res.sendFile(join(__dirname, "..", "..", "..", "public", "index.html"));
 	}).get("/public/app.js", (req: Request, res: Response): void  => {
 		return res.sendFile(join(__dirname, "..", "..", "..", "public", "app.js"));
-	})
+	});
 
 	// app
 
@@ -38,11 +38,11 @@ export default function webRoutes (app: Express): void {
 		return res.sendFile(join(__dirname, "..", "..", "..", "public", "bootstrap-4.0.0-beta.min.js"));
 	}).get("/public/angular.min.js", (req: Request, res: Response): void  => {
 		return res.sendFile(join(__dirname, "..", "..", "..", "public", "angular-1.6.5.min.js"));
-	})
+	});
 
 	// pictures
 
-	.get("/public/pictures/warcraft3.png", (req: Request, res: Response): void  => {
+	app.get("/public/pictures/warcraft3.png", (req: Request, res: Response): void  => {
 		return res.sendFile(join(__dirname, "..", "..", "..", "public", "pictures", "warcraft3.png"));
 	}).get("/public/pictures/warcraft3TFT.png", (req: Request, res: Response): void  => {
 		return res.sendFile(join(__dirname, "..", "..", "..", "public", "pictures", "warcraft3TFT.png"));
