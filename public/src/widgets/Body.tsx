@@ -3,13 +3,16 @@
 // deps
 
     // externals
-    
+
     import * as React from "react";
 
     import { Alert } from "react-bootstrap-fontawesome";
 
     // internals
     import Race from "./Race";
+
+    // locals
+    import getSDK from "../sdk";
 
 // types & interfaces
 
@@ -23,7 +26,7 @@
 
     interface iStates {
         "notWordedSounds": boolean;
-        "racesLoading": boolean;
+        "loading": boolean;
         "races": iRace[];
     };
 
@@ -49,7 +52,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
         this.state = {
             "notWordedSounds": props.notWordedSounds,
-            "racesLoading": true,
+            "loading": true,
             "races": []
         };
 
@@ -57,9 +60,15 @@ export default class Body extends React.Component<iProps, iStates> {
 
     public componentDidMount (): void {
 
+        this._handleRefresh();
+
     }
 
     public componentWillUnmount (): void {
+
+        this.setState({
+            "races": []
+        });
 
     }
 
@@ -79,11 +88,39 @@ export default class Body extends React.Component<iProps, iStates> {
     }
 
     // render
-    
+
+        private _handleRefresh (): void {
+
+            this.setState({
+                "loading": true,
+                "races": []
+            });
+
+            getSDK().getRaces().then((races: iRace[]): void => {
+
+                this.setState({
+                    "loading": false,
+                    "races": races
+                });
+
+            }).catch((err: Error): void => {
+
+                console.error(err);
+                alert(err.message);
+
+                this.setState({
+                    "loading": false,
+                    "races": []
+                });
+
+            });
+
+        }
+
     private _renderContent (): React.JSX.Element {
 
-        if (!this.state.racesLoading) {
-            
+        if (this.state.loading) {
+
             return <div className="row justify-content-center">
 
                 <div className="col-md-6">
@@ -97,12 +134,31 @@ export default class Body extends React.Component<iProps, iStates> {
             </div>;
 
         }
+        else if (0 >= this.state.races.length) {
+
+            return <div className="row justify-content-center">
+
+                <div className="col-md-6">
+
+                    <Alert variant="warning">
+                        There is no race detected
+                    </Alert>
+
+                </div>
+
+            </div>;
+
+        }
         else {
 
             return <div className="row">
 
                 { this.state.races.map((race: iRace): React.JSX.Element => {
-                    return <Race race={ race } />;
+
+                    return <div key={ race.code } className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
+                        <Race race={ race } />
+                    </div>;
+
                 }) }
 
             </div>;

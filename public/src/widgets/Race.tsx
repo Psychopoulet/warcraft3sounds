@@ -171,22 +171,18 @@ export default class Race extends React.Component<iProps, iStates> {
         }
 
     }
-    
+
     public render (): React.JSX.Element {
 
-        return <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+        return <Card variant={ this.state.loading ? "warning" : undefined }>
 
-            <Card variant={ this.state.loading ? "warning" : undefined }>
+            <CardHeader>
+                <h5 className="float-left">{ this.props.race.name }</h5>
+            </CardHeader>
 
-                <CardHeader>
-                    <h5 className="float-left">{ this.props.race.name }</h5>
-                </CardHeader>
+            { this._renderBody() }
 
-                { this._renderBody() }
-
-            </Card>
-
-        </div>;
+        </Card>;
 
     }
 

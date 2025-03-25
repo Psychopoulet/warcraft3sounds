@@ -30345,6 +30345,46 @@ var App = /** @class */ (function (_super) {
 
 /***/ }),
 
+/***/ "./public/src/sdk.ts":
+/*!***************************!*\
+  !*** ./public/src/sdk.ts ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   SDK: () => (/* binding */ SDK),
+/* harmony export */   "default": () => (/* binding */ getSDK)
+/* harmony export */ });
+
+// component
+var SDK = /** @class */ (function () {
+    function SDK() {
+    }
+    SDK.prototype.getIps = function () {
+        return fetch("/api/ips").then(function (content) {
+            return content.json();
+        });
+    };
+    SDK.prototype.getRaces = function () {
+        return fetch("/api/races").then(function (content) {
+            return content.json();
+        });
+    };
+    return SDK;
+}());
+
+var _sdk = null;
+function getSDK() {
+    if (null === _sdk) {
+        _sdk = new SDK();
+    }
+    return _sdk;
+}
+
+
+/***/ }),
+
 /***/ "./public/src/widgets/Body.tsx":
 /*!*************************************!*\
   !*** ./public/src/widgets/Body.tsx ***!
@@ -30359,6 +30399,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/dist/main.js");
 /* harmony import */ var _Race__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Race */ "./public/src/widgets/Race.tsx");
+/* harmony import */ var _sdk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../sdk */ "./public/src/sdk.ts");
 
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -30392,6 +30433,8 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 // internals
 
+// locals
+
 ;
 // component
 var Body = /** @class */ (function (_super) {
@@ -30402,14 +30445,18 @@ var Body = /** @class */ (function (_super) {
         // states
         _this.state = {
             "notWordedSounds": props.notWordedSounds,
-            "racesLoading": true,
+            "loading": true,
             "races": []
         };
         return _this;
     }
     Body.prototype.componentDidMount = function () {
+        this._handleRefresh();
     };
     Body.prototype.componentWillUnmount = function () {
+        this.setState({
+            "races": []
+        });
     };
     Body.getDerivedStateFromProps = function (props, state) {
         if (props.notWordedSounds !== state.notWordedSounds) {
@@ -30418,15 +30465,41 @@ var Body = /** @class */ (function (_super) {
         return state;
     };
     // render
+    Body.prototype._handleRefresh = function () {
+        var _this = this;
+        this.setState({
+            "loading": true,
+            "races": []
+        });
+        (0,_sdk__WEBPACK_IMPORTED_MODULE_3__["default"])().getRaces().then(function (races) {
+            _this.setState({
+                "loading": false,
+                "races": races
+            });
+        }).catch(function (err) {
+            console.error(err);
+            alert(err.message);
+            _this.setState({
+                "loading": false,
+                "races": []
+            });
+        });
+    };
     Body.prototype._renderContent = function () {
-        if (!this.state.racesLoading) {
+        if (this.state.loading) {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row justify-content-center" },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "col-md-6" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Alert, { variant: "info" }, "Loading races...")));
         }
+        else if (0 >= this.state.races.length) {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row justify-content-center" },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "col-md-6" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Alert, { variant: "warning" }, "There is no race detected")));
+        }
         else {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row" }, this.state.races.map(function (race) {
-                return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race });
+                return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { key: race.code, className: "col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race }));
             }));
         }
     };
@@ -30460,6 +30533,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/dist/main.js");
+/* harmony import */ var _sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../sdk */ "./public/src/sdk.ts");
 
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -30480,6 +30554,8 @@ var __extends = (undefined && undefined.__extends) || (function () {
 // externals
 
 
+// locals
+
 // component
 var Menu = /** @class */ (function (_super) {
     __extends(Menu, _super);
@@ -30495,10 +30571,34 @@ var Menu = /** @class */ (function (_super) {
         return _this;
     }
     Menu.prototype.componentDidMount = function () {
+        this._handleRefresh();
     };
     Menu.prototype.componentWillUnmount = function () {
+        this.setState({
+            "ips": []
+        });
     };
     // events
+    Menu.prototype._handleRefresh = function () {
+        var _this = this;
+        this.setState({
+            "loading": true,
+            "ips": []
+        });
+        (0,_sdk__WEBPACK_IMPORTED_MODULE_2__["default"])().getIps().then(function (ips) {
+            _this.setState({
+                "loading": false,
+                "ips": ips
+            });
+        }).catch(function (err) {
+            console.error(err);
+            alert(err.message);
+            _this.setState({
+                "loading": false,
+                "ips": []
+            });
+        });
+    };
     Menu.prototype._handleToogleNotWordedSounds = function (e) {
         var value = e.target.checked;
         if (value === this.state.notWordedSounds) {
@@ -30520,8 +30620,8 @@ var Menu = /** @class */ (function (_super) {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "nav-item nav-link" }, "There is no IP detected");
         }
         else {
-            return this.state.ips.map(function (ip) {
-                return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "nav-item nav-link" },
+            return this.state.ips.map(function (ip, index) {
+                return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { key: index, className: "nav-item nav-link" },
                     ip.name,
                     " : ",
                     ip.address);
@@ -30529,7 +30629,7 @@ var Menu = /** @class */ (function (_super) {
         }
     };
     Menu.prototype.render = function () {
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", { className: "navbar navbar-expand-md navbar-dark bg-dark" },
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", { className: "navbar navbar-expand-md navbar-dark bg-dark mb-3" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "container-fluid" },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "navbar-brand" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: "/public/pictures/warcraft3.png", width: 30, height: 30, className: "d-inline-block align-top", alt: "Warcraft 3" }, "http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297")),
@@ -30639,11 +30739,10 @@ var Race = /** @class */ (function (_super) {
         }
     };
     Race.prototype.render = function () {
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, { variant: this.state.loading ? "warning" : undefined },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null,
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("h5", { className: "float-left" }, this.props.race.name)),
-                this._renderBody()));
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, { variant: this.state.loading ? "warning" : undefined },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null,
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("h5", { className: "float-left" }, this.props.race.name)),
+            this._renderBody());
     };
     // name
     Race.displayName = "Race";

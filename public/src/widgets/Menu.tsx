@@ -3,10 +3,11 @@
 // deps
 
     // externals
-
     import * as React from "react";
-    
     import { Image, CheckBoxPrettierLabel } from "react-bootstrap-fontawesome";
+
+    // locals
+    import getSDK from "../sdk";
 
 // types & interfaces
 
@@ -14,17 +15,14 @@
     import type { iPropsNode } from "react-bootstrap-fontawesome";
 
     // locals
-	interface iAddress {
-		"address": string;
-		"name": string;
-	}
+    import type { iIp } from "../sdk";
 
 // Props && States
 
     interface iStates {
         "notWordedSounds": boolean;
         "loading": boolean;
-        "ips": iAddress[];
+        "ips": iIp[];
     }
 
     interface iProps extends iPropsNode {
@@ -57,13 +55,47 @@ export default class Menu extends React.Component<iProps, iStates> {
 
     public componentDidMount (): void {
 
+        this._handleRefresh();
+
     }
 
     public componentWillUnmount (): void {
 
+        this.setState({
+            "ips": []
+        });
+
     }
 
     // events
+
+    private _handleRefresh (): void {
+
+        this.setState({
+            "loading": true,
+            "ips": []
+        });
+
+        getSDK().getIps().then((ips: iIp[]): void => {
+
+            this.setState({
+                "loading": false,
+                "ips": ips
+            });
+
+        }).catch((err: Error): void => {
+
+            console.error(err);
+            alert(err.message);
+
+            this.setState({
+                "loading": false,
+                "ips": []
+            });
+
+        });
+
+    }
 
     private _handleToogleNotWordedSounds (e: React.ChangeEvent<HTMLInputElement>): void {
 
@@ -95,9 +127,9 @@ export default class Menu extends React.Component<iProps, iStates> {
         }
         else {
 
-            return this.state.ips.map((ip: iAddress): React.JSX.Element => {
+            return this.state.ips.map((ip: iIp, index: number): React.JSX.Element => {
 
-                return <span className="nav-item nav-link">
+                return <span key={ index } className="nav-item nav-link">
                     { ip.name } : { ip.address }
                 </span>;
 
@@ -109,7 +141,7 @@ export default class Menu extends React.Component<iProps, iStates> {
 
     public render (): React.JSX.Element {
 
-        return <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+        return <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-3">
 
             <div className="container-fluid">
 
