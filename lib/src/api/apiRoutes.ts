@@ -1,27 +1,16 @@
 // deps
 
-	// natives
-	import { networkInterfaces } from "node:os";
-
     // locals
     import errorCodes from "../returncodes";
 	import Model from "./model";
 
 // types & interfaces
 
-	// natives
-	import type { NetworkInterfaceInfo } from "node:os";
-
 	// externals
 	import type { Express, Request, Response, NextFunction } from "express";
 
 	// locals
-	import type { iBasicDataWithUrl, iCharacter, iRace } from "./model";
-
-	interface iAddress {
-		"address": string;
-		"name": string;
-	}
+	import type { iBasicDataWithUrl, iCharacter, iIp, iRace } from "./model";
 
 // module
 
@@ -31,34 +20,13 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 	return model.init().then((): void => {
 
-		app.get("/api/ips", (req: Request, res: Response): void => {
+		app.get("/api/ips", (req: Request, res: Response, next: NextFunction): void => {
 
-			const result: iAddress[] = [];
+			model.getIps().then((ips: iIp[]): void => {
 
-				const ifaces: NodeJS.Dict<NetworkInterfaceInfo[]> = networkInterfaces();
+				res.status(errorCodes.OK).json(ips);
 
-				Object.keys(ifaces).forEach((ifname: string): void => {
-
-					let alias: number = 0;
-
-					(ifaces[ifname] as NetworkInterfaceInfo[]).forEach((iface: NetworkInterfaceInfo): void => {
-
-						if ("IPv4" === iface.family && false === iface.internal) {
-
-							result.push({
-								"address": iface.address,
-								"name": 1 <= alias ? ifname + "-" + alias : ifname
-							});
-
-							++alias;
-
-						}
-
-					});
-
-				});
-
-			res.status(errorCodes.OK).json(result);
+			}).catch(next);
 
 		});
 

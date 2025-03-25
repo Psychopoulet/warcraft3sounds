@@ -11,6 +11,10 @@ interface iBasicFileData extends iBasicDataWithUrl {
 interface iActionData extends iBasicFileData {
     "type": iBasicData;
 }
+export interface iIp {
+    "address": string;
+    "name": string;
+}
 export interface iRace extends iBasicDataWithUrl {
     "characters": iBasicDataWithUrl[];
     "musics": iBasicFileData[];
@@ -24,6 +28,7 @@ export default class WarcraftSoundsModel {
     constructor();
     init(): Promise<void>;
     release(): Promise<void>;
+    getIps(): Promise<iIp[]>;
     getRaces(): Promise<iBasicDataWithUrl[]>;
     getRace(code: string): Promise<iRace | null>;
     getCharacter(codeRace: string, code: string, notWorded?: boolean): Promise<iCharacter | null>;
