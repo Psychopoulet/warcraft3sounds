@@ -5,7 +5,6 @@
     // externals
 
     import * as React from "react";
-	import { JSX } from "react";
 
 	import {
         Card, CardHeader, CardBody
@@ -62,7 +61,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
     // render
 
-    private _renderBody (): JSX.Element {
+    private _renderBody (): React.JSX.Element {
 
         if (this.state.loading) {
 
@@ -173,7 +172,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
     }
     
-    public render (): JSX.Element {
+    public render (): React.JSX.Element {
 
         return <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
 

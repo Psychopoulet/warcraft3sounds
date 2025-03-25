@@ -5,7 +5,6 @@
     // externals
     
     import * as React from "react";
-    import { JSX } from "react";
 
     import { Alert } from "react-bootstrap-fontawesome";
 
@@ -81,7 +80,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
     // render
     
-    private _renderContent (): JSX.Element {
+    private _renderContent (): React.JSX.Element {
 
         if (!this.state.racesLoading) {
             
@@ -102,7 +101,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
             return <div className="row">
 
-                { this.state.races.map((race: iRace): JSX.Element => {
+                { this.state.races.map((race: iRace): React.JSX.Element => {
                     return <Race race={ race } />;
                 }) }
 
@@ -112,7 +111,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
     }
 
-    public render (): JSX.Element {
+    public render (): React.JSX.Element {
 
         return <div className="container-fluid">
 

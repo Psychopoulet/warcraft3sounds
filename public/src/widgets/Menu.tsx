@@ -5,9 +5,8 @@
     // externals
 
     import * as React from "react";
-	import { JSX } from "react";
     
-    import { Image } from "react-bootstrap-fontawesome";
+    import { Image, CheckBoxPrettierLabel } from "react-bootstrap-fontawesome";
 
 // types & interfaces
 
@@ -86,7 +85,7 @@ export default class Menu extends React.Component<iProps, iStates> {
 
     // render
 
-    private _renderIps (): JSX.Element | JSX.Element[] {
+    private _renderIps (): React.JSX.Element | React.JSX.Element[] {
 
         if (this.state.loading) {
             return <span className="nav-item nav-link">Loading IPs...</span>;
@@ -96,7 +95,7 @@ export default class Menu extends React.Component<iProps, iStates> {
         }
         else {
 
-            return this.state.ips.map((ip: iAddress): JSX.Element => {
+            return this.state.ips.map((ip: iAddress): React.JSX.Element => {
 
                 return <span className="nav-item nav-link">
                     { ip.name } : { ip.address }
@@ -108,29 +107,7 @@ export default class Menu extends React.Component<iProps, iStates> {
 
     }
 
-    public _renderNotWorded (): JSX.Element {
-
-        const title: string = "Include \"not worded\" sounds";
-
-        return <label className="input-group">
-
-            <span className="input-group-text">
-
-                <input type="checkbox"
-                    className="form-check-input" title={ title }
-                    checked={ this.state.notWordedSounds } onChange={ this._handleToogleNotWordedSounds.bind(this) }
-                    role="checkbox" aria-disabled="false" aria-label={ title } aria-checked={ this.state.notWordedSounds }
-                />
-
-            </span>
-
-            <span className="input-group-text">{ title }</span>
-
-        </label>;
-
-    }
-
-    public render (): JSX.Element {
+    public render (): React.JSX.Element {
 
         return <nav className="navbar navbar-expand-md navbar-dark bg-dark">
 
@@ -155,7 +132,12 @@ export default class Menu extends React.Component<iProps, iStates> {
                     </div>
 
                     <form className="form-inline">
-                        { this._renderNotWorded() }
+
+                        <CheckBoxPrettierLabel label={ "Include \"not worded\" sounds" }
+                            margin-bottom={ 0 }
+                            checked={ this.state.notWordedSounds } onToogle={ this._handleToogleNotWordedSounds.bind(this) }
+                        />
+
                     </form>
 
                 </div>

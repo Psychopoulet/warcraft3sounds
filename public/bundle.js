@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/Alert.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/Alert.js ***!
-  \***************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/Alert.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/Alert.js ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -45,10 +45,10 @@ Alert.displayName = "Alert";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/Badge.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/Badge.js ***!
-  \***************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/Badge.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/Badge.js ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -57,7 +57,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Icon */ "./node_modules/react-bootstrap-fontawesome/lib/Icon.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Icon */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Icon.js");
 
 // deps
 // externals
@@ -93,10 +93,10 @@ Badge.displayName = "Badge";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/Button.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/Button.js ***!
-  \****************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/Button.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/Button.js ***!
+  \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -105,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Icon */ "./node_modules/react-bootstrap-fontawesome/lib/Icon.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Icon */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Icon.js");
 
 // deps
 // externals
@@ -162,10 +162,10 @@ Button.displayName = "Button";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/ButtonGroup.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/ButtonGroup.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/ButtonGroup.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/ButtonGroup.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -174,7 +174,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button */ "./node_modules/react-bootstrap-fontawesome/lib/Button.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Button */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Button.js");
 
 // deps
 // externals
@@ -208,10 +208,10 @@ ButtonGroup.displayName = "ButtonGroup";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/Icon.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/Icon.js ***!
-  \**************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/Icon.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/Icon.js ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -323,10 +323,10 @@ Icon.displayName = "Icon";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/Image.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/Image.js ***!
-  \***************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/Image.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/Image.js ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -357,10 +357,10 @@ Image.displayName = "Image";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/MaxHeightContent.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/MaxHeightContent.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/MaxHeightContent.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/MaxHeightContent.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -396,10 +396,10 @@ MaxHeightContent.displayName = "MaxHeightContent";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/card/Card.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/card/Card.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/Card.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/card/Card.js ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -408,15 +408,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _MaxHeightContent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../MaxHeightContent */ "./node_modules/react-bootstrap-fontawesome/lib/MaxHeightContent.js");
-/* harmony import */ var _CardContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardContext */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardContext.js");
-/* harmony import */ var _CardHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CardHeader */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardHeader.js");
-/* harmony import */ var _CardHeaderNav__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CardHeaderNav */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardHeaderNav.js");
-/* harmony import */ var _CardImage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CardImage */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardImage.js");
-/* harmony import */ var _CardBody__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CardBody */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardBody.js");
-/* harmony import */ var _CardList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CardList */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardList.js");
-/* harmony import */ var _CardTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./CardTable */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardTable.js");
-/* harmony import */ var _CardFooter__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./CardFooter */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardFooter.js");
+/* harmony import */ var _MaxHeightContent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../MaxHeightContent */ "./node_modules/react-bootstrap-fontawesome/lib/dist/MaxHeightContent.js");
+/* harmony import */ var _CardContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardContext */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardContext.js");
+/* harmony import */ var _CardHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CardHeader */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardHeader.js");
+/* harmony import */ var _CardHeaderNav__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CardHeaderNav */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardHeaderNav.js");
+/* harmony import */ var _CardImage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CardImage */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardImage.js");
+/* harmony import */ var _CardBody__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CardBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardBody.js");
+/* harmony import */ var _CardList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CardList */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardList.js");
+/* harmony import */ var _CardTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./CardTable */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardTable.js");
+/* harmony import */ var _CardFooter__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./CardFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardFooter.js");
 
 // deps
 // externals
@@ -461,10 +461,10 @@ Card.displayName = "Card";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/card/CardBody.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/card/CardBody.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardBody.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardBody.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -473,7 +473,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _CardContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardContext */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardContext.js");
+/* harmony import */ var _CardContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardContext */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardContext.js");
 
 // deps
 // externals
@@ -506,10 +506,10 @@ CardBody.displayName = "CardBody";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/card/CardContext.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/card/CardContext.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardContext.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardContext.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -530,10 +530,10 @@ CardContext.displayName = "CardContext";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/card/CardFooter.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/card/CardFooter.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardFooter.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardFooter.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -542,7 +542,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _CardContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardContext */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardContext.js");
+/* harmony import */ var _CardContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardContext */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardContext.js");
 
 // deps
 // externals
@@ -570,10 +570,10 @@ CardFooter.contextType = _CardContext__WEBPACK_IMPORTED_MODULE_1__.CardContext;
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/card/CardHeader.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/card/CardHeader.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardHeader.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardHeader.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -582,7 +582,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _CardContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardContext */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardContext.js");
+/* harmony import */ var _CardContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardContext */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardContext.js");
 
 // deps
 // externals
@@ -618,10 +618,10 @@ CardHeader.contextType = _CardContext__WEBPACK_IMPORTED_MODULE_1__.CardContext;
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/card/CardHeaderNav.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/card/CardHeaderNav.js ***!
-  \****************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardHeaderNav.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardHeaderNav.js ***!
+  \*********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -630,7 +630,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _nav_NavTabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../nav/NavTabs */ "./node_modules/react-bootstrap-fontawesome/lib/nav/NavTabs.js");
+/* harmony import */ var _nav_NavTabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../nav/NavTabs */ "./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavTabs.js");
 
 // deps
 // externals
@@ -656,10 +656,10 @@ CardHeaderNav.displayName = "CardHeaderNav";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/card/CardImage.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/card/CardImage.js ***!
-  \************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardImage.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardImage.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -668,7 +668,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Image */ "./node_modules/react-bootstrap-fontawesome/lib/Image.js");
+/* harmony import */ var _Image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Image */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Image.js");
 
 // deps
 // externals
@@ -691,10 +691,10 @@ CardImage.displayName = "CardImage";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/card/CardList.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/card/CardList.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardList.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardList.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -703,8 +703,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _CardContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardContext */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardContext.js");
-/* harmony import */ var _list_List__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../list/List */ "./node_modules/react-bootstrap-fontawesome/lib/list/List.js");
+/* harmony import */ var _CardContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardContext */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardContext.js");
+/* harmony import */ var _list_List__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../list/List */ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/List.js");
 
 // deps
 // externals
@@ -728,10 +728,10 @@ CardList.displayName = "CardList";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/card/CardTable.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/card/CardTable.js ***!
-  \************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardTable.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardTable.js ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -740,7 +740,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _table_Table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../table/Table */ "./node_modules/react-bootstrap-fontawesome/lib/table/Table.js");
+/* harmony import */ var _table_Table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../table/Table */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/Table.js");
 
 // deps
 // externals
@@ -761,16 +761,17 @@ CardTable.displayName = "CardTable";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/CheckBox.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/CheckBox.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/CheckBox.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/CheckBox.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CheckBox: () => (/* binding */ CheckBox),
-/* harmony export */   CheckBoxLabel: () => (/* binding */ CheckBoxLabel)
+/* harmony export */   CheckBoxLabel: () => (/* binding */ CheckBoxLabel),
+/* harmony export */   CheckBoxPrettierLabel: () => (/* binding */ CheckBoxPrettierLabel)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -809,7 +810,7 @@ class CheckBoxLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         const disabled = Boolean(this.props.disabled);
         const checked = Boolean(this.props.checked);
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : "")
                 + (disabled ? " text-muted" : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-check" },
@@ -820,14 +821,31 @@ class CheckBoxLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
 }
 // name
 CheckBoxLabel.displayName = "CheckBoxLabel";
+class CheckBoxPrettierLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    // render
+    render() {
+        // props values
+        const disabled = Boolean(this.props.disabled);
+        const checked = Boolean(this.props.checked);
+        // render
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] + " input-group" : "mb-3 input-group")
+                + (this.props.className ? " input-group " + this.props.className : "")
+                + (disabled ? " text-muted" : ""), style: this.props.style },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-text", "aria-label": this.props.label },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement(CheckBox, { id: this.props.id, className: "form-check-input", disabled: disabled, label: this.props.label, checked: checked, onToogle: this.props.onToogle })),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-text" }, this.props.label));
+    }
+}
+// name
+CheckBoxPrettierLabel.displayName = "CheckBoxPrettierLabel";
 
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js ***!
-  \*******************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -916,10 +934,10 @@ InvalidFeedBackMaxLength.displayName = "InvalidFeedBackMaxLength";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputArray.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/InputArray.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputArray.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputArray.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -929,17 +947,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _generateFocus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../generateFocus */ "./node_modules/react-bootstrap-fontawesome/lib/generateFocus.js");
-/* harmony import */ var _card_Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../card/Card */ "./node_modules/react-bootstrap-fontawesome/lib/card/Card.js");
-/* harmony import */ var _card_CardHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../card/CardHeader */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardHeader.js");
-/* harmony import */ var _card_CardBody__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../card/CardBody */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardBody.js");
-/* harmony import */ var _card_CardFooter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../card/CardFooter */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardFooter.js");
-/* harmony import */ var _InputText__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./InputText */ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputText.js");
-/* harmony import */ var _list_List__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../list/List */ "./node_modules/react-bootstrap-fontawesome/lib/list/List.js");
-/* harmony import */ var _list_ListItemHeader__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../list/ListItemHeader */ "./node_modules/react-bootstrap-fontawesome/lib/list/ListItemHeader.js");
-/* harmony import */ var _list_ListItem__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../list/ListItem */ "./node_modules/react-bootstrap-fontawesome/lib/list/ListItem.js");
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../Button */ "./node_modules/react-bootstrap-fontawesome/lib/Button.js");
-/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
+/* harmony import */ var _generateFocus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../generateFocus */ "./node_modules/react-bootstrap-fontawesome/lib/dist/generateFocus.js");
+/* harmony import */ var _card_Card__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../card/Card */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/Card.js");
+/* harmony import */ var _card_CardHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../card/CardHeader */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardHeader.js");
+/* harmony import */ var _card_CardBody__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../card/CardBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardBody.js");
+/* harmony import */ var _card_CardFooter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../card/CardFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardFooter.js");
+/* harmony import */ var _InputText__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./InputText */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputText.js");
+/* harmony import */ var _list_List__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../list/List */ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/List.js");
+/* harmony import */ var _list_ListItemHeader__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../list/ListItemHeader */ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListItemHeader.js");
+/* harmony import */ var _list_ListItem__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../list/ListItem */ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListItem.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../Button */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Button.js");
+/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
 
 // deps
 // externals
@@ -1030,7 +1048,7 @@ class InputArrayLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
             requiredValid = required ? 0 < values.length : true;
         }
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], { id: this.props.id, className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_card_Card__WEBPACK_IMPORTED_MODULE_2__["default"], { id: this.props.id, className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_card_CardHeader__WEBPACK_IMPORTED_MODULE_3__["default"], null,
                 this.props.label,
@@ -1051,10 +1069,10 @@ InputArrayLabel.displayName = "iPropsInputArrayLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputColor.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/InputColor.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputColor.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputColor.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1064,8 +1082,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Icon */ "./node_modules/react-bootstrap-fontawesome/lib/Icon.js");
-/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Icon */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Icon.js");
+/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
 
 // deps
 // externals
@@ -1151,7 +1169,7 @@ class InputColorLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         const patternValid = new RegExp(InputColor.PATTERN).test(value);
         const valid = requiredValid && minLengthValid && maxLengthValid && patternValid;
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
                     ? "text-muted"
@@ -1171,10 +1189,10 @@ InputColorLabel.displayName = "InputColorLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputFile.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/InputFile.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputFile.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputFile.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1228,7 +1246,7 @@ class InputFileLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         const disabled = Boolean(this.props.disabled);
         const required = Boolean(this.props.required);
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
                     ? "text-muted"
@@ -1247,10 +1265,10 @@ InputFileLabel.displayName = "InputFileLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputFloat.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/InputFloat.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputFloat.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputFloat.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1260,7 +1278,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
+/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
 
 // deps
 // externals
@@ -1317,7 +1335,7 @@ class InputFloatLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         const maxValid = "number" === typeof this.props.max && isNumber ? this.props.value <= this.props.max : true;
         const valid = isNumber && minValid && maxValid;
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
                     ? "text-muted"
@@ -1339,10 +1357,10 @@ InputFloatLabel.displayName = "InputFloatLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputIPV4.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/InputIPV4.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputIPV4.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputIPV4.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1352,7 +1370,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _InputText__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InputText */ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputText.js");
+/* harmony import */ var _InputText__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InputText */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputText.js");
 
 // deps
 // externals
@@ -1383,7 +1401,7 @@ class InputIPV4Label extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         const required = Boolean(this.props.required);
         const minLength = required ? InputIPV4.MIN : undefined;
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputText__WEBPACK_IMPORTED_MODULE_1__.InputTextLabel, { id: this.props.id, name: this.props.name, _ref: this.props._ref, className: this.props.className, style: this.props.style, disabled: this.props.disabled, required: required, placeholder: this.props.placeholder, label: this.props.label, pattern: InputIPV4.PATTERN, value: this.props.value, minLength: minLength, maxLength: InputIPV4.MAX, onChange: this.props.onChange, onKeyDown: this.props.onKeyDown });
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputText__WEBPACK_IMPORTED_MODULE_1__.InputTextLabel, { id: this.props.id, name: this.props.name, _ref: this.props._ref, className: this.props.className, style: this.props.style, "margin-bottom": this.props["margin-bottom"], disabled: this.props.disabled, required: required, placeholder: this.props.placeholder, label: this.props.label, pattern: InputIPV4.PATTERN, value: this.props.value, minLength: minLength, maxLength: InputIPV4.MAX, onChange: this.props.onChange, onKeyDown: this.props.onKeyDown });
     }
 }
 // name
@@ -1392,10 +1410,10 @@ InputIPV4Label.displayName = "InputIPV4Label";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputInteger.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/InputInteger.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputInteger.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputInteger.js ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1405,7 +1423,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
+/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
 
 // deps
 // externals
@@ -1464,7 +1482,7 @@ class InputIntegerLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent
         const maxValid = "number" === typeof this.props.max && isNumber ? this.props.value <= this.props.max : true;
         const valid = integerValid && minValid && maxValid;
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
                     ? "text-muted"
@@ -1486,10 +1504,10 @@ InputIntegerLabel.displayName = "InputIntegerLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputReadOnly.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/InputReadOnly.js ***!
-  \******************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputReadOnly.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputReadOnly.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1499,7 +1517,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
+/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
 
 // deps
 // externals
@@ -1543,7 +1561,7 @@ class InputReadOnlyLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponen
         const requiredValid = required ? "" !== this.props.value : true;
         const valid = requiredValid;
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
                     ? "text-muted"
@@ -1563,10 +1581,10 @@ InputReadOnlyLabel.displayName = "InputReadOnlyLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputText.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/InputText.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputText.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputText.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1576,7 +1594,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
+/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
 
 // deps
 // externals
@@ -1664,7 +1682,7 @@ class InputTextLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         }
         const valid = requiredValid && minLengthValid && maxLengthValid && patternValid;
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
                     ? "text-muted"
@@ -1684,10 +1702,10 @@ InputTextLabel.displayName = "InputTextLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/Range.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/Range.js ***!
-  \**********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/Range.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/Range.js ***!
+  \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1697,7 +1715,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
+/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
 
 // deps
 // externals
@@ -1777,7 +1795,7 @@ class RangeLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         const maxValid = "number" === typeof this.props.max && isNumber ? this.props.value <= this.props.max : true;
         const valid = integerValid && minValid && maxValid;
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
                     ? "text-muted"
@@ -1799,10 +1817,10 @@ RangeLabel.displayName = "RangeLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/Select.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/Select.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/Select.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/Select.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1812,7 +1830,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
+/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
 
 // deps
 // externals
@@ -1856,7 +1874,7 @@ class SelectLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         // controls
         const requiredValid = required ? "" !== this.props.value : true;
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
                     ? "text-muted"
@@ -1876,10 +1894,10 @@ SelectLabel.displayName = "SelectLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/SelectInteger.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/SelectInteger.js ***!
-  \******************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/SelectInteger.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/SelectInteger.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1889,7 +1907,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
+/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
 
 // deps
 // externals
@@ -1945,7 +1963,7 @@ class SelectIntegerLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponen
         const requiredValid = required ? isNumber : true;
         const integerValid = isNumber && Number.isInteger(this.props.value);
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled ? " text-muted" : "", "aria-label": this.props.label }, this.props.label),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(SelectInteger, { id: this.props.id, required: required, disabled: disabled, label: this.props.label, value: this.props.value, onChange: this.props.onChange }, this.props.children),
@@ -1959,10 +1977,10 @@ SelectIntegerLabel.displayName = "SelectIntegerLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/fields/TextArea.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/fields/TextArea.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/TextArea.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/TextArea.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1972,7 +1990,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
+/* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
 
 // deps
 // externals
@@ -2060,7 +2078,7 @@ class TextAreaLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         }
         const valid = requiredValid && minLengthValid && maxLengthValid && patternValid;
         // render
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "mb-3"
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
                     ? "text-muted"
@@ -2080,10 +2098,10 @@ TextAreaLabel.displayName = "iPropsTextAreaLabel";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/generateFocus.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/generateFocus.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/generateFocus.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/generateFocus.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2108,10 +2126,10 @@ function generateFocus() {
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/list/List.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/list/List.js ***!
-  \*******************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/List.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/list/List.js ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2120,7 +2138,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ListContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListContext */ "./node_modules/react-bootstrap-fontawesome/lib/list/ListContext.js");
+/* harmony import */ var _ListContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListContext */ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListContext.js");
 
 // deps
 // externals
@@ -2169,10 +2187,10 @@ List.displayName = "List";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/list/ListContext.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/list/ListContext.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListContext.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListContext.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2193,10 +2211,10 @@ ListContext.displayName = "ListContext";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/list/ListItem.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/list/ListItem.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListItem.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListItem.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2205,7 +2223,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ListContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListContext */ "./node_modules/react-bootstrap-fontawesome/lib/list/ListContext.js");
+/* harmony import */ var _ListContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListContext */ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListContext.js");
 
 // deps
 // externals
@@ -2251,10 +2269,10 @@ ListItem.displayName = "ListItem";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/list/ListItemHeader.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/list/ListItemHeader.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListItemHeader.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListItemHeader.js ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2285,10 +2303,10 @@ ListItemHeader.displayName = "ListItemHeader";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/main.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/main.js ***!
-  \**************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/main.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/main.js ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2307,6 +2325,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   CardTable: () => (/* reexport safe */ _card_CardTable__WEBPACK_IMPORTED_MODULE_14__["default"]),
 /* harmony export */   CheckBox: () => (/* reexport safe */ _fields_CheckBox__WEBPACK_IMPORTED_MODULE_20__.CheckBox),
 /* harmony export */   CheckBoxLabel: () => (/* reexport safe */ _fields_CheckBox__WEBPACK_IMPORTED_MODULE_20__.CheckBoxLabel),
+/* harmony export */   CheckBoxPrettierLabel: () => (/* reexport safe */ _fields_CheckBox__WEBPACK_IMPORTED_MODULE_20__.CheckBoxPrettierLabel),
 /* harmony export */   Icon: () => (/* reexport safe */ _Icon__WEBPACK_IMPORTED_MODULE_5__["default"]),
 /* harmony export */   Image: () => (/* reexport safe */ _Image__WEBPACK_IMPORTED_MODULE_6__["default"]),
 /* harmony export */   InputArray: () => (/* reexport safe */ _fields_InputArray__WEBPACK_IMPORTED_MODULE_21__.InputArray),
@@ -2359,51 +2378,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   TextAreaLabel: () => (/* reexport safe */ _fields_TextArea__WEBPACK_IMPORTED_MODULE_32__.TextAreaLabel),
 /* harmony export */   generateFocus: () => (/* reexport safe */ _generateFocus__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _generateFocus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generateFocus */ "./node_modules/react-bootstrap-fontawesome/lib/generateFocus.js");
-/* harmony import */ var _Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alert */ "./node_modules/react-bootstrap-fontawesome/lib/Alert.js");
-/* harmony import */ var _Badge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Badge */ "./node_modules/react-bootstrap-fontawesome/lib/Badge.js");
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Button */ "./node_modules/react-bootstrap-fontawesome/lib/Button.js");
-/* harmony import */ var _ButtonGroup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ButtonGroup */ "./node_modules/react-bootstrap-fontawesome/lib/ButtonGroup.js");
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Icon */ "./node_modules/react-bootstrap-fontawesome/lib/Icon.js");
-/* harmony import */ var _Image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Image */ "./node_modules/react-bootstrap-fontawesome/lib/Image.js");
-/* harmony import */ var _MaxHeightContent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./MaxHeightContent */ "./node_modules/react-bootstrap-fontawesome/lib/MaxHeightContent.js");
-/* harmony import */ var _card_Card__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./card/Card */ "./node_modules/react-bootstrap-fontawesome/lib/card/Card.js");
-/* harmony import */ var _card_CardHeader__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./card/CardHeader */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardHeader.js");
-/* harmony import */ var _card_CardHeaderNav__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./card/CardHeaderNav */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardHeaderNav.js");
-/* harmony import */ var _card_CardBody__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./card/CardBody */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardBody.js");
-/* harmony import */ var _card_CardImage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./card/CardImage */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardImage.js");
-/* harmony import */ var _card_CardList__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./card/CardList */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardList.js");
-/* harmony import */ var _card_CardTable__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./card/CardTable */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardTable.js");
-/* harmony import */ var _card_CardFooter__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./card/CardFooter */ "./node_modules/react-bootstrap-fontawesome/lib/card/CardFooter.js");
-/* harmony import */ var _list_List__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./list/List */ "./node_modules/react-bootstrap-fontawesome/lib/list/List.js");
-/* harmony import */ var _list_ListItem__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./list/ListItem */ "./node_modules/react-bootstrap-fontawesome/lib/list/ListItem.js");
-/* harmony import */ var _list_ListItemHeader__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./list/ListItemHeader */ "./node_modules/react-bootstrap-fontawesome/lib/list/ListItemHeader.js");
-/* harmony import */ var _fields_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./fields/FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/fields/FieldFeedBacks.js");
-/* harmony import */ var _fields_CheckBox__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./fields/CheckBox */ "./node_modules/react-bootstrap-fontawesome/lib/fields/CheckBox.js");
-/* harmony import */ var _fields_InputArray__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./fields/InputArray */ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputArray.js");
-/* harmony import */ var _fields_InputColor__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./fields/InputColor */ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputColor.js");
-/* harmony import */ var _fields_InputFloat__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./fields/InputFloat */ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputFloat.js");
-/* harmony import */ var _fields_InputInteger__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./fields/InputInteger */ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputInteger.js");
-/* harmony import */ var _fields_InputIPV4__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./fields/InputIPV4 */ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputIPV4.js");
-/* harmony import */ var _fields_InputReadOnly__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./fields/InputReadOnly */ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputReadOnly.js");
-/* harmony import */ var _fields_InputText__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./fields/InputText */ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputText.js");
-/* harmony import */ var _fields_InputFile__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./fields/InputFile */ "./node_modules/react-bootstrap-fontawesome/lib/fields/InputFile.js");
-/* harmony import */ var _fields_Range__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./fields/Range */ "./node_modules/react-bootstrap-fontawesome/lib/fields/Range.js");
-/* harmony import */ var _fields_Select__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./fields/Select */ "./node_modules/react-bootstrap-fontawesome/lib/fields/Select.js");
-/* harmony import */ var _fields_SelectInteger__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./fields/SelectInteger */ "./node_modules/react-bootstrap-fontawesome/lib/fields/SelectInteger.js");
-/* harmony import */ var _fields_TextArea__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./fields/TextArea */ "./node_modules/react-bootstrap-fontawesome/lib/fields/TextArea.js");
-/* harmony import */ var _modal_Modal__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./modal/Modal */ "./node_modules/react-bootstrap-fontawesome/lib/modal/Modal.js");
-/* harmony import */ var _modal_ModalBody__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./modal/ModalBody */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalBody.js");
-/* harmony import */ var _modal_ModalImage__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./modal/ModalImage */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalImage.js");
-/* harmony import */ var _modal_ModalList__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./modal/ModalList */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalList.js");
-/* harmony import */ var _modal_ModalTable__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./modal/ModalTable */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalTable.js");
-/* harmony import */ var _modal_ModalFooter__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./modal/ModalFooter */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalFooter.js");
-/* harmony import */ var _nav_NavTabs__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./nav/NavTabs */ "./node_modules/react-bootstrap-fontawesome/lib/nav/NavTabs.js");
-/* harmony import */ var _nav_NavItem__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./nav/NavItem */ "./node_modules/react-bootstrap-fontawesome/lib/nav/NavItem.js");
-/* harmony import */ var _table_Table__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./table/Table */ "./node_modules/react-bootstrap-fontawesome/lib/table/Table.js");
-/* harmony import */ var _table_TableHeader__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./table/TableHeader */ "./node_modules/react-bootstrap-fontawesome/lib/table/TableHeader.js");
-/* harmony import */ var _table_TableBody__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./table/TableBody */ "./node_modules/react-bootstrap-fontawesome/lib/table/TableBody.js");
-/* harmony import */ var _table_TableFooter__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./table/TableFooter */ "./node_modules/react-bootstrap-fontawesome/lib/table/TableFooter.js");
+/* harmony import */ var _generateFocus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generateFocus */ "./node_modules/react-bootstrap-fontawesome/lib/dist/generateFocus.js");
+/* harmony import */ var _Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alert */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Alert.js");
+/* harmony import */ var _Badge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Badge */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Badge.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Button */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Button.js");
+/* harmony import */ var _ButtonGroup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ButtonGroup */ "./node_modules/react-bootstrap-fontawesome/lib/dist/ButtonGroup.js");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Icon */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Icon.js");
+/* harmony import */ var _Image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Image */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Image.js");
+/* harmony import */ var _MaxHeightContent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./MaxHeightContent */ "./node_modules/react-bootstrap-fontawesome/lib/dist/MaxHeightContent.js");
+/* harmony import */ var _card_Card__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./card/Card */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/Card.js");
+/* harmony import */ var _card_CardHeader__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./card/CardHeader */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardHeader.js");
+/* harmony import */ var _card_CardHeaderNav__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./card/CardHeaderNav */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardHeaderNav.js");
+/* harmony import */ var _card_CardBody__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./card/CardBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardBody.js");
+/* harmony import */ var _card_CardImage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./card/CardImage */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardImage.js");
+/* harmony import */ var _card_CardList__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./card/CardList */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardList.js");
+/* harmony import */ var _card_CardTable__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./card/CardTable */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardTable.js");
+/* harmony import */ var _card_CardFooter__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./card/CardFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/card/CardFooter.js");
+/* harmony import */ var _list_List__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./list/List */ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/List.js");
+/* harmony import */ var _list_ListItem__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./list/ListItem */ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListItem.js");
+/* harmony import */ var _list_ListItemHeader__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./list/ListItemHeader */ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/ListItemHeader.js");
+/* harmony import */ var _fields_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./fields/FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
+/* harmony import */ var _fields_CheckBox__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./fields/CheckBox */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/CheckBox.js");
+/* harmony import */ var _fields_InputArray__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./fields/InputArray */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputArray.js");
+/* harmony import */ var _fields_InputColor__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./fields/InputColor */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputColor.js");
+/* harmony import */ var _fields_InputFloat__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./fields/InputFloat */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputFloat.js");
+/* harmony import */ var _fields_InputInteger__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./fields/InputInteger */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputInteger.js");
+/* harmony import */ var _fields_InputIPV4__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./fields/InputIPV4 */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputIPV4.js");
+/* harmony import */ var _fields_InputReadOnly__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./fields/InputReadOnly */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputReadOnly.js");
+/* harmony import */ var _fields_InputText__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./fields/InputText */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputText.js");
+/* harmony import */ var _fields_InputFile__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./fields/InputFile */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputFile.js");
+/* harmony import */ var _fields_Range__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./fields/Range */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/Range.js");
+/* harmony import */ var _fields_Select__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./fields/Select */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/Select.js");
+/* harmony import */ var _fields_SelectInteger__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./fields/SelectInteger */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/SelectInteger.js");
+/* harmony import */ var _fields_TextArea__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./fields/TextArea */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/TextArea.js");
+/* harmony import */ var _modal_Modal__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./modal/Modal */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/Modal.js");
+/* harmony import */ var _modal_ModalBody__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./modal/ModalBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalBody.js");
+/* harmony import */ var _modal_ModalImage__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./modal/ModalImage */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalImage.js");
+/* harmony import */ var _modal_ModalList__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./modal/ModalList */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalList.js");
+/* harmony import */ var _modal_ModalTable__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./modal/ModalTable */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalTable.js");
+/* harmony import */ var _modal_ModalFooter__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./modal/ModalFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalFooter.js");
+/* harmony import */ var _nav_NavTabs__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./nav/NavTabs */ "./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavTabs.js");
+/* harmony import */ var _nav_NavItem__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./nav/NavItem */ "./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavItem.js");
+/* harmony import */ var _table_Table__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./table/Table */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/Table.js");
+/* harmony import */ var _table_TableHeader__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./table/TableHeader */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableHeader.js");
+/* harmony import */ var _table_TableBody__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./table/TableBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableBody.js");
+/* harmony import */ var _table_TableFooter__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./table/TableFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableFooter.js");
 
 // deps
 // locals
@@ -2458,10 +2477,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/modal/Modal.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/modal/Modal.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/Modal.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/modal/Modal.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2471,12 +2490,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var _MaxHeightContent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../MaxHeightContent */ "./node_modules/react-bootstrap-fontawesome/lib/MaxHeightContent.js");
-/* harmony import */ var _ModalBody__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ModalBody */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalBody.js");
-/* harmony import */ var _ModalImage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ModalImage */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalImage.js");
-/* harmony import */ var _ModalList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ModalList */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalList.js");
-/* harmony import */ var _ModalTable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ModalTable */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalTable.js");
-/* harmony import */ var _ModalFooter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ModalFooter */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalFooter.js");
+/* harmony import */ var _MaxHeightContent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../MaxHeightContent */ "./node_modules/react-bootstrap-fontawesome/lib/dist/MaxHeightContent.js");
+/* harmony import */ var _ModalBody__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ModalBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalBody.js");
+/* harmony import */ var _ModalImage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ModalImage */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalImage.js");
+/* harmony import */ var _ModalList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ModalList */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalList.js");
+/* harmony import */ var _ModalTable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ModalTable */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalTable.js");
+/* harmony import */ var _ModalFooter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ModalFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalFooter.js");
 
 // deps
 // externals
@@ -2594,10 +2613,10 @@ Modal.OPENED_MODALS_COUNT = 0;
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalBody.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/modal/ModalBody.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalBody.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalBody.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2628,10 +2647,10 @@ ModalBody.displayName = "ModalBody";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalFooter.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/modal/ModalFooter.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalFooter.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalFooter.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2662,10 +2681,10 @@ ModalFooter.displayName = "ModalFooter";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalImage.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/modal/ModalImage.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalImage.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalImage.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2674,7 +2693,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Image */ "./node_modules/react-bootstrap-fontawesome/lib/Image.js");
+/* harmony import */ var _Image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Image */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Image.js");
 
 // deps
 // externals
@@ -2697,10 +2716,10 @@ ModalImage.displayName = "ModalImage";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalList.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/modal/ModalList.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalList.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalList.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2709,8 +2728,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ModalBody__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalBody */ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalBody.js");
-/* harmony import */ var _list_List__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../list/List */ "./node_modules/react-bootstrap-fontawesome/lib/list/List.js");
+/* harmony import */ var _ModalBody__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalBody.js");
+/* harmony import */ var _list_List__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../list/List */ "./node_modules/react-bootstrap-fontawesome/lib/dist/list/List.js");
 
 // deps
 // externals
@@ -2733,10 +2752,10 @@ ModalList.displayName = "ModalList";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/modal/ModalTable.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/modal/ModalTable.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalTable.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalTable.js ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2745,7 +2764,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _table_Table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../table/Table */ "./node_modules/react-bootstrap-fontawesome/lib/table/Table.js");
+/* harmony import */ var _table_Table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../table/Table */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/Table.js");
 
 // deps
 // externals
@@ -2766,10 +2785,10 @@ ModalTable.displayName = "ModalTable";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/nav/NavItem.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/nav/NavItem.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavItem.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavItem.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2821,10 +2840,10 @@ NavItem.displayName = "NavItem";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/nav/NavTabs.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/nav/NavTabs.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavTabs.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavTabs.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2833,7 +2852,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _NavItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavItem */ "./node_modules/react-bootstrap-fontawesome/lib/nav/NavItem.js");
+/* harmony import */ var _NavItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavItem */ "./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavItem.js");
 
 // deps
 // externals
@@ -2917,10 +2936,10 @@ NavTabs.displayName = "NavTabs";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/table/Table.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/table/Table.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/Table.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/table/Table.js ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2929,9 +2948,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _TableHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TableHeader */ "./node_modules/react-bootstrap-fontawesome/lib/table/TableHeader.js");
-/* harmony import */ var _TableBody__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TableBody */ "./node_modules/react-bootstrap-fontawesome/lib/table/TableBody.js");
-/* harmony import */ var _TableFooter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TableFooter */ "./node_modules/react-bootstrap-fontawesome/lib/table/TableFooter.js");
+/* harmony import */ var _TableHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TableHeader */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableHeader.js");
+/* harmony import */ var _TableBody__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TableBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableBody.js");
+/* harmony import */ var _TableFooter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TableFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableFooter.js");
 
 // deps
 // externals
@@ -2983,10 +3002,10 @@ Table.displayName = "Table";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/table/TableBody.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/table/TableBody.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableBody.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableBody.js ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3013,10 +3032,10 @@ TableBody.displayName = "TableBody";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/table/TableFooter.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/table/TableFooter.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableFooter.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableFooter.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3043,10 +3062,10 @@ TableFooter.displayName = "TableFooter";
 
 /***/ }),
 
-/***/ "./node_modules/react-bootstrap-fontawesome/lib/table/TableHeader.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/react-bootstrap-fontawesome/lib/table/TableHeader.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableHeader.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableHeader.js ***!
+  \********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -30338,7 +30357,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/main.js");
+/* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/dist/main.js");
 /* harmony import */ var _Race__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Race */ "./public/src/widgets/Race.tsx");
 
 var __extends = (undefined && undefined.__extends) || (function () {
@@ -30440,7 +30459,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/main.js");
+/* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/dist/main.js");
 
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -30509,13 +30528,6 @@ var Menu = /** @class */ (function (_super) {
             });
         }
     };
-    Menu.prototype._renderNotWorded = function () {
-        var title = "Include \"not worded\" sounds";
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { className: "input-group" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-text" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", { type: "checkbox", className: "form-check-input", title: title, checked: this.state.notWordedSounds, onChange: this._handleToogleNotWordedSounds.bind(this), role: "checkbox", "aria-disabled": "false", "aria-label": title, "aria-checked": this.state.notWordedSounds })),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-text" }, title));
-    };
     Menu.prototype.render = function () {
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", { className: "navbar navbar-expand-md navbar-dark bg-dark" },
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "container-fluid" },
@@ -30525,7 +30537,8 @@ var Menu = /** @class */ (function (_super) {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "navbar-toggler-icon" })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "IPS", className: "collapse navbar-collapse" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "navbar-nav me-auto" }, this._renderIps()),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { className: "form-inline" }, this._renderNotWorded()))));
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { className: "form-inline" },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CheckBoxPrettierLabel, { label: "Include \"not worded\" sounds", "margin-bottom": 0, checked: this.state.notWordedSounds, onToogle: this._handleToogleNotWordedSounds.bind(this) })))));
     };
     // name
     Menu.displayName = "Menu";
@@ -30549,7 +30562,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/main.js");
+/* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/dist/main.js");
 
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {

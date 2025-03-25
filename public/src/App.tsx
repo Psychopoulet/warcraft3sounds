@@ -5,7 +5,6 @@
 	// externals
 	
 	import * as React from "react";
-	import { JSX } from "react";
 
 	// internals
 	import Menu from "./widgets/Menu";
@@ -56,7 +55,7 @@ export default class App extends React.Component<iPropsNode, iStates> {
 
 	// render
 	
-	public render (): JSX.Element {
+	public render (): React.JSX.Element {
 
 		return <div>
 
