@@ -30469,7 +30469,7 @@ var Body = /** @class */ (function (_super) {
         }
         return state;
     };
-    // render
+    // events
     Body.prototype._handleRefresh = function () {
         var _this = this;
         this.setState({
@@ -30490,7 +30490,12 @@ var Body = /** @class */ (function (_super) {
             });
         });
     };
+    Body.prototype._handleChangeSound = function (url) {
+        console.log(url);
+    };
+    // render
     Body.prototype._renderContent = function () {
+        var _this = this;
         if (this.state.loading) {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row justify-content-center" },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "col-md-6" },
@@ -30504,7 +30509,7 @@ var Body = /** @class */ (function (_super) {
         else {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row" }, this.state.races.map(function (race) {
                 return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { key: race.code, className: "col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race }));
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race, onChangeSound: _this._handleChangeSound.bind(_this) }));
             }));
         }
     };
@@ -30701,7 +30706,8 @@ var Race = /** @class */ (function (_super) {
         // states
         _this.state = {
             "loading": true,
-            "race": null
+            "race": null,
+            "selectedSound": ""
         };
         return _this;
     }
@@ -30734,21 +30740,35 @@ var Race = /** @class */ (function (_super) {
             });
         });
     };
+    Race.prototype._handleChangeSound = function (e, value) {
+        e.stopPropagation();
+        e.preventDefault();
+        this.setState({
+            "selectedSound": value
+        });
+        this.props.onChangeSound(value);
+    };
     // render
+    Race.prototype._renderMusics = function () {
+        var _a, _b;
+        if (!this.state.race || 0 >= ((_a = this.state.race) === null || _a === void 0 ? void 0 : _a.musics.length)) {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Musics", value: "No music found" });
+        }
+        else {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-musics", label: "Musics", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_b = this.state.race) === null || _b === void 0 ? void 0 :
+                _b.musics.map(function (music) {
+                    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: music.code, value: music.url }, music.name);
+                }));
+        }
+    };
     Race.prototype._renderBody = function () {
         if (this.state.loading) {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null, "Loading...");
         }
         else {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-group", "data-ng-show": "race.musics.length" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "{{race.code}}Musics" }, "Musics"),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "input-group" },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", { id: "{{race.code}}Musics", className: "form-control", "data-ng-options": "music as music.name for music in race.musics track by music.code", "data-ng-model": "music" },
-                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--")),
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-btn" },
-                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "btn btn-secondary", type: "button", "data-ng-className": "{ 'disabled' : !music || !music.url }", "data-ng-disabled": "!music || !music.url", "data-ng-click": "play(music.url);" },
-                                react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "fa fa-play-circle" }))))),
+                this._renderMusics(),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-group", "data-ng-show": "race.warnings.length" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "{{race.code}}Warnings" }, "Warnings"),
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "input-group" },

@@ -7,7 +7,8 @@
     import * as React from "react";
 
 	import {
-        Card, CardHeader, CardBody
+        Card, CardHeader, CardBody,
+        SelectLabel, InputReadOnlyLabel
     } from "react-bootstrap-fontawesome";
 
     // locals
@@ -27,10 +28,12 @@
     interface iStates {
         "loading": boolean;
         "race": iRace | null;
+        "selectedSound": string;
     };
 
     interface iProps extends iPropsNode {
         "race": iBasicDataWithUrl;
+        "onChangeSound": (url: string) => void;
     }
 
 // component
@@ -51,7 +54,8 @@ export default class Race extends React.Component<iProps, iStates> {
 
         this.state = {
             "loading": true,
-            "race": null
+            "race": null,
+            "selectedSound": ""
         };
 
     }
@@ -100,7 +104,45 @@ export default class Race extends React.Component<iProps, iStates> {
 
     }
 
+    private _handleChangeSound (e: React.ChangeEvent<HTMLSelectElement>, value: string): void {
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        this.setState({
+            "selectedSound": value
+        });
+
+        this.props.onChangeSound(value);
+
+    }
+
     // render
+
+    private _renderMusics (): React.JSX.Element {
+
+        if (!this.state.race || 0 >= this.state.race?.musics.length) {
+
+            return <InputReadOnlyLabel label="Musics" value="No music found" />;
+
+        }
+        else {
+
+            return <SelectLabel id={ this.state.race.code + "-musics" } label="Musics"
+                value={ this.state.selectedSound } onChange={ this._handleChangeSound.bind(this) }
+            >
+
+                <option value="">--</option>
+
+                { this.state.race?.musics.map((music: iBasicDataWithUrl): React.JSX.Element => {
+                    return <option key={ music.code } value={ music.url }>{ music.name }</option>;
+                }) }
+
+            </SelectLabel>;
+
+        }
+
+    }
 
     private _renderBody (): React.JSX.Element {
 
@@ -111,30 +153,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
             return <CardBody>
 
-                <div className="form-group" data-ng-show="race.musics.length">
-
-                    <label htmlFor="{{race.code}}Musics">Musics</label>
-
-                    <div className="input-group">
-
-                        <select
-                            id="{{race.code}}Musics" className="form-control"
-                            data-ng-options="music as music.name for music in race.musics track by music.code" data-ng-model="music"
-                        >
-                            <option value="">--</option>
-                        </select>
-
-                        <span className="input-group-btn">
-
-                            <button className="btn btn-secondary" type="button" data-ng-className="{ 'disabled' : !music || !music.url }" data-ng-disabled="!music || !music.url" data-ng-click="play(music.url);">
-                                <span className="fa fa-play-circle"></span>
-                            </button>
-
-                        </span>
-
-                    </div>
-
-                </div>
+                { this._renderMusics() }
 
                 <div className="form-group" data-ng-show="race.warnings.length">
 

@@ -87,7 +87,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
     }
 
-    // render
+    // events
 
     private _handleRefresh (): void {
 
@@ -116,6 +116,14 @@ export default class Body extends React.Component<iProps, iStates> {
         });
 
     }
+
+    private _handleChangeSound (url: string): void {
+
+        console.log(url);
+
+    }
+
+    // render
 
     private _renderContent (): React.JSX.Element {
 
@@ -156,7 +164,7 @@ export default class Body extends React.Component<iProps, iStates> {
                 { this.state.races.map((race: iBasicDataWithUrl): React.JSX.Element => {
 
                     return <div key={ race.code } className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
-                        <Race race={ race } />
+                        <Race race={ race } onChangeSound={ this._handleChangeSound.bind(this) } />
                     </div>;
 
                 }) }
