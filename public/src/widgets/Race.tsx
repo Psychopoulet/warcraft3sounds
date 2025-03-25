@@ -10,23 +10,27 @@
         Card, CardHeader, CardBody
     } from "react-bootstrap-fontawesome";
 
+    // locals
+    import getSDK from "../sdk";
+
 // types & interfaces
 
     // externals
     import type { iPropsNode } from "react-bootstrap-fontawesome";
 
 	// locals
-	import type { iRace } from "../../../lib/src/api/model";
+	import type { iBasicDataWithUrl, iRace } from "../../../lib/src/api/model";
 	export type { iRace };
 
 // Props && States
 
     interface iStates {
         "loading": boolean;
+        "race": iRace | null;
     };
 
     interface iProps extends iPropsNode {
-        "race": iRace;
+        "race": iBasicDataWithUrl;
     }
 
 // component
@@ -46,16 +50,53 @@ export default class Race extends React.Component<iProps, iStates> {
         // states
 
         this.state = {
-            "loading": true
+            "loading": true,
+            "race": null
         };
 
     }
 
     public componentDidMount (): void {
 
+        this._handleRefresh();
+
     }
 
     public componentWillUnmount (): void {
+
+        this.setState({
+            "race": null
+        });
+
+    }
+
+    // events
+
+    private _handleRefresh (): void {
+
+        this.setState({
+            "loading": true,
+            "race": null
+        });
+
+        getSDK().getRace(this.props.race.code).then((race: iRace): void => {
+
+            this.setState({
+                "loading": false,
+                "race": race
+            });
+
+        }).catch((err: Error): void => {
+
+            console.error(err);
+            alert(err.message);
+
+            this.setState({
+                "loading": false,
+                "race": null
+            });
+
+        });
 
     }
 
@@ -64,11 +105,7 @@ export default class Race extends React.Component<iProps, iStates> {
     private _renderBody (): React.JSX.Element {
 
         if (this.state.loading) {
-
-            return <CardBody>
-                loading
-            </CardBody>;
-
+            return <CardBody>Loading...</CardBody>;
         }
         else {
 

@@ -3,8 +3,8 @@
 // types & interfaces
 
     // locals
-    import type { iIp, iRace } from "../../lib/src/api/model";
-    export type { iIp, iRace };
+    import type { iBasicDataWithUrl, iIp, iRace } from "../../lib/src/api/model";
+    export type { iBasicDataWithUrl, iIp, iRace };
 
 // component
 
@@ -20,9 +20,19 @@ export class SDK {
 
     }
 
-    public getRaces (): Promise<iRace[]> {
+    public getRaces (): Promise<iBasicDataWithUrl[]> {
 
-        return fetch("/api/races").then((content: Response): Promise<iRace[]> => {
+        return fetch("/api/races").then((content: Response): Promise<iBasicDataWithUrl[]> => {
+
+            return content.json();
+
+        });
+
+    }
+
+    public getRace (code: iRace["code"]): Promise<iRace> {
+
+        return fetch("/api/races/" + code).then((content: Response): Promise<iRace> => {
 
             return content.json();
 

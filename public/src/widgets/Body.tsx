@@ -20,14 +20,14 @@
     import type { iPropsNode } from "react-bootstrap-fontawesome";
 
     // locals
-    import type { iRace } from "./Race";
+    import type { iBasicDataWithUrl } from "../sdk";
 
 // Props && States
 
     interface iStates {
         "notWordedSounds": boolean;
         "loading": boolean;
-        "races": iRace[];
+        "races": iBasicDataWithUrl[];
     };
 
     interface iProps extends iPropsNode {
@@ -89,33 +89,33 @@ export default class Body extends React.Component<iProps, iStates> {
 
     // render
 
-        private _handleRefresh (): void {
+    private _handleRefresh (): void {
+
+        this.setState({
+            "loading": true,
+            "races": []
+        });
+
+        getSDK().getRaces().then((races: iBasicDataWithUrl[]): void => {
 
             this.setState({
-                "loading": true,
+                "loading": false,
+                "races": races
+            });
+
+        }).catch((err: Error): void => {
+
+            console.error(err);
+            alert(err.message);
+
+            this.setState({
+                "loading": false,
                 "races": []
             });
 
-            getSDK().getRaces().then((races: iRace[]): void => {
+        });
 
-                this.setState({
-                    "loading": false,
-                    "races": races
-                });
-
-            }).catch((err: Error): void => {
-
-                console.error(err);
-                alert(err.message);
-
-                this.setState({
-                    "loading": false,
-                    "races": []
-                });
-
-            });
-
-        }
+    }
 
     private _renderContent (): React.JSX.Element {
 
@@ -153,7 +153,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
             return <div className="row">
 
-                { this.state.races.map((race: iRace): React.JSX.Element => {
+                { this.state.races.map((race: iBasicDataWithUrl): React.JSX.Element => {
 
                     return <div key={ race.code } className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
                         <Race race={ race } />

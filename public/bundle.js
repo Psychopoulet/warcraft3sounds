@@ -30371,6 +30371,11 @@ var SDK = /** @class */ (function () {
             return content.json();
         });
     };
+    SDK.prototype.getRace = function (code) {
+        return fetch("/api/races/" + code).then(function (content) {
+            return content.json();
+        });
+    };
     return SDK;
 }());
 
@@ -30663,6 +30668,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/dist/main.js");
+/* harmony import */ var _sdk__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../sdk */ "./public/src/sdk.ts");
 
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -30683,6 +30689,8 @@ var __extends = (undefined && undefined.__extends) || (function () {
 // externals
 
 
+// locals
+
 ;
 // component
 var Race = /** @class */ (function (_super) {
@@ -30692,18 +30700,44 @@ var Race = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         // states
         _this.state = {
-            "loading": true
+            "loading": true,
+            "race": null
         };
         return _this;
     }
     Race.prototype.componentDidMount = function () {
+        this._handleRefresh();
     };
     Race.prototype.componentWillUnmount = function () {
+        this.setState({
+            "race": null
+        });
+    };
+    // events
+    Race.prototype._handleRefresh = function () {
+        var _this = this;
+        this.setState({
+            "loading": true,
+            "race": null
+        });
+        (0,_sdk__WEBPACK_IMPORTED_MODULE_2__["default"])().getRace(this.props.race.code).then(function (race) {
+            _this.setState({
+                "loading": false,
+                "race": race
+            });
+        }).catch(function (err) {
+            console.error(err);
+            alert(err.message);
+            _this.setState({
+                "loading": false,
+                "race": null
+            });
+        });
     };
     // render
     Race.prototype._renderBody = function () {
         if (this.state.loading) {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null, "loading");
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null, "Loading...");
         }
         else {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
