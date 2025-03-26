@@ -30371,8 +30371,13 @@ var SDK = /** @class */ (function () {
             return content.json();
         });
     };
-    SDK.prototype.getRace = function (code) {
-        return fetch("/api/races/" + code).then(function (content) {
+    SDK.prototype.getRace = function (raceCode) {
+        return fetch("/api/races/" + raceCode).then(function (content) {
+            return content.json();
+        });
+    };
+    SDK.prototype.getCharacter = function (raceCode, characterCode) {
+        return fetch("/api/races/" + raceCode + "/characters/" + characterCode).then(function (content) {
             return content.json();
         });
     };
@@ -30508,7 +30513,7 @@ var Body = /** @class */ (function (_super) {
         }
         else {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row" }, this.state.races.map(function (race) {
-                return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { key: race.code, className: "col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3" },
+                return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { key: race.code, className: "col-12 col-sm-6 col-md-4 col-lg-3 mb-3" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race, onChangeSound: _this._handleChangeSound.bind(_this) }));
             }));
         }
@@ -30707,7 +30712,10 @@ var Race = /** @class */ (function (_super) {
         _this.state = {
             "loading": true,
             "race": null,
-            "selectedSound": ""
+            "selectedSound": "",
+            "selectedCharacter": "",
+            "loadingCharacter": false,
+            "character": null
         };
         return _this;
     }
@@ -30716,7 +30724,8 @@ var Race = /** @class */ (function (_super) {
     };
     Race.prototype.componentWillUnmount = function () {
         this.setState({
-            "race": null
+            "race": null,
+            "character": null
         });
     };
     // events
@@ -30748,6 +30757,31 @@ var Race = /** @class */ (function (_super) {
         });
         this.props.onChangeSound(value);
     };
+    Race.prototype._handleChangeCharacter = function (e, value) {
+        var _this = this;
+        e.stopPropagation();
+        e.preventDefault();
+        this.setState({
+            "loadingCharacter": true,
+            "selectedCharacter": value,
+            "character": null
+        });
+        if ("" !== value) {
+            (0,_sdk__WEBPACK_IMPORTED_MODULE_2__["default"])().getCharacter(this.props.race.code, value).then(function (character) {
+                _this.setState({
+                    "loadingCharacter": false,
+                    "character": character
+                });
+            }).catch(function (err) {
+                console.error(err);
+                alert(err.message);
+                _this.setState({
+                    "loadingCharacter": false,
+                    "character": null
+                });
+            });
+        }
+    };
     // render
     Race.prototype._renderMusics = function () {
         var _a, _b;
@@ -30757,9 +30791,50 @@ var Race = /** @class */ (function (_super) {
         else {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-musics", label: "Musics", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_b = this.state.race) === null || _b === void 0 ? void 0 :
-                _b.musics.map(function (music) {
-                    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: music.code, value: music.url }, music.name);
+                _b.musics.map(function (content) {
+                    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: content.code, value: content.url }, content.name);
                 }));
+        }
+    };
+    Race.prototype._renderWarnings = function () {
+        var _a, _b;
+        if (!this.state.race || 0 >= ((_a = this.state.race) === null || _a === void 0 ? void 0 : _a.warnings.length)) {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Warnings", value: "No warning found" });
+        }
+        else {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-warnings", label: "Warnings", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_b = this.state.race) === null || _b === void 0 ? void 0 :
+                _b.warnings.map(function (content) {
+                    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: content.code, value: content.url }, content.name);
+                }));
+        }
+    };
+    Race.prototype._renderCharacters = function () {
+        var _a, _b, _c, _d, _e;
+        if (!this.state.race || 0 >= ((_a = this.state.race) === null || _a === void 0 ? void 0 : _a.characters.length)) {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Characters", value: "No character found", "margin-bottom": 0 });
+        }
+        else if (!this.state.character || 0 >= ((_b = this.state.character) === null || _b === void 0 ? void 0 : _b.actions.length)) {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-characters", label: "Characters", "margin-bottom": 0, value: this.state.selectedCharacter, onChange: this._handleChangeCharacter.bind(this) },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_c = this.state.race) === null || _c === void 0 ? void 0 :
+                _c.characters.map(function (content) {
+                    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: content.code, value: content.code }, content.name);
+                }));
+        }
+        else {
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.state.race.code + "-actions", "aria-label": "Actions" }, "Actions"),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "input-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-characters", value: this.state.selectedCharacter, onChange: this._handleChangeCharacter.bind(this) },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_d = this.state.race) === null || _d === void 0 ? void 0 :
+                        _d.characters.map(function (content) {
+                            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: content.code, value: content.code }, content.name);
+                        })),
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-actions", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_e = this.state.character) === null || _e === void 0 ? void 0 :
+                        _e.actions.map(function (content) {
+                            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: content.code, value: content.url }, content.name);
+                        }))));
         }
     };
     Race.prototype._renderBody = function () {
@@ -30769,27 +30844,8 @@ var Race = /** @class */ (function (_super) {
         else {
             return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
                 this._renderMusics(),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-group", "data-ng-show": "race.warnings.length" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "{{race.code}}Warnings" }, "Warnings"),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "input-group" },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", { id: "{{race.code}}Warnings", className: "form-control", "data-ng-options": "warning as warning.name for warning in race.warnings track by warning.code", "data-ng-model": "warning" },
-                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--")),
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-btn" },
-                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "btn btn-secondary", type: "button", "data-ng-className": "{ 'disabled' : !warning || !warning.url }", "data-ng-disabled": "!warning || !warning.url", "data-ng-click": "play(warning.url);" },
-                                react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "fa fa-play-circle" }))))),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-group", "data-ng-show": "race.characters.length" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "{{race.code}}Characters" }, "Characters"),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", { id: "{{race.code}}Characters", className: "form-control", "data-ng-options": "character as character.name for character in race.characters track by character.code", "data-ng-model": "character", "data-ng-change": "loadActions();", "data-ng-show": "race.characters.length" },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"))),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-group", "data-ng-show": "character && !actionsLoading" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: "{{race.code}}{{character.code}}Action" }, "Actions"),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "form-control-static", "data-ng-hide": "actions.length" }, "There is no action"),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "input-group", "data-ng-show": "actions.length" },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", { id: "{{race.code}}{{character.code}}Action", className: "form-control", "data-ng-options": "action as action.name group by action.type.name for action in actions track by action.code", "data-ng-model": "action" },
-                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--")),
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "input-group-btn" },
-                            react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { className: "btn btn-secondary", type: "button", "data-ng-className": "{ 'disabled' : !action || !action.url }", "data-ng-disabled": "!action || !action.url", "data-ng-click": "play(action.url);" },
-                                react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "fa fa-play-circle" }))))));
+                this._renderWarnings(),
+                this._renderCharacters());
         }
     };
     Race.prototype.render = function () {

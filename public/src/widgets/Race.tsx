@@ -8,7 +8,7 @@
 
 	import {
         Card, CardHeader, CardBody,
-        SelectLabel, InputReadOnlyLabel
+        SelectLabel, Select, InputReadOnlyLabel
     } from "react-bootstrap-fontawesome";
 
     // locals
@@ -20,7 +20,7 @@
     import type { iPropsNode } from "react-bootstrap-fontawesome";
 
 	// locals
-	import type { iBasicDataWithUrl, iRace } from "../../../lib/src/api/model";
+	import type { iBasicDataWithUrl, iCharacter, iRace } from "../../../lib/src/api/model";
 	export type { iRace };
 
 // Props && States
@@ -29,6 +29,9 @@
         "loading": boolean;
         "race": iRace | null;
         "selectedSound": string;
+        "selectedCharacter": string;
+        "loadingCharacter": boolean;
+        "character": iCharacter | null;
     };
 
     interface iProps extends iPropsNode {
@@ -55,7 +58,10 @@ export default class Race extends React.Component<iProps, iStates> {
         this.state = {
             "loading": true,
             "race": null,
-            "selectedSound": ""
+            "selectedSound": "",
+            "selectedCharacter": "",
+            "loadingCharacter": false,
+            "character": null
         };
 
     }
@@ -69,7 +75,8 @@ export default class Race extends React.Component<iProps, iStates> {
     public componentWillUnmount (): void {
 
         this.setState({
-            "race": null
+            "race": null,
+            "character": null
         });
 
     }
@@ -117,6 +124,42 @@ export default class Race extends React.Component<iProps, iStates> {
 
     }
 
+    private _handleChangeCharacter (e: React.ChangeEvent<HTMLSelectElement>, value: string): void {
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        this.setState({
+            "loadingCharacter": true,
+            "selectedCharacter": value,
+            "character": null
+        });
+
+        if ("" !== value) {
+
+            getSDK().getCharacter(this.props.race.code, value).then((character: iCharacter): void => {
+
+                this.setState({
+                    "loadingCharacter": false,
+                    "character": character
+                });
+
+            }).catch((err: Error): void => {
+
+                console.error(err);
+                alert(err.message);
+
+                this.setState({
+                    "loadingCharacter": false,
+                    "character": null
+                });
+
+            });
+
+        }
+
+    }
+
     // render
 
     private _renderMusics (): React.JSX.Element {
@@ -134,11 +177,99 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <option value="">--</option>
 
-                { this.state.race?.musics.map((music: iBasicDataWithUrl): React.JSX.Element => {
-                    return <option key={ music.code } value={ music.url }>{ music.name }</option>;
+                { this.state.race?.musics.map((content: iBasicDataWithUrl): React.JSX.Element => {
+                    return <option key={ content.code } value={ content.url }>{ content.name }</option>;
                 }) }
 
             </SelectLabel>;
+
+        }
+
+    }
+
+    private _renderWarnings (): React.JSX.Element {
+
+        if (!this.state.race || 0 >= this.state.race?.warnings.length) {
+
+            return <InputReadOnlyLabel label="Warnings" value="No warning found" />;
+
+        }
+        else {
+
+            return <SelectLabel id={ this.state.race.code + "-warnings" } label="Warnings"
+                value={ this.state.selectedSound } onChange={ this._handleChangeSound.bind(this) }
+            >
+
+                <option value="">--</option>
+
+                { this.state.race?.warnings.map((content: iBasicDataWithUrl): React.JSX.Element => {
+                    return <option key={ content.code } value={ content.url }>{ content.name }</option>;
+                }) }
+
+            </SelectLabel>;
+
+        }
+
+    }
+
+    private _renderCharacters (): React.JSX.Element {
+
+        if (!this.state.race || 0 >= this.state.race?.characters.length) {
+
+            return <InputReadOnlyLabel label="Characters" value="No character found" margin-bottom={ 0 } />;
+
+        }
+        else if (!this.state.character || 0 >= this.state.character?.actions.length) {
+
+            return <SelectLabel id={ this.state.race.code + "-characters" } label="Characters"
+                margin-bottom={ 0 }
+                value={ this.state.selectedCharacter } onChange={ this._handleChangeCharacter.bind(this) }
+            >
+
+                <option value="">--</option>
+
+                { this.state.race?.characters.map((content: iBasicDataWithUrl): React.JSX.Element => {
+                    return <option key={ content.code } value={ content.code }>{ content.name }</option>;
+                }) }
+
+            </SelectLabel>;
+
+        }
+        else {
+
+            return <>
+
+                <label htmlFor={ this.state.race.code + "-actions" } aria-label="Actions">Actions</label>
+
+                <div className="input-group">
+
+                    <Select id={ this.state.race.code + "-characters" }
+                        value={ this.state.selectedCharacter } onChange={ this._handleChangeCharacter.bind(this) }
+                    >
+
+                        <option value="">--</option>
+
+                        { this.state.race?.characters.map((content: iBasicDataWithUrl): React.JSX.Element => {
+                            return <option key={ content.code } value={ content.code }>{ content.name }</option>;
+                        }) }
+
+                    </Select>
+
+                    <Select id={ this.state.race.code + "-actions" }
+                        value={ this.state.selectedSound } onChange={ this._handleChangeSound.bind(this) }
+                    >
+
+                        <option value="">--</option>
+
+                        { this.state.character?.actions.map((content: iBasicDataWithUrl): React.JSX.Element => {
+                            return <option key={ content.code } value={ content.url }>{ content.name }</option>;
+                        }) }
+
+                    </Select>
+
+                </div>
+
+            </>;
 
         }
 
@@ -155,72 +286,9 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 { this._renderMusics() }
 
-                <div className="form-group" data-ng-show="race.warnings.length">
+                { this._renderWarnings() }
 
-                    <label htmlFor="{{race.code}}Warnings">Warnings</label>
-
-                    <div className="input-group">
-
-                        <select
-                            id="{{race.code}}Warnings" className="form-control"
-                            data-ng-options="warning as warning.name for warning in race.warnings track by warning.code" data-ng-model="warning"
-                        >
-                            <option value="">--</option>
-                        </select>
-
-                        <span className="input-group-btn">
-
-                            <button className="btn btn-secondary" type="button" data-ng-className="{ 'disabled' : !warning || !warning.url }" data-ng-disabled="!warning || !warning.url" data-ng-click="play(warning.url);">
-                                <span className="fa fa-play-circle"></span>
-                            </button>
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div className="form-group" data-ng-show="race.characters.length">
-
-                    <label htmlFor="{{race.code}}Characters">Characters</label>
-
-                    <select
-                        id="{{race.code}}Characters" className="form-control"
-                        data-ng-options="character as character.name for character in race.characters track by character.code" data-ng-model="character"
-                        data-ng-change="loadActions();"
-                        data-ng-show="race.characters.length"
-                    >
-                        <option value="">--</option>
-                    </select>
-
-                </div>
-
-                <div className="form-group" data-ng-show="character && !actionsLoading">
-
-                    <label htmlFor="{{race.code}}{{character.code}}Action">Actions</label>
-
-                    <div className="form-control-static" data-ng-hide="actions.length">There is no action</div>
-
-                    <div className="input-group" data-ng-show="actions.length">
-
-                        <select
-                            id="{{race.code}}{{character.code}}Action" className="form-control"
-                            data-ng-options="action as action.name group by action.type.name for action in actions track by action.code" data-ng-model="action"
-                        >
-                            <option value="">--</option>
-                        </select>
-
-                        <span className="input-group-btn">
-
-                            <button className="btn btn-secondary" type="button" data-ng-className="{ 'disabled' : !action || !action.url }" data-ng-disabled="!action || !action.url" data-ng-click="play(action.url);">
-                                <span className="fa fa-play-circle"></span>
-                            </button>
-
-                        </span>
-
-                    </div>
-
-                </div>
+                { this._renderCharacters() }
 
             </CardBody>;
 
