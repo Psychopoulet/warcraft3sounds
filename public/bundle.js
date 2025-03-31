@@ -30496,7 +30496,18 @@ var Body = /** @class */ (function (_super) {
         });
     };
     Body.prototype._handleChangeSound = function (url) {
-        console.log(url);
+        var audioSource = document.getElementById("audioSource");
+        if (audioSource) {
+            if (audioSource.played) {
+                audioSource.pause();
+            }
+            audioSource.currentTime = 0;
+            audioSource.src = url;
+            // sound.type = "audio/" + (-1 < url.indexOf(".mp3") ? "mp3" : "wav");
+            if ("" !== url.trim()) {
+                audioSource.play();
+            }
+        }
     };
     // render
     Body.prototype._renderContent = function () {
@@ -30512,18 +30523,18 @@ var Body = /** @class */ (function (_super) {
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Alert, { variant: "warning" }, "There is no race detected")));
         }
         else {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row" }, this.state.races.map(function (race) {
-                return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { key: race.code, className: "col-12 col-sm-6 col-md-4 col-lg-3 mb-3" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race, onChangeSound: _this._handleChangeSound.bind(_this) }));
-            }));
+            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row" }, this.state.races.map(function (race) {
+                    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { key: race.code, className: "col-12 col-sm-6 col-md-4 col-lg-3 mb-3" },
+                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race, onChangeSound: _this._handleChangeSound.bind(_this) }));
+                })),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", { id: "audioSource" },
+                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("source", { src: "#", type: "audio" }),
+                    "Your browser does not support the audio element."));
         }
     };
     Body.prototype.render = function () {
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "container-fluid" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", { id: "audio" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("source", { src: "#", type: "audio" }),
-                "Your browser does not support the audio element."),
-            this._renderContent());
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "container-fluid" }, this._renderContent());
     };
     // name
     Body.displayName = "Body";

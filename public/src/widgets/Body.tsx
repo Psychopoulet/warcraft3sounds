@@ -119,7 +119,24 @@ export default class Body extends React.Component<iProps, iStates> {
 
     private _handleChangeSound (url: string): void {
 
-        console.log(url);
+        const audioSource: HTMLAudioElement = document.getElementById("audioSource") as HTMLAudioElement;
+
+        if (audioSource) {
+
+            if (audioSource.played) {
+                audioSource.pause();
+            }
+
+            audioSource.currentTime = 0;
+            audioSource.src = url;
+
+            // sound.type = "audio/" + (-1 < url.indexOf(".mp3") ? "mp3" : "wav");
+
+            if ("" !== url.trim()) {
+                audioSource.play();
+            }
+
+        }
 
     }
 
@@ -159,17 +176,29 @@ export default class Body extends React.Component<iProps, iStates> {
         }
         else {
 
-            return <div className="row">
+            return <>
 
-                { this.state.races.map((race: iBasicDataWithUrl): React.JSX.Element => {
+                <div className="row">
 
-                    return <div key={ race.code } className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                        <Race race={ race } onChangeSound={ this._handleChangeSound.bind(this) } />
-                    </div>;
+                    { this.state.races.map((race: iBasicDataWithUrl): React.JSX.Element => {
 
-                }) }
+                        return <div key={ race.code } className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                            <Race race={ race } onChangeSound={ this._handleChangeSound.bind(this) } />
+                        </div>;
 
-            </div>;
+                    }) }
+
+                </div>
+
+                <audio id="audioSource">
+
+                    <source src="#" type="audio" />
+
+                    Your browser does not support the audio element.
+
+                </audio>
+
+            </>;
 
         }
 
@@ -178,11 +207,6 @@ export default class Body extends React.Component<iProps, iStates> {
     public render (): React.JSX.Element {
 
         return <div className="container-fluid">
-
-            <audio id="audio">
-                <source src="#" type="audio" />
-                Your browser does not support the audio element.
-            </audio>
 
             { this._renderContent() }
 
