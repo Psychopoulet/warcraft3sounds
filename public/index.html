@@ -3,229 +3,27 @@
 
 	<head>
 
-		<title>Warcraft 3 sounds</title>
+		<!-- meta -->
 
-		<meta charset="UTF-8" />
+            <title>Warcraft 3 sounds</title>
 
-		<!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
-		<link rel="shortcut icon" href="/public/pictures/warcraft3.png" />
+			<meta charset="UTF-8" />
+			<link rel="shortcut icon" href="/public/pictures/warcraft3.png" />
 
-		<!-- design -->
+		<!-- css -->
 
-			<!-- bootstrap -->
-
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous" />
-
-			<!-- font-awesome -->
-
-			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
-
-			<!-- specific -->
-
-			<style type="text/css">
-
-				.card {
-					margin-top: 1em;
-				}
-
-			</style>
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" />
 
 	</head>
 
-	<body data-ng-app="Warcraft3SoundsApp">
+	<!-- app -->
 
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+	<body id="Warcraft3SoundsApp"></body>
+	<script type="text/javascript" src="/public/bundle.js"></script>
 
-			<span class="navbar-brand">
-				<img src="/public/pictures/warcraft3.png" width="30" height="30" class="d-inline-block align-top" alt="Warcraft 3" />
-				<!-- http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297 -->
-			</span>
+	<!-- external scripts -->
 
-			<button type="button" class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#IPS">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div id="IPS" class="collapse navbar-collapse" data-ng-controller="IPsControllers">
-
-				<div class="navbar-nav mr-auto">
-
-					<span class="nav-item nav-link" data-ng-class="{ 'd-none': !ipsLoading }">Loading IPs...</span>
-					<span class="nav-item nav-link" data-ng-class="{ 'd-none': ipsLoading || ips.length }">There is no IP detected</span>
-					<span class="nav-item nav-link" data-ng-class="{ 'd-none': ipsLoading || !ips.length }" data-ng-repeat="ip in ips">{{ip.name}} : {{ip.address}}</span>
-
-				</div>
-
-				<form class="form-inline">
-
-					<div class="input-group  border-light">
-
-						<span class="input-group-addon">
-							<input id="notworded" type="checkbox" data-ng-model="notWorded" />
-						</span>
-
-						<label for="notworded" class="input-group-addon text-light bg-dark border-light">Include "not worded" sounds</label>
-
-					</div>
-
-				</form>
-
-			</div>
-
-		</nav>
-
-		<div class="container-fluid" data-ng-controller="MainController">
-
-			<audio id="audio">
-				<source src="#" type="audio" />
-				Your browser does not support the audio element.
-			</audio>
-
-			<div class="row justify-content-center" data-ng-show="racesLoading">
-
-				<div class="col-md-6" data-ng-show="racesLoading">
-
-					<div class="alert alert-info">
-						Loading races...
-					</div>
-
-				</div>
-
-			</div>
-
-			<div class="row" data-ng-hide="racesLoading">
-
-				<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3" data-ng-repeat="race in races" data-ng-controller="RaceController">
-
-					<div class="card" data-ng-class="{ 'border-warning': raceLoading }">
-
-						<div class="card-header" data-ng-class="{ 'bg-warning': raceLoading }">
-							<h5 class="float-left">{{race.name}}</h5>
-						</div>
-
-						<div class="card-body" data-ng-show="raceLoading">
-							loading
-						</div>
-
-						<div class="card-body" data-ng-hide="raceLoading">
-
-							<div class="form-group" data-ng-show="race.musics.length">
-
-								<label for="{{race.code}}Musics">Musics</label>
-
-								<div class="input-group">
-
-									<select
-										id="{{race.code}}Musics" class="form-control"
-										data-ng-options="music as music.name for music in race.musics track by music.code" data-ng-model="music"
-									>
-										<option value="">--</option>
-									</select>
-
-									<span class="input-group-btn">
-
-										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !music || !music.url }" data-ng-disabled="!music || !music.url" data-ng-click="play(music.url);">
-											<span class="fa fa-play-circle"></span>
-										</button>
-
-									</span>
-
-								</div>
-
-							</div>
-
-							<div class="form-group" data-ng-show="race.warnings.length">
-
-								<label for="{{race.code}}Warnings">Warnings</label>
-
-								<div class="input-group">
-
-									<select
-										id="{{race.code}}Warnings" class="form-control"
-										data-ng-options="warning as warning.name for warning in race.warnings track by warning.code" data-ng-model="warning"
-									>
-										<option value="">--</option>
-									</select>
-
-									<span class="input-group-btn">
-
-										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !warning || !warning.url }" data-ng-disabled="!warning || !warning.url" data-ng-click="play(warning.url);">
-											<span class="fa fa-play-circle"></span>
-										</button>
-
-									</span>
-
-								</div>
-
-							</div>
-
-							<div class="form-group" data-ng-show="race.characters.length">
-
-								<label for="{{race.code}}Characters">Characters</label>
-
-								<select
-									id="{{race.code}}Characters" class="form-control"
-									data-ng-options="character as character.name for character in race.characters track by character.code" data-ng-model="character"
-									data-ng-change="loadActions();"
-									data-ng-show="race.characters.length"
-								>
-									<option value="">--</option>
-								</select>
-
-							</div>
-
-							<div class="form-group" data-ng-show="character && !actionsLoading">
-
-								<label for="{{race.code}}{{character.code}}Action">Actions</label>
-
-								<div class="form-control-static" data-ng-hide="actions.length">There is no action</div>
-
-								<div class="input-group" data-ng-show="actions.length">
-
-									<select
-										id="{{race.code}}{{character.code}}Action" class="form-control"
-										data-ng-options="action as action.name group by action.type.name for action in actions track by action.code" data-ng-model="action"
-									>
-										<option value="">--</option>
-									</select>
-
-									<span class="input-group-btn">
-
-										<button class="btn btn-secondary" type="button" data-ng-class="{ 'disabled' : !action || !action.url }" data-ng-disabled="!action || !action.url" data-ng-click="play(action.url);">
-											<span class="fa fa-play-circle"></span>
-										</button>
-
-									</span>
-
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-		<!-- scripts -->
-
-			<!-- bootstrap -->
-
-			<script src="/public/jquery.min.js"></script>
-			<script src="/public/popper.min.js"></script>
-			<script src="/public/bootstrap.min.js"></script>
-
-			<!-- angular -->
-
-			<script src="/public/angular.min.js"></script>
-
-			<!-- app -->
-
-			<script type="text/javascript" src="/public/app.js"></script>
-
-	</body>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
 </html>
