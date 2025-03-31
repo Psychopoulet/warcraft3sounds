@@ -153,7 +153,7 @@ export default class Menu extends React.Component<iProps, iStates> {
 
                 </span>
 
-                <button type="button" className="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#IPS">
+                <button type="button" className="navbar-toggler navbar-toggler-right" data-bs-toggle="collapse" data-bs-target="#IPS">
                     <span className="navbar-toggler-icon"></span>
                 </button>
 

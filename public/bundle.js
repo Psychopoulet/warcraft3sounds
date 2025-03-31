@@ -30659,7 +30659,7 @@ var Menu = /** @class */ (function (_super) {
             react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "container-fluid" },
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "navbar-brand" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: "/public/pictures/warcraft3.png", width: 30, height: 30, className: "d-inline-block align-top", alt: "Warcraft 3" }, "http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297")),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", className: "navbar-toggler navbar-toggler-right", "data-toggle": "collapse", "data-target": "#IPS" },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", className: "navbar-toggler navbar-toggler-right", "data-bs-toggle": "collapse", "data-bs-target": "#IPS" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "navbar-toggler-icon" })),
                 react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "IPS", className: "collapse navbar-collapse" },
                     react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "navbar-nav me-auto" }, this._renderIps()),

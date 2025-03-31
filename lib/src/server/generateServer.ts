@@ -17,7 +17,9 @@ export default function generateServer (): Express {
 
 	return express()
 		.use(cors())
-		.use(helmet())
+		.use(helmet({
+			"contentSecurityPolicy": false
+		}))
 		.use(compression());
 
 }
