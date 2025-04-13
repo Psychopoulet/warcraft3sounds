@@ -3,7 +3,7 @@
 // deps
 
 	// externals
-	import * as React from "react";
+    import React from "react";
 	import { createRoot } from "react-dom/client";
 
 	// locals

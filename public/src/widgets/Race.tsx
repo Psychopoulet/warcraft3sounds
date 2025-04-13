@@ -4,7 +4,7 @@
 
     // externals
 
-    import * as React from "react";
+    import React from "react";
 
 	import {
         Card, CardHeader, CardBody,
@@ -32,7 +32,7 @@
         "selectedCharacter": string;
         "loadingCharacter": boolean;
         "character": iCharacter | null;
-    };
+    }
 
     interface iProps extends iPropsNode {
         "race": iBasicDataWithUrl;

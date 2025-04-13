@@ -30331,14 +30331,14 @@ var App = /** @class */ (function (_super) {
     };
     // render
     App.prototype.render = function () {
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets_Menu__WEBPACK_IMPORTED_MODULE_1__["default"], { onToogleNotWordedSounds: this._handleToogleNotWordedSounds.bind(this) }),
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets_Body__WEBPACK_IMPORTED_MODULE_2__["default"], { notWordedSounds: this.state.notWordedSounds }));
+        return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_widgets_Menu__WEBPACK_IMPORTED_MODULE_1__["default"], { onToogleNotWordedSounds: this._handleToogleNotWordedSounds.bind(this) }),
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_widgets_Body__WEBPACK_IMPORTED_MODULE_2__["default"], { notWordedSounds: this.state.notWordedSounds }));
     };
     // name
     App.displayName = "App";
     return App;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
+}((react__WEBPACK_IMPORTED_MODULE_0___default().Component)));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 ;
 
@@ -30409,7 +30409,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/dist/main.js");
 /* harmony import */ var _Race__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Race */ "./public/src/widgets/Race.tsx");
-/* harmony import */ var _sdk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../sdk */ "./public/src/sdk.ts");
+/* harmony import */ var _SoundReader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SoundReader */ "./public/src/widgets/SoundReader.tsx");
+/* harmony import */ var _sdk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../sdk */ "./public/src/sdk.ts");
 
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -30443,6 +30444,7 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 // internals
 
+
 // locals
 
 ;
@@ -30456,7 +30458,8 @@ var Body = /** @class */ (function (_super) {
         _this.state = {
             "notWordedSounds": props.notWordedSounds,
             "loading": true,
-            "races": []
+            "races": [],
+            "readedSoundUrl": ""
         };
         return _this;
     }
@@ -30472,7 +30475,7 @@ var Body = /** @class */ (function (_super) {
         if (props.notWordedSounds !== state.notWordedSounds) {
             return __assign(__assign({}, state), { "notWordedSounds": props.notWordedSounds });
         }
-        return state;
+        return null;
     };
     // events
     Body.prototype._handleRefresh = function () {
@@ -30481,7 +30484,7 @@ var Body = /** @class */ (function (_super) {
             "loading": true,
             "races": []
         });
-        (0,_sdk__WEBPACK_IMPORTED_MODULE_3__["default"])().getRaces().then(function (races) {
+        (0,_sdk__WEBPACK_IMPORTED_MODULE_4__["default"])().getRaces().then(function (races) {
             _this.setState({
                 "loading": false,
                 "races": races
@@ -30496,50 +30499,41 @@ var Body = /** @class */ (function (_super) {
         });
     };
     Body.prototype._handleChangeSound = function (url) {
-        var audioSource = document.getElementById("audioSource");
-        if (audioSource) {
-            if (audioSource.played) {
-                audioSource.pause();
-            }
-            audioSource.currentTime = 0;
-            audioSource.src = url;
-            // sound.type = "audio/" + (-1 < url.indexOf(".mp3") ? "mp3" : "wav");
-            if ("" !== url.trim()) {
-                audioSource.play();
-            }
-        }
+        this.setState({
+            "readedSoundUrl": url
+        });
     };
     // render
     Body.prototype._renderContent = function () {
         var _this = this;
         if (this.state.loading) {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row justify-content-center" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "col-md-6" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Alert, { variant: "info" }, "Loading races...")));
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "row justify-content-center" },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "col-md-6" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Alert, { variant: "info" }, "Loading races...")));
         }
         else if (0 >= this.state.races.length) {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row justify-content-center" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "col-md-6" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Alert, { variant: "warning" }, "There is no race detected")));
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "row justify-content-center" },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "col-md-6" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Alert, { variant: "warning" }, "There is no race detected")));
         }
         else {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "row" }, this.state.races.map(function (race) {
-                    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { key: race.code, className: "col-12 col-sm-6 col-md-4 col-lg-3 mb-3" },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race, onChangeSound: _this._handleChangeSound.bind(_this) }));
-                })),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("audio", { id: "audioSource" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("source", { src: "#", type: "audio" }),
-                    "Your browser does not support the audio element."));
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "row" },
+                    this.state.races.map(function (race) {
+                        return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { key: race.code, className: "col-12 col-sm-6 col-md-4 col-lg-3 mb-3" },
+                            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race, onChangeSound: _this._handleChangeSound.bind(_this) }));
+                    }),
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "col-12 col-sm-6 col-md-4 col-lg-3 mb-3" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SoundReader__WEBPACK_IMPORTED_MODULE_3__["default"], { src: this.state.readedSoundUrl }))));
         }
     };
     Body.prototype.render = function () {
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "container-fluid" }, this._renderContent());
+        return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "container-fluid" }, this._renderContent());
     };
     // name
     Body.displayName = "Body";
     return Body;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
+}((react__WEBPACK_IMPORTED_MODULE_0___default().Component)));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Body);
 ;
 
@@ -30640,14 +30634,14 @@ var Menu = /** @class */ (function (_super) {
     // render
     Menu.prototype._renderIps = function () {
         if (this.state.loading) {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "nav-item nav-link" }, "Loading IPs...");
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { className: "nav-item nav-link" }, "Loading IPs...");
         }
         else if (0 >= this.state.ips.length) {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "nav-item nav-link" }, "There is no IP detected");
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { className: "nav-item nav-link" }, "There is no IP detected");
         }
         else {
             return this.state.ips.map(function (ip, index) {
-                return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { key: index, className: "nav-item nav-link" },
+                return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { key: index, className: "nav-item nav-link" },
                     ip.name,
                     " : ",
                     ip.address);
@@ -30655,21 +30649,21 @@ var Menu = /** @class */ (function (_super) {
         }
     };
     Menu.prototype.render = function () {
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", { className: "navbar navbar-expand-md navbar-dark bg-dark mb-3" },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "container-fluid" },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "navbar-brand" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: "/public/pictures/warcraft3.png", width: 30, height: 30, className: "d-inline-block align-top", alt: "Warcraft 3" }, "http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297")),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", className: "navbar-toggler navbar-toggler-right", "data-bs-toggle": "collapse", "data-bs-target": "#IPS" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { className: "navbar-toggler-icon" })),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: "IPS", className: "collapse navbar-collapse" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "navbar-nav me-auto" }, this._renderIps()),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", { className: "form-inline" },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CheckBoxPrettierLabel, { label: "Include \"not worded\" sounds", "margin-bottom": 0, checked: this.state.notWordedSounds, onToogle: this._handleToogleNotWordedSounds.bind(this) })))));
+        return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("nav", { className: "navbar navbar-expand-md navbar-dark bg-dark mb-3" },
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "container-fluid" },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { className: "navbar-brand" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: "/public/pictures/warcraft3.png", width: 30, height: 30, className: "d-inline-block align-top", alt: "Warcraft 3" }, "http://wolfangraul.deviantart.com/art/Warcraft-III-Reign-of-Chaos-Game-Icon-269282297")),
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", { type: "button", className: "navbar-toggler navbar-toggler-right", "data-bs-toggle": "collapse", "data-bs-target": "#IPS" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { className: "navbar-toggler-icon" })),
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { id: "IPS", className: "collapse navbar-collapse" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "navbar-nav me-auto" }, this._renderIps()),
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", { className: "form-inline" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CheckBoxPrettierLabel, { label: "Include \"not worded\" sounds", "margin-bottom": 0, checked: this.state.notWordedSounds, onToogle: this._handleToogleNotWordedSounds.bind(this) })))));
     };
     // name
     Menu.displayName = "Menu";
     return Menu;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
+}((react__WEBPACK_IMPORTED_MODULE_0___default().Component)));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Menu);
 ;
 
@@ -30712,7 +30706,6 @@ var __extends = (undefined && undefined.__extends) || (function () {
 
 // locals
 
-;
 // component
 var Race = /** @class */ (function (_super) {
     __extends(Race, _super);
@@ -30797,79 +30790,238 @@ var Race = /** @class */ (function (_super) {
     Race.prototype._renderMusics = function () {
         var _a, _b;
         if (!this.state.race || 0 >= ((_a = this.state.race) === null || _a === void 0 ? void 0 : _a.musics.length)) {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Musics", value: "No music found" });
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Musics", value: "No music found" });
         }
         else {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-musics", label: "Musics", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_b = this.state.race) === null || _b === void 0 ? void 0 :
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-musics", label: "Musics", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"), (_b = this.state.race) === null || _b === void 0 ? void 0 :
                 _b.musics.map(function (content) {
-                    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: content.code, value: content.url }, content.name);
+                    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.url }, content.name);
                 }));
         }
     };
     Race.prototype._renderWarnings = function () {
         var _a, _b;
         if (!this.state.race || 0 >= ((_a = this.state.race) === null || _a === void 0 ? void 0 : _a.warnings.length)) {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Warnings", value: "No warning found" });
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Warnings", value: "No warning found" });
         }
         else {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-warnings", label: "Warnings", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_b = this.state.race) === null || _b === void 0 ? void 0 :
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-warnings", label: "Warnings", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"), (_b = this.state.race) === null || _b === void 0 ? void 0 :
                 _b.warnings.map(function (content) {
-                    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: content.code, value: content.url }, content.name);
+                    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.url }, content.name);
                 }));
         }
     };
     Race.prototype._renderCharacters = function () {
         var _a, _b, _c, _d, _e;
         if (!this.state.race || 0 >= ((_a = this.state.race) === null || _a === void 0 ? void 0 : _a.characters.length)) {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Characters", value: "No character found", "margin-bottom": 0 });
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Characters", value: "No character found", "margin-bottom": 0 });
         }
         else if (!this.state.character || 0 >= ((_b = this.state.character) === null || _b === void 0 ? void 0 : _b.actions.length)) {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-characters", label: "Characters", "margin-bottom": 0, value: this.state.selectedCharacter, onChange: this._handleChangeCharacter.bind(this) },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_c = this.state.race) === null || _c === void 0 ? void 0 :
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-characters", label: "Characters", "margin-bottom": 0, value: this.state.selectedCharacter, onChange: this._handleChangeCharacter.bind(this) },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"), (_c = this.state.race) === null || _c === void 0 ? void 0 :
                 _c.characters.map(function (content) {
-                    return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: content.code, value: content.code }, content.name);
+                    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.code }, content.name);
                 }));
         }
         else {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.state.race.code + "-actions", "aria-label": "Actions" }, "Actions"),
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: "input-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-characters", value: this.state.selectedCharacter, onChange: this._handleChangeCharacter.bind(this) },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_d = this.state.race) === null || _d === void 0 ? void 0 :
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", { htmlFor: this.state.race.code + "-actions", "aria-label": "Actions" }, "Actions"),
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "input-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-characters", value: this.state.selectedCharacter, onChange: this._handleChangeCharacter.bind(this) },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"), (_d = this.state.race) === null || _d === void 0 ? void 0 :
                         _d.characters.map(function (content) {
-                            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: content.code, value: content.code }, content.name);
+                            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.code }, content.name);
                         })),
-                    react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-actions", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
-                        react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { value: "" }, "--"), (_e = this.state.character) === null || _e === void 0 ? void 0 :
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-actions", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"), (_e = this.state.character) === null || _e === void 0 ? void 0 :
                         _e.actions.map(function (content) {
-                            return react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", { key: content.code, value: content.url }, content.name);
+                            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.url }, content.name);
                         }))));
         }
     };
     Race.prototype._renderBody = function () {
         if (this.state.loading) {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null, "Loading...");
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null, "Loading...");
         }
         else {
-            return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
                 this._renderMusics(),
                 this._renderWarnings(),
                 this._renderCharacters());
         }
     };
     Race.prototype.render = function () {
-        return react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, { variant: this.state.loading ? "warning" : undefined },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null,
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("h5", { className: "float-left" }, this.props.race.name)),
+        return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, { variant: this.state.loading ? "warning" : undefined },
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null,
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h5", { className: "float-left" }, this.props.race.name)),
             this._renderBody());
     };
     // name
     Race.displayName = "Race";
     return Race;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
+}((react__WEBPACK_IMPORTED_MODULE_0___default().Component)));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Race);
+;
+
+
+/***/ }),
+
+/***/ "./public/src/widgets/SoundReader.tsx":
+/*!********************************************!*\
+  !*** ./public/src/widgets/SoundReader.tsx ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap-fontawesome */ "./node_modules/react-bootstrap-fontawesome/lib/dist/main.js");
+
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+// deps
+// externals
+
+
+;
+function generateRefAudio() {
+    var ref = react__WEBPACK_IMPORTED_MODULE_0___default().createRef();
+    var setFocus = function () {
+        ref.current && ref.current.focus();
+    };
+    var startPlay = function () {
+        if (ref.current) {
+            ref.current.currentTime = 0;
+            ref.current.play();
+        }
+    };
+    var pause = function () {
+        if (ref.current && !ref.current.paused) {
+            ref.current.pause();
+        }
+    };
+    var unpause = function () {
+        if (ref.current && ref.current.paused) {
+            ref.current.play();
+        }
+    };
+    return { setFocus: setFocus, ref: ref, startPlay: startPlay, pause: pause, unpause: unpause };
+}
+// component
+var SoundReader = /** @class */ (function (_super) {
+    __extends(SoundReader, _super);
+    // constructor
+    function SoundReader(props) {
+        var _this = _super.call(this, props) || this;
+        // states
+        _this.state = {
+            "status": "PLAY",
+            "src": props.src.trim()
+        };
+        _this._refAudio = generateRefAudio();
+        return _this;
+    }
+    SoundReader.prototype.componentDidMount = function () {
+        this._refAudio.startPlay();
+    };
+    SoundReader.getDerivedStateFromProps = function (props, state) {
+        if (props.src !== state.src) {
+            return {
+                "status": "PLAY",
+                "src": props.src
+            };
+        }
+        return null;
+    };
+    SoundReader.prototype.componentDidUpdate = function (prevProps, prevState) {
+        var _this = this;
+        if (prevState.src !== this.state.src) {
+            if ("" !== this.state.src) {
+                this._refAudio.startPlay();
+                this._refAudio.ref.current.onended = function () {
+                    _this.setState({
+                        "status": "STOP"
+                    });
+                };
+            }
+        }
+    };
+    // events
+    SoundReader.prototype._handlePlay = function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        this._refAudio.startPlay();
+        this.setState({
+            "status": "PLAY"
+        });
+    };
+    SoundReader.prototype._handleUnpause = function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        this._refAudio.unpause();
+        this.setState({
+            "status": "PLAY"
+        });
+    };
+    SoundReader.prototype._handlePause = function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        this._refAudio.pause();
+        this.setState({
+            "status": "PAUSE"
+        });
+    };
+    // render
+    SoundReader.prototype._renderButton = function () {
+        if ("PLAY" === this.state.status) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { block: true, variant: "warning", icon: "pause", onClick: this._handlePause.bind(this) }, "Pause");
+        }
+        else if ("PAUSE" === this.state.status) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { block: true, variant: "success", icon: "play", onClick: this._handleUnpause.bind(this) }, "Unpause");
+        }
+        else {
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { block: true, variant: "success", icon: "sync", onClick: this._handlePlay.bind(this) }, "Play again");
+        }
+    };
+    SoundReader.prototype.render = function () {
+        if (0 === this.state.src.length) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, null,
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null, "Sound reader"),
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null, "No sound to play"));
+        }
+        return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, null,
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null, "Sound reader"),
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
+                this.state.src,
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("audio", { id: "audioSource", ref: this._refAudio.ref, src: this.state.src },
+                    "Your browser does not support the ",
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("code", null, "audio"),
+                    " element.")),
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardFooter, null, this._renderButton()));
+    };
+    // name
+    SoundReader.displayName = "SoundReader";
+    return SoundReader;
+}((react__WEBPACK_IMPORTED_MODULE_0___default().Component)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SoundReader);
 ;
 
 
@@ -30974,7 +31126,7 @@ __webpack_require__.r(__webpack_exports__);
 // locals
 
 // private
-(0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(document.getElementById("Warcraft3SoundsApp")).render(react__WEBPACK_IMPORTED_MODULE_0__.createElement(_App__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+(0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(document.getElementById("Warcraft3SoundsApp")).render(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_App__WEBPACK_IMPORTED_MODULE_2__["default"], null));
 
 })();
 

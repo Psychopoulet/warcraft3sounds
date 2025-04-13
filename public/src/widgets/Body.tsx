@@ -4,12 +4,13 @@
 
     // externals
 
-    import * as React from "react";
+    import React from "react";
 
     import { Alert } from "react-bootstrap-fontawesome";
 
     // internals
     import Race from "./Race";
+    import SoundReader from "./SoundReader";
 
     // locals
     import getSDK from "../sdk";
@@ -28,6 +29,7 @@
         "notWordedSounds": boolean;
         "loading": boolean;
         "races": iBasicDataWithUrl[];
+        "readedSoundUrl": string;
     };
 
     interface iProps extends iPropsNode {
@@ -53,7 +55,8 @@ export default class Body extends React.Component<iProps, iStates> {
         this.state = {
             "notWordedSounds": props.notWordedSounds,
             "loading": true,
-            "races": []
+            "races": [],
+            "readedSoundUrl": ""
         };
 
     }
@@ -72,7 +75,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
     }
 
-    public static getDerivedStateFromProps (props: iProps, state: iStates): iStates {
+    public static getDerivedStateFromProps (props: iProps, state: iStates): iStates | null {
 
         if (props.notWordedSounds !== state.notWordedSounds) {
 
@@ -83,7 +86,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
         }
 
-        return state;
+        return null;
 
     }
 
@@ -119,24 +122,9 @@ export default class Body extends React.Component<iProps, iStates> {
 
     private _handleChangeSound (url: string): void {
 
-        const audioSource: HTMLAudioElement = document.getElementById("audioSource") as HTMLAudioElement;
-
-        if (audioSource) {
-
-            if (audioSource.played) {
-                audioSource.pause();
-            }
-
-            audioSource.currentTime = 0;
-            audioSource.src = url;
-
-            // sound.type = "audio/" + (-1 < url.indexOf(".mp3") ? "mp3" : "wav");
-
-            if ("" !== url.trim()) {
-                audioSource.play();
-            }
-
-        }
+        this.setState({
+            "readedSoundUrl": url
+        });
 
     }
 
@@ -188,15 +176,11 @@ export default class Body extends React.Component<iProps, iStates> {
 
                     }) }
 
+                    <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        <SoundReader src={ this.state.readedSoundUrl } />
+                    </div>
+
                 </div>
-
-                <audio id="audioSource">
-
-                    <source src="#" type="audio" />
-
-                    Your browser does not support the audio element.
-
-                </audio>
 
             </>;
 

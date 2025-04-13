@@ -3,8 +3,8 @@
 // deps
 
 	// externals
-	
-	import * as React from "react";
+
+    import React from "react";
 
 	// internals
 	import Menu from "./widgets/Menu";
@@ -54,15 +54,15 @@ export default class App extends React.Component<iPropsNode, iStates> {
 	}
 
 	// render
-	
+
 	public render (): React.JSX.Element {
 
-		return <div>
+		return <>
 
 			<Menu onToogleNotWordedSounds={ this._handleToogleNotWordedSounds.bind(this) } />
 			<Body notWordedSounds={ this.state.notWordedSounds } />
 
-		</div>;
+		</>;
 
 	}
 

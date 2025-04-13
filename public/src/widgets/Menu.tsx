@@ -3,7 +3,7 @@
 // deps
 
     // externals
-    import * as React from "react";
+    import React from "react";
     import { Image, CheckBoxPrettierLabel } from "react-bootstrap-fontawesome";
 
     // locals
