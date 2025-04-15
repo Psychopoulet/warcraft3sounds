@@ -78,7 +78,7 @@
 			else {
 
 				res.status(errorCodes.NOTFOUND).json({
-					"code": "NOT_FOUND",
+					"code": errorCodes.NOTFOUND,
 					"message": getRequestPath(req) + " not found"
 				});
 
@@ -99,7 +99,7 @@
 			else {
 
 				res.status(errorCodes.INTERNAL).json({
-					"code": "INTERNAL_ERROR",
+					"code": errorCodes.INTERNAL,
 					"message": err.message
 				});
 
