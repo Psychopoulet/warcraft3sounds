@@ -11,12 +11,13 @@
 	// locals
 
     import logRequest from "./tools/logRequest";
+    import getRequestPath from "./tools/getRequestPath";
     import errorCodes from "./returncodes";
 
 	import generateServer from "./server/generateServer";
 	import webRoutes from "./server/webRoutes";
-	import soundsRoutes from "./server/soundsRoutes";
 	import apiRoutes from "./api/apiRoutes";
+	import soundsRoutes from "./api/soundsRoutes";
 
 // types & interfaces
 
@@ -64,6 +65,26 @@
 	// generate web server
 
 	}).then((APP: Express): SecureServer | Server => {
+
+		// catch "not found" request
+		APP.use((req: Request, res: Response, next: NextFunction): void => {
+
+			logRequest(req);
+			console.error("Not found");
+
+			if (res.headersSent) {
+				return next("Not found");
+			}
+			else {
+
+				res.status(errorCodes.NOTFOUND).json({
+					"code": "NOT_FOUND",
+					"message": getRequestPath(req) + " not found"
+				});
+
+			}
+
+		});
 
 		// catch error
 		APP.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
