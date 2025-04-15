@@ -76,7 +76,12 @@
 				return next(err);
 			}
 			else {
-				res.status(errorCodes.INTERNAL).send("An internal error occured");
+
+				res.status(errorCodes.INTERNAL).json({
+					"code": "INTERNAL_ERROR",
+					"message": err.message
+				});
+
 			}
 
 		});

@@ -1,5 +1,9 @@
 // deps
 
+    // natives
+    import { join } from "node:path";
+    import { readFile } from "node:fs/promises";
+
     // locals
     import errorCodes from "../returncodes";
 	import Model from "./model";
@@ -18,7 +22,21 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 	const model: Model = new Model();
 
+	// swagger
 	return model.init().then((): void => {
+
+		app.get("/api/descriptor", (req: Request, res: Response, next: NextFunction): void => {
+
+			readFile(join(__dirname, "..", "..", "data", "descriptor.json"), "utf-8").then((content: string): void => {
+
+				res.status(errorCodes.OK).json(JSON.parse(content));
+
+			}).catch(next);
+
+		});
+
+	// server ips
+	}).then((): void => {
 
 		app.get("/api/ips", (req: Request, res: Response, next: NextFunction): void => {
 
