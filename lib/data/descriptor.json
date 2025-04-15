@@ -46,6 +46,7 @@
 			"get": {
 				"description": "",
 				"summary": "Get server IPs",
+				"operationId": "getIPs",
 				"responses": {
 					"200": {
 						"description": "Everything is fine",
@@ -66,6 +67,53 @@
 										},
 										"required": [ "address", "name" ]
 									}
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/public/sounds/{sound}": {
+			"get": {
+				"description": "",
+				"summary": "Get the wanted sound",
+				"operationId": "getSound",
+				"parameters": [
+					{
+						"name": "sound",
+						"in": "path",
+						"description": "Wanted sound",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"audio/wav": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							},
+							"audio/mpeg": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
 								}
 							}
 						}
