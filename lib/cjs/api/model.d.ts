@@ -1,16 +1,13 @@
-interface iBasicData {
-    "code": string;
-    "name": string;
-}
-export interface iBasicDataWithUrl extends iBasicData {
+import type { components } from "../descriptor";
+type iBasicDataWithUrl = components["schemas"]["BasicData"] & {
     "url": string;
-}
+};
 interface iBasicFileData extends iBasicDataWithUrl {
     "file": string;
 }
-interface iActionData extends iBasicFileData {
-    "type": iBasicData;
-}
+type iActionData = iBasicFileData & {
+    "type": components["schemas"]["BasicData"];
+};
 export interface iIp {
     "address": string;
     "name": string;

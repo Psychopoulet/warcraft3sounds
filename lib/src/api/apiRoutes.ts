@@ -14,7 +14,8 @@
 	import type { Express, Request, Response, NextFunction } from "express";
 
 	// locals
-	import type { iBasicDataWithUrl, iCharacter, iIp, iRace } from "./model";
+	import type { iCharacter, iIp, iRace } from "./model";
+	import type { paths, components } from "../descriptor";
 
 // module
 
@@ -29,7 +30,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 			readFile(join(__dirname, "..", "..", "data", "descriptor.json"), "utf-8").then((content: string): void => {
 
-				res.status(errorCodes.OK).json(JSON.parse(content));
+				res.status(errorCodes.OK).json(JSON.parse(content) as paths["/api/descriptor"]["get"]["responses"]["200"]["content"]["application/json"]);
 
 			}).catch(next);
 
@@ -42,7 +43,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 			model.getIps().then((ips: iIp[]): void => {
 
-				res.status(errorCodes.OK).json(ips);
+				res.status(errorCodes.OK).json(ips as paths["/api/ips"]["get"]["responses"]["200"]["content"]["application/json"]);
 
 			}).catch(next);
 
@@ -53,9 +54,9 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 		app.get("/api/races", (req: Request, res: Response, next: NextFunction): void => {
 
-			model.getRaces().then((races: iBasicDataWithUrl[]): void => {
+			model.getRaces().then((races: components["schemas"]["BasicDataWithUrl"][]): void => {
 
-				res.status(errorCodes.OK).json(races);
+				res.status(errorCodes.OK).json(races as paths["/api/races"]["get"]["responses"]["200"]["content"]["application/json"]);
 
 			}).catch(next);
 

@@ -17,23 +17,21 @@
 	import type { Database } from "sqlite3";
 
 	// locals
+	import type { components } from "../descriptor";
 
-	interface iBasicData {
-		"code": string;
-		"name": string;
-	};
+	// locals
 
-	export interface iBasicDataWithUrl extends iBasicData {
+	type iBasicDataWithUrl = components["schemas"]["BasicData"] & {
         "url": string;
-	};
+	}
 
 	interface iBasicFileData extends iBasicDataWithUrl {
 		"file": string;
-	};
+	}
 
-	interface iActionData extends iBasicFileData {
-		"type": iBasicData;
-	};
+	type iActionData = iBasicFileData & {
+		"type": components["schemas"]["BasicData"];
+	}
 
     export interface iIp {
 		"address": string;
@@ -44,11 +42,11 @@
 		"characters": iBasicDataWithUrl[];
 		"musics": iBasicFileData[];
 		"warnings": iBasicFileData[];
-	};
+	}
 
 	export interface iCharacter extends iBasicDataWithUrl {
 		"actions": iActionData[];
-	};
+	}
 
 // consts
 
@@ -285,7 +283,7 @@ export default class WarcraftSoundsModel {
 
 						if (data.music_code) {
 
-							if (-1 === result.musics.findIndex((music: iBasicData): boolean => {
+							if (-1 === result.musics.findIndex((music: components["schemas"]["BasicData"]): boolean => {
 								return music.code === data.music_code;
 							})) {
 
@@ -302,7 +300,7 @@ export default class WarcraftSoundsModel {
 
 						if (data.warning_code) {
 
-							if (-1 === result.warnings.findIndex((warning: iBasicData): boolean => {
+							if (-1 === result.warnings.findIndex((warning: components["schemas"]["BasicData"]): boolean => {
 								return warning.code === data.warning_code;
 							})) {
 
