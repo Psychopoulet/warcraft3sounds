@@ -22,11 +22,13 @@
     "unit-tests": "npm run-script build-api && npx nyc --reporter=html --reporter=text mocha",
     "tests": "npm run-script lint && npm run-script check-requires && npm run-script check-updates && npm run-script unit-tests",
 
+    "transpile-openapi": "npx openapi-typescript ./lib/data/descriptor.json -o ./lib/src/descriptor.ts ",
+
     "clean-api": "npx rimraf \"./lib/cjs\"",
-    "build-api": "npm run-script clean-api && npx tsc --project \"./tsconfig-api.json\"",
+    "build-api": "npm run-script clean-api && npm run-script transpile-openapi && npx tsc --project \"./tsconfig-api.json\"",
 
     "clean-front": "npx rimraf \"./public/bundle.js",
-    "build-front": "npx webpack --config \"./webpack.config.js\"",
+    "build-front": "npm run-script clean-front && npm run-script transpile-openapi && npx webpack --config \"./webpack.config.js\"",
 
     "ci": "npm run-script tests && npx nyc report --reporter=text-lcov | coveralls",
 

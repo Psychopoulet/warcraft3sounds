@@ -84,6 +84,67 @@
 				}
 			}
 		},
+		"/api/races": {
+			"get": {
+				"description": "",
+				"summary": "Get the races list",
+				"operationId": "getRaces",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"$ref": "#/components/schemas/BasicDataWithUrl"
+									}
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/err": {
+			"get": {
+				"description": "",
+				"summary": "Generate an error for tests purpose",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/public/sounds/{sound}": {
 			"get": {
 				"description": "",
@@ -130,44 +191,12 @@
 					}
 				}
 			}
-		},
-		"/api/err": {
-			"get": {
-				"description": "",
-				"summary": "Generate an error for tests purpose",
-				"responses": {
-					"200": {
-						"description": "Everything is fine",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								}
-							}
-						}
-					},
-					"default": {
-						"description": "An error occured",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								}
-							}
-						}
-					}
-				}
-			}
 		}
 	},
 	"components": {
 		"schemas": {
 			"Error": {
 				"type": "object",
-				"required": [
-					"code",
-					"message"
-				],
 				"properties": {
 					"code": {
 						"type": "string"
@@ -175,7 +204,36 @@
 					"message": {
 						"type": "string"
 					}
-				}
+				},
+				"required": [ "code", "message" ]
+			},
+			"BasicData": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [ "code", "name" ]
+			},
+			"BasicDataWithUrl": {
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicData"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"url": {
+								"type": "string"
+							}
+						},
+						"required": [ "url" ]
+					}
+				]
 			}
 		}
 	},
