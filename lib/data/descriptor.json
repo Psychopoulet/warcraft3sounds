@@ -56,16 +56,7 @@
 									"type": "array",
 									"items": {
 										"uniqueItems": true,
-										"type": "object",
-										"properties": {
-											"address": {
-												"type": "string"
-											},
-											"name": {
-												"type": "string"
-											}
-										},
-										"required": [ "address", "name" ]
+										"$ref": "#/components/schemas/IP"
 									}
 								}
 							}
@@ -97,8 +88,50 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"type": "object",
 										"$ref": "#/components/schemas/BasicDataWithUrl"
+									}
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/races/{racecode}": {
+			"get": {
+				"description": "",
+				"summary": "Get the race data",
+				"operationId": "getRace",
+				"parameters": [
+					{
+						"name": "racecode",
+						"in": "path",
+						"description": "Wanted race's code",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Race"
 									}
 								}
 							}
@@ -207,6 +240,18 @@
 				},
 				"required": [ "code", "message" ]
 			},
+			"IP": {
+				"type": "object",
+				"properties": {
+					"address": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [ "address", "name" ]
+			},
 			"BasicData": {
 				"type": "object",
 				"properties": {
@@ -220,6 +265,7 @@
 				"required": [ "code", "name" ]
 			},
 			"BasicDataWithUrl": {
+				"type": "object",
 				"allOf": [
 					{
 						"$ref": "#/components/schemas/BasicData"
@@ -232,6 +278,58 @@
 							}
 						},
 						"required": [ "url" ]
+					}
+				]
+			},
+			"BasicFileData": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicDataWithUrl"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"file": {
+								"type": "string"
+							}
+						},
+						"required": [ "file" ]
+					}
+				]
+			},
+			"Race": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicDataWithUrl"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"characters": {
+								"type": "array",
+								"items": {
+									"uniqueItems": true,
+									"$ref": "#/components/schemas/BasicDataWithUrl"
+								}
+							},
+							"musics": {
+								"type": "array",
+								"items": {
+									"uniqueItems": true,
+									"$ref": "#/components/schemas/BasicFileData"
+								}
+							},
+							"warnings": {
+								"type": "array",
+								"items": {
+									"uniqueItems": true,
+									"$ref": "#/components/schemas/BasicFileData"
+								}
+							}
+						},
+						"required": [ "characters", "musics", "warnings" ]
 					}
 				]
 			}

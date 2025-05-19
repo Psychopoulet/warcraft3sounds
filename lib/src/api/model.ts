@@ -21,30 +21,11 @@
 
 	// locals
 
-	type iBasicDataWithUrl = components["schemas"]["BasicData"] & {
-        "url": string;
-	}
-
-	interface iBasicFileData extends iBasicDataWithUrl {
-		"file": string;
-	}
-
-	type iActionData = iBasicFileData & {
+	type iActionData = components["schemas"]["BasicFileData"] & {
 		"type": components["schemas"]["BasicData"];
 	}
 
-    export interface iIp {
-		"address": string;
-		"name": string;
-    }
-
-	export interface iRace extends iBasicDataWithUrl {
-		"characters": iBasicDataWithUrl[];
-		"musics": iBasicFileData[];
-		"warnings": iBasicFileData[];
-	}
-
-	export interface iCharacter extends iBasicDataWithUrl {
+	export type iCharacter = components["schemas"]["BasicDataWithUrl"] & {
 		"actions": iActionData[];
 	}
 
@@ -160,9 +141,9 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	public getIps (): Promise<iIp[]> {
+	public getIps (): Promise<components["schemas"]["IP"][]> {
 
-		const result: iIp[] = [];
+		const result: components["schemas"]["IP"][] = [];
 
 			const ifaces: NodeJS.Dict<NetworkInterfaceInfo[]> = networkInterfaces();
 
@@ -191,11 +172,11 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	public getRaces (): Promise<iBasicDataWithUrl[]> {
+	public getRaces (): Promise<components["schemas"]["BasicDataWithUrl"][]> {
 
-		return new Promise((resolve: (data: iBasicDataWithUrl[]) => void, reject: (err: Error) => void): void => {
+		return new Promise((resolve: (data: components["schemas"]["BasicDataWithUrl"][]) => void, reject: (err: Error) => void): void => {
 
-			this._db.all("SELECT code, name FROM races ORDER BY name;", (err: Error | null, data: iBasicDataWithUrl[]): void => {
+			this._db.all("SELECT code, name FROM races ORDER BY name;", (err: Error | null, data: components["schemas"]["BasicDataWithUrl"][]): void => {
 
                 return err
                     ? reject(err)
@@ -214,7 +195,7 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	public getRace (code: string): Promise<iRace | null> {
+	public getRace (code: string): Promise<components["schemas"]["Race"] | null> {
 
 		interface iSQLRequestResult {
 			"race_id": string;
@@ -248,13 +229,13 @@ export default class WarcraftSoundsModel {
 				return err ? reject(err) : resolve(data);
 			});
 
-		}).then((racesData: iSQLRequestResult[]): Promise<iRace | null> => {
+		}).then((racesData: iSQLRequestResult[]): Promise<components["schemas"]["Race"] | null> => {
 
-			return !racesData || !racesData.length ? Promise.resolve(null) : new Promise((resolve: (data: iRace) => void): void => {
+			return !racesData || !racesData.length ? Promise.resolve(null) : new Promise((resolve: (data: components["schemas"]["Race"]) => void): void => {
 
 				process.nextTick((): void => {
 
-					const result: iRace = {
+					const result: components["schemas"]["Race"] = {
 						"code": code,
 						"name": racesData[0].race_name,
                         "url": "/api/race/" + code,
@@ -267,7 +248,7 @@ export default class WarcraftSoundsModel {
 
 						if (data.character_code) {
 
-							if (-1 === result.characters.findIndex((character: iBasicDataWithUrl): boolean => {
+							if (-1 === result.characters.findIndex((character: components["schemas"]["BasicDataWithUrl"]): boolean => {
 								return character.code === data.character_code;
 							})) {
 

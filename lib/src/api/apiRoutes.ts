@@ -14,7 +14,7 @@
 	import type { Express, Request, Response, NextFunction } from "express";
 
 	// locals
-	import type { iCharacter, iIp, iRace } from "./model";
+	import type { iCharacter } from "./model";
 	import type { paths, components } from "../descriptor";
 
 // module
@@ -41,7 +41,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 		app.get("/api/ips", (req: Request, res: Response, next: NextFunction): void => {
 
-			model.getIps().then((ips: iIp[]): void => {
+			model.getIps().then((ips: components["schemas"]["IP"][]): void => {
 
 				res.status(errorCodes.OK).json(ips as paths["/api/ips"]["get"]["responses"]["200"]["content"]["application/json"]);
 
@@ -67,7 +67,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 		app.get("/api/races/:race", (req: Request, res: Response, next: NextFunction): void => {
 
-			model.getRace(req.params.race).then((race: iRace | null): void => {
+			model.getRace(req.params.race).then((race: components["schemas"]["Race"] | null): void => {
 
 				if (race) {
 
