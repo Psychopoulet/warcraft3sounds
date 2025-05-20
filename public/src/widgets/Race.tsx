@@ -20,22 +20,21 @@
     import type { iPropsNode } from "react-bootstrap-fontawesome";
 
 	// locals
-	import type { iBasicDataWithUrl, iCharacter, iRace } from "../../../lib/src/api/model";
-	export type { iRace };
+    import type { descriptorTypes } from "../sdk";
 
 // Props && States
 
     interface iStates {
         "loading": boolean;
-        "race": iRace | null;
+        "race": descriptorTypes["Race"] | null;
         "selectedSound": string;
         "selectedCharacter": string;
         "loadingCharacter": boolean;
-        "character": iCharacter | null;
+        "character": descriptorTypes["Character"] | null;
     }
 
     interface iProps extends iPropsNode {
-        "race": iBasicDataWithUrl;
+        "race": descriptorTypes["BasicDataWithUrl"];
         "onChangeSound": (url: string) => void;
     }
 
@@ -90,7 +89,7 @@ export default class Race extends React.Component<iProps, iStates> {
             "race": null
         });
 
-        getSDK().getRace(this.props.race.code).then((race: iRace): void => {
+        getSDK().getRace(this.props.race.code).then((race: descriptorTypes["Race"]): void => {
 
             this.setState({
                 "loading": false,
@@ -137,7 +136,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
         if ("" !== value) {
 
-            getSDK().getCharacter(this.props.race.code, value).then((character: iCharacter): void => {
+            getSDK().getCharacter(this.props.race.code, value).then((character: descriptorTypes["Character"]): void => {
 
                 this.setState({
                     "loadingCharacter": false,
@@ -177,7 +176,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <option value="">--</option>
 
-                { this.state.race?.musics.map((content: iBasicDataWithUrl): React.JSX.Element => {
+                { this.state.race?.musics.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
                     return <option key={ content.code } value={ content.url }>{ content.name }</option>;
                 }) }
 
@@ -202,7 +201,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <option value="">--</option>
 
-                { this.state.race?.warnings.map((content: iBasicDataWithUrl): React.JSX.Element => {
+                { this.state.race?.warnings.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
                     return <option key={ content.code } value={ content.url }>{ content.name }</option>;
                 }) }
 
@@ -228,7 +227,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <option value="">--</option>
 
-                { this.state.race?.characters.map((content: iBasicDataWithUrl): React.JSX.Element => {
+                { this.state.race?.characters.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
                     return <option key={ content.code } value={ content.code }>{ content.name }</option>;
                 }) }
 
@@ -249,7 +248,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
                         <option value="">--</option>
 
-                        { this.state.race?.characters.map((content: iBasicDataWithUrl): React.JSX.Element => {
+                        { this.state.race?.characters.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
                             return <option key={ content.code } value={ content.code }>{ content.name }</option>;
                         }) }
 
@@ -261,7 +260,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
                         <option value="">--</option>
 
-                        { this.state.character?.actions.map((content: iBasicDataWithUrl): React.JSX.Element => {
+                        { this.state.character?.actions.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
                             return <option key={ content.code } value={ content.url }>{ content.name }</option>;
                         }) }
 
