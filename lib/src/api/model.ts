@@ -14,14 +14,14 @@
 	import type { NetworkInterfaceInfo } from "node:os";
 
 	// externals
-	import type { Database } from "sqlite3";
+	import type { sqlite3, Database } from "sqlite3";
 
 	// locals
 	import type { components } from "../descriptor";
 
 // consts
 
-	const sqlite3 = verbose();
+	const SQLLite3: sqlite3 = verbose();
 
 // module
 
@@ -37,7 +37,7 @@ export default class WarcraftSoundsModel {
 
 	public constructor () {
 
-		this._db = new sqlite3.Database(":memory:");
+		this._db = new SQLLite3.Database(":memory:");
 
 	}
 
