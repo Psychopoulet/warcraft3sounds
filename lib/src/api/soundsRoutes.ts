@@ -13,15 +13,19 @@
 	import type { Stats } from "node:fs";
 
 	// externals
-	import type { Express, Request, Response } from "express";
+	import type { Express, Request, Response, NextFunction } from "express";
+
+    // locals
+	import type { paths } from "../descriptor";
 
 // module
 
 export default function soundsRoutes (app: Express): void {
 
-	app.get("/public/sounds/:sound", (req: Request, res: Response): void  => {
+	app.get("/public/sounds/:sound", (req: Request, res: Response, next: NextFunction): void  => {
 
-		const file: string = join(__dirname, "..", "..", "..", "public", "sounds", req.params.sound);
+		const sound: paths["/public/sounds/{sound}"]["get"]["parameters"]["path"]["sound"] = req.params.sound;
+		const file: string = join(__dirname, "..", "..", "..", "public", "sounds", sound);
 
 		new Promise((resolve: (exists: boolean) => void): void => {
 
@@ -42,19 +46,14 @@ export default function soundsRoutes (app: Express): void {
 			}
 			else {
 
-                console.warn("Cannot find", file);
-
-				res.status(errorCodes.NOTFOUND).send("Impossible to find \"" + req.params.sound + "\"");
+				res.status(errorCodes.NOTFOUND).json({
+					"code": String(errorCodes.NOTFOUND),
+					"message": "Impossible to find the \"" + sound + "\" sound"
+				} as paths["/public/sounds/{sound}"]["get"]["responses"]["default"]["content"]["application/json"]);
 
 			}
 
-		}).catch((err: Error): void => {
-
-			console.error(err);
-
-			res.status(errorCodes.INTERNAL).send("An internal error occured");
-
-		});
+		}).catch(next);
 
 	});
 

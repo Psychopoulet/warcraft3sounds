@@ -1,5 +1,9 @@
 // deps
 
+    // natives
+    import { join } from "node:path";
+    import { readFile } from "node:fs/promises";
+
     // locals
     import errorCodes from "../returncodes";
 	import Model from "./model";
@@ -10,7 +14,7 @@
 	import type { Express, Request, Response, NextFunction } from "express";
 
 	// locals
-	import type { iBasicDataWithUrl, iCharacter, iIp, iRace } from "./model";
+	import type { paths, components } from "../descriptor";
 
 // module
 
@@ -18,13 +22,27 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 	const model: Model = new Model();
 
+	// swagger
 	return model.init().then((): void => {
+
+		app.get("/api/descriptor", (req: Request, res: Response, next: NextFunction): void => {
+
+			readFile(join(__dirname, "..", "..", "data", "descriptor.json"), "utf-8").then((content: string): void => {
+
+				res.status(errorCodes.OK).json(JSON.parse(content) as paths["/api/descriptor"]["get"]["responses"]["200"]["content"]["application/json"]);
+
+			}).catch(next);
+
+		});
+
+	// server ips
+	}).then((): void => {
 
 		app.get("/api/ips", (req: Request, res: Response, next: NextFunction): void => {
 
-			model.getIps().then((ips: iIp[]): void => {
+			model.getIps().then((ips: components["schemas"]["IP"][]): void => {
 
-				res.status(errorCodes.OK).json(ips);
+				res.status(errorCodes.OK).json(ips as paths["/api/ips"]["get"]["responses"]["200"]["content"]["application/json"]);
 
 			}).catch(next);
 
@@ -35,9 +53,9 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 		app.get("/api/races", (req: Request, res: Response, next: NextFunction): void => {
 
-			model.getRaces().then((races: iBasicDataWithUrl[]): void => {
+			model.getRaces().then((races: components["schemas"]["BasicDataWithUrl"][]): void => {
 
-				res.status(errorCodes.OK).json(races);
+				res.status(errorCodes.OK).json(races as paths["/api/races"]["get"]["responses"]["200"]["content"]["application/json"]);
 
 			}).catch(next);
 
@@ -48,7 +66,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 		app.get("/api/races/:race", (req: Request, res: Response, next: NextFunction): void => {
 
-			model.getRace(req.params.race).then((race: iRace | null): void => {
+			model.getRace(req.params.race).then((race: components["schemas"]["Race"] | null): void => {
 
 				if (race) {
 
@@ -77,7 +95,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 				req.params.race,
 				req.params.character,
 				req.query && "undefined" !== typeof req.query.notworded ? Boolean(req.query.notworded) : false
-			).then((character: iCharacter | null): void => {
+			).then((character: components["schemas"]["Character"] | null): void => {
 
 				if (character) {
 

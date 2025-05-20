@@ -21,14 +21,14 @@
     import type { iPropsNode } from "react-bootstrap-fontawesome";
 
     // locals
-    import type { iBasicDataWithUrl } from "../sdk";
+    import type { descriptorTypes } from "../sdk";
 
 // Props && States
 
     interface iStates {
         "notWordedSounds": boolean;
         "loading": boolean;
-        "races": iBasicDataWithUrl[];
+        "races": descriptorTypes["BasicDataWithUrl"][];
         "readedSoundUrl": string;
     };
 
@@ -99,7 +99,7 @@ export default class Body extends React.Component<iProps, iStates> {
             "races": []
         });
 
-        getSDK().getRaces().then((races: iBasicDataWithUrl[]): void => {
+        getSDK().getRaces().then((races: descriptorTypes["BasicDataWithUrl"][]): void => {
 
             this.setState({
                 "loading": false,
@@ -168,7 +168,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
                 <div className="row">
 
-                    { this.state.races.map((race: iBasicDataWithUrl): React.JSX.Element => {
+                    { this.state.races.map((race: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
 
                         return <div key={ race.code } className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
                             <Race race={ race } onChangeSound={ this._handleChangeSound.bind(this) } />

@@ -15,14 +15,14 @@
     import type { iPropsNode } from "react-bootstrap-fontawesome";
 
     // locals
-    import type { iIp } from "../sdk";
+    import type { descriptorTypes } from "../sdk";
 
 // Props && States
 
     interface iStates {
         "notWordedSounds": boolean;
         "loading": boolean;
-        "ips": iIp[];
+        "ips": descriptorTypes["IP"][];
     }
 
     interface iProps extends iPropsNode {
@@ -76,7 +76,7 @@ export default class Menu extends React.Component<iProps, iStates> {
             "ips": []
         });
 
-        getSDK().getIps().then((ips: iIp[]): void => {
+        getSDK().getIps().then((ips: descriptorTypes["IP"][]): void => {
 
             this.setState({
                 "loading": false,
@@ -127,7 +127,7 @@ export default class Menu extends React.Component<iProps, iStates> {
         }
         else {
 
-            return this.state.ips.map((ip: iIp, index: number): React.JSX.Element => {
+            return this.state.ips.map((ip: descriptorTypes["IP"], index: number): React.JSX.Element => {
 
                 return <span key={ index } className="nav-item nav-link">
                     { ip.name } : { ip.address }

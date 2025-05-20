@@ -3,26 +3,16 @@
 // types & interfaces
 
     // locals
-    import type { iBasicDataWithUrl, iIp, iRace, iCharacter } from "../../lib/src/api/model";
-    export type { iBasicDataWithUrl, iIp, iRace, iCharacter };
+    import type { components } from "../../lib/src/descriptor";
+    export type descriptorTypes = components["schemas"];
 
 // component
 
 export class SDK {
 
-    public getIps (): Promise<iIp[]> {
+    public getIps (): Promise<components["schemas"]["IP"][]> {
 
-        return fetch("/api/ips").then((content: Response): Promise<iIp[]> => {
-
-            return content.json();
-
-        });
-
-    }
-
-    public getRaces (): Promise<iBasicDataWithUrl[]> {
-
-        return fetch("/api/races").then((content: Response): Promise<iBasicDataWithUrl[]> => {
+        return fetch("/api/ips").then((content: Response): Promise<components["schemas"]["IP"][]> => {
 
             return content.json();
 
@@ -30,9 +20,9 @@ export class SDK {
 
     }
 
-    public getRace (raceCode: iRace["code"]): Promise<iRace> {
+    public getRaces (): Promise<components["schemas"]["BasicDataWithUrl"][]> {
 
-        return fetch("/api/races/" + raceCode).then((content: Response): Promise<iRace> => {
+        return fetch("/api/races").then((content: Response): Promise<components["schemas"]["BasicDataWithUrl"][]> => {
 
             return content.json();
 
@@ -40,9 +30,19 @@ export class SDK {
 
     }
 
-    public getCharacter (raceCode: iRace["code"], characterCode: iCharacter["code"]): Promise<iCharacter> {
+    public getRace (raceCode: components["schemas"]["Race"]["code"]): Promise<components["schemas"]["Race"]> {
 
-        return fetch("/api/races/" + raceCode + "/characters/" + characterCode).then((content: Response): Promise<iCharacter> => {
+        return fetch("/api/races/" + raceCode).then((content: Response): Promise<components["schemas"]["Race"]> => {
+
+            return content.json();
+
+        });
+
+    }
+
+    public getCharacter (raceCode: components["schemas"]["Race"]["code"], characterCode: components["schemas"]["Character"]["code"]): Promise<components["schemas"]["Character"]> {
+
+        return fetch("/api/races/" + raceCode + "/characters/" + characterCode).then((content: Response): Promise<components["schemas"]["Character"]> => {
 
             return content.json();
 

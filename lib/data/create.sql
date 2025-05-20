@@ -358,7 +358,7 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (3, 6, 'fun1', 'La seule chance qu''on a de gagner la guerre, c''est qu''en face ils soient aussi cons qu''ici.', 'HeroArchmagePissed1.wav'),
 (3, 6, 'fun2', 'Vous avez lu Clausewitz ?', 'HeroArchmagePissed2.wav'),
 (3, 6, 'fun3', 'Et Sun-Tzu vous l''avez lu ?', 'HeroArchmagePissed3.wav'),
-(3, 6, 'fun4', 'Magie, magie, et vos idées n''ont pas de génie', 'HeroArchmagePissed4.wav'),
+(3, 6, 'fun4', 'Magie, magie, mais vos idées n''ont pas de génie', 'HeroArchmagePissed4.wav'),
 (3, 7, 'death1', 'Mort', 'HeroArchmageDeath.wav'),
 
 (5, 1, 'ready1', 'Prêt à travailler !', 'PeasantReady1.wav'),
