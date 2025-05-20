@@ -150,6 +150,58 @@
 				}
 			}
 		},
+		"/api/races/{racecode}/characters/{charactercode}": {
+			"get": {
+				"description": "",
+				"summary": "Get the race data",
+				"operationId": "getCharacter",
+				"parameters": [
+					{
+						"name": "racecode",
+						"in": "path",
+						"description": "Wanted race's code",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "charactercode",
+						"in": "path",
+						"description": "Wanted character's code",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Character"
+									}
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/api/err": {
 			"get": {
 				"description": "",
@@ -330,6 +382,41 @@
 							}
 						},
 						"required": [ "characters", "musics", "warnings" ]
+					}
+				]
+			},
+			"Character": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicDataWithUrl"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"actions": {
+								"type": "array",
+								"items": {
+									"uniqueItems": true,
+									"type": "object",
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/BasicFileData"
+										},
+										{
+											"type": "object",
+											"properties": {
+												"type": {
+													"$ref": "#/components/schemas/BasicData"
+												}
+											},
+											"required": [ "type" ]
+										}
+									]
+								}
+							}
+						},
+						"required": [ "actions" ]
 					}
 				]
 			}

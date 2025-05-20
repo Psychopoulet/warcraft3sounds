@@ -19,16 +19,6 @@
 	// locals
 	import type { components } from "../descriptor";
 
-	// locals
-
-	type iActionData = components["schemas"]["BasicFileData"] & {
-		"type": components["schemas"]["BasicData"];
-	}
-
-	export type iCharacter = components["schemas"]["BasicDataWithUrl"] & {
-		"actions": iActionData[];
-	}
-
 // consts
 
 	const sqlite3 = verbose();
@@ -308,7 +298,7 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	public getCharacter (codeRace: string, code: string, notWorded: boolean = false): Promise<iCharacter | null> {
+	public getCharacter (codeRace: string, code: string, notWorded: boolean = false): Promise<components["schemas"]["Character"] | null> {
 
 		interface iSQLRequestResult {
 			"id": string;
@@ -330,9 +320,9 @@ export default class WarcraftSoundsModel {
 				return err ? reject(err) : resolve(data);
 			});
 
-		}).then((characterData: iSQLRequestResult): Promise<iCharacter | null> => {
+		}).then((characterData: iSQLRequestResult): Promise<components["schemas"]["Character"] | null> => {
 
-			return !characterData ? Promise.resolve(null) : Promise.resolve().then((): Promise<iCharacter | null> => {
+			return !characterData ? Promise.resolve(null) : Promise.resolve().then((): Promise<components["schemas"]["Character"] | null> => {
 
 				interface iSQLActionRequestResult {
 					"code": string;
@@ -356,13 +346,13 @@ export default class WarcraftSoundsModel {
 						return err ? reject(err) : resolve(data);
 					});
 
-				}).then((data: iSQLActionRequestResult[]): Promise<iCharacter | null> => {
+				}).then((data: iSQLActionRequestResult[]): Promise<components["schemas"]["Character"] | null> => {
 
-					return new Promise((resolve: (data: iCharacter) => void): void => {
+					return new Promise((resolve: (data: components["schemas"]["Character"]) => void): void => {
 
 						process.nextTick((): void => {
 
-							const result: iCharacter = {
+							const result: components["schemas"]["Character"] = {
 								"code": characterData.code,
 								"name": characterData.name,
                                 "url": "/api/race/" + codeRace + "/characters/" + code,

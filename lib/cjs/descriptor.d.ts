@@ -99,6 +99,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/races/{racecode}/characters/{charactercode}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get the race data */
+        get: operations["getCharacter"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/err": {
         parameters: {
             query?: never;
@@ -188,6 +205,11 @@ export interface components {
             musics: components["schemas"]["BasicFileData"][];
             warnings: components["schemas"]["BasicFileData"][];
         };
+        Character: components["schemas"]["BasicDataWithUrl"] & {
+            actions: (components["schemas"]["BasicFileData"] & {
+                type: components["schemas"]["BasicData"];
+            })[];
+        };
     };
     responses: never;
     parameters: never;
@@ -274,6 +296,40 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["Race"][];
+                };
+            };
+            /** @description An error occured */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Error"];
+                };
+            };
+        };
+    };
+    getCharacter: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Wanted race's code */
+                racecode: string;
+                /** @description Wanted character's code */
+                charactercode: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Everything is fine */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Character"][];
                 };
             };
             /** @description An error occured */

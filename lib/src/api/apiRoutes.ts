@@ -14,7 +14,6 @@
 	import type { Express, Request, Response, NextFunction } from "express";
 
 	// locals
-	import type { iCharacter } from "./model";
 	import type { paths, components } from "../descriptor";
 
 // module
@@ -96,7 +95,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 				req.params.race,
 				req.params.character,
 				req.query && "undefined" !== typeof req.query.notworded ? Boolean(req.query.notworded) : false
-			).then((character: iCharacter | null): void => {
+			).then((character: components["schemas"]["Character"] | null): void => {
 
 				if (character) {
 

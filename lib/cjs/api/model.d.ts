@@ -1,10 +1,4 @@
 import type { components } from "../descriptor";
-type iActionData = components["schemas"]["BasicFileData"] & {
-    "type": components["schemas"]["BasicData"];
-};
-export type iCharacter = components["schemas"]["BasicDataWithUrl"] & {
-    "actions": iActionData[];
-};
 export default class WarcraftSoundsModel {
     private _db;
     constructor();
@@ -13,6 +7,5 @@ export default class WarcraftSoundsModel {
     getIps(): Promise<components["schemas"]["IP"][]>;
     getRaces(): Promise<components["schemas"]["BasicDataWithUrl"][]>;
     getRace(code: string): Promise<components["schemas"]["Race"] | null>;
-    getCharacter(codeRace: string, code: string, notWorded?: boolean): Promise<iCharacter | null>;
+    getCharacter(codeRace: string, code: string, notWorded?: boolean): Promise<components["schemas"]["Character"] | null>;
 }
-export {};
