@@ -30897,6 +30897,7 @@ var __extends = (undefined && undefined.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+// made with the help of Le Chat - Mistral AI (https://chat.mistral.ai/)
 // deps
 // externals
 
@@ -30942,7 +30943,6 @@ var SoundReader = /** @class */ (function (_super) {
         var startPlay = Boolean(_this.props.autoplay) && 0 < newSrc.length;
         _this.state = {
             "status": startPlay ? "PLAY" : "STOP",
-            "isPlaying": startPlay ? true : false,
             "progress": 0,
             "src": newSrc
         };
@@ -30951,16 +30951,13 @@ var SoundReader = /** @class */ (function (_super) {
     }
     SoundReader.prototype.componentDidMount = function () {
         // init events
+        this._refAudio.ref.current.addEventListener("loadedmetadata", this._handleMetaDataLoaded.bind(this));
         this._refAudio.ref.current.addEventListener("timeupdate", this._handleTimeUpdate.bind(this));
         this._refAudio.ref.current.addEventListener("ended", this._handleEnded.bind(this));
-        // autoplay
-        var startPlay = Boolean(this.props.autoplay) && 0 < this.state.src.length;
-        if (startPlay) {
-            this._refAudio.startPlay();
-        }
     };
     SoundReader.prototype.componentWillUnmount = function () {
         // destroy events
+        this._refAudio.ref.current.removeEventListener("loadedmetadata", this._handleMetaDataLoaded.bind(this));
         this._refAudio.ref.current.removeEventListener("timeupdate", this._handleTimeUpdate.bind(this));
         this._refAudio.ref.current.removeEventListener("ended", this._handleEnded.bind(this));
         // autostop
@@ -30974,29 +30971,30 @@ var SoundReader = /** @class */ (function (_super) {
             var startPlay = Boolean(props.autoplay) && 0 < newSrc.length;
             return {
                 "status": startPlay ? "PLAY" : "STOP",
-                "isPlaying": startPlay ? true : false,
                 "progress": 0,
                 "src": newSrc
             };
         }
         return null;
     };
-    SoundReader.prototype.componentDidUpdate = function (prevProps, prevState) {
-        if (prevState.src !== this.state.src) {
-            var startPlay = Boolean(this.props.autoplay) && 0 < this.state.src.length;
-            if (startPlay) {
-                this._refAudio.startPlay();
-            }
+    // events
+    SoundReader.prototype._handleMetaDataLoaded = function (e) {
+        var duration = this._refAudio.ref.current.duration;
+        if (Infinity === duration || isNaN(Number(duration))) {
+            // @WIP
+        }
+        // autoplay
+        var startPlay = Boolean(this.props.autoplay) && 0 < this.state.src.length;
+        if (startPlay) {
+            this._refAudio.startPlay();
         }
     };
-    // events
     SoundReader.prototype._handlePlay = function (e) {
         e.stopPropagation();
         e.preventDefault();
         this._refAudio.startPlay();
         this.setState({
             "status": "PLAY",
-            "isPlaying": true,
             "progress": 0
         });
     };
@@ -31005,8 +31003,7 @@ var SoundReader = /** @class */ (function (_super) {
         e.preventDefault();
         this._refAudio.unpause();
         this.setState({
-            "status": "PLAY",
-            "isPlaying": true
+            "status": "PLAY"
         });
     };
     SoundReader.prototype._handlePause = function (e) {
@@ -31014,8 +31011,7 @@ var SoundReader = /** @class */ (function (_super) {
         e.preventDefault();
         this._refAudio.pause();
         this.setState({
-            "status": "PAUSE",
-            "isPlaying": false
+            "status": "PAUSE"
         });
     };
     SoundReader.prototype._handleStop = function (e) {
@@ -31037,7 +31033,6 @@ var SoundReader = /** @class */ (function (_super) {
     SoundReader.prototype._handleEnded = function () {
         this.setState({
             "status": "STOP",
-            "isPlaying": false,
             "progress": 0
         });
     };

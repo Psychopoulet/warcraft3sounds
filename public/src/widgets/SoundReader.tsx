@@ -1,5 +1,7 @@
 "use strict";
 
+// made with the help of Le Chat - Mistral AI (https://chat.mistral.ai/)
+
 // deps
 
     // externals
@@ -29,7 +31,6 @@
 
     interface iStates {
         "status": "PLAY" | "PAUSE" | "STOP";
-        "isPlaying": boolean;
         "progress": number;
         "src": string;
     };
@@ -115,7 +116,6 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
         this.state = {
             "status": startPlay ? "PLAY" : "STOP",
-            "isPlaying": startPlay ? true : false,
             "progress": 0,
             "src": newSrc
         };
@@ -128,16 +128,9 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
         // init events
 
+        this._refAudio.ref.current.addEventListener("loadedmetadata", this._handleMetaDataLoaded.bind(this));
         this._refAudio.ref.current.addEventListener("timeupdate", this._handleTimeUpdate.bind(this));
         this._refAudio.ref.current.addEventListener("ended", this._handleEnded.bind(this));
-
-        // autoplay
-
-        const startPlay: boolean = Boolean(this.props.autoplay) && 0 < this.state.src.length;
-
-        if (startPlay) {
-            this._refAudio.startPlay();
-        }
 
     }
 
@@ -145,6 +138,7 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
         // destroy events
 
+        this._refAudio.ref.current.removeEventListener("loadedmetadata", this._handleMetaDataLoaded.bind(this));
         this._refAudio.ref.current.removeEventListener("timeupdate", this._handleTimeUpdate.bind(this));
         this._refAudio.ref.current.removeEventListener("ended", this._handleEnded.bind(this));
 
@@ -166,7 +160,6 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
             return {
                 "status": startPlay ? "PLAY" : "STOP",
-                "isPlaying": startPlay ? true : false,
                 "progress": 0,
                 "src": newSrc
             };
@@ -177,21 +170,28 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
     }
 
-    public componentDidUpdate (prevProps: Readonly<iProps>, prevState: Readonly<iStates>): void {
+    // events
 
-        if (prevState.src !== this.state.src) {
+    private _handleMetaDataLoaded (e: Event): void {
 
-            const startPlay: boolean = Boolean(this.props.autoplay) && 0 < this.state.src.length;
+        const duration = this._refAudio.ref.current.duration;
 
-            if (startPlay) {
-                this._refAudio.startPlay();
-            }
+        if (Infinity === duration || isNaN(Number(duration))) {
 
+            // @WIP
+
+        }
+
+        // autoplay
+
+        const startPlay: boolean = Boolean(this.props.autoplay) && 0 < this.state.src.length;
+
+        if (startPlay) {
+            this._refAudio.startPlay();
         }
 
     }
 
-    // events
 
     private _handlePlay (e: React.MouseEvent<HTMLButtonElement>): void {
 
@@ -202,7 +202,6 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
         this.setState({
             "status": "PLAY",
-            "isPlaying": true,
             "progress": 0
         });
 
@@ -216,8 +215,7 @@ export default class SoundReader extends React.Component<iProps, iStates> {
         this._refAudio.unpause();
 
         this.setState({
-            "status": "PLAY",
-            "isPlaying": true
+            "status": "PLAY"
         });
 
     }
@@ -230,8 +228,7 @@ export default class SoundReader extends React.Component<iProps, iStates> {
         this._refAudio.pause();
 
         this.setState({
-            "status": "PAUSE",
-            "isPlaying": false
+            "status": "PAUSE"
         });
 
     }
@@ -264,7 +261,6 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
         this.setState({
             "status": "STOP",
-            "isPlaying": false,
             "progress": 0
         });
 
