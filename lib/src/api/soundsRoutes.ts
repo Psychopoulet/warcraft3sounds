@@ -27,18 +27,30 @@ export default function soundsRoutes (app: Express): void {
 		const sound: paths["/public/sounds/{sound}"]["get"]["parameters"]["path"]["sound"] = req.params.sound;
 		const file: string = join(__dirname, "..", "..", "..", "public", "sounds", sound);
 
-		new Promise((resolve: (exists: boolean) => void): void => {
+		new Promise((resolve: (stats: {
+			"exists": boolean;
+			"size": number;
+		}) => void): void => {
 
 			stat(file, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
-				return resolve(!(err || !stats.isFile()));
+
+				return resolve({
+					"exists": !(err || !stats.isFile()),
+					"size": stats.size
+				});
+
 			});
 
-		}).then((exists: boolean): void => {
+		}).then((stats: {
+			"exists": boolean;
+			"size": number;
+		}): void => {
 
-			if (exists) {
+			if (stats.exists) {
 
 				res.status(errorCodes.OK).set({
-					"Content-Type": ".wav" === extname(file) ? "audio/wav" : "audio/mpeg"
+					"Content-Type": ".wav" === extname(file) ? "audio/wav" : "audio/mpeg",
+					"Content-Length": stats.size
 				});
 
 				createReadStream(file).pipe(res);
