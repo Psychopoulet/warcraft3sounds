@@ -34,6 +34,15 @@ export default function soundsRoutes (app: Express): void {
 
 			stat(file, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
 
+				if (err) {
+
+					return resolve({
+						"exists": false,
+						"size": 0
+					});
+
+				}
+
 				return resolve({
 					"exists": !(err || !stats.isFile()),
 					"size": stats.size
