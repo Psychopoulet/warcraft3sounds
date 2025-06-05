@@ -30911,172 +30911,55 @@ var SoundReader = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         // states
         var newSrc = props.src.trim();
-        var startPlay = Boolean(_this.props.autoplay) && 0 < newSrc.length;
         _this.state = {
-            "status": startPlay ? "PLAY" : "STOP",
-            "progress": 0,
             "src": newSrc
         };
-        // attributes
-        _this._refAudio = react__WEBPACK_IMPORTED_MODULE_0___default().createRef();
-        // force binds
-        _this._handleMetaDataLoaded = _this._handleMetaDataLoaded.bind(_this);
-        _this._handleTimeUpdate = _this._handleTimeUpdate.bind(_this);
-        _this._handleEnded = _this._handleEnded.bind(_this);
         return _this;
     }
-    SoundReader.prototype.componentDidMount = function () {
-        // init events
-        this._refAudio.current.addEventListener("loadedmetadata", this._handleMetaDataLoaded);
-        this._refAudio.current.addEventListener("timeupdate", this._handleTimeUpdate);
-        this._refAudio.current.addEventListener("ended", this._handleEnded);
-    };
-    SoundReader.prototype.componentWillUnmount = function () {
-        // destroy events
-        this._refAudio.current.removeEventListener("loadedmetadata", this._handleMetaDataLoaded);
-        this._refAudio.current.removeEventListener("timeupdate", this._handleTimeUpdate);
-        this._refAudio.current.removeEventListener("ended", this._handleEnded);
-        // autostop
-        this._refAudio.current.pause();
-    };
     SoundReader.getDerivedStateFromProps = function (props, state) {
         // props.src = new src
         // state.src = old src
         if (props.src !== state.src) { // src changed
             var newSrc = props.src.trim();
-            var startPlay = Boolean(props.autoplay) && 0 < newSrc.length;
             return {
-                "status": startPlay ? "PLAY" : "STOP",
-                "progress": 0,
                 "src": newSrc
             };
         }
         return null;
     };
-    // events
-    SoundReader.prototype._handleMetaDataLoaded = function (e) {
-        // autoplay
-        var startPlay = Boolean(this.props.autoplay) && 0 < this.state.src.length;
-        if (startPlay) {
-            this._handlePlay();
-        }
-    };
-    SoundReader.prototype._handleTimeUpdate = function () {
-        if (!Number.isNaN(this._refAudio.current.duration)) {
-            var progressPercent = (this._refAudio.current.currentTime / this._refAudio.current.duration) * 100;
-            this.setState({
-                "progress": Math.round(progressPercent)
-            });
-        }
-    };
-    SoundReader.prototype._handlePlay = function (e) {
-        if (e) {
-            e.stopPropagation();
-            e.preventDefault();
-        }
-        this._refAudio.current.currentTime = 0;
-        this._refAudio.current.play();
-        this.setState({
-            "status": "PLAY",
-            "progress": 0
-        });
-    };
-    SoundReader.prototype._handlePause = function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        if (!this._refAudio.current.paused) {
-            this._refAudio.current.pause();
-        }
-        this.setState({
-            "status": "PAUSE"
-        });
-    };
-    SoundReader.prototype._handleUnpause = function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        if (this._refAudio.current.paused) {
-            this._refAudio.current.play();
-        }
-        this.setState({
-            "status": "PLAY"
-        });
-    };
-    SoundReader.prototype._handleStop = function (e) {
-        if (e) {
-            e.stopPropagation();
-            e.preventDefault();
-        }
-        this._refAudio.current.pause();
-        this._refAudio.current.currentTime = 0;
-        this.setState({
-            "status": "STOP",
-            "progress": 0
-        });
-    };
-    SoundReader.prototype._handleEnded = function () {
-        this._handleStop();
-    };
     // render
-    SoundReader.prototype._renderHeader = function () {
+    SoundReader.prototype._renderTitle = function () {
         if (this.props.title && 0 < this.props.title.length) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null, this.props.title);
+            return this.props.title;
         }
         else if (0 < this.state.src.length) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null, this.state.src.split("/").pop());
+            return this.state.src.split("/").pop();
         }
         else {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null, "Unknown");
+            return "Unknown";
         }
     };
     SoundReader.prototype._renderBody = function () {
         if (0 === this.state.src.length) {
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("audio", { ref: this._refAudio },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("audio", null,
                     "Your browser does not support the ",
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("code", null, "audio"),
                     " element."),
                 "No sound to play");
         }
         else {
-            var max = Number.isNaN(this._refAudio.current.duration) || undefined === this._refAudio.current.duration ? 100 : Math.round(this._refAudio.current.duration);
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("audio", { ref: this._refAudio, src: this.state.src },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("audio", { src: this.state.src, className: "col-12", controls: true, autoPlay: Boolean(this.props.autoplay), loop: Boolean(this.props.loop) },
                     "Your browser does not support the ",
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("code", null, "audio"),
-                    " element."),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "input-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { className: "input-group-text" },
-                        this.state.progress,
-                        "%"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Range, { value: Math.round(this._refAudio.current.currentTime), min: 0, max: max })));
-        }
-    };
-    SoundReader.prototype._renderFooter = function () {
-        if (0 === this.state.src.length) {
-            return undefined;
-        }
-        else if ("PLAY" === this.state.status) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardFooter, null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.ButtonGroup, { block: true },
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { variant: "warning", icon: "pause", onClick: this._handlePause.bind(this) }, "Pause"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { variant: "danger", icon: "stop", onClick: this._handleStop.bind(this) }, "Stop")));
-        }
-        else if ("PAUSE" === this.state.status) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardFooter, null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.ButtonGroup, { block: true },
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { variant: "success", icon: "play", onClick: this._handleUnpause.bind(this) }, "Play"),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { variant: "danger", icon: "stop", onClick: this._handleStop.bind(this) }, "Stop")));
-        }
-        else {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardFooter, null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { block: true, variant: "success", icon: "sync", onClick: this._handlePlay.bind(this) }, "Play again"));
+                    " element."));
         }
     };
     SoundReader.prototype.render = function () {
         return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, null,
-            this._renderHeader(),
-            this._renderBody(),
-            this._renderFooter());
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null, this._renderTitle()),
+            this._renderBody());
     };
     // name
     SoundReader.displayName = "SoundReader";
