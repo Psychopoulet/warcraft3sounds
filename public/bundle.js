@@ -30524,7 +30524,7 @@ var Body = /** @class */ (function (_super) {
                             react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race, onChangeSound: _this._handleChangeSound.bind(_this) }));
                     }),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "col-12 col-sm-6 col-md-4 col-lg-3 mb-3" },
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SoundReader__WEBPACK_IMPORTED_MODULE_3__["default"], { src: this.state.readedSoundUrl }))));
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SoundReader__WEBPACK_IMPORTED_MODULE_3__["default"], { autoplay: true, src: this.state.readedSoundUrl }))));
         }
     };
     Body.prototype.render = function () {
@@ -30897,34 +30897,12 @@ var __extends = (undefined && undefined.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+// made with the help of Le Chat - Mistral AI (https://chat.mistral.ai/)
 // deps
 // externals
 
 
 ;
-function generateRefAudio() {
-    var ref = react__WEBPACK_IMPORTED_MODULE_0___default().createRef();
-    var setFocus = function () {
-        ref.current && ref.current.focus();
-    };
-    var startPlay = function () {
-        if (ref.current) {
-            ref.current.currentTime = 0;
-            ref.current.play();
-        }
-    };
-    var pause = function () {
-        if (ref.current && !ref.current.paused) {
-            ref.current.pause();
-        }
-    };
-    var unpause = function () {
-        if (ref.current && ref.current.paused) {
-            ref.current.play();
-        }
-    };
-    return { setFocus: setFocus, ref: ref, startPlay: startPlay, pause: pause, unpause: unpause };
-}
 // component
 var SoundReader = /** @class */ (function (_super) {
     __extends(SoundReader, _super);
@@ -30932,90 +30910,56 @@ var SoundReader = /** @class */ (function (_super) {
     function SoundReader(props) {
         var _this = _super.call(this, props) || this;
         // states
+        var newSrc = props.src.trim();
         _this.state = {
-            "status": "PLAY",
-            "src": props.src.trim()
+            "src": newSrc
         };
-        _this._refAudio = generateRefAudio();
         return _this;
     }
-    SoundReader.prototype.componentDidMount = function () {
-        this._refAudio.startPlay();
-    };
     SoundReader.getDerivedStateFromProps = function (props, state) {
-        if (props.src !== state.src) {
+        // props.src = new src
+        // state.src = old src
+        if (props.src !== state.src) { // src changed
+            var newSrc = props.src.trim();
             return {
-                "status": "PLAY",
-                "src": props.src
+                "src": newSrc
             };
         }
         return null;
     };
-    SoundReader.prototype.componentDidUpdate = function (prevProps, prevState) {
-        var _this = this;
-        if (prevState.src !== this.state.src) {
-            if ("" !== this.state.src) {
-                this._refAudio.startPlay();
-                this._refAudio.ref.current.onended = function () {
-                    _this.setState({
-                        "status": "STOP"
-                    });
-                };
-            }
-        }
-    };
-    // events
-    SoundReader.prototype._handlePlay = function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        this._refAudio.startPlay();
-        this.setState({
-            "status": "PLAY"
-        });
-    };
-    SoundReader.prototype._handleUnpause = function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        this._refAudio.unpause();
-        this.setState({
-            "status": "PLAY"
-        });
-    };
-    SoundReader.prototype._handlePause = function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        this._refAudio.pause();
-        this.setState({
-            "status": "PAUSE"
-        });
-    };
     // render
-    SoundReader.prototype._renderButton = function () {
-        if ("PLAY" === this.state.status) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { block: true, variant: "warning", icon: "pause", onClick: this._handlePause.bind(this) }, "Pause");
+    SoundReader.prototype._renderTitle = function () {
+        if (this.props.title && 0 < this.props.title.length) {
+            return this.props.title;
         }
-        else if ("PAUSE" === this.state.status) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { block: true, variant: "success", icon: "play", onClick: this._handleUnpause.bind(this) }, "Unpause");
+        else if (0 < this.state.src.length) {
+            return this.state.src.split("/").pop();
         }
         else {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Button, { block: true, variant: "success", icon: "sync", onClick: this._handlePlay.bind(this) }, "Play again");
+            return "Unknown";
+        }
+    };
+    SoundReader.prototype._renderBody = function () {
+        if (0 === this.state.src.length) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("audio", null,
+                    "Your browser does not support the ",
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("code", null, "audio"),
+                    " element."),
+                "No sound to play");
+        }
+        else {
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("audio", { src: this.state.src, className: "col-12", controls: true, autoPlay: Boolean(this.props.autoplay), loop: Boolean(this.props.loop) },
+                    "Your browser does not support the ",
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("code", null, "audio"),
+                    " element."));
         }
     };
     SoundReader.prototype.render = function () {
-        if (0 === this.state.src.length) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null, "Sound reader"),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null, "No sound to play"));
-        }
         return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, null,
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null, "Sound reader"),
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
-                this.state.src,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("audio", { id: "audioSource", ref: this._refAudio.ref, src: this.state.src },
-                    "Your browser does not support the ",
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("code", null, "audio"),
-                    " element.")),
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardFooter, null, this._renderButton()));
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null, this._renderTitle()),
+            this._renderBody());
     };
     // name
     SoundReader.displayName = "SoundReader";

@@ -14,45 +14,14 @@
 	import type { NetworkInterfaceInfo } from "node:os";
 
 	// externals
-	import type { Database } from "sqlite3";
+	import type { sqlite3, Database } from "sqlite3";
 
 	// locals
-
-	interface iBasicData {
-		"code": string;
-		"name": string;
-	};
-
-	export interface iBasicDataWithUrl extends iBasicData {
-        "url": string;
-	};
-
-	interface iBasicFileData extends iBasicDataWithUrl {
-		"file": string;
-	};
-
-	interface iActionData extends iBasicFileData {
-		"type": iBasicData;
-	};
-
-    export interface iIp {
-		"address": string;
-		"name": string;
-    }
-
-	export interface iRace extends iBasicDataWithUrl {
-		"characters": iBasicDataWithUrl[];
-		"musics": iBasicFileData[];
-		"warnings": iBasicFileData[];
-	};
-
-	export interface iCharacter extends iBasicDataWithUrl {
-		"actions": iActionData[];
-	};
+	import type { components } from "../descriptor";
 
 // consts
 
-	const sqlite3 = verbose();
+	const SQLLite3: sqlite3 = verbose();
 
 // module
 
@@ -68,7 +37,7 @@ export default class WarcraftSoundsModel {
 
 	public constructor () {
 
-		this._db = new sqlite3.Database(":memory:");
+		this._db = new SQLLite3.Database(":memory:");
 
 	}
 
@@ -162,9 +131,9 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	public getIps (): Promise<iIp[]> {
+	public getIps (): Promise<components["schemas"]["IP"][]> {
 
-		const result: iIp[] = [];
+		const result: components["schemas"]["IP"][] = [];
 
 			const ifaces: NodeJS.Dict<NetworkInterfaceInfo[]> = networkInterfaces();
 
@@ -193,11 +162,11 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	public getRaces (): Promise<iBasicDataWithUrl[]> {
+	public getRaces (): Promise<components["schemas"]["BasicDataWithUrl"][]> {
 
-		return new Promise((resolve: (data: iBasicDataWithUrl[]) => void, reject: (err: Error) => void): void => {
+		return new Promise((resolve: (data: components["schemas"]["BasicDataWithUrl"][]) => void, reject: (err: Error) => void): void => {
 
-			this._db.all("SELECT code, name FROM races ORDER BY name;", (err: Error | null, data: iBasicDataWithUrl[]): void => {
+			this._db.all("SELECT code, name FROM races ORDER BY name;", (err: Error | null, data: components["schemas"]["BasicDataWithUrl"][]): void => {
 
                 return err
                     ? reject(err)
@@ -216,7 +185,7 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	public getRace (code: string): Promise<iRace | null> {
+	public getRace (code: string): Promise<components["schemas"]["Race"] | null> {
 
 		interface iSQLRequestResult {
 			"race_id": string;
@@ -250,13 +219,13 @@ export default class WarcraftSoundsModel {
 				return err ? reject(err) : resolve(data);
 			});
 
-		}).then((racesData: iSQLRequestResult[]): Promise<iRace | null> => {
+		}).then((racesData: iSQLRequestResult[]): Promise<components["schemas"]["Race"] | null> => {
 
-			return !racesData || !racesData.length ? Promise.resolve(null) : new Promise((resolve: (data: iRace) => void): void => {
+			return !racesData || !racesData.length ? Promise.resolve(null) : new Promise((resolve: (data: components["schemas"]["Race"]) => void): void => {
 
 				process.nextTick((): void => {
 
-					const result: iRace = {
+					const result: components["schemas"]["Race"] = {
 						"code": code,
 						"name": racesData[0].race_name,
                         "url": "/api/race/" + code,
@@ -269,7 +238,7 @@ export default class WarcraftSoundsModel {
 
 						if (data.character_code) {
 
-							if (-1 === result.characters.findIndex((character: iBasicDataWithUrl): boolean => {
+							if (-1 === result.characters.findIndex((character: components["schemas"]["BasicDataWithUrl"]): boolean => {
 								return character.code === data.character_code;
 							})) {
 
@@ -285,7 +254,7 @@ export default class WarcraftSoundsModel {
 
 						if (data.music_code) {
 
-							if (-1 === result.musics.findIndex((music: iBasicData): boolean => {
+							if (-1 === result.musics.findIndex((music: components["schemas"]["BasicData"]): boolean => {
 								return music.code === data.music_code;
 							})) {
 
@@ -302,7 +271,7 @@ export default class WarcraftSoundsModel {
 
 						if (data.warning_code) {
 
-							if (-1 === result.warnings.findIndex((warning: iBasicData): boolean => {
+							if (-1 === result.warnings.findIndex((warning: components["schemas"]["BasicData"]): boolean => {
 								return warning.code === data.warning_code;
 							})) {
 
@@ -329,7 +298,7 @@ export default class WarcraftSoundsModel {
 
 	}
 
-	public getCharacter (codeRace: string, code: string, notWorded: boolean = false): Promise<iCharacter | null> {
+	public getCharacter (codeRace: string, code: string, notWorded: boolean = false): Promise<components["schemas"]["Character"] | null> {
 
 		interface iSQLRequestResult {
 			"id": string;
@@ -351,9 +320,9 @@ export default class WarcraftSoundsModel {
 				return err ? reject(err) : resolve(data);
 			});
 
-		}).then((characterData: iSQLRequestResult): Promise<iCharacter | null> => {
+		}).then((characterData: iSQLRequestResult): Promise<components["schemas"]["Character"] | null> => {
 
-			return !characterData ? Promise.resolve(null) : Promise.resolve().then((): Promise<iCharacter | null> => {
+			return !characterData ? Promise.resolve(null) : Promise.resolve().then((): Promise<components["schemas"]["Character"] | null> => {
 
 				interface iSQLActionRequestResult {
 					"code": string;
@@ -377,13 +346,13 @@ export default class WarcraftSoundsModel {
 						return err ? reject(err) : resolve(data);
 					});
 
-				}).then((data: iSQLActionRequestResult[]): Promise<iCharacter | null> => {
+				}).then((data: iSQLActionRequestResult[]): Promise<components["schemas"]["Character"] | null> => {
 
-					return new Promise((resolve: (data: iCharacter) => void): void => {
+					return new Promise((resolve: (data: components["schemas"]["Character"]) => void): void => {
 
 						process.nextTick((): void => {
 
-							const result: iCharacter = {
+							const result: components["schemas"]["Character"] = {
 								"code": characterData.code,
 								"name": characterData.name,
                                 "url": "/api/race/" + codeRace + "/characters/" + code,

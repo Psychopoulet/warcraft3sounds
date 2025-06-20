@@ -1,12 +1,13 @@
 "use strict";
 
+// made with the help of Le Chat - Mistral AI (https://chat.mistral.ai/)
+
 // deps
 
     // externals
     import React from "react";
     import {
-        Card, CardHeader, CardBody, CardFooter,
-        Button
+        Card, CardHeader, CardBody
     } from "react-bootstrap-fontawesome";
 
 // types & interfaces
@@ -14,64 +15,17 @@
     // externals
     import type { iPropsNode } from "react-bootstrap-fontawesome";
 
-    // locals
-
-    interface iGenerateRefAudioCallback {
-        "setFocus": () => void;
-        "ref": React.RefObject<HTMLAudioElement>;
-        "startPlay": () => void;
-        "pause": () => void;
-        "unpause": () => void;
-    }
-
 // Props && States
 
     interface iStates {
-        "status": "PLAY" | "PAUSE" | "STOP";
         "src": string;
     };
 
     interface iProps extends iPropsNode {
         "src": string;
-    }
-
-    function generateRefAudio (): iGenerateRefAudioCallback {
-
-        const ref: React.RefObject<HTMLAudioElement> = React.createRef() as React.RefObject<HTMLAudioElement>;
-
-        const setFocus = (): void => {
-            ref.current && ref.current.focus();
-        };
-
-        const startPlay = (): void => {
-
-            if (ref.current) {
-
-                ref.current.currentTime = 0;
-                ref.current.play();
-
-            }
-
-        };
-
-        const pause = (): void => {
-
-            if (ref.current && !ref.current.paused) {
-                ref.current.pause();
-            }
-
-        };
-
-        const unpause = (): void => {
-
-            if (ref.current && ref.current.paused) {
-                ref.current.play();
-            }
-
-        };
-
-        return { setFocus, ref, startPlay, pause, unpause };
-
+        "title"?: string;
+        "autoplay"?: boolean;
+        "loop"?: boolean;
     }
 
 // component
@@ -82,10 +36,6 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
         public static displayName: string = "SoundReader";
 
-    // private
-
-        private _refAudio: iGenerateRefAudioCallback;
-
     // constructor
 
     public constructor (props: iProps) {
@@ -94,28 +44,25 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
         // states
 
+        const newSrc: string = props.src.trim();
+
         this.state = {
-            "status": "PLAY",
-            "src": props.src.trim()
+            "src": newSrc
         };
-
-        this._refAudio = generateRefAudio();
-
-    }
-
-    public componentDidMount (): void {
-
-        this._refAudio.startPlay();
 
     }
 
     public static getDerivedStateFromProps (props: iProps, state: iStates): iStates | null {
 
-        if (props.src !== state.src) {
+        // props.src = new src
+        // state.src = old src
+
+        if (props.src !== state.src) { // src changed
+
+            const newSrc: string = props.src.trim();
 
             return {
-                "status": "PLAY",
-                "src": props.src
+                "src": newSrc
             };
 
         }
@@ -124,98 +71,50 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
     }
 
-    public componentDidUpdate (prevProps: Readonly<iProps>, prevState: Readonly<iStates>): void {
-
-        if (prevState.src !== this.state.src) {
-
-            if ("" !== this.state.src) {
-
-                this._refAudio.startPlay();
-
-                this._refAudio.ref.current.onended = (): void => {
-
-                    this.setState({
-                        "status": "STOP"
-                    });
-
-                };
-
-            }
-
-        }
-
-    }
-
-    // events
-
-    private _handlePlay (e: React.MouseEvent<HTMLButtonElement>): void {
-
-        e.stopPropagation();
-        e.preventDefault();
-
-        this._refAudio.startPlay();
-
-        this.setState({
-            "status": "PLAY"
-        });
-
-    }
-
-    private _handleUnpause (e: React.MouseEvent<HTMLButtonElement>): void {
-
-        e.stopPropagation();
-        e.preventDefault();
-
-        this._refAudio.unpause();
-
-        this.setState({
-            "status": "PLAY"
-        });
-
-    }
-
-    private _handlePause (e: React.MouseEvent<HTMLButtonElement>): void {
-
-        e.stopPropagation();
-        e.preventDefault();
-
-        this._refAudio.pause();
-
-        this.setState({
-            "status": "PAUSE"
-        });
-
-    }
-
     // render
 
-    private _renderButton (): React.JSX.Element {
+    private _renderTitle (): string {
 
-        if ("PLAY" === this.state.status) {
-
-            return <Button block variant="warning" icon="pause"
-                onClick={ this._handlePause.bind(this) }
-            >
-                Pause
-            </Button>;
-
+        if (this.props.title && 0 < this.props.title.length) {
+            return this.props.title;
         }
-        else if ("PAUSE" === this.state.status) {
+        else if (0 < this.state.src.length) {
+            return this.state.src.split("/").pop() as string;
+        }
+        else {
+            return "Unknown";
+        }
 
-            return <Button block variant="success" icon="play"
-                onClick={ this._handleUnpause.bind(this) }
-            >
-                Unpause
-            </Button>;
+    }
+
+    private _renderBody (): React.JSX.Element {
+
+        if (0 === this.state.src.length) {
+
+            return <CardBody>
+
+                <audio>
+                    Your browser does not support the <code>audio</code> element.
+                </audio>
+
+                No sound to play
+
+            </CardBody>;
 
         }
         else {
 
-            return <Button block variant="success" icon="sync"
-                onClick={ this._handlePlay.bind(this) }
-            >
-                Play again
-            </Button>;
+            return <CardBody>
+
+                <audio src={ this.state.src } className="col-12"
+                    controls={ true }
+                    autoPlay={ Boolean(this.props.autoplay) }
+                    loop={ Boolean(this.props.loop) }
+                >
+                    Your browser does not support the <code>audio</code> element.
+                </audio>
+
+            </CardBody>;
 
         }
 
@@ -223,43 +122,13 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
     public render (): React.JSX.Element {
 
-        if (0 === this.state.src.length) {
-
-            return <Card>
-
-                <CardHeader>
-                    Sound reader
-                </CardHeader>
-
-                <CardBody>
-                    No sound to play
-                </CardBody>
-
-            </Card>;
-
-        }
-
         return <Card>
 
             <CardHeader>
-                Sound reader
+                { this._renderTitle() }
             </CardHeader>
 
-            <CardBody>
-
-                { this.state.src }
-
-                <audio id="audioSource" ref={ this._refAudio.ref } src={ this.state.src } >
-
-                    Your browser does not support the <code>audio</code> element.
-
-                </audio>
-
-            </CardBody>
-
-            <CardFooter>
-                { this._renderButton() }
-            </CardFooter>
+            { this._renderBody() }
 
         </Card>;
 

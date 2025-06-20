@@ -1,0 +1,429 @@
+{
+	"openapi": "3.0.2",
+	"info": {
+		"title": "warcraft3sounds",
+		"version": "0.2.1",
+		"description": "An api for warcraft 3 sounds",
+		"contact": {
+			"name": "Sébastien VIDAL",
+			"url": "https://github.com/Psychopoulet/warcraft3sounds/issues"
+		},
+		"license": {
+			"name": "ISC",
+			"url": "https://en.wikipedia.org/wiki/ISC_license"
+		}
+	},
+	"paths": {
+		"/api/descriptor": {
+			"get": {
+				"description": "",
+				"summary": "API Swagger",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/ips": {
+			"get": {
+				"description": "",
+				"summary": "Get server IPs",
+				"operationId": "getIPs",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"uniqueItems": true,
+										"$ref": "#/components/schemas/IP"
+									}
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/races": {
+			"get": {
+				"description": "",
+				"summary": "Get the races list",
+				"operationId": "getRaces",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/BasicDataWithUrl"
+									}
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/races/{racecode}": {
+			"get": {
+				"description": "",
+				"summary": "Get the race data",
+				"operationId": "getRace",
+				"parameters": [
+					{
+						"name": "racecode",
+						"in": "path",
+						"description": "Wanted race's code",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Race"
+									}
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/races/{racecode}/characters/{charactercode}": {
+			"get": {
+				"description": "",
+				"summary": "Get the race data",
+				"operationId": "getCharacter",
+				"parameters": [
+					{
+						"name": "racecode",
+						"in": "path",
+						"description": "Wanted race's code",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"name": "charactercode",
+						"in": "path",
+						"description": "Wanted character's code",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Character"
+									}
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/err": {
+			"get": {
+				"description": "",
+				"summary": "Generate an error for tests purpose",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/public/sounds/{sound}": {
+			"get": {
+				"description": "",
+				"summary": "Get the wanted sound",
+				"operationId": "getSound",
+				"parameters": [
+					{
+						"name": "sound",
+						"in": "path",
+						"description": "Wanted sound",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"audio/wav": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							},
+							"audio/mpeg": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Error": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [ "code", "message" ]
+			},
+			"IP": {
+				"type": "object",
+				"properties": {
+					"address": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [ "address", "name" ]
+			},
+			"BasicData": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [ "code", "name" ]
+			},
+			"BasicDataWithUrl": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicData"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"url": {
+								"type": "string"
+							}
+						},
+						"required": [ "url" ]
+					}
+				]
+			},
+			"BasicFileData": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicDataWithUrl"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"file": {
+								"type": "string"
+							}
+						},
+						"required": [ "file" ]
+					}
+				]
+			},
+			"Race": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicDataWithUrl"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"characters": {
+								"type": "array",
+								"items": {
+									"uniqueItems": true,
+									"$ref": "#/components/schemas/BasicDataWithUrl"
+								}
+							},
+							"musics": {
+								"type": "array",
+								"items": {
+									"uniqueItems": true,
+									"$ref": "#/components/schemas/BasicFileData"
+								}
+							},
+							"warnings": {
+								"type": "array",
+								"items": {
+									"uniqueItems": true,
+									"$ref": "#/components/schemas/BasicFileData"
+								}
+							}
+						},
+						"required": [ "characters", "musics", "warnings" ]
+					}
+				]
+			},
+			"Character": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicDataWithUrl"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"actions": {
+								"type": "array",
+								"items": {
+									"uniqueItems": true,
+									"type": "object",
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/BasicFileData"
+										},
+										{
+											"type": "object",
+											"properties": {
+												"type": {
+													"$ref": "#/components/schemas/BasicData"
+												}
+											},
+											"required": [ "type" ]
+										}
+									]
+								}
+							}
+						},
+						"required": [ "actions" ]
+					}
+				]
+			}
+		}
+	},
+	"externalDocs": {
+		"description": "Find out more about this API",
+		"url": "https://github.com/Psychopoulet/warcraft3sounds#readme"
+	}
+}
