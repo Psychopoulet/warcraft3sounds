@@ -205,10 +205,11 @@ export interface components {
             musics: components["schemas"]["BasicFileData"][];
             warnings: components["schemas"]["BasicFileData"][];
         };
+        Action: components["schemas"]["BasicFileData"] & {
+            type: components["schemas"]["BasicData"];
+        };
         Character: components["schemas"]["BasicDataWithUrl"] & {
-            actions: (components["schemas"]["BasicFileData"] & {
-                type: components["schemas"]["BasicData"];
-            })[];
+            actions: components["schemas"]["Action"][];
         };
     };
     responses: never;
@@ -311,7 +312,10 @@ export interface operations {
     };
     getCharacter: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Add not worded (without name or description) sentences */
+                notworded?: boolean;
+            };
             header?: never;
             path: {
                 /** @description Wanted race's code */

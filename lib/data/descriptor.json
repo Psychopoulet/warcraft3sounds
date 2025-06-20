@@ -173,6 +173,15 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "notworded",
+						"in": "query",
+						"description": "Add not worded (without name or description) sentences",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
 					}
 				],
 				"responses": {
@@ -385,6 +394,23 @@
 					}
 				]
 			},
+			"Action": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicFileData"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"type": {
+								"$ref": "#/components/schemas/BasicData"
+							}
+						},
+						"required": [ "type" ]
+					}
+				]
+			},
 			"Character": {
 				"type": "object",
 				"allOf": [
@@ -399,20 +425,7 @@
 								"items": {
 									"uniqueItems": true,
 									"type": "object",
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/BasicFileData"
-										},
-										{
-											"type": "object",
-											"properties": {
-												"type": {
-													"$ref": "#/components/schemas/BasicData"
-												}
-											},
-											"required": [ "type" ]
-										}
-									]
+									"$ref": "#/components/schemas/Action"
 								}
 							}
 						},

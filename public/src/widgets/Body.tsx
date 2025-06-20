@@ -6,11 +6,10 @@
 
     import React from "react";
 
-    import { Alert } from "react-bootstrap-fontawesome";
+    import { Alert, SoundReader } from "react-bootstrap-fontawesome";
 
     // internals
     import Race from "./Race";
-    import SoundReader from "./SoundReader";
 
     // locals
     import getSDK from "../sdk";
@@ -171,13 +170,19 @@ export default class Body extends React.Component<iProps, iStates> {
                     { this.state.races.map((race: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
 
                         return <div key={ race.code } className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                            <Race race={ race } onChangeSound={ this._handleChangeSound.bind(this) } />
+
+                            <Race
+                                race={ race }
+                                notWordedSounds={ this.state.notWordedSounds }
+                                onChangeSound={ this._handleChangeSound.bind(this) }
+                            />
+
                         </div>;
 
                     }) }
 
                     <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                        <SoundReader src={ this.state.readedSoundUrl } />
+                        <SoundReader autoplay src={ this.state.readedSoundUrl } />
                     </div>
 
                 </div>

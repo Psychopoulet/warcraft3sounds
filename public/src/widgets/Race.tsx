@@ -35,6 +35,7 @@
 
     interface iProps extends iPropsNode {
         "race": descriptorTypes["BasicDataWithUrl"];
+        "notWordedSounds": boolean;
         "onChangeSound": (url: string) => void;
     }
 
@@ -136,7 +137,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
         if ("" !== value) {
 
-            getSDK().getCharacter(this.props.race.code, value).then((character: descriptorTypes["Character"]): void => {
+            getSDK().getCharacter(this.props.race.code, value, this.props.notWordedSounds).then((character: descriptorTypes["Character"]): void => {
 
                 this.setState({
                     "loadingCharacter": false,
@@ -211,6 +212,35 @@ export default class Race extends React.Component<iProps, iStates> {
 
     }
 
+    private _renderActions (): Array<React.JSX.Element> | null {
+
+        if (!this.state.character?.actions || 0 >= this.state.character?.actions.length) {
+            return null;
+        }
+        else {
+
+            return this.state.character.actions.map((action: descriptorTypes["Action"]): string => {
+                return action.type.code;
+            }).filter((item: string, pos: number, a: Array<string>): boolean => {
+                return a.indexOf(item) == pos;
+            }).sort().map((actionName: string): React.JSX.Element => {
+
+                return <optgroup label={ actionName }>
+
+                    { this.state.character?.actions.filter((action: descriptorTypes["Action"]): boolean => {
+                        return action.type.code === actionName;
+                    }).map((content: descriptorTypes["Action"]): React.JSX.Element => {
+                        return <option key={ content.code } value={ content.url }>{ content.name }</option>;
+                    }) }
+
+                </optgroup>;
+
+            });
+
+        }
+
+    }
+
     private _renderCharacters (): React.JSX.Element {
 
         if (!this.state.race || 0 >= this.state.race?.characters.length) {
@@ -260,9 +290,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
                         <option value="">--</option>
 
-                        { this.state.character?.actions.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
-                            return <option key={ content.code } value={ content.url }>{ content.name }</option>;
-                        }) }
+                        { this._renderActions() }
 
                     </Select>
 

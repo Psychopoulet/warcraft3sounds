@@ -40,9 +40,9 @@ export class SDK {
 
     }
 
-    public getCharacter (raceCode: components["schemas"]["Race"]["code"], characterCode: components["schemas"]["Character"]["code"]): Promise<components["schemas"]["Character"]> {
+    public getCharacter (raceCode: components["schemas"]["Race"]["code"], characterCode: components["schemas"]["Character"]["code"], notworded?: boolean): Promise<components["schemas"]["Character"]> {
 
-        return fetch("/api/races/" + raceCode + "/characters/" + characterCode).then((content: Response): Promise<components["schemas"]["Character"]> => {
+        return fetch("/api/races/" + raceCode + "/characters/" + characterCode + "?notworded=" + (notworded ? "true" : "false")).then((content: Response): Promise<components["schemas"]["Character"]> => {
 
             return content.json();
 
