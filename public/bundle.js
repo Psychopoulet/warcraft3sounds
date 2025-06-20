@@ -30813,8 +30813,29 @@ var Race = /** @class */ (function (_super) {
                 }));
         }
     };
+    Race.prototype._renderActions = function () {
+        var _this = this;
+        var _a, _b;
+        if (!((_a = this.state.character) === null || _a === void 0 ? void 0 : _a.actions) || 0 >= ((_b = this.state.character) === null || _b === void 0 ? void 0 : _b.actions.length)) {
+            return null;
+        }
+        else {
+            return this.state.character.actions.map(function (action) {
+                return action.type.code;
+            }).filter(function (item, pos, a) {
+                return a.indexOf(item) == pos;
+            }).sort().map(function (actionName) {
+                var _a;
+                return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("optgroup", { label: actionName }, (_a = _this.state.character) === null || _a === void 0 ? void 0 : _a.actions.filter(function (action) {
+                    return action.type.code === actionName;
+                }).map(function (content) {
+                    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.url }, content.name);
+                }));
+            });
+        }
+    };
     Race.prototype._renderCharacters = function () {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d;
         if (!this.state.race || 0 >= ((_a = this.state.race) === null || _a === void 0 ? void 0 : _a.characters.length)) {
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Characters", value: "No character found", "margin-bottom": 0 });
         }
@@ -30835,10 +30856,8 @@ var Race = /** @class */ (function (_super) {
                             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.code }, content.name);
                         })),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-actions", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"), (_e = this.state.character) === null || _e === void 0 ? void 0 :
-                        _e.actions.map(function (content) {
-                            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.url }, content.name);
-                        }))));
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"),
+                        this._renderActions())));
         }
     };
     Race.prototype._renderBody = function () {

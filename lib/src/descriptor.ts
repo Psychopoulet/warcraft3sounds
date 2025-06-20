@@ -206,10 +206,11 @@ export interface components {
             musics: components["schemas"]["BasicFileData"][];
             warnings: components["schemas"]["BasicFileData"][];
         };
+        Action: components["schemas"]["BasicFileData"] & {
+            type: components["schemas"]["BasicData"];
+        };
         Character: components["schemas"]["BasicDataWithUrl"] & {
-            actions: (components["schemas"]["BasicFileData"] & {
-                type: components["schemas"]["BasicData"];
-            })[];
+            actions: components["schemas"]["Action"][];
         };
     };
     responses: never;
