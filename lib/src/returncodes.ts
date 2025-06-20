@@ -1,7 +1,7 @@
 // module
 
 export default {
-	"OK": 200,
-	"NOTFOUND": 404,
-	"INTERNAL": 500
-}
+    "OK": 200,
+    "NOTFOUND": 404,
+    "INTERNAL": 500
+};

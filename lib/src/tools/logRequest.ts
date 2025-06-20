@@ -1,7 +1,7 @@
 // types & interfaces
 
-	// externals
-	import type { Request } from "express";
+    // externals
+    import type { Request } from "express";
 
     // locals
     import getRequestPath from "./getRequestPath";
