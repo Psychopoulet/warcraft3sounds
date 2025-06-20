@@ -173,6 +173,15 @@
 						"schema": {
 							"type": "string"
 						}
+					},
+					{
+						"name": "notworded",
+						"in": "query",
+						"description": "Add not worded (without name or description) sentences",
+						"required": false,
+						"schema": {
+							"type": "boolean"
+						}
 					}
 				],
 				"responses": {

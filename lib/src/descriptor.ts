@@ -312,7 +312,10 @@ export interface operations {
     };
     getCharacter: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Add not worded (without name or description) sentences */
+                notworded?: boolean;
+            };
             header?: never;
             path: {
                 /** @description Wanted race's code */

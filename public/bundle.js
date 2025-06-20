@@ -30376,8 +30376,8 @@ var SDK = /** @class */ (function () {
             return content.json();
         });
     };
-    SDK.prototype.getCharacter = function (raceCode, characterCode) {
-        return fetch("/api/races/" + raceCode + "/characters/" + characterCode).then(function (content) {
+    SDK.prototype.getCharacter = function (raceCode, characterCode, notworded) {
+        return fetch("/api/races/" + raceCode + "/characters/" + characterCode + "?notworded=" + (notworded ? "true" : "false")).then(function (content) {
             return content.json();
         });
     };
@@ -30521,7 +30521,7 @@ var Body = /** @class */ (function (_super) {
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "row" },
                     this.state.races.map(function (race) {
                         return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { key: race.code, className: "col-12 col-sm-6 col-md-4 col-lg-3 mb-3" },
-                            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race, onChangeSound: _this._handleChangeSound.bind(_this) }));
+                            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Race__WEBPACK_IMPORTED_MODULE_2__["default"], { race: race, notWordedSounds: _this.state.notWordedSounds, onChangeSound: _this._handleChangeSound.bind(_this) }));
                     }),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "col-12 col-sm-6 col-md-4 col-lg-3 mb-3" },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SoundReader__WEBPACK_IMPORTED_MODULE_3__["default"], { autoplay: true, src: this.state.readedSoundUrl }))));
@@ -30771,7 +30771,7 @@ var Race = /** @class */ (function (_super) {
             "character": null
         });
         if ("" !== value) {
-            (0,_sdk__WEBPACK_IMPORTED_MODULE_2__["default"])().getCharacter(this.props.race.code, value).then(function (character) {
+            (0,_sdk__WEBPACK_IMPORTED_MODULE_2__["default"])().getCharacter(this.props.race.code, value, this.props.notWordedSounds).then(function (character) {
                 _this.setState({
                     "loadingCharacter": false,
                     "character": character
