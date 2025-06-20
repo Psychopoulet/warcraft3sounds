@@ -1,7 +1,5 @@
 "use strict";
 
-// made with the help of Le Chat - Mistral AI (https://chat.mistral.ai/)
-
 // deps
 
     // externals
@@ -106,7 +104,9 @@ export default class SoundReader extends React.Component<iProps, iStates> {
 
             return <CardBody>
 
-                <audio src={ this.state.src } className="col-12"
+                <audio src={ this.state.src } title={ this._renderTitle() }
+                    role="application"
+                    className="col-12"
                     controls={ true }
                     autoPlay={ Boolean(this.props.autoplay) }
                     loop={ Boolean(this.props.loop) }

@@ -30916,7 +30916,6 @@ var __extends = (undefined && undefined.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-// made with the help of Le Chat - Mistral AI (https://chat.mistral.ai/)
 // deps
 // externals
 
@@ -30969,7 +30968,7 @@ var SoundReader = /** @class */ (function (_super) {
         }
         else {
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("audio", { src: this.state.src, className: "col-12", controls: true, autoPlay: Boolean(this.props.autoplay), loop: Boolean(this.props.loop) },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("audio", { src: this.state.src, title: this._renderTitle(), role: "application", className: "col-12", controls: true, autoPlay: Boolean(this.props.autoplay), loop: Boolean(this.props.loop) },
                     "Your browser does not support the ",
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("code", null, "audio"),
                     " element."));
