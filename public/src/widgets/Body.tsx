@@ -6,11 +6,10 @@
 
     import React from "react";
 
-    import { Alert } from "react-bootstrap-fontawesome";
+    import { Alert, SoundReader } from "react-bootstrap-fontawesome";
 
     // internals
     import Race from "./Race";
-    import SoundReader from "./SoundReader";
 
     // locals
     import getSDK from "../sdk";
