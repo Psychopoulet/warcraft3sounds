@@ -91,10 +91,26 @@ export default function apiRoutes (app: Express): Promise<void> {
 
 		app.get("/api/races/:race/characters/:character", (req: Request, res: Response, next: NextFunction): void => {
 
+			let notworded: boolean = false;
+
+			if ("object" === typeof req.query) {
+
+				if ("boolean" === typeof req.query.notworded) {
+					notworded = req.query.notworded;
+				}
+				else if ("string" === typeof req.query.notworded) {
+					notworded = "true" === req.query.notworded || "1" === req.query.notworded;
+				}
+				else if ("number" === typeof req.query.notworded) {
+					notworded = 1 === req.query.notworded;
+				}
+
+			}
+
 			model.getCharacter(
 				req.params.race,
 				req.params.character,
-				req.query && "undefined" !== typeof req.query.notworded ? Boolean(req.query.notworded) : false
+				notworded
 			).then((character: components["schemas"]["Character"] | null): void => {
 
 				if (character) {
