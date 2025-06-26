@@ -1,7 +1,7 @@
 // deps
 
     // natives
-    import { join, extname, normalize } from "node:path";
+    import { join, extname } from "node:path";
     import { stat, createReadStream } from "node:fs";
 
     // locals
@@ -25,12 +25,6 @@ export default function soundsRoutes (app: Express): void {
     app.get("/public/sounds/:sound", (req: Request, res: Response, next: NextFunction): void => {
 
         const sound: paths["/public/sounds/{sound}"]["get"]["parameters"]["path"]["sound"] = req.params.sound;
-
-        const normalizedPath: string = normalize(sound);
-        if (!normalizedPath.startsWith("/public")){
-            throw new Error("Illegal path supplied in the input url: " + req.baseUrl);
-        }
-
         const file: string = join(__dirname, "..", "..", "..", "public", "sounds", sound);
 
         new Promise((resolve: (stats: {
