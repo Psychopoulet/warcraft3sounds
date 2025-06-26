@@ -341,6 +341,34 @@
 				}
 			}
 		},
+		"/public/bundle.js.map": {
+			"get": {
+				"description": "",
+				"summary": "Front app map",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"text/javascript": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/public/pictures/warcraft3.png": {
 			"get": {
 				"description": "",
