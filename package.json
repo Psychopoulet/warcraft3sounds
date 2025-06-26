@@ -35,6 +35,7 @@
     "start": "node lib/cjs/main.cjs",
 
     "daemon-start": "npx pm2 start lib/cjs/main.cjs --name warcraft3sounds",
+    "daemon-restart": "npx pm2 restart lib/cjs/main.cjs warcraft3sounds",
     "daemon-stop": "npx pm2 stop warcraft3sounds && npx pm2 delete warcraft3sounds"
 
   },
