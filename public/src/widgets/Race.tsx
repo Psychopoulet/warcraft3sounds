@@ -8,7 +8,8 @@
 
 	import {
         Card, CardHeader, CardBody,
-        SelectLabel, Select, InputReadOnlyLabel
+        SelectLabel, Select, InputReadOnlyLabel,
+        Image
     } from "react-bootstrap-fontawesome";
 
     // locals
@@ -302,6 +303,29 @@ export default class Race extends React.Component<iProps, iStates> {
 
     }
 
+    private _renderHeader (): React.JSX.Element {
+
+        if (this.state.loading || !this.state.race || "" === this.state.race.seal) {
+
+            return <CardHeader>
+                <h5 className="m-0">{ this.props.race.name }</h5>
+            </CardHeader>;
+
+        }
+        else {
+
+            return <CardHeader justify>
+
+                <h5 className="m-0">{ this.props.race.name }</h5>
+
+                <Image src={ this.state.race.seal } height={ 20 } width={ 20 } />
+
+            </CardHeader>;
+
+        }
+
+    }
+
     private _renderBody (): React.JSX.Element {
 
         if (this.state.loading) {
@@ -327,10 +351,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
         return <Card variant={ this.state.loading ? "warning" : undefined }>
 
-            <CardHeader>
-                <h5 className="float-left">{ this.props.race.name }</h5>
-            </CardHeader>
-
+            { this._renderHeader() }
             { this._renderBody() }
 
         </Card>;

@@ -255,6 +255,47 @@
 				}
 			}
 		},
+		"/public/pictures/race/{racecode}.png": {
+			"get": {
+				"description": "",
+				"summary": "Race seal",
+				"operationId": "getRaceSeal",
+				"parameters": [
+					{
+						"name": "racecode",
+						"in": "path",
+						"description": "Wanted race's code",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"image/png": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 
 		"/api/err": {
 			"get": {
@@ -481,6 +522,9 @@
 					{
 						"type": "object",
 						"properties": {
+							"seal": {
+								"type": "string"
+							},
 							"characters": {
 								"type": "array",
 								"items": {
@@ -503,7 +547,7 @@
 								}
 							}
 						},
-						"required": [ "characters", "musics", "warnings" ]
+						"required": [ "seal", "characters", "musics", "warnings" ]
 					}
 				]
 			},

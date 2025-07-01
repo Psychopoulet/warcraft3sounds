@@ -229,6 +229,7 @@ export default class WarcraftSoundsModel {
                         "code": code,
                         "name": racesData[0].race_name,
                         "url": "/api/race/" + code,
+                        "seal": "/public/pictures/race/" + code + ".png",
                         "characters": [],
                         "musics": [],
                         "warnings": []

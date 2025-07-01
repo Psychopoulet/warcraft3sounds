@@ -30936,6 +30936,17 @@ var Race = /** @class */ (function (_super) {
                         this._renderActions())));
         }
     };
+    Race.prototype._renderHeader = function () {
+        if (this.state.loading || !this.state.race || "" === this.state.race.seal) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null,
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h5", { className: "m-0" }, this.props.race.name));
+        }
+        else {
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, { justify: true },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h5", { className: "m-0" }, this.props.race.name),
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: this.state.race.seal, height: 20, width: 20 }));
+        }
+    };
     Race.prototype._renderBody = function () {
         if (this.state.loading) {
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardBody, null, "Loading...");
@@ -30949,8 +30960,7 @@ var Race = /** @class */ (function (_super) {
     };
     Race.prototype.render = function () {
         return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Card, { variant: this.state.loading ? "warning" : undefined },
-            react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h5", { className: "float-left" }, this.props.race.name)),
+            this._renderHeader(),
             this._renderBody());
     };
     // name
