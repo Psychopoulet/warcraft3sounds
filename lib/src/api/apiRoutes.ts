@@ -53,7 +53,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
         app.get("/api/races", (req: Request, res: Response, next: NextFunction): void => {
 
-            model.getRaces().then((races: components["schemas"]["BasicDataWithUrl"][]): void => {
+            model.getRaces().then((races: Array<components["schemas"]["BasicRace"]>): void => {
 
                 res.status(errorCodes.OK).json(races as paths["/api/races"]["get"]["responses"]["200"]["content"]["application/json"]);
 

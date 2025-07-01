@@ -134,23 +134,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/public/pictures/race/{racecode}.png": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Race seal */
-        get: operations["getRaceSeal"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/err": {
         parameters: {
             query?: never;
@@ -398,16 +381,21 @@ export interface components {
         BasicFileData: components["schemas"]["BasicDataWithUrl"] & {
             file: string;
         };
-        Race: components["schemas"]["BasicDataWithUrl"] & {
-            seal: string;
-            characters: components["schemas"]["BasicDataWithUrl"][];
+        BasicRace: components["schemas"]["BasicDataWithUrl"] & {
+            icon: string;
+        };
+        Race: components["schemas"]["BasicRace"] & {
+            characters: components["schemas"]["BasicCharacter"][];
             musics: components["schemas"]["BasicFileData"][];
             warnings: components["schemas"]["BasicFileData"][];
         };
         Action: components["schemas"]["BasicFileData"] & {
             type: components["schemas"]["BasicData"];
         };
-        Character: components["schemas"]["BasicDataWithUrl"] & {
+        BasicCharacter: components["schemas"]["BasicDataWithUrl"] & {
+            icon: string;
+        };
+        Character: components["schemas"]["BasicCharacter"] & {
             actions: components["schemas"]["Action"][];
         };
     };
@@ -463,7 +451,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["BasicDataWithUrl"][];
+                    "application/json": components["schemas"]["BasicRace"][];
                 };
             };
             /** @description An error occured */
@@ -566,38 +554,6 @@ export interface operations {
                 content: {
                     "audio/wav": string;
                     "audio/mpeg": string;
-                };
-            };
-            /** @description An error occured */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
-    };
-    getRaceSeal: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Wanted race's code */
-                racecode: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Everything is fine */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "image/png": string;
                 };
             };
             /** @description An error occured */

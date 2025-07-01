@@ -35,7 +35,7 @@
     }
 
     interface iProps extends iPropsNode {
-        "race": descriptorTypes["BasicDataWithUrl"];
+        "race": descriptorTypes["BasicRace"];
         "notWordedSounds": boolean;
         "onChangeSound": (url: string) => void;
     }
@@ -258,8 +258,12 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <option value="">--</option>
 
-                { this.state.race?.characters.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
-                    return <option key={ content.code } value={ content.code }>{ content.name }</option>;
+                { this.state.race?.characters.map((content: descriptorTypes["BasicCharacter"]): React.JSX.Element => {
+
+                    return <option key={ content.code } value={ content.code }>
+                        { content.name }
+                    </option>;
+
                 }) }
 
             </SelectLabel>;
@@ -273,14 +277,22 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <div className="input-group">
 
+                    <span className="input-group-text">
+                        <Image src={ this.state.character.icon } height={ 25 } width={ 25 } />
+                    </span>
+
                     <Select id={ this.state.race.code + "-characters" }
                         value={ this.state.selectedCharacter } onChange={ this._handleChangeCharacter.bind(this) }
                     >
 
                         <option value="">--</option>
 
-                        { this.state.race?.characters.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
-                            return <option key={ content.code } value={ content.code }>{ content.name }</option>;
+                        { this.state.race?.characters.map((content: descriptorTypes["BasicCharacter"]): React.JSX.Element => {
+
+                            return <option key={ content.code } value={ content.code }>
+                                { content.name }
+                            </option>;
+
                         }) }
 
                     </Select>
@@ -305,7 +317,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
     private _renderHeader (): React.JSX.Element {
 
-        if (this.state.loading || !this.state.race || "" === this.state.race.seal) {
+        if (this.state.loading || !this.state.race || "" === this.state.race.icon) {
 
             return <CardHeader>
                 <h5 className="m-0">{ this.props.race.name }</h5>
@@ -318,7 +330,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <h5 className="m-0">{ this.props.race.name }</h5>
 
-                <Image src={ this.state.race.seal } height={ 20 } width={ 20 } />
+                <Image src={ this.state.race.icon } height={ 20 } width={ 20 } />
 
             </CardHeader>;
 

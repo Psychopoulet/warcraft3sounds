@@ -30926,6 +30926,8 @@ var Race = /** @class */ (function (_super) {
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", { htmlFor: this.state.race.code + "-actions", "aria-label": "Actions" }, "Actions"),
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "input-group" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { className: "input-group-text" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: this.state.character.icon, height: 25, width: 25 })),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-characters", value: this.state.selectedCharacter, onChange: this._handleChangeCharacter.bind(this) },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"), (_d = this.state.race) === null || _d === void 0 ? void 0 :
                         _d.characters.map(function (content) {
@@ -30937,14 +30939,14 @@ var Race = /** @class */ (function (_super) {
         }
     };
     Race.prototype._renderHeader = function () {
-        if (this.state.loading || !this.state.race || "" === this.state.race.seal) {
+        if (this.state.loading || !this.state.race || "" === this.state.race.icon) {
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, null,
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h5", { className: "m-0" }, this.props.race.name));
         }
         else {
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.CardHeader, { justify: true },
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h5", { className: "m-0" }, this.props.race.name),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: this.state.race.seal, height: 20, width: 20 }));
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: this.state.race.icon, height: 20, width: 20 }));
         }
     };
     Race.prototype._renderBody = function () {

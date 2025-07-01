@@ -17,7 +17,7 @@
     import generateServer from "./server/generateServer";
     import webRoutes from "./server/webRoutes";
     import apiRoutes from "./api/apiRoutes";
-    import mediaRoutes from "./api/mediaRoutes";
+    import soundsRoutes from "./api/soundsRoutes";
 
 // types & interfaces
 
@@ -56,7 +56,7 @@
     }).then((APP: Express): Promise<Express> => {
 
         webRoutes(APP);
-        mediaRoutes(APP);
+        soundsRoutes(APP);
 
         return apiRoutes(APP).then((): Express => {
             return APP;

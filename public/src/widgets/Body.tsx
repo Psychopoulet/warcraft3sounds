@@ -27,7 +27,7 @@
     interface iStates {
         "notWordedSounds": boolean;
         "loading": boolean;
-        "races": descriptorTypes["BasicDataWithUrl"][];
+        "races": Array<descriptorTypes["BasicRace"]>;
         "readedSoundUrl": string;
     };
 
@@ -98,7 +98,7 @@ export default class Body extends React.Component<iProps, iStates> {
             "races": []
         });
 
-        getSDK().getRaces().then((races: descriptorTypes["BasicDataWithUrl"][]): void => {
+        getSDK().getRaces().then((races: Array<descriptorTypes["BasicRace"]>): void => {
 
             this.setState({
                 "loading": false,
@@ -167,7 +167,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
                 <div className="row">
 
-                    { this.state.races.map((race: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
+                    { this.state.races.map((race: descriptorTypes["BasicRace"]): React.JSX.Element => {
 
                         return <div key={ race.code } className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
 

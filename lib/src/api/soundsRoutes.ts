@@ -18,7 +18,7 @@
 
 // module
 
-export default function mediaRoutes (app: Express): void {
+export default function soundsRoutes (app: Express): void {
 
     app.get("/public/sounds/:sound", (req: Request, res: Response, next: NextFunction): void => {
 
@@ -45,32 +45,6 @@ export default function mediaRoutes (app: Express): void {
                 res.status(errorCodes.NOTFOUND).json({
                     "code": String(errorCodes.NOTFOUND),
                     "message": "Impossible to find the \"" + sound + "\" sound"
-                } as paths["/public/sounds/{sound}"]["get"]["responses"]["default"]["content"]["application/json"]);
-
-            }
-
-        }).catch(next);
-
-    }).get("/public/pictures/race/:racecode.png", (req: Request, res: Response, next: NextFunction): void => {
-
-        const racecode: paths["/public/pictures/race/{racecode}.png"]["get"]["parameters"]["path"]["racecode"] = req.params.racecode;
-        const file: string = join(__dirname, "..", "..", "..", "public", "pictures", "races", racecode + ".png");
-
-        getFileStats(file).then((stats: {
-            "exists": boolean;
-            "size": number;
-        }): void => {
-
-            if (stats.exists) {
-
-                return res.sendFile(file);
-
-            }
-            else {
-
-                res.status(errorCodes.NOTFOUND).json({
-                    "code": String(errorCodes.NOTFOUND),
-                    "message": "Impossible to find the \"" + racecode + "\" seal"
                 } as paths["/public/sounds/{sound}"]["get"]["responses"]["default"]["content"]["application/json"]);
 
             }

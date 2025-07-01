@@ -162,19 +162,20 @@ export default class WarcraftSoundsModel {
 
     }
 
-    public getRaces (): Promise<Array<components["schemas"]["BasicDataWithUrl"]>> {
+    public getRaces (): Promise<Array<components["schemas"]["BasicRace"]>> {
 
-        return new Promise((resolve: (data: Array<components["schemas"]["BasicDataWithUrl"]>) => void, reject: (err: Error) => void): void => {
+        return new Promise((resolve: (data: Array<components["schemas"]["BasicRace"]>) => void, reject: (err: Error) => void): void => {
 
-            this._db.all("SELECT code, name FROM races ORDER BY name;", (err: Error | null, data: Array<components["schemas"]["BasicDataWithUrl"]>): void => {
+            this._db.all("SELECT code, name, icon FROM races ORDER BY name;", (err: Error | null, data: Array<components["schemas"]["BasicRace"]>): void => {
 
                 return err
                     ? reject(err)
-                    : resolve(data.map((race) => {
+                    : resolve(data.map((race): components["schemas"]["BasicRace"] => {
 
                         return {
                             ...race,
-                            "url": "/api/races/" + race.code
+                            "url": "/api/races/" + race.code,
+                            "icon": race.icon
                         };
 
                     }));
@@ -191,6 +192,7 @@ export default class WarcraftSoundsModel {
             "race_id": string;
             "race_code": string;
             "race_name": string;
+            "race_icon": string;
             "character_code": string;
             "character_name": string;
             "music_code": string;
@@ -205,7 +207,7 @@ export default class WarcraftSoundsModel {
 
             this._db.all(
                 " SELECT"
-                    + " races.id AS race_id, races.code AS race_code, races.name AS race_name,"
+                    + " races.id AS race_id, races.code AS race_code, races.name AS race_name, races.icon AS race_icon,"
                     + " characters.code AS character_code, characters.name AS character_name,"
                     + " musics.code AS music_code, musics.name AS music_name, musics.file AS music_file,"
                     + " warnings.code AS warning_code, warnings.name AS warning_name, warnings.file AS warning_file"
@@ -228,8 +230,8 @@ export default class WarcraftSoundsModel {
                     const result: components["schemas"]["Race"] = {
                         "code": code,
                         "name": racesData[0].race_name,
-                        "url": "/api/race/" + code,
-                        "seal": "/public/pictures/race/" + code + ".png",
+                        "url": "/api/races/" + code,
+                        "icon": racesData[0].race_icon,
                         "characters": [],
                         "musics": [],
                         "warnings": []
@@ -239,14 +241,15 @@ export default class WarcraftSoundsModel {
 
                         if (data.character_code) {
 
-                            if (-1 === result.characters.findIndex((character: components["schemas"]["BasicDataWithUrl"]): boolean => {
+                            if (-1 === result.characters.findIndex((character: components["schemas"]["BasicCharacter"]): boolean => {
                                 return character.code === data.character_code;
                             })) {
 
                                 result.characters.push({
                                     "code": data.character_code,
                                     "name": data.character_name,
-                                    "url": "/api/races/" + code + "/characters/" + data.character_code
+                                    "url": "/api/races/" + code + "/characters/" + data.character_code,
+                                    "icon": data.race_icon
                                 });
 
                             }
@@ -305,12 +308,13 @@ export default class WarcraftSoundsModel {
             "id": string;
             "code": string;
             "name": string;
+            "icon": string;
         }
 
         return new Promise((resolve: (data: iSQLRequestResult) => void, reject: (err: Error) => void) => {
 
             this._db.get(
-                " SELECT characters.id, characters.code, characters.name"
+                " SELECT characters.id, characters.code, characters.name, characters.icon"
                 + " FROM characters"
                     + " INNER JOIN races ON races.id = characters.k_race"
                 + " WHERE"
@@ -356,7 +360,8 @@ export default class WarcraftSoundsModel {
                             const result: components["schemas"]["Character"] = {
                                 "code": characterData.code,
                                 "name": characterData.name,
-                                "url": "/api/race/" + codeRace + "/characters/" + code,
+                                "url": "/api/races/" + codeRace + "/characters/" + code,
+                                "icon": characterData.icon,
                                 "actions": []
                             };
 

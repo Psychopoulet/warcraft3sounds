@@ -90,7 +90,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/BasicDataWithUrl"
+										"$ref": "#/components/schemas/BasicRace"
 									}
 								}
 							}
@@ -235,47 +235,6 @@
 								}
 							},
 							"audio/mpeg": {
-								"schema": {
-									"type": "string",
-									"format": "binary"
-								}
-							}
-						}
-					},
-					"default": {
-						"description": "An error occured",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/public/pictures/race/{racecode}.png": {
-			"get": {
-				"description": "",
-				"summary": "Race seal",
-				"operationId": "getRaceSeal",
-				"parameters": [
-					{
-						"name": "racecode",
-						"in": "path",
-						"description": "Wanted race's code",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Everything is fine",
-						"content": {
-							"image/png": {
 								"schema": {
 									"type": "string",
 									"format": "binary"
@@ -513,7 +472,7 @@
 					}
 				]
 			},
-			"Race": {
+			"BasicRace": {
 				"type": "object",
 				"allOf": [
 					{
@@ -522,14 +481,28 @@
 					{
 						"type": "object",
 						"properties": {
-							"seal": {
+							"icon": {
 								"type": "string"
-							},
+							}
+						},
+						"required": [ "icon" ]
+					}
+				]
+			},
+			"Race": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicRace"
+					},
+					{
+						"type": "object",
+						"properties": {
 							"characters": {
 								"type": "array",
 								"items": {
 									"uniqueItems": true,
-									"$ref": "#/components/schemas/BasicDataWithUrl"
+									"$ref": "#/components/schemas/BasicCharacter"
 								}
 							},
 							"musics": {
@@ -547,7 +520,7 @@
 								}
 							}
 						},
-						"required": [ "seal", "characters", "musics", "warnings" ]
+						"required": [ "characters", "musics", "warnings" ]
 					}
 				]
 			},
@@ -568,11 +541,28 @@
 					}
 				]
 			},
-			"Character": {
+			"BasicCharacter": {
 				"type": "object",
 				"allOf": [
 					{
 						"$ref": "#/components/schemas/BasicDataWithUrl"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"icon": {
+								"type": "string"
+							}
+						},
+						"required": [ "icon" ]
+					}
+				]
+			},
+			"Character": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicCharacter"
 					},
 					{
 						"type": "object",
