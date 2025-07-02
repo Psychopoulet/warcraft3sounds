@@ -226,7 +226,7 @@ export default class Race extends React.Component<iProps, iStates> {
                 return a.indexOf(item) == pos;
             }).sort().map((actionName: string): React.JSX.Element => {
 
-                return <optgroup label={ actionName }>
+                return <optgroup key={ actionName } label={ actionName }>
 
                     { this.state.character?.actions.filter((action: descriptorTypes["Action"]): boolean => {
                         return action.type.code === actionName;
@@ -277,9 +277,9 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <div className="input-group">
 
-                    <span className="input-group-text">
+                    { 0 < this.state.character.icon.length ? <span className="input-group-text">
                         <Image src={ this.state.character.icon } height={ 25 } width={ 25 } />
-                    </span>
+                    </span> : undefined}
 
                     <Select id={ this.state.race.code + "-characters" }
                         value={ this.state.selectedCharacter } onChange={ this._handleChangeCharacter.bind(this) }

@@ -30902,7 +30902,7 @@ var Race = /** @class */ (function (_super) {
                 return a.indexOf(item) == pos;
             }).sort().map(function (actionName) {
                 var _a;
-                return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("optgroup", { label: actionName }, (_a = _this.state.character) === null || _a === void 0 ? void 0 : _a.actions.filter(function (action) {
+                return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("optgroup", { key: actionName, label: actionName }, (_a = _this.state.character) === null || _a === void 0 ? void 0 : _a.actions.filter(function (action) {
                     return action.type.code === actionName;
                 }).map(function (content) {
                     return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.url }, content.name);
@@ -30926,8 +30926,8 @@ var Race = /** @class */ (function (_super) {
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", { htmlFor: this.state.race.code + "-actions", "aria-label": "Actions" }, "Actions"),
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "input-group" },
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { className: "input-group-text" },
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: this.state.character.icon, height: 25, width: 25 })),
+                    0 < this.state.character.icon.length ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { className: "input-group-text" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: this.state.character.icon, height: 25, width: 25 })) : undefined,
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-characters", value: this.state.selectedCharacter, onChange: this._handleChangeCharacter.bind(this) },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"), (_d = this.state.race) === null || _d === void 0 ? void 0 :
                         _d.characters.map(function (content) {
