@@ -34,8 +34,7 @@ class Alert extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         }
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: this.props.id, className: className, role: "alert", style: this.props.style },
             this.props.children,
-            "function" === typeof this.props.onClose ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", className: "close", "data-dismiss": "alert", "aria-label": "Close", onClick: this.props.onClose },
-                react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { "aria-hidden": "true" }, "\u00D7")) : undefined);
+            "function" === typeof this.props.onClose ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { type: "button", className: "btn-close", "data-dismiss": "alert", "aria-label": "Close", onClick: this.props.onClose }) : undefined);
     }
 }
 // name
@@ -419,7 +418,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-;
 // component
 class SoundReader extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
     // constructor
@@ -480,7 +478,6 @@ class SoundReader extends (react__WEBPACK_IMPORTED_MODULE_0___default().Componen
 // name
 SoundReader.displayName = "SoundReader";
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SoundReader);
-;
 
 
 /***/ }),
@@ -1173,11 +1170,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Icon */ "./node_modules/react-bootstrap-fontawesome/lib/dist/Icon.js");
 /* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
+/* harmony import */ var _InputLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
 
 // deps
 // externals
 
-// externals
+// internals
+
 
 
 // component
@@ -1260,14 +1259,7 @@ class InputColorLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         // render
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
-                    ? "text-muted"
-                    : !valid ? "text-danger" : undefined, "aria-label": this.props.label },
-                this.props.label,
-                " ",
-                required
-                    ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", { className: "fa fa-asterisk text-danger", style: { "fontSize": "60%" }, "aria-hidden": "true" })
-                    : undefined),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputLabel__WEBPACK_IMPORTED_MODULE_3__["default"], { for: String(this.props.id), label: this.props.label, disabled: disabled, required: required, valid: valid }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputColor, { id: this.props.id, name: this.props.name, _ref: this.props._ref, required: required, disabled: disabled, placeholder: this.props.placeholder, label: this.props.label, value: value, onChange: this.props.onChange, onKeyDown: this.props.onKeyDown }),
             this._renderError(requiredValid, minLengthValid, maxLengthValid, patternValid));
     }
@@ -1291,9 +1283,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _InputLabel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
 
 // deps
 // externals
+
+// internals
 
 // component
 class InputFile extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
@@ -1337,14 +1332,7 @@ class InputFileLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         // render
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
-                    ? "text-muted"
-                    : undefined, "aria-label": this.props.label },
-                this.props.label,
-                " ",
-                required
-                    ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", { className: "fa fa-asterisk text-danger", style: { "fontSize": "60%" }, "aria-hidden": "true" })
-                    : undefined),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputLabel__WEBPACK_IMPORTED_MODULE_1__["default"], { for: String(this.props.id), label: this.props.label, disabled: disabled, required: required }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputFile, { id: this.props.id, name: this.props.name, required: required, disabled: disabled, label: this.props.label, onChange: this.props.onChange, onChangeError: this.props.onChangeError }));
     }
 }
@@ -1368,11 +1356,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
+/* harmony import */ var _InputLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
 
 // deps
 // externals
 
-// externals
+// internals
+
 
 // component
 class InputFloat extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
@@ -1426,14 +1416,7 @@ class InputFloatLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         // render
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
-                    ? "text-muted"
-                    : !valid ? "text-danger" : undefined, "aria-label": this.props.label },
-                this.props.label,
-                " ",
-                required
-                    ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", { className: "fa fa-asterisk text-danger", style: { "fontSize": "60%" }, "aria-hidden": "true" })
-                    : undefined),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputLabel__WEBPACK_IMPORTED_MODULE_2__["default"], { for: String(this.props.id), label: this.props.label, disabled: disabled, required: required, valid: valid }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputFloat, { id: this.props.id, name: this.props.name, _ref: this.props._ref, required: required, disabled: disabled, placeholder: this.props.placeholder, label: this.props.label, value: this.props.value, min: this.props.min, max: this.props.max, step: this.props.step, onChange: this.props.onChange, onKeyDown: this.props.onKeyDown }),
             !isNumber ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__.InvalidFeedBackFloat, null) : undefined,
             isNumber && !minValid ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__.InvalidFeedBackMin, { min: this.props.min, current: this.props.value }) : undefined,
@@ -1464,7 +1447,7 @@ __webpack_require__.r(__webpack_exports__);
 // deps
 // externals
 
-// externals
+// internals
 
 // component
 class InputIPV4 extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
@@ -1513,11 +1496,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
+/* harmony import */ var _InputLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
 
 // deps
 // externals
 
-// externals
+// internals
+
 
 // component
 class InputInteger extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
@@ -1573,14 +1558,7 @@ class InputIntegerLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent
         // render
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
-                    ? "text-muted"
-                    : !valid ? "text-danger" : undefined, "aria-label": this.props.label },
-                this.props.label,
-                " ",
-                required
-                    ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", { className: "fa fa-asterisk text-danger", style: { "fontSize": "60%" }, "aria-hidden": "true" })
-                    : undefined),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputLabel__WEBPACK_IMPORTED_MODULE_2__["default"], { for: String(this.props.id), label: this.props.label, disabled: disabled, required: required, valid: valid }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputInteger, { id: this.props.id, name: this.props.name, _ref: this.props._ref, required: required, disabled: disabled, placeholder: this.props.placeholder, label: this.props.label, value: this.props.value, min: this.props.min, max: this.props.max, step: this.props.step, onChange: this.props.onChange, onKeyDown: this.props.onKeyDown }),
             !integerValid ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__.InvalidFeedBackInteger, null) : undefined,
             integerValid && !minValid ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__.InvalidFeedBackMin, { min: this.props.min, current: this.props.value }) : undefined,
@@ -1589,6 +1567,51 @@ class InputIntegerLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent
 }
 // name
 InputIntegerLabel.displayName = "InputIntegerLabel";
+
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+// deps
+// externals
+
+// component
+class InputLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
+    // render
+    render() {
+        let className = "";
+        if (this.props.disabled) {
+            className += "text-muted";
+        }
+        else if ("boolean" === typeof this.props.valid && !this.props.valid) {
+            className += "text-danger";
+        }
+        if (this.props.className) {
+            className += " " + this.props.className;
+        }
+        return react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { id: this.props.id, className: className, style: this.props.style, htmlFor: this.props.for, "aria-label": this.props.label },
+            this.props.label,
+            " ",
+            this.props.required
+                ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", { className: "fa fa-asterisk text-danger", style: { "fontSize": "60%" }, "aria-hidden": "true" })
+                : undefined);
+    }
+}
+// name
+InputLabel.displayName = "InputLabel";
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InputLabel);
 
 
 /***/ }),
@@ -1607,11 +1630,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
+/* harmony import */ var _InputLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
 
 // deps
 // externals
 
-// externals
+// internals
+
 
 // component
 class InputReadOnly extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
@@ -1652,14 +1677,7 @@ class InputReadOnlyLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponen
         // render
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
-                    ? "text-muted"
-                    : !valid ? "text-danger" : undefined, "aria-label": this.props.label },
-                this.props.label,
-                " ",
-                required
-                    ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", { className: "fa fa-asterisk text-danger", style: { "fontSize": "60%" }, "aria-hidden": "true" })
-                    : undefined),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputLabel__WEBPACK_IMPORTED_MODULE_2__["default"], { for: String(this.props.id), label: this.props.label, disabled: disabled, required: required, valid: valid }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputReadOnly, { id: this.props.id, required: required, disabled: disabled, label: this.props.label, value: this.props.value }),
             this._renderError(requiredValid));
     }
@@ -1684,11 +1702,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
+/* harmony import */ var _InputLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
 
 // deps
 // externals
 
-// externals
+// internals
+
 
 // component
 class InputText extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
@@ -1773,14 +1793,7 @@ class InputTextLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         // render
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
-                    ? "text-muted"
-                    : !valid ? "text-danger" : undefined, "aria-label": this.props.label },
-                this.props.label,
-                " ",
-                required
-                    ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", { className: "fa fa-asterisk text-danger", style: { "fontSize": "60%" }, "aria-hidden": "true" })
-                    : undefined),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputLabel__WEBPACK_IMPORTED_MODULE_2__["default"], { for: String(this.props.id), label: this.props.label, disabled: disabled, required: required, valid: valid }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(InputText, { id: this.props.id, name: this.props.name, _ref: this.props._ref, required: required, disabled: disabled, placeholder: this.props.placeholder, label: this.props.label, pattern: this.props.pattern, value: this.props.value, minLength: this.props.minLength, maxLength: this.props.maxLength, onChange: this.props.onChange, onKeyDown: this.props.onKeyDown }),
             this._renderError(requiredValid, minLengthValid, maxLengthValid, patternValid));
     }
@@ -1805,11 +1818,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
+/* harmony import */ var _InputLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
 
 // deps
 // externals
 
-// externals
+// internals
+
 
 // component
 class Range extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
@@ -1886,14 +1901,7 @@ class RangeLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         // render
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
-                    ? "text-muted"
-                    : !valid ? "text-danger" : undefined, "aria-label": this.props.label },
-                this.props.label,
-                " ",
-                required
-                    ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", { className: "fa fa-asterisk text-danger", style: { "fontSize": "60%" }, "aria-hidden": "true" })
-                    : undefined),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputLabel__WEBPACK_IMPORTED_MODULE_2__["default"], { for: String(this.props.id), label: this.props.label, disabled: disabled, required: required, valid: valid }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Range, { id: this.props.id, name: this.props.name, _ref: this.props._ref, required: required, disabled: disabled, placeholder: this.props.placeholder, label: this.props.label, value: this.props.value, min: this.props.min, max: this.props.max, onChange: this.props.onChange, onKeyDown: this.props.onKeyDown }),
             !integerValid ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__.InvalidFeedBackInteger, null) : undefined,
             integerValid && !minValid ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__.InvalidFeedBackMin, { min: this.props.min, current: this.props.value }) : undefined,
@@ -1920,11 +1928,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
+/* harmony import */ var _InputLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
 
 // deps
 // externals
 
-// externals
+// internals
+
 
 // component
 class Select extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
@@ -1965,14 +1975,7 @@ class SelectLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         // render
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
-                    ? "text-muted"
-                    : !requiredValid ? "text-danger" : undefined, "aria-label": this.props.label },
-                this.props.label,
-                " ",
-                required
-                    ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", { className: "fa fa-asterisk text-danger", style: { "fontSize": "60%" }, "aria-hidden": "true" })
-                    : undefined),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputLabel__WEBPACK_IMPORTED_MODULE_2__["default"], { for: String(this.props.id), label: this.props.label, disabled: disabled, required: required }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(Select, { id: this.props.id, required: required, disabled: disabled, label: this.props.label, value: this.props.value, onChange: this.props.onChange }, this.props.children),
             !requiredValid ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__.InvalidFeedBackRequired, null) : undefined);
     }
@@ -1997,11 +2000,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
+/* harmony import */ var _InputLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
 
 // deps
 // externals
 
-// externals
+// internals
+
 
 // component
 class SelectInteger extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
@@ -2051,10 +2056,11 @@ class SelectIntegerLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponen
         const isNumber = "number" === typeof this.props.value;
         const requiredValid = required ? isNumber : true;
         const integerValid = isNumber && Number.isInteger(this.props.value);
+        const valid = requiredValid && integerValid;
         // render
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled ? " text-muted" : "", "aria-label": this.props.label }, this.props.label),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputLabel__WEBPACK_IMPORTED_MODULE_2__["default"], { for: String(this.props.id), label: this.props.label, disabled: disabled, required: required, valid: valid }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(SelectInteger, { id: this.props.id, required: required, disabled: disabled, label: this.props.label, value: this.props.value, onChange: this.props.onChange }, this.props.children),
             !requiredValid ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__.InvalidFeedBackRequired, null) : undefined,
             requiredValid && !integerValid ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__.InvalidFeedBackInteger, null) : undefined);
@@ -2080,11 +2086,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _FieldFeedBacks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FieldFeedBacks */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/FieldFeedBacks.js");
+/* harmony import */ var _InputLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
 
 // deps
 // externals
 
-// externals
+// internals
+
 
 // component
 class TextArea extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
@@ -2169,14 +2177,7 @@ class TextAreaLabel extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         // render
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: ("undefined" !== typeof this.props["margin-bottom"] ? "mb-" + this.props["margin-bottom"] : "mb-3")
                 + (this.props.className ? " " + this.props.className : ""), style: this.props.style },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", { htmlFor: this.props.id, className: disabled
-                    ? "text-muted"
-                    : !valid ? "text-danger" : undefined, "aria-label": this.props.label },
-                this.props.label,
-                " ",
-                required
-                    ? react__WEBPACK_IMPORTED_MODULE_0__.createElement("small", { className: "fa fa-asterisk text-danger", style: { "fontSize": "60%" }, "aria-hidden": "true" })
-                    : undefined),
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_InputLabel__WEBPACK_IMPORTED_MODULE_2__["default"], { for: String(this.props.id), label: this.props.label, disabled: disabled, required: required, valid: valid }),
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(TextArea, { id: this.props.id, name: this.props.name, required: required, disabled: disabled, placeholder: this.props.placeholder, label: this.props.label, pattern: this.props.pattern, value: this.props.value, minLength: this.props.minLength, maxLength: this.props.maxLength, onChange: this.props.onChange, onKeyDown: this.props.onKeyDown }),
             this._renderError(requiredValid, minLengthValid, maxLengthValid, patternValid));
     }
@@ -2421,18 +2422,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   InputArrayLabel: () => (/* reexport safe */ _fields_InputArray__WEBPACK_IMPORTED_MODULE_22__.InputArrayLabel),
 /* harmony export */   InputColor: () => (/* reexport safe */ _fields_InputColor__WEBPACK_IMPORTED_MODULE_23__.InputColor),
 /* harmony export */   InputColorLabel: () => (/* reexport safe */ _fields_InputColor__WEBPACK_IMPORTED_MODULE_23__.InputColorLabel),
-/* harmony export */   InputFile: () => (/* reexport safe */ _fields_InputFile__WEBPACK_IMPORTED_MODULE_29__.InputFile),
-/* harmony export */   InputFileLabel: () => (/* reexport safe */ _fields_InputFile__WEBPACK_IMPORTED_MODULE_29__.InputFileLabel),
+/* harmony export */   InputFile: () => (/* reexport safe */ _fields_InputFile__WEBPACK_IMPORTED_MODULE_30__.InputFile),
+/* harmony export */   InputFileLabel: () => (/* reexport safe */ _fields_InputFile__WEBPACK_IMPORTED_MODULE_30__.InputFileLabel),
 /* harmony export */   InputFloat: () => (/* reexport safe */ _fields_InputFloat__WEBPACK_IMPORTED_MODULE_24__.InputFloat),
 /* harmony export */   InputFloatLabel: () => (/* reexport safe */ _fields_InputFloat__WEBPACK_IMPORTED_MODULE_24__.InputFloatLabel),
 /* harmony export */   InputIPV4: () => (/* reexport safe */ _fields_InputIPV4__WEBPACK_IMPORTED_MODULE_26__.InputIPV4),
 /* harmony export */   InputIPV4Label: () => (/* reexport safe */ _fields_InputIPV4__WEBPACK_IMPORTED_MODULE_26__.InputIPV4Label),
 /* harmony export */   InputInteger: () => (/* reexport safe */ _fields_InputInteger__WEBPACK_IMPORTED_MODULE_25__.InputInteger),
 /* harmony export */   InputIntegerLabel: () => (/* reexport safe */ _fields_InputInteger__WEBPACK_IMPORTED_MODULE_25__.InputIntegerLabel),
-/* harmony export */   InputReadOnly: () => (/* reexport safe */ _fields_InputReadOnly__WEBPACK_IMPORTED_MODULE_27__.InputReadOnly),
-/* harmony export */   InputReadOnlyLabel: () => (/* reexport safe */ _fields_InputReadOnly__WEBPACK_IMPORTED_MODULE_27__.InputReadOnlyLabel),
-/* harmony export */   InputText: () => (/* reexport safe */ _fields_InputText__WEBPACK_IMPORTED_MODULE_28__.InputText),
-/* harmony export */   InputTextLabel: () => (/* reexport safe */ _fields_InputText__WEBPACK_IMPORTED_MODULE_28__.InputTextLabel),
+/* harmony export */   InputLabel: () => (/* reexport safe */ _fields_InputLabel__WEBPACK_IMPORTED_MODULE_27__["default"]),
+/* harmony export */   InputReadOnly: () => (/* reexport safe */ _fields_InputReadOnly__WEBPACK_IMPORTED_MODULE_28__.InputReadOnly),
+/* harmony export */   InputReadOnlyLabel: () => (/* reexport safe */ _fields_InputReadOnly__WEBPACK_IMPORTED_MODULE_28__.InputReadOnlyLabel),
+/* harmony export */   InputText: () => (/* reexport safe */ _fields_InputText__WEBPACK_IMPORTED_MODULE_29__.InputText),
+/* harmony export */   InputTextLabel: () => (/* reexport safe */ _fields_InputText__WEBPACK_IMPORTED_MODULE_29__.InputTextLabel),
 /* harmony export */   InvalidFeedBack: () => (/* reexport safe */ _fields_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_20__.InvalidFeedBack),
 /* harmony export */   InvalidFeedBackFloat: () => (/* reexport safe */ _fields_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_20__.InvalidFeedBackFloat),
 /* harmony export */   InvalidFeedBackInteger: () => (/* reexport safe */ _fields_FieldFeedBacks__WEBPACK_IMPORTED_MODULE_20__.InvalidFeedBackInteger),
@@ -2445,27 +2447,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ListItem: () => (/* reexport safe */ _list_ListItem__WEBPACK_IMPORTED_MODULE_18__["default"]),
 /* harmony export */   ListItemHeader: () => (/* reexport safe */ _list_ListItemHeader__WEBPACK_IMPORTED_MODULE_19__["default"]),
 /* harmony export */   MaxHeightContent: () => (/* reexport safe */ _MaxHeightContent__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   Modal: () => (/* reexport safe */ _modal_Modal__WEBPACK_IMPORTED_MODULE_34__["default"]),
-/* harmony export */   ModalBody: () => (/* reexport safe */ _modal_ModalBody__WEBPACK_IMPORTED_MODULE_35__["default"]),
-/* harmony export */   ModalFooter: () => (/* reexport safe */ _modal_ModalFooter__WEBPACK_IMPORTED_MODULE_39__["default"]),
-/* harmony export */   ModalImage: () => (/* reexport safe */ _modal_ModalImage__WEBPACK_IMPORTED_MODULE_36__["default"]),
-/* harmony export */   ModalList: () => (/* reexport safe */ _modal_ModalList__WEBPACK_IMPORTED_MODULE_37__["default"]),
-/* harmony export */   ModalTable: () => (/* reexport safe */ _modal_ModalTable__WEBPACK_IMPORTED_MODULE_38__["default"]),
-/* harmony export */   NavItem: () => (/* reexport safe */ _nav_NavItem__WEBPACK_IMPORTED_MODULE_41__["default"]),
-/* harmony export */   NavTabs: () => (/* reexport safe */ _nav_NavTabs__WEBPACK_IMPORTED_MODULE_40__["default"]),
-/* harmony export */   Range: () => (/* reexport safe */ _fields_Range__WEBPACK_IMPORTED_MODULE_30__.Range),
-/* harmony export */   RangeLabel: () => (/* reexport safe */ _fields_Range__WEBPACK_IMPORTED_MODULE_30__.RangeLabel),
-/* harmony export */   Select: () => (/* reexport safe */ _fields_Select__WEBPACK_IMPORTED_MODULE_31__.Select),
-/* harmony export */   SelectInteger: () => (/* reexport safe */ _fields_SelectInteger__WEBPACK_IMPORTED_MODULE_32__.SelectInteger),
-/* harmony export */   SelectIntegerLabel: () => (/* reexport safe */ _fields_SelectInteger__WEBPACK_IMPORTED_MODULE_32__.SelectIntegerLabel),
-/* harmony export */   SelectLabel: () => (/* reexport safe */ _fields_Select__WEBPACK_IMPORTED_MODULE_31__.SelectLabel),
+/* harmony export */   Modal: () => (/* reexport safe */ _modal_Modal__WEBPACK_IMPORTED_MODULE_35__["default"]),
+/* harmony export */   ModalBody: () => (/* reexport safe */ _modal_ModalBody__WEBPACK_IMPORTED_MODULE_36__["default"]),
+/* harmony export */   ModalFooter: () => (/* reexport safe */ _modal_ModalFooter__WEBPACK_IMPORTED_MODULE_40__["default"]),
+/* harmony export */   ModalImage: () => (/* reexport safe */ _modal_ModalImage__WEBPACK_IMPORTED_MODULE_37__["default"]),
+/* harmony export */   ModalList: () => (/* reexport safe */ _modal_ModalList__WEBPACK_IMPORTED_MODULE_38__["default"]),
+/* harmony export */   ModalTable: () => (/* reexport safe */ _modal_ModalTable__WEBPACK_IMPORTED_MODULE_39__["default"]),
+/* harmony export */   NavItem: () => (/* reexport safe */ _nav_NavItem__WEBPACK_IMPORTED_MODULE_42__["default"]),
+/* harmony export */   NavTabs: () => (/* reexport safe */ _nav_NavTabs__WEBPACK_IMPORTED_MODULE_41__["default"]),
+/* harmony export */   Range: () => (/* reexport safe */ _fields_Range__WEBPACK_IMPORTED_MODULE_31__.Range),
+/* harmony export */   RangeLabel: () => (/* reexport safe */ _fields_Range__WEBPACK_IMPORTED_MODULE_31__.RangeLabel),
+/* harmony export */   Select: () => (/* reexport safe */ _fields_Select__WEBPACK_IMPORTED_MODULE_32__.Select),
+/* harmony export */   SelectInteger: () => (/* reexport safe */ _fields_SelectInteger__WEBPACK_IMPORTED_MODULE_33__.SelectInteger),
+/* harmony export */   SelectIntegerLabel: () => (/* reexport safe */ _fields_SelectInteger__WEBPACK_IMPORTED_MODULE_33__.SelectIntegerLabel),
+/* harmony export */   SelectLabel: () => (/* reexport safe */ _fields_Select__WEBPACK_IMPORTED_MODULE_32__.SelectLabel),
 /* harmony export */   SoundReader: () => (/* reexport safe */ _SoundReader__WEBPACK_IMPORTED_MODULE_8__["default"]),
-/* harmony export */   Table: () => (/* reexport safe */ _table_Table__WEBPACK_IMPORTED_MODULE_42__["default"]),
-/* harmony export */   TableBody: () => (/* reexport safe */ _table_TableBody__WEBPACK_IMPORTED_MODULE_44__["default"]),
-/* harmony export */   TableFooter: () => (/* reexport safe */ _table_TableFooter__WEBPACK_IMPORTED_MODULE_45__["default"]),
-/* harmony export */   TableHeader: () => (/* reexport safe */ _table_TableHeader__WEBPACK_IMPORTED_MODULE_43__["default"]),
-/* harmony export */   TextArea: () => (/* reexport safe */ _fields_TextArea__WEBPACK_IMPORTED_MODULE_33__.TextArea),
-/* harmony export */   TextAreaLabel: () => (/* reexport safe */ _fields_TextArea__WEBPACK_IMPORTED_MODULE_33__.TextAreaLabel),
+/* harmony export */   Table: () => (/* reexport safe */ _table_Table__WEBPACK_IMPORTED_MODULE_43__["default"]),
+/* harmony export */   TableBody: () => (/* reexport safe */ _table_TableBody__WEBPACK_IMPORTED_MODULE_45__["default"]),
+/* harmony export */   TableFooter: () => (/* reexport safe */ _table_TableFooter__WEBPACK_IMPORTED_MODULE_46__["default"]),
+/* harmony export */   TableHeader: () => (/* reexport safe */ _table_TableHeader__WEBPACK_IMPORTED_MODULE_44__["default"]),
+/* harmony export */   TextArea: () => (/* reexport safe */ _fields_TextArea__WEBPACK_IMPORTED_MODULE_34__.TextArea),
+/* harmony export */   TextAreaLabel: () => (/* reexport safe */ _fields_TextArea__WEBPACK_IMPORTED_MODULE_34__.TextAreaLabel),
 /* harmony export */   generateFocus: () => (/* reexport safe */ _generateFocus__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _generateFocus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generateFocus */ "./node_modules/react-bootstrap-fontawesome/lib/dist/generateFocus.js");
@@ -2495,28 +2497,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fields_InputFloat__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./fields/InputFloat */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputFloat.js");
 /* harmony import */ var _fields_InputInteger__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./fields/InputInteger */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputInteger.js");
 /* harmony import */ var _fields_InputIPV4__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./fields/InputIPV4 */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputIPV4.js");
-/* harmony import */ var _fields_InputReadOnly__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./fields/InputReadOnly */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputReadOnly.js");
-/* harmony import */ var _fields_InputText__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./fields/InputText */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputText.js");
-/* harmony import */ var _fields_InputFile__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./fields/InputFile */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputFile.js");
-/* harmony import */ var _fields_Range__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./fields/Range */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/Range.js");
-/* harmony import */ var _fields_Select__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./fields/Select */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/Select.js");
-/* harmony import */ var _fields_SelectInteger__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./fields/SelectInteger */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/SelectInteger.js");
-/* harmony import */ var _fields_TextArea__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./fields/TextArea */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/TextArea.js");
-/* harmony import */ var _modal_Modal__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./modal/Modal */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/Modal.js");
-/* harmony import */ var _modal_ModalBody__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./modal/ModalBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalBody.js");
-/* harmony import */ var _modal_ModalImage__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./modal/ModalImage */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalImage.js");
-/* harmony import */ var _modal_ModalList__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./modal/ModalList */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalList.js");
-/* harmony import */ var _modal_ModalTable__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./modal/ModalTable */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalTable.js");
-/* harmony import */ var _modal_ModalFooter__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./modal/ModalFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalFooter.js");
-/* harmony import */ var _nav_NavTabs__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./nav/NavTabs */ "./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavTabs.js");
-/* harmony import */ var _nav_NavItem__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./nav/NavItem */ "./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavItem.js");
-/* harmony import */ var _table_Table__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./table/Table */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/Table.js");
-/* harmony import */ var _table_TableHeader__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./table/TableHeader */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableHeader.js");
-/* harmony import */ var _table_TableBody__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./table/TableBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableBody.js");
-/* harmony import */ var _table_TableFooter__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./table/TableFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableFooter.js");
+/* harmony import */ var _fields_InputLabel__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./fields/InputLabel */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputLabel.js");
+/* harmony import */ var _fields_InputReadOnly__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./fields/InputReadOnly */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputReadOnly.js");
+/* harmony import */ var _fields_InputText__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./fields/InputText */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputText.js");
+/* harmony import */ var _fields_InputFile__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./fields/InputFile */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/InputFile.js");
+/* harmony import */ var _fields_Range__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./fields/Range */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/Range.js");
+/* harmony import */ var _fields_Select__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./fields/Select */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/Select.js");
+/* harmony import */ var _fields_SelectInteger__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./fields/SelectInteger */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/SelectInteger.js");
+/* harmony import */ var _fields_TextArea__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./fields/TextArea */ "./node_modules/react-bootstrap-fontawesome/lib/dist/fields/TextArea.js");
+/* harmony import */ var _modal_Modal__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./modal/Modal */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/Modal.js");
+/* harmony import */ var _modal_ModalBody__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./modal/ModalBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalBody.js");
+/* harmony import */ var _modal_ModalImage__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./modal/ModalImage */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalImage.js");
+/* harmony import */ var _modal_ModalList__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./modal/ModalList */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalList.js");
+/* harmony import */ var _modal_ModalTable__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./modal/ModalTable */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalTable.js");
+/* harmony import */ var _modal_ModalFooter__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./modal/ModalFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/modal/ModalFooter.js");
+/* harmony import */ var _nav_NavTabs__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./nav/NavTabs */ "./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavTabs.js");
+/* harmony import */ var _nav_NavItem__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./nav/NavItem */ "./node_modules/react-bootstrap-fontawesome/lib/dist/nav/NavItem.js");
+/* harmony import */ var _table_Table__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./table/Table */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/Table.js");
+/* harmony import */ var _table_TableHeader__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./table/TableHeader */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableHeader.js");
+/* harmony import */ var _table_TableBody__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./table/TableBody */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableBody.js");
+/* harmony import */ var _table_TableFooter__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./table/TableFooter */ "./node_modules/react-bootstrap-fontawesome/lib/dist/table/TableFooter.js");
 
 // deps
 // locals
+
 
 
 
@@ -2963,7 +2967,7 @@ class NavTabs extends react__WEBPACK_IMPORTED_MODULE_0__.Component {
     }
     static getDerivedStateFromProps(nextProps, nextState) {
         if (nextProps.selectedIndex === nextState.selectedIndex) {
-            return undefined;
+            return null;
         }
         else {
             return Object.assign(Object.assign({}, nextState), { "selectedIndex": nextProps.selectedIndex });
@@ -30911,32 +30915,45 @@ var Race = /** @class */ (function (_super) {
         }
     };
     Race.prototype._renderCharacters = function () {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         if (!this.state.race || 0 >= ((_a = this.state.race) === null || _a === void 0 ? void 0 : _a.characters.length)) {
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputReadOnlyLabel, { label: "Characters", value: "No character found", "margin-bottom": 0 });
         }
-        else if (!this.state.character || 0 >= ((_b = this.state.character) === null || _b === void 0 ? void 0 : _b.actions.length)) {
-            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.SelectLabel, { id: this.state.race.code + "-characters", label: "Characters", "margin-bottom": 0, value: this.state.selectedCharacter, onChange: this._handleChangeCharacter.bind(this) },
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"), (_c = this.state.race) === null || _c === void 0 ? void 0 :
-                _c.characters.map(function (content) {
-                    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.code }, content.name);
-                }));
-        }
         else {
             return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", { htmlFor: this.state.race.code + "-actions", "aria-label": "Actions" }, "Actions"),
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.InputLabel, { for: this.state.race.code + "-actions", label: "Actions" }),
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", { className: "input-group" },
-                    0 < this.state.character.icon.length ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { className: "input-group-text" },
+                    this.state.character && 0 < this.state.character.icon.length ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", { className: "input-group-text" },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Image, { src: this.state.character.icon, height: 25, width: 25 })) : undefined,
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-characters", value: this.state.selectedCharacter, onChange: this._handleChangeCharacter.bind(this) },
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"), (_d = this.state.race) === null || _d === void 0 ? void 0 :
-                        _d.characters.map(function (content) {
-                            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: content.code, value: content.code }, content.name);
-                        })),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-actions", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"),
-                        this._renderActions())));
+                        this._renderCharactersOptGroup("heroes", (_b = this.state.race) === null || _b === void 0 ? void 0 : _b.characters.filter(function (character) {
+                            return character.hero;
+                        })),
+                        this._renderCharactersOptGroup("others", (_c = this.state.race) === null || _c === void 0 ? void 0 : _c.characters.filter(function (character) {
+                            return !character.hero;
+                        }))),
+                    this.state.character && 0 < this.state.character.actions.length ? react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_bootstrap_fontawesome__WEBPACK_IMPORTED_MODULE_1__.Select, { id: this.state.race.code + "-actions", value: this.state.selectedSound, onChange: this._handleChangeSound.bind(this) },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { value: "" }, "--"),
+                        this._renderActions()) : undefined));
         }
+    };
+    Race.prototype._renderCharactersOptGroup = function (label, characters) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("optgroup", { label: label }, characters.sort(function (a, b) {
+            if (a.tft && !b.tft) {
+                return 1;
+            }
+            else if (!a.tft && b.tft) {
+                return -1;
+            }
+            else {
+                return 0;
+            }
+        }).map(function (character) {
+            return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", { key: character.code, value: character.code },
+                character.tft ? "[TFT] " : undefined,
+                character.name);
+        }));
     };
     Race.prototype._renderHeader = function () {
         if (this.state.loading || !this.state.race || "" === this.state.race.icon) {
