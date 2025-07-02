@@ -189,12 +189,15 @@ export default class WarcraftSoundsModel {
     public getRace (code: string): Promise<components["schemas"]["Race"] | null> {
 
         interface iSQLRequestResult {
-            "race_id": string;
+            "race_id": number;
             "race_code": string;
             "race_name": string;
             "race_icon": string;
             "character_code": string;
             "character_name": string;
+            "character_icon": string;
+            "character_hero": number;
+            "character_tft": number;
             "music_code": string;
             "music_name": string;
             "music_file": string;
@@ -208,7 +211,7 @@ export default class WarcraftSoundsModel {
             this._db.all(
                 " SELECT"
                     + " races.id AS race_id, races.code AS race_code, races.name AS race_name, races.icon AS race_icon,"
-                    + " characters.code AS character_code, characters.name AS character_name,"
+                    + " characters.code AS character_code, characters.name AS character_name, characters.icon AS character_icon, characters.hero AS character_hero, characters.tft AS character_tft,"
                     + " musics.code AS music_code, musics.name AS music_name, musics.file AS music_file,"
                     + " warnings.code AS warning_code, warnings.name AS warning_name, warnings.file AS warning_file"
                 + " FROM races"
@@ -249,7 +252,7 @@ export default class WarcraftSoundsModel {
                                     "code": data.character_code,
                                     "name": data.character_name,
                                     "url": "/api/races/" + code + "/characters/" + data.character_code,
-                                    "icon": data.race_icon
+                                    "icon": data.character_icon
                                 });
 
                             }
