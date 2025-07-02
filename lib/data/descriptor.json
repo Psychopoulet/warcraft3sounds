@@ -552,9 +552,15 @@
 						"properties": {
 							"icon": {
 								"type": "string"
+							},
+							"hero": {
+								"type": "boolean"
+							},
+							"tft": {
+								"type": "boolean"
 							}
 						},
-						"required": [ "icon" ]
+						"required": [ "icon", "hero", "tft" ]
 					}
 				]
 			},

@@ -394,6 +394,8 @@ export interface components {
         };
         BasicCharacter: components["schemas"]["BasicDataWithUrl"] & {
             icon: string;
+            hero: boolean;
+            tft: boolean;
         };
         Character: components["schemas"]["BasicCharacter"] & {
             actions: components["schemas"]["Action"][];

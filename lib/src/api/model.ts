@@ -252,7 +252,9 @@ export default class WarcraftSoundsModel {
                                     "code": data.character_code,
                                     "name": data.character_name,
                                     "url": "/api/races/" + code + "/characters/" + data.character_code,
-                                    "icon": data.character_icon
+                                    "icon": data.character_icon,
+                                    "hero": 1 === data.character_hero,
+                                    "tft": 1 === data.character_tft
                                 });
 
                             }
@@ -308,16 +310,18 @@ export default class WarcraftSoundsModel {
     public getCharacter (codeRace: string, code: string, notWorded: boolean = false): Promise<components["schemas"]["Character"] | null> {
 
         interface iSQLRequestResult {
-            "id": string;
+            "id": number;
             "code": string;
             "name": string;
             "icon": string;
+            "hero": number;
+            "tft": number;
         }
 
         return new Promise((resolve: (data: iSQLRequestResult) => void, reject: (err: Error) => void) => {
 
             this._db.get(
-                " SELECT characters.id, characters.code, characters.name, characters.icon"
+                " SELECT characters.id, characters.code, characters.name, characters.icon, characters.hero, characters.tft"
                 + " FROM characters"
                     + " INNER JOIN races ON races.id = characters.k_race"
                 + " WHERE"
@@ -365,6 +369,8 @@ export default class WarcraftSoundsModel {
                                 "name": characterData.name,
                                 "url": "/api/races/" + codeRace + "/characters/" + code,
                                 "icon": characterData.icon,
+                                "hero": 1 === characterData.hero,
+                                "tft": 1 === characterData.tft,
                                 "actions": []
                             };
 
