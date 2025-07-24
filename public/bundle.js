@@ -30939,6 +30939,9 @@ var Race = /** @class */ (function (_super) {
         }
     };
     Race.prototype._renderCharactersOptGroup = function (label, characters) {
+        if (0 >= characters.length) {
+            return undefined;
+        }
         return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("optgroup", { label: label }, characters.sort(function (a, b) {
             if (a.tft && !b.tft) {
                 return 1;

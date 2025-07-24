@@ -299,6 +299,10 @@ export default class Race extends React.Component<iProps, iStates> {
 
     private _renderCharactersOptGroup (label: string, characters: Array<descriptorTypes["BasicCharacter"]>): React.JSX.Element | undefined {
 
+        if (0 >= characters.length) {
+            return undefined;
+        }
+
         return <optgroup label={ label }>
 
             { characters.sort((a: descriptorTypes["BasicCharacter"], b: descriptorTypes["BasicCharacter"]): -1 | 0 | 1 => {
