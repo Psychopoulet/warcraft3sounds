@@ -53,7 +53,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
         app.get("/api/races", (req: Request, res: Response, next: NextFunction): void => {
 
-            model.getRaces().then((races: components["schemas"]["BasicDataWithUrl"][]): void => {
+            model.getRaces().then((races: Array<components["schemas"]["BasicRace"]>): void => {
 
                 res.status(errorCodes.OK).json(races as paths["/api/races"]["get"]["responses"]["200"]["content"]["application/json"]);
 
@@ -70,7 +70,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
                 if (race) {
 
-                    res.status(errorCodes.OK).json(race);
+                    res.status(errorCodes.OK).json(race as paths["/api/races/{racecode}"]["get"]["responses"]["200"]["content"]["application/json"]);
 
                 }
                 else {
@@ -115,7 +115,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
                 if (character) {
 
-                    res.status(errorCodes.OK).json(character);
+                    res.status(errorCodes.OK).json(character as paths["/api/races/{racecode}/characters/{charactercode}"]["get"]["responses"]["200"]["content"]["application/json"]);
 
                 }
                 else {

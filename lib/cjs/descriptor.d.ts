@@ -116,6 +116,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/public/sounds/{sound}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get the wanted sound */
+        get: operations["getSound"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/err": {
         parameters: {
             query?: never;
@@ -161,15 +178,178 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/public/sounds/{sound}": {
+    "/": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** Get the wanted sound */
-        get: operations["getSound"];
+        /** Front page */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Everything is fine */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/html": string;
+                    };
+                };
+                /** @description An error occured */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/bundle.js": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Front app */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Everything is fine */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/javascript": string;
+                    };
+                };
+                /** @description An error occured */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/bundle.js.map": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Front app map */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Everything is fine */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "text/javascript": string;
+                    };
+                };
+                /** @description An error occured */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/public/pictures/warcraft3.png": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Front icon */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Everything is fine */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "image/png": string;
+                    };
+                };
+                /** @description An error occured */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
         put?: never;
         post?: never;
         delete?: never;
@@ -200,15 +380,23 @@ export interface components {
         BasicFileData: components["schemas"]["BasicDataWithUrl"] & {
             file: string;
         };
-        Race: components["schemas"]["BasicDataWithUrl"] & {
-            characters: components["schemas"]["BasicDataWithUrl"][];
+        BasicRace: components["schemas"]["BasicDataWithUrl"] & {
+            icon: string;
+        };
+        Race: components["schemas"]["BasicRace"] & {
+            characters: components["schemas"]["BasicCharacter"][];
             musics: components["schemas"]["BasicFileData"][];
             warnings: components["schemas"]["BasicFileData"][];
         };
         Action: components["schemas"]["BasicFileData"] & {
             type: components["schemas"]["BasicData"];
         };
-        Character: components["schemas"]["BasicDataWithUrl"] & {
+        BasicCharacter: components["schemas"]["BasicDataWithUrl"] & {
+            icon: string;
+            hero: boolean;
+            tft: boolean;
+        };
+        Character: components["schemas"]["BasicCharacter"] & {
             actions: components["schemas"]["Action"][];
         };
     };
@@ -264,7 +452,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["BasicDataWithUrl"][];
+                    "application/json": components["schemas"]["BasicRace"][];
                 };
             };
             /** @description An error occured */
@@ -296,7 +484,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Race"][];
+                    "application/json": components["schemas"]["Race"];
                 };
             };
             /** @description An error occured */
@@ -333,7 +521,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Character"][];
+                    "application/json": components["schemas"]["Character"];
                 };
             };
             /** @description An error occured */

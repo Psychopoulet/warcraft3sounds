@@ -1,10 +1,14 @@
 // deps
 
+    // natives
+    import { join } from "node:path";
+
     // externals
     import express from "express";
     import cors from "cors";
     import helmet from "helmet";
     import compression from "compression";
+    import { middleware } from "express-openapi-validator";
 
 // types & interfaces
 
@@ -19,6 +23,11 @@ export default function generateServer (): Express {
         .use(cors())
         .use(helmet({
             "contentSecurityPolicy": false
+        }))
+        .use(middleware({
+            "apiSpec": join(__dirname, "..", "..", "data", "descriptor.json"),
+            "validateRequests": true, // (default)
+            "validateResponses": true // false by default
         }))
         .use(compression());
 

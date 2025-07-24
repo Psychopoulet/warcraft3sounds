@@ -16,8 +16,6 @@ export default function webRoutes (app: Express): void {
 
     app.get([ "/", "/public/index.html" ], (req: Request, res: Response): void => {
         return res.sendFile(join(__dirname, "..", "..", "..", "public", "index.html"));
-    }).get("/public/app.js", (req: Request, res: Response): void => {
-        return res.sendFile(join(__dirname, "..", "..", "..", "public", "app.js"));
     });
 
     // app

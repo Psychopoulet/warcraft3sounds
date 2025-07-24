@@ -2,15 +2,13 @@
 
     // natives
     import { join, extname } from "node:path";
-    import { stat, createReadStream } from "node:fs";
+    import { createReadStream } from "node:fs";
 
     // locals
     import errorCodes from "../returncodes";
+    import getFileStats from "../tools/getFileStats";
 
 // types & interfaces
-
-    // natives
-    import type { Stats } from "node:fs";
 
     // externals
     import type { Express, Request, Response, NextFunction } from "express";
@@ -27,30 +25,7 @@ export default function soundsRoutes (app: Express): void {
         const sound: paths["/public/sounds/{sound}"]["get"]["parameters"]["path"]["sound"] = req.params.sound;
         const file: string = join(__dirname, "..", "..", "..", "public", "sounds", sound);
 
-        new Promise((resolve: (stats: {
-            "exists": boolean;
-            "size": number;
-        }) => void): void => {
-
-            stat(file, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
-
-                if (err) {
-
-                    return resolve({
-                        "exists": false,
-                        "size": 0
-                    });
-
-                }
-
-                return resolve({
-                    "exists": !(err || !stats.isFile()),
-                    "size": stats.size
-                });
-
-            });
-
-        }).then((stats: {
+        getFileStats(file).then((stats: {
             "exists": boolean;
             "size": number;
         }): void => {

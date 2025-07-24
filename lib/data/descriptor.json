@@ -14,6 +14,7 @@
 		}
 	},
 	"paths": {
+
 		"/api/descriptor": {
 			"get": {
 				"description": "",
@@ -42,6 +43,7 @@
 				}
 			}
 		},
+
 		"/api/ips": {
 			"get": {
 				"description": "",
@@ -88,7 +90,7 @@
 								"schema": {
 									"type": "array",
 									"items": {
-										"$ref": "#/components/schemas/BasicDataWithUrl"
+										"$ref": "#/components/schemas/BasicRace"
 									}
 								}
 							}
@@ -129,10 +131,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/Race"
-									}
+									"$ref": "#/components/schemas/Race"
 								}
 							}
 						}
@@ -190,10 +189,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"type": "array",
-									"items": {
-										"$ref": "#/components/schemas/Character"
-									}
+									"$ref": "#/components/schemas/Character"
 								}
 							}
 						}
@@ -211,34 +207,7 @@
 				}
 			}
 		},
-		"/api/err": {
-			"get": {
-				"description": "",
-				"summary": "Generate an error for tests purpose",
-				"responses": {
-					"200": {
-						"description": "Everything is fine",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								}
-							}
-						}
-					},
-					"default": {
-						"description": "An error occured",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
+
 		"/public/sounds/{sound}": {
 			"get": {
 				"description": "",
@@ -285,7 +254,151 @@
 					}
 				}
 			}
+		},
+
+		"/api/err": {
+			"get": {
+				"description": "",
+				"summary": "Generate an error for tests purpose",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"/": {
+			"get": {
+				"description": "",
+				"summary": "Front page",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"text/html": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/public/bundle.js": {
+			"get": {
+				"description": "",
+				"summary": "Front app",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"text/javascript": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/public/bundle.js.map": {
+			"get": {
+				"description": "",
+				"summary": "Front app map",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"text/javascript": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/public/pictures/warcraft3.png": {
+			"get": {
+				"description": "",
+				"summary": "Front icon",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"image/png": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
 		}
+
 	},
 	"components": {
 		"schemas": {
@@ -359,7 +472,7 @@
 					}
 				]
 			},
-			"Race": {
+			"BasicRace": {
 				"type": "object",
 				"allOf": [
 					{
@@ -368,11 +481,28 @@
 					{
 						"type": "object",
 						"properties": {
+							"icon": {
+								"type": "string"
+							}
+						},
+						"required": [ "icon" ]
+					}
+				]
+			},
+			"Race": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicRace"
+					},
+					{
+						"type": "object",
+						"properties": {
 							"characters": {
 								"type": "array",
 								"items": {
 									"uniqueItems": true,
-									"$ref": "#/components/schemas/BasicDataWithUrl"
+									"$ref": "#/components/schemas/BasicCharacter"
 								}
 							},
 							"musics": {
@@ -411,11 +541,34 @@
 					}
 				]
 			},
-			"Character": {
+			"BasicCharacter": {
 				"type": "object",
 				"allOf": [
 					{
 						"$ref": "#/components/schemas/BasicDataWithUrl"
+					},
+					{
+						"type": "object",
+						"properties": {
+							"icon": {
+								"type": "string"
+							},
+							"hero": {
+								"type": "boolean"
+							},
+							"tft": {
+								"type": "boolean"
+							}
+						},
+						"required": [ "icon", "hero", "tft" ]
+					}
+				]
+			},
+			"Character": {
+				"type": "object",
+				"allOf": [
+					{
+						"$ref": "#/components/schemas/BasicCharacter"
 					},
 					{
 						"type": "object",

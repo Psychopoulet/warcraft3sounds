@@ -8,7 +8,8 @@
 
 	import {
         Card, CardHeader, CardBody,
-        SelectLabel, Select, InputReadOnlyLabel
+        SelectLabel, Select, InputReadOnlyLabel, InputLabel,
+        Image
     } from "react-bootstrap-fontawesome";
 
     // locals
@@ -34,7 +35,7 @@
     }
 
     interface iProps extends iPropsNode {
-        "race": descriptorTypes["BasicDataWithUrl"];
+        "race": descriptorTypes["BasicRace"];
         "notWordedSounds": boolean;
         "onChangeSound": (url: string) => void;
     }
@@ -225,7 +226,7 @@ export default class Race extends React.Component<iProps, iStates> {
                 return a.indexOf(item) == pos;
             }).sort().map((actionName: string): React.JSX.Element => {
 
-                return <optgroup label={ actionName }>
+                return <optgroup key={ actionName } label={ actionName }>
 
                     { this.state.character?.actions.filter((action: descriptorTypes["Action"]): boolean => {
                         return action.type.code === actionName;
@@ -248,29 +249,17 @@ export default class Race extends React.Component<iProps, iStates> {
             return <InputReadOnlyLabel label="Characters" value="No character found" margin-bottom={ 0 } />;
 
         }
-        else if (!this.state.character || 0 >= this.state.character?.actions.length) {
-
-            return <SelectLabel id={ this.state.race.code + "-characters" } label="Characters"
-                margin-bottom={ 0 }
-                value={ this.state.selectedCharacter } onChange={ this._handleChangeCharacter.bind(this) }
-            >
-
-                <option value="">--</option>
-
-                { this.state.race?.characters.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
-                    return <option key={ content.code } value={ content.code }>{ content.name }</option>;
-                }) }
-
-            </SelectLabel>;
-
-        }
         else {
 
             return <>
 
-                <label htmlFor={ this.state.race.code + "-actions" } aria-label="Actions">Actions</label>
+                <InputLabel for={ this.state.race.code + "-actions" } label="Actions" />
 
                 <div className="input-group">
+
+                    { this.state.character && 0 < this.state.character.icon.length ? <span className="input-group-text">
+                        <Image src={ this.state.character.icon } height={ 25 } width={ 25 } />
+                    </span> : undefined}
 
                     <Select id={ this.state.race.code + "-characters" }
                         value={ this.state.selectedCharacter } onChange={ this._handleChangeCharacter.bind(this) }
@@ -278,13 +267,17 @@ export default class Race extends React.Component<iProps, iStates> {
 
                         <option value="">--</option>
 
-                        { this.state.race?.characters.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
-                            return <option key={ content.code } value={ content.code }>{ content.name }</option>;
-                        }) }
+                        { this._renderCharactersOptGroup("heroes", this.state.race?.characters.filter((character: descriptorTypes["BasicCharacter"]): boolean => {
+                            return character.hero;
+                        })) }
+
+                        { this._renderCharactersOptGroup("others", this.state.race?.characters.filter((character: descriptorTypes["BasicCharacter"]): boolean => {
+                            return !character.hero;
+                        })) }
 
                     </Select>
 
-                    <Select id={ this.state.race.code + "-actions" }
+                    { this.state.character && 0 < this.state.character.actions.length ? <Select id={ this.state.race.code + "-actions" }
                         value={ this.state.selectedSound } onChange={ this._handleChangeSound.bind(this) }
                     >
 
@@ -292,11 +285,68 @@ export default class Race extends React.Component<iProps, iStates> {
 
                         { this._renderActions() }
 
-                    </Select>
+                    </Select> : undefined }
+
+
 
                 </div>
 
             </>;
+
+        }
+
+    }
+
+    private _renderCharactersOptGroup (label: string, characters: Array<descriptorTypes["BasicCharacter"]>): React.JSX.Element | undefined {
+
+        if (0 >= characters.length) {
+            return undefined;
+        }
+
+        return <optgroup label={ label }>
+
+            { characters.sort((a: descriptorTypes["BasicCharacter"], b: descriptorTypes["BasicCharacter"]): -1 | 0 | 1 => {
+
+                if (a.tft && !b.tft) {
+                    return 1;
+                }
+                else if (!a.tft && b.tft) {
+                    return -1;
+                }
+                else {
+                    return 0;
+                }
+
+            }).map((character: descriptorTypes["BasicCharacter"]): React.JSX.Element => {
+
+                return <option key={ character.code } value={ character.code }>
+                    { character.tft ? "[TFT] " : undefined }{ character.name }
+                </option>;
+
+            }) }
+
+        </optgroup>;
+
+    }
+
+    private _renderHeader (): React.JSX.Element {
+
+        if (this.state.loading || !this.state.race || "" === this.state.race.icon) {
+
+            return <CardHeader>
+                <h5 className="m-0">{ this.props.race.name }</h5>
+            </CardHeader>;
+
+        }
+        else {
+
+            return <CardHeader justify>
+
+                <h5 className="m-0">{ this.props.race.name }</h5>
+
+                <Image src={ this.state.race.icon } height={ 20 } width={ 20 } />
+
+            </CardHeader>;
 
         }
 
@@ -327,10 +377,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
         return <Card variant={ this.state.loading ? "warning" : undefined }>
 
-            <CardHeader>
-                <h5 className="float-left">{ this.props.race.name }</h5>
-            </CardHeader>
-
+            { this._renderHeader() }
             { this._renderBody() }
 
         </Card>;

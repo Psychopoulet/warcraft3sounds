@@ -5,7 +5,7 @@
 
 // consts
 
-    const PUBLIC = join(__dirname, "public");
+  const PUBLIC = join(__dirname, "public");
 
 // module
 
@@ -20,7 +20,7 @@ module.exports = {
   },
 
   "devtool": "source-map",
-  
+
   "module": {
     "rules": [
       {

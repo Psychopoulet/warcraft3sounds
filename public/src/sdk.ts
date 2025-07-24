@@ -20,9 +20,9 @@ export class SDK {
 
     }
 
-    public getRaces (): Promise<components["schemas"]["BasicDataWithUrl"][]> {
+    public getRaces (): Promise<Array<descriptorTypes["BasicRace"]>> {
 
-        return fetch("/api/races").then((content: Response): Promise<components["schemas"]["BasicDataWithUrl"][]> => {
+        return fetch("/api/races").then((content: Response): Promise<Array<descriptorTypes["BasicRace"]>> => {
 
             return content.json();
 

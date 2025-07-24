@@ -67,7 +67,7 @@ Once you have the sounds, put it all in the same folder, here "warcraft3sounds/l
 In the "warcraft3sounds" folder, execute
 
 ```bash
-$ npm start
+$ npm run start
 ```
 
 Check the default basic interface http://localhost:3000
@@ -77,7 +77,12 @@ Check the default basic interface http://localhost:3000
 In the "warcraft3sounds" folder, execute
 
 ```bash
-$ node lib/main.js [--port <port>] [--ssl]
+$ npm run start -- [--port <port>] [--ssl]
 ```
 
 Check the basic interface on http[s]://localhost [:port]
+
+### Thanks
+
+- Special thanks to https://wowwiki.fandom.com/ for a lot of specific sentences (in an in-game language)
+- Thanks for https://classic.battle.net for the pictures used in the front interface
