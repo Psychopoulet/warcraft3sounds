@@ -3,33 +3,6 @@
 
 INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 
-(110, 1, 'ready1', '', 'HippogryphWithRiderReady1.wav'),
-(110, 2, 'warcry1', '', 'HippogryphWithRiderWarcry1.wav'),
-(110, 3, 'what1', '', 'HippogryphWithRiderWhat1.wav'),
-(110, 3, 'what2', '', 'HippogryphWithRiderWhat2.wav'),
-(110, 3, 'what3', '', 'HippogryphWithRiderWhat3.wav'),
-(110, 4, 'yes1', '', 'HippogryphWithRiderYes1.wav'),
-(110, 4, 'yes2', '', 'HippogryphWithRiderYes2.wav'),
-(110, 4, 'yes3', '', 'HippogryphWithRiderYes3.wav'),
-(110, 4, 'yes4', '', 'HippogryphWithRiderYes4.wav'),
-(110, 5, 'attack1', '', 'HippogryphWithRiderYesAttack1.wav'),
-(110, 5, 'attack2', '', 'HippogryphWithRiderYesAttack2.wav'),
-(110, 5, 'attack3', '', 'HippogryphWithRiderYesAttack3.wav'),
-
-(111, 2, 'warcry1', '', 'FurionWarcry1.wav'),
-(111, 3, 'what1', '', 'FurionWhat1.wav'),
-(111, 3, 'what2', '', 'FurionWhat2.wav'),
-(111, 3, 'what3', '', 'FurionWhat3.wav'),
-(111, 3, 'what4', '', 'FurionWhat4.wav'),
-(111, 4, 'yes1', '', 'FurionYes1.wav'),
-(111, 4, 'yes2', '', 'FurionYes2.wav'),
-(111, 4, 'yes3', '', 'FurionYes3.wav'),
-(111, 4, 'yes4', '', 'FurionYes4.wav'),
-(111, 5, 'attack1', '', 'FurionYesAttack1.wav'),
-(111, 5, 'attack2', '', 'FurionYesAttack2.wav'),
-(111, 5, 'attack3', '', 'FurionYesAttack3.wav'),
-(111, 5, 'attack4', '', 'FurionYesAttack4.wav'),
-
 (112, 2, 'warcry1', '', 'IllidanWarcry1.wav'),
 (112, 2, 'warcry-m-1', '', 'IllidanMorphedWarcry1.wav'),
 (112, 3, 'what1', '', 'IllidanWhat1.wav'),
