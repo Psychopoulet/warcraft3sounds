@@ -81,3 +81,8 @@ $ npm run start -- [--port <port>] [--ssl]
 ```
 
 Check the basic interface on http[s]://localhost [:port]
+
+### Thanks
+
+- Special thanks to https://wowwiki.fandom.com/ for a lot of specific sentences (in an in-game language)
+- Thanks for https://classic.battle.net for the pictures used in the front interface
