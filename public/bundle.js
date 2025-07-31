@@ -23,13 +23,13 @@ class Alert extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
     // render
     render() {
         let className = "alert";
-        if (this.props.variant) {
+        if ("string" === typeof this.props.variant) {
             className += " alert-" + this.props.variant;
         }
         if ("function" === typeof this.props.onClose) {
             className += " alert-dismissible fade show";
         }
-        if (this.props.className) {
+        if ("string" === typeof this.props.className) {
             className += " " + this.props.className;
         }
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: this.props.id, className: className, role: "alert", style: this.props.style },
@@ -68,16 +68,16 @@ class Badge extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
     // render
     render() {
         let className = "badge";
-        if (this.props.variant) {
+        if ("string" === typeof this.props.variant) {
             className += " bg-" + this.props.variant;
         }
         else {
             className += " text-body";
         }
-        if (Boolean(this.props.pill)) {
+        if ("boolean" === typeof this.props.pill && this.props.pill) {
             className += " rounded-pill";
         }
-        if (this.props.className) {
+        if ("string" === typeof this.props.className) {
             className += " " + this.props.className;
         }
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { id: this.props.id, title: this.props.title, className: className, style: this.props.style },
@@ -125,13 +125,13 @@ class Button extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
     }
     // render
     render() {
-        const disabled = !!this.props.disabled;
+        const disabled = Boolean(this.props.disabled);
         let className = "btn";
-        if (this.props.variant) {
-            className += " " + (this.props.outline ? "btn-outline-" + this.props.variant : "btn-" + this.props.variant);
+        if ("string" === typeof this.props.variant) {
+            className += " " + ("boolean" === typeof this.props.outline && this.props.outline ? "btn-outline-" + this.props.variant : "btn-" + this.props.variant);
         }
         else {
-            className += " " + (this.props.outline ? "btn-outline-primary" : "btn-primary");
+            className += " " + ("boolean" === typeof this.props.outline && this.props.outline ? "btn-outline-primary" : "btn-primary");
         }
         if ("lg" === this.props.size) {
             className += " btn-lg";
@@ -142,15 +142,15 @@ class Button extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
         if (disabled) {
             className += " disabled";
         }
-        if (Boolean(this.props.block)) {
+        if ("boolean" === typeof this.props.block && this.props.block) {
             className += " col-12";
         }
-        if (this.props.className) {
+        if ("string" === typeof this.props.className) {
             className += " " + this.props.className;
         }
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", { id: this.props.id, role: "button", type: this.props.type ? this.props.type : "button", className: className, style: this.props.style, disabled: disabled, "aria-disabled": disabled, title: this.props.title, "aria-label": this.props.title, onClick: this._handleClick.bind(this) },
             this.props.icon ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Icon__WEBPACK_IMPORTED_MODULE_1__["default"], { type: this.props.icon, child: true }) : undefined,
-            this.props.icon && this.props.children ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, "\u00A0") : undefined,
+            this.props.icon && "undefined" !== typeof this.props.children ? react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, "\u00A0") : undefined,
             this.props.children);
     }
 }
@@ -189,10 +189,10 @@ class ButtonGroup extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
     // render
     render() {
         let className = "btn-group";
-        if (this.props.className) {
+        if ("string" === typeof this.props.className) {
             className += " " + this.props.className;
         }
-        if (Boolean(this.props.block)) {
+        if ("boolean" === typeof this.props.block && this.props.block) {
             className += " col-12";
         }
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { id: this.props.id, role: "button group", "aria-label": this.props.label, className: className, style: this.props.style }, react__WEBPACK_IMPORTED_MODULE_0__.Children.toArray(this.props.children).filter((child) => {
@@ -225,27 +225,42 @@ __webpack_require__.r(__webpack_exports__);
 
 // consts
 const ICONS = {
+    // brands
     "amazon": "fab fa-amazon",
     "android": "fab fa-android",
     "angular": "fab fa-angular",
     "apple": "fab fa-apple",
     "google": "fab fa-google",
     "linux": "fab fa-linux",
+    "react": "fab fa-react",
     "windows": "fab fa-windows",
+    // com
     "barcode": "fa fa-barcode",
     "fingerprint": "fa fa-fingerprint",
     "nfc": "fa-brands fa-nfc-symbol",
+    // battery
     "battery-empty": "fas fa-battery-empty",
     "battery-quarter": "fas fa-battery-quarter",
     "battery-half": "fas fa-battery-half",
     "battery-three-quarters": "fas fa-battery-three-quarters",
     "battery-full": "fas fa-battery-full",
+    // money
     "credit-card": "far fa-credit-card",
     "money-bill": "fas fa-money-bill",
-    "mask-face": "fas fa-mask-face",
+    // reader
     "play": "fas fa-play",
     "pause": "fas fa-pause",
     "stop": "fas fa-stop",
+    // toggle
+    "toggle-on": "fas fa-toggle-on",
+    "toggle-off": "fas fa-toggle-off",
+    // volume
+    "volume-down": "fas fa-volume-down",
+    "volume-up": "fas fa-volume-up",
+    // lock
+    "lock": "fas fa-lock",
+    "unlock": "fas fa-unlock",
+    // others
     "asterisk": "fas fa-asterisk",
     "ban": "fas fa-ban",
     "check": "fas fa-check",
@@ -257,37 +272,33 @@ const ICONS = {
     "headset": "fas fa-headset",
     "hdd": "fas fa-hdd",
     "lightbulb": "far fa-lightbulb",
-    "lock": "fas fa-lock",
     "gamepad": "fas fa-gamepad",
+    "mask-face": "fas fa-mask-face",
     "microchip": "fas fa-microchip",
     "plug": "fas fa-plug",
     "plus": "fas fa-plus",
     "power": "fas fa-power-off",
     "print": "fas fa-print",
     "question": "fas fa-question",
-    "react": "fab fa-react",
     "save": "fas fa-save",
     "sync": "fas fa-sync",
     "times": "fas fa-times",
-    "toggle-on": "fas fa-toggle-on",
-    "toggle-off": "fas fa-toggle-off",
     "trash": "fas fa-trash",
     "tv": "fas fa-tv",
-    "unlock": "fas fa-unlock",
     "usb": "fab fa-usb",
     "user": "fas fa-user",
-    "volume-up": "fas fa-volume-up",
     "wifi": "fas fa-wifi"
 };
 // component
 class Icon extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
     // render
     render() {
+        const isChild = "boolean" === typeof this.props.child && this.props.child;
         let className = ICONS[this.props.type];
-        if (this.props.variant) {
+        if ("string" === typeof this.props.variant) {
             className += " text-" + this.props.variant;
         }
-        else if (!this.props.child) {
+        else if (!isChild) {
             className += " text-body";
         }
         if (this.props.size) {
@@ -309,7 +320,7 @@ class Icon extends react__WEBPACK_IMPORTED_MODULE_0__.PureComponent {
                     break;
             }
         }
-        if (this.props.className) {
+        if ("string" === typeof this.props.className) {
             className += " " + this.props.className;
         }
         return react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", { id: this.props.id, title: this.props.title, className: className, style: this.props.style });
@@ -470,7 +481,7 @@ class SoundReader extends (react__WEBPACK_IMPORTED_MODULE_0___default().Componen
         }
     }
     render() {
-        return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_card_Card__WEBPACK_IMPORTED_MODULE_1__["default"], null,
+        return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_card_Card__WEBPACK_IMPORTED_MODULE_1__["default"], { id: this.props.id, className: this.props.className, style: this.props.style },
             react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_card_CardHeader__WEBPACK_IMPORTED_MODULE_2__["default"], null, this._renderTitle()),
             this._renderBody());
     }
