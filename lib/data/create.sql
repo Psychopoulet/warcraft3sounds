@@ -200,7 +200,7 @@ INSERT INTO characters (id, k_race, code, name, icon, hero, tft) VALUES
 (12, 1, 'sorceress', 'Sorcière', 'https://classic.battle.net/war3/images/human/units/portraits/sorceress.gif', 0, 0),
 (13, 1, 'spellbreaker', 'Briseur de sorts', 'https://classic.battle.net/war3/images/human/units/portraits/spellbreaker.gif', 0, 1),
 (14, 1, 'hawkrider', 'Chevaucheur de griffon', 'https://classic.battle.net/war3/images/human/units/portraits/dragonhawk.gif', 0, 1),
-(15, 1, 'jaina', 'Jaina', '', 0, 0),
+(15, 1, 'jaina', 'Jaina', '', 1, 0),
 (16, 1, 'mortarteam', 'Mortier', 'https://classic.battle.net/war3/images/human/units/portraits/mortarteam.gif', 0, 0),
 (17, 1, 'muradin', 'Muradin', '', 1, 0),
 (18, 1, 'uther', 'Uther', '', 1, 0),
