@@ -22,7 +22,8 @@ export default function generateServer (): Express {
     return express()
         .use(cors())
         .use(helmet({
-            "contentSecurityPolicy": false
+            "contentSecurityPolicy": false,
+            "crossOriginResourcePolicy": false
         }))
         .use(middleware({
             "apiSpec": join(__dirname, "..", "..", "data", "descriptor.json"),

@@ -111,6 +111,8 @@
 
         if (CONF.get("ssl")) {
 
+            // https://stackoverflow.com/questions/51955695/node-forge-self-signed-certificate-for-https-module
+
             const keys: {
                 "publicKey": pki.PublicKey;
                 "privateKey": pki.PrivateKey;
