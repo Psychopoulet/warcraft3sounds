@@ -3,6 +3,7 @@
     // natives
     import { createServer as createSecureServer } from "node:https";
     import { createServer as createServer } from "node:http";
+    import { randomBytes } from "node:crypto";
 
     // externals
     import ConfManager from "node-confmanager";
@@ -64,7 +65,7 @@
 
     // generate web server
 
-    }).then((APP: Express): SecureServer | Server => {
+    }).then((APP: Express): Promise<SecureServer | Server> => {
 
         // catch "not found" request
         APP.use((req: Request, res: Response, next: NextFunction): void => {
@@ -111,82 +112,92 @@
 
         if (CONF.get("ssl")) {
 
-            const keys: {
-                "publicKey": pki.PublicKey;
-                "privateKey": pki.PrivateKey;
-            } = pki.rsa.generateKeyPair(4096);
+            // https://stackoverflow.com/questions/51955695/node-forge-self-signed-certificate-for-https-module
 
-            const cert: pki.Certificate = pki.createCertificate();
+            return new Promise((resolve: (keypair: pki.rsa.KeyPair) => void, reject: (err: Error) => void): void => {
 
-            cert.publicKey = keys.publicKey;
-            cert.serialNumber = "01";
-            cert.validity.notBefore = new Date();
-            cert.validity.notAfter = new Date();
-            cert.validity.notAfter.setFullYear(new Date().getFullYear() + 1); // one year validity
+                pki.rsa.generateKeyPair({
+                    "bits": 4096,
+                    "workers": 2
+                }, (err: Error, keypair: pki.rsa.KeyPair): void => {
+                    return err ? reject(err) : resolve(keypair);
+                });
 
-            const SSL_OPTIONS: Array<{
-                "name": string;
-                "value": string;
-            }> = [
-                {
-                    "name": "commonName",
-                    "value": "localhost"
-                }, {
-                    "name": "organizationName",
-                    "value": "warcraft3sounds"
-                }, {
-                    "name": "countryName",
-                    "value": "FR"
-                }, {
-                    "name": "stateOrProvinceName",
-                    "value": "France"
-                }, {
-                    "name": "localityName",
-                    "value": "Paris"
-                }, {
-                    "name": "emailAddress",
-                    "value": "svida1@free.fr"
-                }
-            ];
+            }).then((keypair: pki.rsa.KeyPair): SecureServer => {
 
-            console.info("certificate options :", JSON.stringify(SSL_OPTIONS));
+                const cert: pki.Certificate = pki.createCertificate();
 
-            const SSL_EXTENSIONS: Array<Record<string, any>> = [
-                {
-                    "name": "subjectAltName",
-                    "altNames": [ // types : 2 = dns name, 6 = URI, 7 = IP
-                        {
-                            "type": 2,
-                            "value": "warcraft3sounds"
-                        }, {
-                            "type": 2,
-                            "value": "localhost"
-                        }, {
-                            "type": 7,
-                            "value": "127.0.0.1"
-                        }
-                    ]
-                }
-            ];
+                cert.publicKey = keypair.publicKey;
+                cert.serialNumber = "01" + randomBytes(19).toString("hex"); // 1 octet = 8 bits = 1 byte = 2 hex chars (https://advancedweb.hu/how-to-generate-an-https-certificate-with-node-forge/)
+                cert.validity.notBefore = new Date();
+                cert.validity.notAfter = new Date();
+                cert.validity.notAfter.setFullYear(new Date().getFullYear() + 1); // one year validity
 
-            cert.setSubject(SSL_OPTIONS);
-            cert.setIssuer(SSL_OPTIONS);
-            cert.setExtensions(SSL_EXTENSIONS);
+                const SSL_OPTIONS: Array<{
+                    "name": string;
+                    "value": string;
+                }> = [
+                    {
+                        "name": "commonName",
+                        "value": "localhost"
+                    }, {
+                        "name": "organizationName",
+                        "value": "warcraft3sounds"
+                    }, {
+                        "name": "countryName",
+                        "value": "FR"
+                    }, {
+                        "name": "stateOrProvinceName",
+                        "value": "France"
+                    }, {
+                        "name": "localityName",
+                        "value": "Paris"
+                    }, {
+                        "name": "emailAddress",
+                        "value": "svida1@free.fr"
+                    }
+                ];
 
-            cert.sign(keys.privateKey);
+                console.info("certificate options :", JSON.stringify(SSL_OPTIONS));
 
-            const pemPrivateKey: string = pki.privateKeyToPem(keys.privateKey);
-            const pemCertificate: string = pki.certificateToPem(cert);
+                const SSL_EXTENSIONS: Array<Record<string, any>> = [
+                    {
+                        "name": "subjectAltName",
+                        "altNames": [ // types : 2 = dns name, 6 = URI, 7 = IP
+                            {
+                                "type": 2,
+                                "value": "warcraft3sounds"
+                            }, {
+                                "type": 2,
+                                "value": "localhost"
+                            }, {
+                                "type": 7,
+                                "value": "127.0.0.1"
+                            }
+                        ]
+                    }
+                ];
 
-            return createSecureServer({
-                "key": pemPrivateKey,
-                "cert": pemCertificate
-            }, APP);
+                cert.setSubject(SSL_OPTIONS);
+                cert.setIssuer(SSL_OPTIONS);
+                cert.setExtensions(SSL_EXTENSIONS);
+
+                cert.sign(keypair.privateKey);
+
+                const pemPrivateKey: string = pki.privateKeyToPem(keypair.privateKey);
+                const pemCertificate: string = pki.certificateToPem(cert);
+
+                return createSecureServer({
+                    "key": pemPrivateKey,
+                    "cert": pemCertificate
+                }, APP);
+
+            });
 
         }
         else {
 
-            return createServer(APP);
+            return Promise.resolve(createServer(APP));
 
         }
 
