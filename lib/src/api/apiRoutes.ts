@@ -40,7 +40,7 @@ export default function apiRoutes (app: Express): Promise<void> {
 
         app.get("/api/ips", (req: Request, res: Response, next: NextFunction): void => {
 
-            model.getIps().then((ips: components["schemas"]["IP"][]): void => {
+            model.getIps().then((ips: Array<components["schemas"]["IP"]>): void => {
 
                 res.status(errorCodes.OK).json(ips as paths["/api/ips"]["get"]["responses"]["200"]["content"]["application/json"]);
 
@@ -140,4 +140,4 @@ export default function apiRoutes (app: Express): Promise<void> {
 
     });
 
-};
+}
