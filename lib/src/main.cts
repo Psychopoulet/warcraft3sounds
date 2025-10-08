@@ -3,6 +3,7 @@
     // natives
     import { createServer as createSecureServer } from "node:https";
     import { createServer as createServer } from "node:http";
+    import { randomBytes } from "node:crypto";
 
     // externals
     import ConfManager from "node-confmanager";
@@ -127,7 +128,7 @@
                 const cert: pki.Certificate = pki.createCertificate();
 
                 cert.publicKey = keypair.publicKey;
-                cert.serialNumber = "01";
+                cert.serialNumber = "01" + randomBytes(19).toString("hex"); // 1 octet = 8 bits = 1 byte = 2 hex chars (https://advancedweb.hu/how-to-generate-an-https-certificate-with-node-forge/)
                 cert.validity.notBefore = new Date();
                 cert.validity.notAfter = new Date();
                 cert.validity.notAfter.setFullYear(new Date().getFullYear() + 1); // one year validity
