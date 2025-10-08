@@ -1,6 +1,6 @@
 {
   "name": "warcraft3sounds",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "A basic API for Warcraft 3 sounds",
   "typings": "./lib/cjs/main.d.cts",
   "main": "./lib/cjs/main.cjs",
