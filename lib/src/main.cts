@@ -208,9 +208,16 @@
         }
 
     // run server
-    }).then((server: SecureServer | Server): SecureServer | Server => {
+    }).then((server: SecureServer | Server): void => {
 
-        process.on("SIGINT", () => {
+        server.listen(CONF.get("port"), (): void => {
+            console.info("started" + (CONF.get("ssl") ? " with SSL" : ""), "on port " + CONF.get("port"));
+        });
+
+    // graceful shutdown
+    }).then((): void => {
+
+        process.on("SIGINT", (): void => {
 
             const model: WarcraftSoundsModel = getModel();
 
@@ -230,15 +237,6 @@
 
             });
 
-        });
-
-        return server;
-
-    // run server
-    }).then((server: SecureServer | Server): void => {
-
-        server.listen(CONF.get("port"), (): void => {
-            console.info("started" + (CONF.get("ssl") ? " with SSL" : ""), "on port " + CONF.get("port"));
         });
 
     }).catch((err: Error): void => {
