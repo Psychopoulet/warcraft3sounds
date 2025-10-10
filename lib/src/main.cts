@@ -19,6 +19,7 @@
     import webRoutes from "./server/webRoutes";
     import apiRoutes from "./api/apiRoutes";
     import soundsRoutes from "./api/soundsRoutes";
+    import getModel from "./api/model";
 
 // types & interfaces
 
@@ -27,7 +28,10 @@
     import type { Server } from "node:http";
 
     // externals
+
+    // locals
     import type { Express, Request, Response, NextFunction } from "express";
+    import type { WarcraftSoundsModel } from "./api/model";
 
 // consts
 
@@ -112,7 +116,9 @@
 
         if (CONF.get("ssl")) {
 
-            // https://stackoverflow.com/questions/51955695/node-forge-self-signed-certificate-for-https-module
+            // to test : add certificate authority (CA)
+            // https://node-security.com/posts/certificate-generation-pure-nodejs/
+            // https://www.localcan.com/blog/self-signed-certificate-for-local-development-openssl-javascript
 
             return new Promise((resolve: (keypair: pki.rsa.KeyPair) => void, reject: (err: Error) => void): void => {
 
@@ -200,6 +206,33 @@
             return Promise.resolve(createServer(APP));
 
         }
+
+    // run server
+    }).then((server: SecureServer | Server): SecureServer | Server => {
+
+        process.on("SIGINT", () => {
+
+            const model: WarcraftSoundsModel = getModel();
+
+            model.release().then((): void => {
+
+                process.exit(0);
+
+            }).catch((err: Error): void => {
+
+                console.error("");
+                console.error("Impossible to properly end the application");
+                console.error(err);
+                console.error("");
+
+                process.exitCode = 1;
+                process.exit(1);
+
+            });
+
+        });
+
+        return server;
 
     // run server
     }).then((server: SecureServer | Server): void => {

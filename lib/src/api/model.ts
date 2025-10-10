@@ -25,7 +25,7 @@
 
 // module
 
-export default class WarcraftSoundsModel {
+export class WarcraftSoundsModel {
 
     // attributes
 
@@ -402,5 +402,17 @@ export default class WarcraftSoundsModel {
         });
 
     }
+
+}
+
+let _model: WarcraftSoundsModel | null = null;
+
+export default function getModel (): WarcraftSoundsModel {
+
+    if (!_model) {
+        _model = new WarcraftSoundsModel();
+    }
+
+    return _model;
 
 }

@@ -6,7 +6,7 @@
 
     // locals
     import errorCodes from "../returncodes";
-    import Model from "./model";
+    import getModel from "./model";
 
 // types & interfaces
 
@@ -15,12 +15,13 @@
 
     // locals
     import type { paths, components } from "../descriptor";
+    import type { WarcraftSoundsModel } from "./model";
 
 // module
 
 export default function apiRoutes (app: Express): Promise<void> {
 
-    const model: Model = new Model();
+    const model: WarcraftSoundsModel = getModel();
 
     // swagger
     return model.init().then((): void => {
