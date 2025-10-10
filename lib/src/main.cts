@@ -28,9 +28,9 @@
     import type { Server } from "node:http";
 
     // externals
+    import type { Express, Request, Response, NextFunction } from "express";
 
     // locals
-    import type { Express, Request, Response, NextFunction } from "express";
     import type { WarcraftSoundsModel } from "./api/model";
 
 // consts
