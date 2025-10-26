@@ -11,15 +11,35 @@
 
     // locals
 
-    import logRequest from "./tools/logRequest";
-    import getRequestPath from "./tools/getRequestPath";
-    import errorCodes from "./returncodes";
+    import getModel from "./model";
 
     import generateServer from "./server/generateServer";
-    import webRoutes from "./server/webRoutes";
-    import apiRoutes from "./api/apiRoutes";
-    import soundsRoutes from "./api/soundsRoutes";
-    import getModel from "./api/model";
+
+    import {
+        pathPublicIndex,
+        pathPublicApp,
+        pathPublicAppMap,
+        pathPublicIconW3,
+        pathPublicIconTFT
+    } from "./server/paths/public";
+
+    import {
+        pathSounds
+    } from "./server/paths/sounds";
+
+    import {
+        pathAPISwagger,
+        pathAPIIps,
+        pathAPIAllRaces,
+        pathAPIOneRace,
+        pathAPIOneCharacter
+    } from "./server/paths/api";
+
+    import {
+        pathErrorTest,
+        pathErrorNotFound,
+        pathErrorGlobal
+    } from "./server/paths/errors";
 
 // types & interfaces
 
@@ -28,10 +48,10 @@
     import type { Server } from "node:http";
 
     // externals
-    import type { Express, Request, Response, NextFunction } from "express";
+    import type { Express } from "express";
 
     // locals
-    import type { WarcraftSoundsModel } from "./api/model";
+    import type { WarcraftSoundsModel } from "./model";
 
 // consts
 
@@ -52,65 +72,57 @@
 
         });
 
+    }).then((): Promise<void> => {
+
+        const model: WarcraftSoundsModel = getModel();
+
+        return model.init();
+
+    // generate web server
+
     }).then((): Express => {
 
         return generateServer();
 
     // generate routes
 
-    }).then((APP: Express): Promise<Express> => {
+    }).then((app: Express): Express => {
 
-        webRoutes(APP);
-        soundsRoutes(APP);
+        // public
 
-        return apiRoutes(APP).then((): Express => {
-            return APP;
-        });
+            app
+                .get([ "/", "/index.html", "/public/index.html" ], pathPublicIndex)
+                .get("/public/bundle.js", pathPublicApp)
+                .get("/public/bundle.js.map", pathPublicAppMap)
+                .get([ "/favicon.ico", "/favicon.png", "/public/pictures/warcraft3.png" ], pathPublicIconW3)
+                .get("/public/pictures/warcraft3TFT.png", pathPublicIconTFT);
 
-    // generate web server
+        // sounds
 
-    }).then((APP: Express): Promise<SecureServer | Server> => {
+            app.get("/public/sounds/:sound", pathSounds);
 
-        // catch "not found" request
-        APP.use((req: Request, res: Response, next: NextFunction): void => {
+        // api
 
-            logRequest(req);
-            console.error("Not found");
+            app
+                .get("/api/descriptor", pathAPISwagger)
+                .get("/api/ips", pathAPIIps)
+                .get("/api/races", pathAPIAllRaces)
+                .get("/api/races/:race", pathAPIOneRace)
+                .get("/api/races/:race/characters/:character", pathAPIOneCharacter);
 
-            if (res.headersSent) {
-                return next("Not found");
-            }
-            else {
+        // errors
 
-                res.status(errorCodes.NOTFOUND).json({
-                    "code": errorCodes.NOTFOUND,
-                    "message": getRequestPath(req) + " not found"
-                });
+            app.get("/api/err", pathErrorTest);
 
-            }
+            // catch "not found" request
+            app.use(pathErrorNotFound);
 
-        });
+            // catch global error
+            app.use(pathErrorGlobal);
 
-        // catch error
-        APP.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
+        return app;
 
-            logRequest(req);
-
-            console.error(err);
-
-            if (res.headersSent) {
-                return next(err);
-            }
-            else {
-
-                res.status(errorCodes.INTERNAL).json({
-                    "code": errorCodes.INTERNAL,
-                    "message": err.message
-                });
-
-            }
-
-        });
+    }).then((app: Express): Promise<SecureServer | Server> => {
 
         // generate server
 
@@ -196,14 +208,14 @@
                 return createSecureServer({
                     "key": pemPrivateKey,
                     "cert": pemCertificate
-                }, APP);
+                }, app);
 
             });
 
         }
         else {
 
-            return Promise.resolve(createServer(APP));
+            return Promise.resolve(createServer(app));
 
         }
 

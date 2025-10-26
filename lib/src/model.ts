@@ -17,7 +17,7 @@
     import type { sqlite3, Database } from "sqlite3";
 
     // locals
-    import type { components } from "../descriptor";
+    import type { components } from "./descriptor";
 
 // consts
 
@@ -53,9 +53,9 @@ export class WarcraftSoundsModel {
         // read file
         }).then((): Promise<string[]> => {
 
-            return readFile(join(__dirname, "..", "..", "data", "create.sql"), "utf-8").then((content: string): Promise<string> => {
+            return readFile(join(__dirname, "..", "data", "create.sql"), "utf-8").then((content: string): Promise<string> => {
 
-                return readFile(join(__dirname, "..", "..", "data", "toword.sql"), "utf-8").then((contenttoWord: string): string => {
+                return readFile(join(__dirname, "..", "data", "toword.sql"), "utf-8").then((contenttoWord: string): string => {
 
                     return content + contenttoWord;
 

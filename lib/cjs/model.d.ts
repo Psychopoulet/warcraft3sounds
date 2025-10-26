@@ -1,4 +1,4 @@
-import type { components } from "../descriptor";
+import type { components } from "./descriptor";
 export declare class WarcraftSoundsModel {
     private readonly _db;
     constructor();
