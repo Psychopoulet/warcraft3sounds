@@ -36,8 +36,11 @@
     } from "./server/paths/api";
 
     import {
+        redirect
+    } from "./server/paths/redirect";
+
+    import {
         pathErrorTest,
-        pathErrorNotFound,
         pathErrorGlobal
     } from "./server/paths/errors";
 
@@ -91,10 +94,10 @@
         // public
 
             app
-                .get([ "/", "/index.html", "/public/index.html" ], pathPublicIndex)
+                .get("/public/index.html", pathPublicIndex)
                 .get("/public/bundle.js", pathPublicApp)
                 .get("/public/bundle.js.map", pathPublicAppMap)
-                .get([ "/favicon.ico", "/favicon.png", "/public/pictures/warcraft3.png" ], pathPublicIconW3)
+                .get("/public/pictures/warcraft3.png", pathPublicIconW3)
                 .get("/public/pictures/warcraft3TFT.png", pathPublicIconTFT);
 
         // sounds
@@ -110,12 +113,18 @@
                 .get("/api/races/:race", pathAPIOneRace)
                 .get("/api/races/:race/characters/:character", pathAPIOneCharacter);
 
+        // redirections
+
+            app
+                .get("/", redirect("/public/index.html"))
+                .get("/index.html", redirect("/public/index.html"))
+
+                .get("/favicon.ico", redirect("/public/pictures/warcraft3.png"))
+                .get("/favicon.png", redirect("/public/pictures/warcraft3.png"));
+
         // errors
 
             app.get("/api/err", pathErrorTest);
-
-            // catch "not found" request
-            app.use(pathErrorNotFound);
 
             // catch global error
             app.use(pathErrorGlobal);
