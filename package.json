@@ -29,14 +29,13 @@
 
     "clean-front": "npx rimraf \"./public/bundle.js",
     "build-front": "npm run-script clean-front && npm run-script transpile-openapi && npx webpack --config \"./webpack.config.js\"",
-
     "ci": "npm run-script tests && npx nyc report --reporter=text-lcov | coveralls",
 
     "start": "node lib/cjs/main.cjs",
 
-    "daemon-start": "npx pm2 start lib/cjs/main.cjs --name warcraft3sounds",
-    "daemon-restart": "npx pm2 restart lib/cjs/main.cjs warcraft3sounds",
-    "daemon-stop": "npx pm2 stop warcraft3sounds && npx pm2 delete warcraft3sounds"
+    "daemon-start": "npx pm2 start pm2.json",
+    "daemon-restart": "npx pm2 reload pm2.json",
+    "daemon-stop": "npx pm2 stop pm2.json && npx pm2 delete pm2.json"
 
   },
   "files": [

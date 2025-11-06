@@ -1,5 +1,5 @@
-import type { components } from "../descriptor";
-export default class WarcraftSoundsModel {
+import type { components } from "./descriptor";
+export declare class WarcraftSoundsModel {
     private readonly _db;
     constructor();
     init(): Promise<void>;
@@ -9,3 +9,4 @@ export default class WarcraftSoundsModel {
     getRace(code: string): Promise<components["schemas"]["Race"] | null>;
     getCharacter(codeRace: string, code: string, notWorded?: boolean): Promise<components["schemas"]["Character"] | null>;
 }
+export default function getModel(): WarcraftSoundsModel;

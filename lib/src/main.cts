@@ -11,14 +11,38 @@
 
     // locals
 
-    import logRequest from "./tools/logRequest";
-    import getRequestPath from "./tools/getRequestPath";
-    import errorCodes from "./returncodes";
+    import getModel from "./model";
 
     import generateServer from "./server/generateServer";
-    import webRoutes from "./server/webRoutes";
-    import apiRoutes from "./api/apiRoutes";
-    import soundsRoutes from "./api/soundsRoutes";
+
+    import {
+        pathPublicIndex,
+        pathPublicApp,
+        pathPublicAppMap,
+        pathPublicIconW3,
+        pathPublicIconTFT
+    } from "./server/paths/public";
+
+    import {
+        pathSounds
+    } from "./server/paths/sounds";
+
+    import {
+        pathAPISwagger,
+        pathAPIIps,
+        pathAPIAllRaces,
+        pathAPIOneRace,
+        pathAPIOneCharacter
+    } from "./server/paths/api";
+
+    import {
+        redirect
+    } from "./server/paths/redirect";
+
+    import {
+        pathErrorTest,
+        pathErrorGlobal
+    } from "./server/paths/errors";
 
 // types & interfaces
 
@@ -27,7 +51,10 @@
     import type { Server } from "node:http";
 
     // externals
-    import type { Express, Request, Response, NextFunction } from "express";
+    import type { Express } from "express";
+
+    // locals
+    import type { WarcraftSoundsModel } from "./model";
 
 // consts
 
@@ -48,71 +75,71 @@
 
         });
 
+    }).then((): Promise<void> => {
+
+        const model: WarcraftSoundsModel = getModel();
+
+        return model.init();
+
+    // generate web server
+
     }).then((): Express => {
 
         return generateServer();
 
     // generate routes
 
-    }).then((APP: Express): Promise<Express> => {
+    }).then((app: Express): Express => {
 
-        webRoutes(APP);
-        soundsRoutes(APP);
+        // public
 
-        return apiRoutes(APP).then((): Express => {
-            return APP;
-        });
+            app
+                .get("/public/index.html", pathPublicIndex)
+                .get("/public/bundle.js", pathPublicApp)
+                .get("/public/bundle.js.map", pathPublicAppMap)
+                .get("/public/pictures/warcraft3.png", pathPublicIconW3)
+                .get("/public/pictures/warcraft3TFT.png", pathPublicIconTFT);
 
-    // generate web server
+        // sounds
 
-    }).then((APP: Express): Promise<SecureServer | Server> => {
+            app.get("/public/sounds/:sound", pathSounds);
 
-        // catch "not found" request
-        APP.use((req: Request, res: Response, next: NextFunction): void => {
+        // api
 
-            logRequest(req);
-            console.error("Not found");
+            app
+                .get("/api/descriptor", pathAPISwagger)
+                .get("/api/ips", pathAPIIps)
+                .get("/api/races", pathAPIAllRaces)
+                .get("/api/races/:race", pathAPIOneRace)
+                .get("/api/races/:race/characters/:character", pathAPIOneCharacter);
 
-            if (res.headersSent) {
-                return next("Not found");
-            }
-            else {
+        // redirections
 
-                res.status(errorCodes.NOTFOUND).json({
-                    "code": errorCodes.NOTFOUND,
-                    "message": getRequestPath(req) + " not found"
-                });
+            app
+                .get("/", redirect("/public/index.html"))
+                .get("/index.html", redirect("/public/index.html"))
 
-            }
+                .get("/favicon.ico", redirect("/public/pictures/warcraft3.png"))
+                .get("/favicon.png", redirect("/public/pictures/warcraft3.png"));
 
-        });
+        // errors
 
-        // catch error
-        APP.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
+            app.get("/api/err", pathErrorTest);
 
-            logRequest(req);
+            // catch global error
+            app.use(pathErrorGlobal);
 
-            console.error(err);
+        return app;
 
-            if (res.headersSent) {
-                return next(err);
-            }
-            else {
-
-                res.status(errorCodes.INTERNAL).json({
-                    "code": errorCodes.INTERNAL,
-                    "message": err.message
-                });
-
-            }
-
-        });
+    }).then((app: Express): Promise<SecureServer | Server> => {
 
         // generate server
 
         if (CONF.get("ssl")) {
 
-            // https://stackoverflow.com/questions/51955695/node-forge-self-signed-certificate-for-https-module
+            // to test : add certificate authority (CA)
+            // https://node-security.com/posts/certificate-generation-pure-nodejs/
+            // https://www.localcan.com/blog/self-signed-certificate-for-local-development-openssl-javascript
 
             return new Promise((resolve: (keypair: pki.rsa.KeyPair) => void, reject: (err: Error) => void): void => {
 
@@ -190,14 +217,14 @@
                 return createSecureServer({
                     "key": pemPrivateKey,
                     "cert": pemCertificate
-                }, APP);
+                }, app);
 
             });
 
         }
         else {
 
-            return Promise.resolve(createServer(APP));
+            return Promise.resolve(createServer(app));
 
         }
 
@@ -206,6 +233,31 @@
 
         server.listen(CONF.get("port"), (): void => {
             console.info("started" + (CONF.get("ssl") ? " with SSL" : ""), "on port " + CONF.get("port"));
+        });
+
+    // graceful shutdown
+    }).then((): void => {
+
+        process.on("SIGINT", (): void => {
+
+            const model: WarcraftSoundsModel = getModel();
+
+            model.release().then((): void => {
+
+                process.exit(0);
+
+            }).catch((err: Error): void => {
+
+                console.error("");
+                console.error("Impossible to properly end the application");
+                console.error(err);
+                console.error("");
+
+                process.exitCode = 1;
+                process.exit(1);
+
+            });
+
         });
 
     }).catch((err: Error): void => {

@@ -20,6 +20,7 @@
 export default function generateServer (): Express {
 
     return express()
+        .use(express.json())
         .use(cors())
         .use(helmet({
             "contentSecurityPolicy": false,

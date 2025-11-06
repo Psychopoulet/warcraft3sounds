@@ -285,7 +285,7 @@
 			}
 		},
 
-		"/": {
+		"/public/index.html": {
 			"get": {
 				"description": "",
 				"summary": "Front page",
@@ -370,6 +370,35 @@
 			}
 		},
 		"/public/pictures/warcraft3.png": {
+			"get": {
+				"description": "",
+				"summary": "Front icon",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"image/png": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/public/pictures/warcraft3TFT.png": {
 			"get": {
 				"description": "",
 				"summary": "Front icon",
