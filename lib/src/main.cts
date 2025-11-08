@@ -95,8 +95,8 @@
 
             app
                 .get("/public/index.html", pathPublicIndex)
-                .get("/public/bundle.js", pathPublicApp)
-                .get("/public/bundle.js.map", pathPublicAppMap)
+                .get("/public/bundle.min.js", pathPublicApp)
+                .get("/public/bundle.min.js.map", pathPublicAppMap)
                 .get("/public/pictures/warcraft3.png", pathPublicIconW3)
                 .get("/public/pictures/warcraft3TFT.png", pathPublicIconTFT);
 
@@ -118,6 +118,8 @@
             app
                 .get("/", redirect("/public/index.html"))
                 .get("/index.html", redirect("/public/index.html"))
+                .get("/public/bundle.js", redirect("/public/bundle.min.js"))
+                .get("/public/bundle.js.map", redirect("/public/bundle.min.js.map"))
 
                 .get("/favicon.ico", redirect("/public/pictures/warcraft3.png"))
                 .get("/favicon.png", redirect("/public/pictures/warcraft3.png"));

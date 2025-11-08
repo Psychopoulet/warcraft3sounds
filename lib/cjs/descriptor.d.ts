@@ -178,6 +178,49 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Front page */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Redirection to /public/index.html */
+                301: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description An error occured */
+                default: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Error"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/public/index.html": {
         parameters: {
             query?: never;
@@ -223,7 +266,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/public/bundle.js": {
+    "/public/bundle.min.js": {
         parameters: {
             query?: never;
             header?: never;
@@ -268,7 +311,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/public/bundle.js.map": {
+    "/public/bundle.min.js.map": {
         parameters: {
             query?: never;
             header?: never;
