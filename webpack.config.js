@@ -1,7 +1,7 @@
 // deps
 
 	// natives
-	const { join } = require("path");
+	const { join } = require("node:path");
 
   // externals
   const TerserPlugin = require("terser-webpack-plugin");
@@ -31,12 +31,12 @@ module.exports = {
         "test": /\.tsx?$/,
         "exclude": [ /node_modules/ ],
         "use": [
-            {
-                "loader": "ts-loader",
-                "options": {
-                  "configFile": join(__dirname, "tsconfig-front.json")
-                }
-            }
+          {
+              "loader": "ts-loader",
+              "options": {
+                "configFile": join(__dirname, "tsconfig-front.json")
+              }
+          }
         ]
       }
     ]
