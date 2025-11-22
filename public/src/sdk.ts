@@ -10,9 +10,9 @@
 
 export class SDK {
 
-    public getIps (): Promise<components["schemas"]["IP"][]> {
+    public getIps (): Promise<Array<components["schemas"]["IP"]>> {
 
-        return fetch("/api/ips").then((content: Response): Promise<components["schemas"]["IP"][]> => {
+        return fetch("/api/ips").then((content: Response): Promise<Array<components["schemas"]["IP"]>> => {
 
             return content.json();
 
