@@ -29,7 +29,7 @@
         "loading": boolean;
         "races": Array<descriptorTypes["BasicRace"]>;
         "readedSoundUrl": string;
-    };
+    }
 
     interface iProps extends iPropsNode {
         "notWordedSounds": boolean;
@@ -203,4 +203,4 @@ export default class Body extends React.Component<iProps, iStates> {
 
     }
 
-};
+}

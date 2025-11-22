@@ -2,12 +2,12 @@
 
 // deps
 
-	// externals
+    // externals
     import React from "react";
-	import { createRoot } from "react-dom/client";
+    import { createRoot } from "react-dom/client";
 
-	// locals
-	import App from "./App";
+    // locals
+    import App from "./App";
 
 // private
 

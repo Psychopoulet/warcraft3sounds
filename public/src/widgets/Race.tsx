@@ -6,7 +6,7 @@
 
     import React from "react";
 
-	import {
+    import {
         Card, CardHeader, CardBody,
         SelectLabel, Select, InputReadOnlyLabel, InputLabel,
         Image
@@ -213,7 +213,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
     }
 
-    private _renderActions (): Array<React.JSX.Element> | null {
+    private _renderActions (): React.JSX.Element[] | null {
 
         if (!this.state.character?.actions || 0 >= this.state.character?.actions.length) {
             return null;
@@ -222,8 +222,8 @@ export default class Race extends React.Component<iProps, iStates> {
 
             return this.state.character.actions.map((action: descriptorTypes["Action"]): string => {
                 return action.type.code;
-            }).filter((item: string, pos: number, a: Array<string>): boolean => {
-                return a.indexOf(item) == pos;
+            }).filter((item: string, pos: number, a: string[]): boolean => {
+                return a.indexOf(item) === pos;
             }).sort().map((actionName: string): React.JSX.Element => {
 
                 return <optgroup key={ actionName } label={ actionName }>
@@ -286,8 +286,6 @@ export default class Race extends React.Component<iProps, iStates> {
                         { this._renderActions() }
 
                     </Select> : undefined }
-
-
 
                 </div>
 
@@ -384,4 +382,4 @@ export default class Race extends React.Component<iProps, iStates> {
 
     }
 
-};
+}
