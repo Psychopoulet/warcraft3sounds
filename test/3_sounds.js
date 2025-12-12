@@ -1,152 +1,105 @@
-/*
-	eslint no-loop-func : 0
-*/
-
-
-"use strict";
-
 // deps
 
-	const { join } = require("path");
-	const { stat } = require("fs");
-	const assert = require("assert");
+    const { join } = require("node:path");
+    const { stat } = require("node:fs/promises");
+    const assert = require("node:assert");
 
-	const Model = require(join(__dirname, "..", "lib", "api", "model.js"));
+    const Model = require(join(__dirname, "..", "lib", "api", "model.js"));
 
 // consts
 
-	const SOUNDS_DIRECTORY = join(__dirname, "..", "lib", "public", "sounds");
+    const SOUNDS_DIRECTORY = join(__dirname, "..", "lib", "public", "sounds");
 
 // module
 
 describe("Sounds", () => {
 
-	let model = null;
+    let model = null;
 
-	before("should init the model", () => {
-		model = new Model();
-		return model.init();
-	});
+    before("should init the model", () => {
+        model = new Model();
+        return model.init();
+    });
 
-	after("should release the model", () => {
-		return model.release();
-	});
+    after("should release the model", () => {
+        return model.release();
+    });
 
-	it("should check sounds existance", () => {
+    it("should check sounds existance", () => {
 
-		// if no sound extracted, does not run the test
-		return new Promise((resolve) => {
+        // if no sound extracted, does not run the test
+        return stat(join(SOUNDS_DIRECTORY, "Human1.mp3")).then((stats) => {
+            return Promise.resolve(stats.isFile());
+        }).then((exists) => {
 
-			stat(join(SOUNDS_DIRECTORY, "Human1.mp3"), (err, stats) => {
-				resolve(!(err || !stats.isFile()));
-			});
+            return !exists
+                ? Promise.resolve()
+                : model.getRaces().then((races) => {
 
-		}).then((exists) => {
+                    assert.strictEqual("object", typeof races, "The returned races is not an object");
+                    assert.strictEqual(true, races instanceof Array, "The returned races is not an Array");
+                    assert.strictEqual(5, races.length, "The returned races has an invalid length");
 
-			return !exists ? Promise.resolve() :
-				model.getRaces().then((races) => {
+                    const sounds = [];
+                    const characters = [];
 
-					assert.strictEqual("object", typeof races, "The returned races is not an object");
-					assert.strictEqual(true, races instanceof Array, "The returned races is not an Array");
-					assert.strictEqual(5, races.length, "The returned races has an invalid length");
+                    return Promise.all(races.map((r) => {
 
-					const sounds = [];
+                        return model.getRace(r.code).then((race) => {
 
-					return new Promise((resolve, reject) => {
+                            race.characters.forEach((character) => {
 
-						const characters = [];
+                                characters.push({
+                                    "race": race.code,
+                                    "character": character.code
+                                });
 
-						let done = 0;
-						for (let i = 0; i < races.length; ++i) {
+                            });
 
-							model.getRace(races[i].code).then((race) => {
+                            race.musics.forEach((music) => {
+                                sounds.push(join(SOUNDS_DIRECTORY, music.file));
+                            });
 
-								race.characters.forEach((character) => {
+                            race.warnings.forEach((music) => {
+                                sounds.push(join(SOUNDS_DIRECTORY, music.file));
+                            });
 
-									characters.push({
-										"race": race.code,
-										"character": character.code
-									});
+                        });
 
-								});
+                    })).then(() => {
 
-								race.musics.forEach((music) => {
-									sounds.push(join(SOUNDS_DIRECTORY, music.file));
-								});
+                        return Promise.all(characters.map((c) => {
 
-								race.warnings.forEach((music) => {
-									sounds.push(join(SOUNDS_DIRECTORY, music.file));
-								});
+                            return model.getCharacter(c.race, c.character).then((character) => {
 
-								++done;
+                                character.actions.forEach((action) => {
+                                    sounds.push(join(SOUNDS_DIRECTORY, action.file));
+                                });
 
-								if (done >= races.length) {
-									resolve(characters);
-								}
+                            });
 
-							}).catch(reject);
+                        }));
 
-						}
+                    }).then(() => {
 
-					}).then((characters) => {
+                        return Promise.all(sounds.map((s) => {
 
-						return new Promise((resolve, reject) => {
+                            return stat(s).then((stats) => {
 
-							let done = 0;
-							for (let i = 0; i < characters.length; ++i) {
+                                return stats.isFile()
+                                    ? Promise.resolve()
+                                    : Promise.reject(new Error("\"" + s + "\" does not exist"));
 
-								model.getCharacter(characters[i].race, characters[i].character).then((character) => {
+                            });
 
-									character.actions.forEach((action) => {
-										sounds.push(join(SOUNDS_DIRECTORY, action.file));
-									});
+                        }));
 
-									++done;
+                    });
 
-									if (done >= characters.length) {
-										resolve(characters);
-									}
+                });
 
-								}).catch(reject);
+        });
 
-							}
-
-						});
-
-					}).then(() => {
-
-						return new Promise((resolve, reject) => {
-
-							let done = 0;
-							for (let i = 0; i < sounds.length; ++i) {
-
-								stat(sounds[i], (err, stats) => {
-
-									if (err || !stats.isFile()) {
-										reject(new Error("\"" + sounds[i] + "\" does not exist"));
-									}
-									else {
-
-										++done;
-
-										if (done >= sounds.length) {
-											resolve();
-										}
-
-									}
-
-								});
-
-							}
-
-						});
-
-					});
-
-				});
-
-		});
-
-	});
+    });
 
 });

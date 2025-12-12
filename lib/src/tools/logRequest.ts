@@ -13,19 +13,19 @@ export default function logRequest (req: Request): void {
     console.log("");
     console.log((req.ips.length ? req.ips : req.ip), "=>", getRequestPath(req));
 
-    if (req.query && Object.keys(req.query).length) {
+    if ("object" === typeof req.query && Object.keys(req.query).length) {
         console.log("query", req.query);
     }
 
-    if (req.params && Object.keys(req.params).length) {
+    if ("object" === typeof req.params && Object.keys(req.params).length) {
         console.log("params", req.params);
     }
 
-    if (req.body) {
+    if ("undefined" !== typeof req.body) {
         console.log("body", req.body);
     }
 
-    if (req.cookies && Object.keys(req.cookies).length) {
+    if ("undefined" !== typeof req.cookies) {
         console.log("cookies", req.cookies);
     }
 

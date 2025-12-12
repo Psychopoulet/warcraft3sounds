@@ -2,7 +2,7 @@
 
     // natives
     import { createServer as createSecureServer } from "node:https";
-    import { createServer as createServer } from "node:http";
+    import { createServer } from "node:http";
     import { randomBytes } from "node:crypto";
 
     // externals
@@ -65,13 +65,18 @@
     // generate conf
     Promise.resolve().then((): Promise<void> => {
 
-        CONF.skeleton("port", "integer").document("port", "Port used by the server");
-        CONF.skeleton("ssl", "boolean").document("ssl", "Is SSL activated ?");
+        CONF
+            .skeleton("port", "integer")
+            .document("port", "Port used by the server")
+
+            .skeleton("ssl", "boolean")
+            .document("ssl", "Is SSL activated ?");
 
         return CONF.load().then((): void => {
 
-            CONF.set("port", CONF.has("port") ? CONF.get("port") : 3000);
-            CONF.set("ssl", CONF.has("ssl") ? CONF.get("ssl") : false);
+            CONF
+                .set("port", CONF.has("port") ? CONF.get("port") : 3000)
+                .set("ssl", CONF.has("ssl") ? CONF.get("ssl") : false);
 
         });
 
