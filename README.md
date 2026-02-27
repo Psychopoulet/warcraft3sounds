@@ -1,12 +1,17 @@
 # warcraft3sounds
 A basic API for Warcraft 3 sounds
 
-[![Build status](https://api.travis-ci.org/Psychopoulet/warcraft3sounds.svg?branch=master)](https://travis-ci.org/Psychopoulet/warcraft3sounds)
-[![Coverage status](https://coveralls.io/repos/github/Psychopoulet/warcraft3sounds/badge.svg?branch=master)](https://coveralls.io/github/Psychopoulet/warcraft3sounds)
-[![Dependency status](https://david-dm.org/Psychopoulet/warcraft3sounds/status.svg)](https://david-dm.org/Psychopoulet/warcraft3sounds)
-[![Dev dependency status](https://david-dm.org/Psychopoulet/warcraft3sounds/dev-status.svg)](https://david-dm.org/Psychopoulet/warcraft3sounds?type=dev)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Psychopoulet_warcraft3sounds&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Psychopoulet_warcraft3sounds)
 [![Issues](https://img.shields.io/github/issues/Psychopoulet/warcraft3sounds.svg)](https://github.com/Psychopoulet/warcraft3sounds/issues)
 [![Pull requests](https://img.shields.io/github/issues-pr/Psychopoulet/warcraft3sounds.svg)](https://github.com/Psychopoulet/warcraft3sounds/pulls)
+
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Psychopoulet_warcraft3sounds&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Psychopoulet_warcraft3sounds)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Psychopoulet_warcraft3sounds&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Psychopoulet_warcraft3sounds)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Psychopoulet_warcraft3sounds&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Psychopoulet_warcraft3sounds)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Psychopoulet_warcraft3sounds&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Psychopoulet_warcraft3sounds)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Psychopoulet_warcraft3sounds&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Psychopoulet_warcraft3sounds)
+
+[![Known Vulnerabilities](https://snyk.io/test/github/Psychopoulet/warcraft3sounds/badge.svg)](https://snyk.io/test/github/Psychopoulet/warcraft3sounds)
 
 ## Download
 
