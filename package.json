@@ -19,29 +19,31 @@
 
     "prepare": "npx husky || true",
 
-    "transpile-openapi": "npx openapi-typescript \"./lib/data/descriptor.json\" -o \"./lib/src/descriptor.ts\"",
+    "transpile-openapi": "npx openapi-typescript ./lib/data/descriptor.json -o ./lib/src/descriptor.ts",
 
-    "clean-back": "npx rimraf \"./lib/cjs\"",
-    "lint-back": "npx eslint --config \".eslintrc-src.js\" --ext .cts,.ts \"./lib/src/**/*\"",
-    "build-back": "npm run-script lint-back && npm run-script clean-back && npm run-script transpile-openapi && npx tsc --project \"./tsconfig-back.json\"",
+    "lint-back": "npx eslint --config .eslintrc-back.js --ext .ts,.cts,.mts ./lib/src/**/*",
+    "lint-front": "npx eslint --config .eslintrc-front.js --ext .ts,.tsx,.cts,.mts ./public/src/**/*",
+    "lint-tests": "npx eslint --config .eslintrc-tests.js --ext .js,.cjs,.mjs ./test/**/*",
+    "lint": "npm run lint-back && npm run lint-front && npm run lint-tests",
 
-    "clean-front": "npx rimraf \"./public/bundle.js\"",
-    "lint-front": "true",
-    "build-front": "npm run-script lint-front && npm run-script clean-front && npm run-script transpile-openapi && npx webpack --config \"./webpack.config.js\"",
+    "clean-back": "npx rimraf ./lib/cjs",
+    "clean-front": "npx rimraf ./public/bundle.js && npx rimraf ./public/bundle.min.js",
+    "clean": "npm run clean-back && npm run clean-front",
 
-    "check-requires": "npx used-deps-analyzer \"./package.json\" \"./lib/src\" --no-dev --overkill \"fs-extra\" \"node-promfs\"",
-    "check-updates": "npx check-version-modules",
-    "lint-tests": "npx eslint --config \".eslintrc-tests.js\" \"./test/**/*.js\"",
+    "build-back": "npm run-script clean-back && npm run-script transpile-openapi && npx tsc --project ./tsconfig-back.json",
+    "build-front": "npm run-script clean-front && npm run-script transpile-openapi && npx webpack --config ./webpack.config.js",
+    "build": "npm run-script build-back && npm run-script build-front",
+
+    "check-requires": "npx used-deps-analyzer ./package.json ./lib/src --no-dev --overkill fs-extra node-promfs",
+    "check-updates": "npx check-version-modules --no-fail-at-major --fail-at-minor --fail-at-patch",
     "unit-tests": "npm run-script build-back && npx nyc --reporter=html --reporter=text mocha && npx nyc report --reporter=text-lcov | coveralls",
-    "tests": "npm run-script check-requires && npm run-script check-updates && npm run-script lint-tests && npm run-script unit-tests",
+    "tests": "npm run-script check-requires && npm run-script check-updates && npm run-script lint",
 
-    "ci": "npm run-script build-front npm run-script build-back && && npm run-script tests",
+    "start": "node ./lib/cjs/main.cjs",
 
-    "start": "node \"./lib/cjs/main.cjs\"",
-
-    "daemon-start": "npx pm2 start \"./pm2.json\"",
-    "daemon-restart": "npx pm2 reload \"./pm2.json\"",
-    "daemon-stop": "npx pm2 stop \"./pm2.json\" && npx pm2 delete \"./pm2.json\""
+    "daemon-start": "npx pm2 start ./pm2.json",
+    "daemon-restart": "npx pm2 reload ./pm2.json",
+    "daemon-stop": "npx pm2 stop ./pm2.json && npx pm2 delete ./pm2.json"
 
   },
 
