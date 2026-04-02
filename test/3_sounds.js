@@ -4,7 +4,7 @@
     const { stat } = require("node:fs/promises");
     const assert = require("node:assert");
 
-    const Model = require(join(__dirname, "..", "lib", "api", "model.js"));
+    const Model = require(join(__dirname, "..", "lib", "cjs", "api", "model.js"));
 
 // consts
 

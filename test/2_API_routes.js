@@ -6,9 +6,9 @@
     const { doesNotThrow, strictEqual } = require("node:assert");
 
     // externals
-    const generateServer = require(join(__dirname, "..", "lib", "server", "generateServer.js"));
-    const webRoutes = require(join(__dirname, "..", "lib", "server", "webRoutes.js"));
-    const apiRoutes = require(join(__dirname, "..", "lib", "api", "routes.js"));
+    const generateServer = require(join(__dirname, "..", "lib", "cjs", "server", "paths", "generateServer.js"));
+    const webRoutes = require(join(__dirname, "..", "lib", "cjs", "server", "paths", "webRoutes.js"));
+    const apiRoutes = require(join(__dirname, "..", "lib", "cjs", "server", "paths", "apiRoutes.js"));
 
 // consts
 

@@ -7,9 +7,9 @@
     const { strictEqual } = require("node:assert");
 
     // internals
-    const generateServer = require(join(__dirname, "..", "lib", "server", "paths", "generateServer.js"));
-    const webRoutes = require(join(__dirname, "..", "lib", "server", "paths", "webRoutes.js"));
-    const soundsRoutes = require(join(__dirname, "..", "lib", "server", "paths", "soundsRoutes.js"));
+    const generateServer = require(join(__dirname, "..", "lib", "cjs", "server", "paths", "generateServer.js"));
+    const webRoutes = require(join(__dirname, "..", "lib", "cjs", "server", "paths", "webRoutes.js"));
+    const soundsRoutes = require(join(__dirname, "..", "lib", "cjs", "server", "paths", "soundsRoutes.js"));
 
 // consts
 

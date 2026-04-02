@@ -5,7 +5,7 @@
     const { strictEqual } = require("node:assert");
 
     // externals
-    const Model = require(join(__dirname, "..", "lib", "api", "model.js"));
+    const Model = require(join(__dirname, "..", "lib", "cjs", "api", "model.js"));
 
 // module
 
