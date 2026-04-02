@@ -19,11 +19,11 @@
     // app
 
     export function pathPublicApp (req: Request, res: Response): void {
-        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "bundle.js"));
+        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "bundle.min.js"));
     }
 
     export function pathPublicAppMap (req: Request, res: Response): void {
-        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "bundle.js.map"));
+        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "bundle.min.js.map"));
     }
 
     // pictures
