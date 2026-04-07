@@ -30,7 +30,7 @@
     "clean-front": "npx rimraf ./public/dist/bundle.js && npx rimraf ./public/dist/bundle.min.js && npx rimraf ./public/dist/bundle.min.js.map",
     "clean": "npm run clean-back && npm run clean-front",
 
-    "build-back": "npm run-script clean-back && npm run-script transpile-openapi && npx tsc --project ./tsconfig-back.json",
+    "build-back": "npm run-script clean-back && npm run-script transpile-openapi && npx tsc --project ./tsconfig.json",
     "build-front": "npm run-script clean-front && npm run-script transpile-openapi && npx webpack --config ./webpack.config.js",
     "build": "npm run-script build-back && npm run-script build-front",
 
@@ -76,7 +76,7 @@
     "@types/compression": "1.8.1",
     "@types/cors": "2.8.19",
     "@types/express": "5.0.6",
-    "@types/node": "25.5.0",
+    "@types/node": "25.5.2",
     "@types/node-forge": "1.3.14",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",

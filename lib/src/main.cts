@@ -1,3 +1,5 @@
+/* eslint-disable n/no-process-exit */
+
 // deps
 
     // natives
@@ -138,11 +140,11 @@
 
         return app;
 
-    }).then((app: Express): Promise<SecureServer | Server> => {
+    }).then((app: Express): Promise<SecureServer> | Server => {
 
         // generate server
 
-        if (CONF.get("ssl")) {
+        if (CONF.get("ssl") as boolean) {
 
             // to test : add certificate authority (CA)
             // https://node-security.com/posts/certificate-generation-pure-nodejs/
@@ -153,7 +155,7 @@
                 pki.rsa.generateKeyPair({
                     "bits": 4096,
                     "workers": 2
-                }, (err: Error, keypair: pki.rsa.KeyPair): void => {
+                }, (err: Error | null, keypair: pki.rsa.KeyPair): void => {
                     return err ? reject(err) : resolve(keypair);
                 });
 
@@ -194,7 +196,7 @@
 
                 console.info("certificate options :", JSON.stringify(SSL_OPTIONS));
 
-                const SSL_EXTENSIONS: Array<Record<string, any>> = [
+                const SSL_EXTENSIONS: Array<Record<string, unknown>> = [
                     {
                         "name": "subjectAltName",
                         "altNames": [ // types : 2 = dns name, 6 = URI, 7 = IP
@@ -231,7 +233,7 @@
         }
         else {
 
-            return Promise.resolve(createServer(app));
+            return createServer(app);
 
         }
 
@@ -239,7 +241,7 @@
     }).then((server: SecureServer | Server): void => {
 
         server.listen(CONF.get("port"), (): void => {
-            console.info("started" + (CONF.get("ssl") ? " with SSL" : ""), "on port " + CONF.get("port"));
+            console.info("started" + (CONF.get("ssl") as boolean ? " with SSL" : ""), "on port " + (CONF.get("port") as number));
         });
 
     // graceful shutdown
