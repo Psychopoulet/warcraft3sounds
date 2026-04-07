@@ -27,7 +27,7 @@
     "lint": "npm run lint-back && npm run lint-front && npm run lint-tests",
 
     "clean-back": "npx rimraf ./lib/cjs",
-    "clean-front": "npx rimraf ./public/bundle.js && npx rimraf ./public/bundle.min.js",
+    "clean-front": "npx rimraf ./public/dist/bundle.js && npx rimraf ./public/dist/bundle.min.js && npx rimraf ./public/dist/bundle.min.js.map",
     "clean": "npm run clean-back && npm run clean-front",
 
     "build-back": "npm run-script clean-back && npm run-script transpile-openapi && npx tsc --project ./tsconfig-back.json",

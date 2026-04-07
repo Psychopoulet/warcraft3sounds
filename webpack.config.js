@@ -20,7 +20,7 @@ module.exports = {
 
   "output": {
     "filename": "bundle.min.js",
-    "path": PUBLIC
+    "path": join(PUBLIC, "dist")
   },
 
   "devtool": "source-map",
