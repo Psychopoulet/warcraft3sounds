@@ -75,7 +75,7 @@
         return CONF.load().then((): void => {
 
             CONF
-                .set("port", CONF.has("port") ? CONF.get("port") : 3000)
+                .set("port", CONF.has("port") ? CONF.get("port") : 8000)
                 .set("ssl", CONF.has("ssl") ? CONF.get("ssl") : false);
 
         });
