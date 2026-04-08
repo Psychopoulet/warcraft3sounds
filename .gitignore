@@ -1,8 +1,5 @@
-package-lock.json
 .nyc_output/
+package-lock.json
 coverage/
-lib/server.crt
-lib/server.csr
-lib/server.key
 node_modules/
 public/sounds/

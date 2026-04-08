@@ -1,8 +1,10 @@
+/* eslint-disable n/no-process-exit */
+
 // deps
 
     // natives
     import { createServer as createSecureServer } from "node:https";
-    import { createServer as createServer } from "node:http";
+    import { createServer } from "node:http";
     import { randomBytes } from "node:crypto";
 
     // externals
@@ -65,13 +67,18 @@
     // generate conf
     Promise.resolve().then((): Promise<void> => {
 
-        CONF.skeleton("port", "integer").document("port", "Port used by the server");
-        CONF.skeleton("ssl", "boolean").document("ssl", "Is SSL activated ?");
+        CONF
+            .skeleton("port", "integer")
+            .document("port", "Port used by the server")
+
+            .skeleton("ssl", "boolean")
+            .document("ssl", "Is SSL activated ?");
 
         return CONF.load().then((): void => {
 
-            CONF.set("port", CONF.has("port") ? CONF.get("port") : 3000);
-            CONF.set("ssl", CONF.has("ssl") ? CONF.get("ssl") : false);
+            CONF
+                .set("port", CONF.has("port") ? CONF.get("port") : 8000)
+                .set("ssl", CONF.has("ssl") ? CONF.get("ssl") : false);
 
         });
 
@@ -95,8 +102,8 @@
 
             app
                 .get("/public/index.html", pathPublicIndex)
-                .get("/public/bundle.js", pathPublicApp)
-                .get("/public/bundle.js.map", pathPublicAppMap)
+                .get("/public/bundle.min.js", pathPublicApp)
+                .get("/public/bundle.min.js.map", pathPublicAppMap)
                 .get("/public/pictures/warcraft3.png", pathPublicIconW3)
                 .get("/public/pictures/warcraft3TFT.png", pathPublicIconTFT);
 
@@ -118,6 +125,8 @@
             app
                 .get("/", redirect("/public/index.html"))
                 .get("/index.html", redirect("/public/index.html"))
+                .get("/public/bundle.js", redirect("/public/bundle.min.js"))
+                .get("/public/bundle.js.map", redirect("/public/bundle.min.js.map"))
 
                 .get("/favicon.ico", redirect("/public/pictures/warcraft3.png"))
                 .get("/favicon.png", redirect("/public/pictures/warcraft3.png"));
@@ -131,11 +140,11 @@
 
         return app;
 
-    }).then((app: Express): Promise<SecureServer | Server> => {
+    }).then((app: Express): Promise<SecureServer> | Server => {
 
         // generate server
 
-        if (CONF.get("ssl")) {
+        if (CONF.get("ssl") as boolean) {
 
             // to test : add certificate authority (CA)
             // https://node-security.com/posts/certificate-generation-pure-nodejs/
@@ -146,7 +155,7 @@
                 pki.rsa.generateKeyPair({
                     "bits": 4096,
                     "workers": 2
-                }, (err: Error, keypair: pki.rsa.KeyPair): void => {
+                }, (err: Error | null, keypair: pki.rsa.KeyPair): void => {
                     return err ? reject(err) : resolve(keypair);
                 });
 
@@ -187,7 +196,7 @@
 
                 console.info("certificate options :", JSON.stringify(SSL_OPTIONS));
 
-                const SSL_EXTENSIONS: Array<Record<string, any>> = [
+                const SSL_EXTENSIONS: Array<Record<string, unknown>> = [
                     {
                         "name": "subjectAltName",
                         "altNames": [ // types : 2 = dns name, 6 = URI, 7 = IP
@@ -224,7 +233,7 @@
         }
         else {
 
-            return Promise.resolve(createServer(app));
+            return createServer(app);
 
         }
 
@@ -232,7 +241,7 @@
     }).then((server: SecureServer | Server): void => {
 
         server.listen(CONF.get("port"), (): void => {
-            console.info("started" + (CONF.get("ssl") ? " with SSL" : ""), "on port " + CONF.get("port"));
+            console.info("started" + (CONF.get("ssl") as boolean ? " with SSL" : ""), "on port " + (CONF.get("port") as number));
         });
 
     // graceful shutdown

@@ -13,17 +13,17 @@
     // main page
 
     export function pathPublicIndex (req: Request, res: Response): void {
-        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "index.html"));
+        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "dist", "index.html"));
     }
 
     // app
 
     export function pathPublicApp (req: Request, res: Response): void {
-        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "bundle.js"));
+        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "dist", "bundle.min.js"));
     }
 
     export function pathPublicAppMap (req: Request, res: Response): void {
-        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "bundle.js.map"));
+        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "dist", "bundle.min.js.map"));
     }
 
     // pictures

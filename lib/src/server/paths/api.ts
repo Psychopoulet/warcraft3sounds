@@ -30,9 +30,9 @@
 
     export function pathAPIIps (req: Request, res: Response, next: NextFunction): void {
 
-        getModel().getIps().then((ips: Array<components["schemas"]["IP"]>): void => {
+        getModel().getIps().then((ips: components["schemas"]["IP"][]): void => {
 
-            res.status(errorCodes.OK).json(ips as paths["/api/ips"]["get"]["responses"]["200"]["content"]["application/json"]);
+            res.status(errorCodes.OK).json(ips);
 
         }).catch(next);
 
@@ -42,7 +42,7 @@
 
         getModel().getRaces().then((races: Array<components["schemas"]["BasicRace"]>): void => {
 
-            res.status(errorCodes.OK).json(races as paths["/api/races"]["get"]["responses"]["200"]["content"]["application/json"]);
+            res.status(errorCodes.OK).json(races);
 
         }).catch(next);
 
@@ -54,7 +54,7 @@
 
             if (race) {
 
-                res.status(errorCodes.OK).json(race as paths["/api/races/{racecode}"]["get"]["responses"]["200"]["content"]["application/json"]);
+                res.status(errorCodes.OK).json(race);
 
             }
             else {

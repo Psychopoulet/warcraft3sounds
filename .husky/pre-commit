@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+npm run-script lint-back && npm run-script lint-front

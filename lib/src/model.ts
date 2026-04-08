@@ -103,7 +103,7 @@ export class WarcraftSoundsModel {
 
                 return i < queries.length ? new Promise((resolve: (value?: unknown) => void, reject: (err: Error) => void): void => {
 
-                    this._db.run(queries[i], (err: Error): void => {
+                    this._db.run(queries[i], (err: Error | null): void => {
                         return err ? reject(err) : resolve();
                     });
 
@@ -219,8 +219,8 @@ export class WarcraftSoundsModel {
                     + " LEFT JOIN musics ON musics.k_race = races.id"
                     + " LEFT JOIN warnings ON warnings.k_race = races.id"
                 + " WHERE races.code = ?"
-                + " ORDER BY races.name, characters.name, musics.name, warnings.name;"
-            , [ code ], (err: Error | null, data: iSQLRequestResult[]): void => {
+                + " ORDER BY races.name, characters.name, musics.name, warnings.name;",
+            [ code ], (err: Error | null, data: iSQLRequestResult[]): void => {
                 return err ? reject(err) : resolve(data);
             });
 
@@ -327,8 +327,8 @@ export class WarcraftSoundsModel {
                 + " WHERE"
                     + " races.code = ?"
                     + " AND characters.code = ?"
-                + " ORDER BY characters.name;"
-            , [ codeRace, code ], (err: Error | null, data: iSQLRequestResult): void => {
+                + " ORDER BY characters.name;",
+            [ codeRace, code ], (err: Error | null, data: iSQLRequestResult): void => {
                 return err ? reject(err) : resolve(data);
             });
 
@@ -353,8 +353,8 @@ export class WarcraftSoundsModel {
                         + " FROM actions INNER JOIN actions_types ON actions_types.id = actions.k_action_type"
                         + " WHERE actions.k_character = ?"
                             + (notWorded ? "" : " AND \"\" != actions.name")
-                        + ";"
-                    , [ characterData.id ], (err: Error | null, data: iSQLActionRequestResult[]): void => {
+                        + ";",
+                    [ characterData.id ], (err: Error | null, data: iSQLActionRequestResult[]): void => {
                         return err ? reject(err) : resolve(data);
                     });
 
@@ -409,9 +409,7 @@ let _model: WarcraftSoundsModel | null = null;
 
 export default function getModel (): WarcraftSoundsModel {
 
-    if (!_model) {
-        _model = new WarcraftSoundsModel();
-    }
+    _model ??= new WarcraftSoundsModel();
 
     return _model;
 

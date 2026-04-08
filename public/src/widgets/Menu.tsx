@@ -22,7 +22,7 @@
     interface iStates {
         "notWordedSounds": boolean;
         "loading": boolean;
-        "ips": descriptorTypes["IP"][];
+        "ips": Array<descriptorTypes["IP"]>;
     }
 
     interface iProps extends iPropsNode {
@@ -76,7 +76,7 @@ export default class Menu extends React.Component<iProps, iStates> {
             "ips": []
         });
 
-        getSDK().getIps().then((ips: descriptorTypes["IP"][]): void => {
+        getSDK().getIps().then((ips: Array<descriptorTypes["IP"]>): void => {
 
             this.setState({
                 "loading": false,
@@ -107,7 +107,7 @@ export default class Menu extends React.Component<iProps, iStates> {
 
         this.setState({
             "notWordedSounds": value
-        })
+        });
 
         if ("function" === typeof this.props.onToogleNotWordedSounds) {
             this.props.onToogleNotWordedSounds(value);
@@ -123,7 +123,7 @@ export default class Menu extends React.Component<iProps, iStates> {
             return <span className="nav-item nav-link">Loading IPs...</span>;
         }
         else if (0 >= this.state.ips.length) {
-            return <span className="nav-item nav-link">There is no IP detected</span>
+            return <span className="nav-item nav-link">There is no IP detected</span>;
         }
         else {
 
@@ -180,4 +180,4 @@ export default class Menu extends React.Component<iProps, iStates> {
 
     }
 
-};
+}

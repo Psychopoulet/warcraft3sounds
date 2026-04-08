@@ -1,10 +1,10 @@
 {
 	"compilerOptions": {
 
-		"target": "es5",
+		"target": "es2022",
 		"module": "es6",
 
-		"outDir": "./public/",
+		"outDir": "./public/dist/",
 		"sourceMap": true,
 
 		"moduleResolution": "node",
