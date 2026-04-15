@@ -77,8 +77,8 @@
         return CONF.load().then((): void => {
 
             CONF
-                .set("port", CONF.has("port") ? CONF.get("port") : 8000)
-                .set("ssl", CONF.has("ssl") ? CONF.get("ssl") : false);
+                .set("port", CONF.has("port") ? CONF.get<number>("port") : 8000)
+                .set("ssl", CONF.has("ssl") ? CONF.get<boolean>("ssl") : false);
 
         });
 
@@ -144,7 +144,7 @@
 
         // generate server
 
-        if (CONF.get("ssl") as boolean) {
+        if (CONF.get<boolean>("ssl")) {
 
             // to test : add certificate authority (CA)
             // https://node-security.com/posts/certificate-generation-pure-nodejs/
@@ -240,8 +240,8 @@
     // run server
     }).then((server: SecureServer | Server): void => {
 
-        server.listen(CONF.get("port"), (): void => {
-            console.info("started" + (CONF.get("ssl") as boolean ? " with SSL" : ""), "on port " + (CONF.get("port") as number));
+        server.listen(CONF.get<number>("port"), (): void => {
+            console.info("started" + (CONF.get<boolean>("ssl") ? " with SSL" : ""), "on port " + CONF.get<number>("port"));
         });
 
     // graceful shutdown
