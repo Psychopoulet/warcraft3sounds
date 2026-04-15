@@ -30,14 +30,16 @@
     "clean-front": "npx rimraf ./public/dist/bundle.js && npx rimraf ./public/dist/bundle.min.js && npx rimraf ./public/dist/bundle.min.js.map",
     "clean": "npm run clean-back && npm run clean-front",
 
-    "build-back": "npm run-script clean-back && npm run-script transpile-openapi && npx tsc --project ./tsconfig.json",
-    "build-front": "npm run-script clean-front && npm run-script transpile-openapi && npx webpack --config ./webpack.config.js",
-    "build": "npm run-script build-back && npm run-script build-front",
+    "build-back": "npm run clean-back && npm run transpile-openapi && npx tsc --project ./tsconfig.json",
+    "build-front": "npm run clean-front && npm run transpile-openapi && npx webpack --config ./webpack.config.js",
+    "build": "npm run build-back && npm run build-front",
 
     "check-requires": "npx used-deps-analyzer ./package.json ./lib/src --no-dev --overkill fs-extra node-promfs",
     "check-updates": "npx check-version-modules --no-fail-at-major --fail-at-minor --fail-at-patch",
-    "unit-tests": "npm run-script build-back && npx nyc --reporter=html --reporter=text mocha && npx nyc report --reporter=text-lcov | coveralls",
-    "tests": "npm run-script check-requires && npm run-script check-updates && npm run-script lint",
+    "unit-tests": "npx mocha",
+    "unit-tests-local": "npx nyc --reporter=html --reporter=text mocha",
+
+    "tests": "npm run lint && npm run check-requires && npm run check-updates && npm run build && npm run unit-tests-local",
 
     "start": "node ./lib/cjs/main.cjs",
 
@@ -102,6 +104,12 @@
     "pm2": "6.0.14"
   },
 
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run build && npm run unit-tests-local"
+    }
+  },
   "keywords": [
     "warcraft",
     "sounds",
@@ -111,6 +119,7 @@
   "author": "Sébastien VIDAL",
   "contributors": [],
   "license": "ISC",
+
   "homepage": "https://github.com/Psychopoulet/warcraft3sounds#readme",
   "repository": {
     "type": "git",
