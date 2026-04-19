@@ -3,9 +3,12 @@
 // deps
 
     // natives
+    import { randomBytes } from "node:crypto";
+    import { cp } from "node:fs/promises";
+    import { stat } from "node:fs";
     import { createServer as createSecureServer } from "node:https";
     import { createServer } from "node:http";
-    import { randomBytes } from "node:crypto";
+    import { join } from "node:path";
 
     // externals
     import ConfManager from "node-confmanager";
@@ -14,6 +17,7 @@
     // locals
 
     import getModel from "./model";
+    import getSoundsDirectory from "./tools/getSoundsDirectory";
 
     import generateServer from "./server/generateServer";
 
@@ -49,6 +53,7 @@
 // types & interfaces
 
     // natives
+    import type { Stats } from "node:fs";
     import type { Server as SecureServer } from "node:https";
     import type { Server } from "node:http";
 
@@ -65,7 +70,32 @@
 // module
 
     // generate conf
-    Promise.resolve().then((): Promise<void> => {
+
+    const finalSoundsDir = getSoundsDirectory(); // for docker, or after first launch
+
+    console.info("sounds directory :", finalSoundsDir);
+
+    new Promise((resolve: (exists: boolean) => void): void => {
+
+        stat(finalSoundsDir, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
+            return err || !stats.isDirectory() ? resolve(false) : resolve(true);
+        });
+
+    }).then((exists: boolean): void | Promise<void> => {
+
+        if (exists) {
+            return;
+        }
+
+        const originDirectory = join(__dirname, "..", "..", "public", "sounds");
+
+        console.info("sounds directory not found, try to copy from", originDirectory, "to", finalSoundsDir);
+
+        return cp(originDirectory, finalSoundsDir, {
+            "recursive": true
+        });
+
+    }).then((): Promise<void> => {
 
         CONF
             .skeleton("port", "integer")
