@@ -4,11 +4,10 @@
 
     // natives
     import { randomBytes } from "node:crypto";
-    import { cp } from "node:fs/promises";
+    import { mkdir } from "node:fs/promises";
     import { stat } from "node:fs";
     import { createServer as createSecureServer } from "node:https";
     import { createServer } from "node:http";
-    import { join } from "node:path";
 
     // externals
     import ConfManager from "node-confmanager";
@@ -81,17 +80,15 @@
             return err || !stats.isDirectory() ? resolve(false) : resolve(true);
         });
 
-    }).then((exists: boolean): void | Promise<void> => {
+    }).then((exists: boolean): Promise<string | undefined> => {
 
         if (exists) {
-            return;
+            return Promise.resolve("");
         }
 
-        const originDirectory = join(__dirname, "..", "..", "public", "sounds");
+        console.info("sounds directory not found, try to create it", finalSoundsDir);
 
-        console.info("sounds directory not found, try to copy from", originDirectory, "to", finalSoundsDir);
-
-        return cp(originDirectory, finalSoundsDir, {
+        return mkdir(finalSoundsDir, {
             "recursive": true
         });
 
@@ -170,7 +167,7 @@
 
         return app;
 
-    }).then((app: Express): Promise<SecureServer> | Server => {
+    }).then((app: Express): Promise<SecureServer | Server> => {
 
         // generate server
 
@@ -263,7 +260,7 @@
         }
         else {
 
-            return createServer(app);
+            return Promise.resolve(createServer(app));
 
         }
 
