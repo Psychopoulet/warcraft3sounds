@@ -46,7 +46,7 @@
     "daemon-start": "npx pm2 start ./pm2.json",
     "daemon-stop": "npx pm2 stop ./pm2.json && npx pm2 delete ./pm2.json",
 
-    "docker-start": "docker image build --rm -t image-warcraft3sounds . && docker container run -d -v ./public/sounds/:/root/warcraft3sounds/sounds/ -p 8000:8000 --name container-warcraft3sounds image-warcraft3sounds",
+    "docker-start": "docker image build --rm -t image-warcraft3sounds . && docker container run -dti -p 8000:8000 --name container-warcraft3sounds image-warcraft3sounds",
     "docker-stop": "docker container stop container-warcraft3sounds && docker container remove -f container-warcraft3sounds && docker image remove -f image-warcraft3sounds"
 
   },
