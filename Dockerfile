@@ -13,6 +13,7 @@ COPY --chown=node:node public/index.html ./public/index.html
 VOLUME /root/warcraft3sounds/sounds/
 
 RUN apk add --no-cache git
+RUN apk add --no-cache curl
 RUN npm install --omit=dev --omit=optional
 RUN npm install -g pm2
 RUN npm audit fix || echo 0
