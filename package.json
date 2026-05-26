@@ -17,8 +17,6 @@
 
   "scripts": {
 
-    "prepare": "npx husky || true",
-
     "transpile-openapi": "npx openapi-typescript ./lib/data/descriptor.json -o ./lib/src/descriptor.ts",
 
     "lint-back": "npx eslint --config .eslintrc-back.js --ext .ts,.cts,.mts ./lib/src/**/*",
@@ -103,12 +101,6 @@
     "pm2": "6.0.14"
   },
 
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run build && npm run unit-tests-local"
-    }
-  },
   "keywords": [
     "warcraft",
     "sounds",
