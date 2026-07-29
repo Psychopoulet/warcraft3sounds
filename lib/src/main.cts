@@ -7,7 +7,6 @@
     import { mkdir } from "node:fs/promises";
     import { stat } from "node:fs";
     import { createServer as createSecureServer } from "node:https";
-    import { createServer } from "node:http";
 
     // externals
     import ConfManager from "node-confmanager";
@@ -53,8 +52,6 @@
 
     // natives
     import type { Stats } from "node:fs";
-    import type { Server as SecureServer } from "node:https";
-    import type { Server } from "node:http";
 
     // externals
     import type { Express } from "express";
@@ -167,107 +164,104 @@
 
         return app;
 
-    }).then((app: Express): Promise<SecureServer | Server> => {
+    }).then((app: Express): Promise<Express> | Express => {
 
         // generate server
 
-        if (CONF.get<boolean>("ssl")) {
+        if (!CONF.get<boolean>("ssl")) {
+            return app;
+        }
 
-            // to test : add certificate authority (CA)
-            // https://node-security.com/posts/certificate-generation-pure-nodejs/
-            // https://www.localcan.com/blog/self-signed-certificate-for-local-development-openssl-javascript
+        // to test : add certificate authority (CA)
+        // https://node-security.com/posts/certificate-generation-pure-nodejs/
+        // https://www.localcan.com/blog/self-signed-certificate-for-local-development-openssl-javascript
 
-            return new Promise((resolve: (keypair: pki.rsa.KeyPair) => void, reject: (err: Error) => void): void => {
+        return new Promise((resolve: (keypair: pki.rsa.KeyPair) => void, reject: (err: Error) => void): void => {
 
-                pki.rsa.generateKeyPair({
-                    "bits": 4096,
-                    "workers": 2
-                }, (err: Error | null, keypair: pki.rsa.KeyPair): void => {
-                    return err ? reject(err) : resolve(keypair);
-                });
-
-            }).then((keypair: pki.rsa.KeyPair): SecureServer => {
-
-                const cert: pki.Certificate = pki.createCertificate();
-
-                cert.publicKey = keypair.publicKey;
-                cert.serialNumber = "01" + randomBytes(19).toString("hex"); // 1 octet = 8 bits = 1 byte = 2 hex chars (https://advancedweb.hu/how-to-generate-an-https-certificate-with-node-forge/)
-                cert.validity.notBefore = new Date();
-                cert.validity.notAfter = new Date();
-                cert.validity.notAfter.setFullYear(new Date().getFullYear() + 1); // one year validity
-
-                const SSL_OPTIONS: Array<{
-                    "name": string;
-                    "value": string;
-                }> = [
-                    {
-                        "name": "commonName",
-                        "value": "localhost"
-                    }, {
-                        "name": "organizationName",
-                        "value": "warcraft3sounds"
-                    }, {
-                        "name": "countryName",
-                        "value": "FR"
-                    }, {
-                        "name": "stateOrProvinceName",
-                        "value": "France"
-                    }, {
-                        "name": "localityName",
-                        "value": "Paris"
-                    }, {
-                        "name": "emailAddress",
-                        "value": "svida1@free.fr"
-                    }
-                ];
-
-                console.info("certificate options :", JSON.stringify(SSL_OPTIONS));
-
-                const SSL_EXTENSIONS: Array<Record<string, unknown>> = [
-                    {
-                        "name": "subjectAltName",
-                        "altNames": [ // types : 2 = dns name, 6 = URI, 7 = IP
-                            {
-                                "type": 2,
-                                "value": "warcraft3sounds"
-                            }, {
-                                "type": 2,
-                                "value": "localhost"
-                            }, {
-                                "type": 7,
-                                "value": "127.0.0.1"
-                            }
-                        ]
-                    }
-                ];
-
-                cert.setSubject(SSL_OPTIONS);
-                cert.setIssuer(SSL_OPTIONS);
-                cert.setExtensions(SSL_EXTENSIONS);
-
-                cert.sign(keypair.privateKey);
-
-                const pemPrivateKey: string = pki.privateKeyToPem(keypair.privateKey);
-                const pemCertificate: string = pki.certificateToPem(cert);
-
-                return createSecureServer({
-                    "key": pemPrivateKey,
-                    "cert": pemCertificate
-                }, app);
-
+            pki.rsa.generateKeyPair({
+                "bits": 4096,
+                "workers": 2
+            }, (err: Error | null, keypair: pki.rsa.KeyPair): void => {
+                return err ? reject(err) : resolve(keypair);
             });
 
-        }
-        else {
+        }).then((keypair: pki.rsa.KeyPair): Express => {
 
-            return Promise.resolve(createServer(app));
+            const cert: pki.Certificate = pki.createCertificate();
 
-        }
+            cert.publicKey = keypair.publicKey;
+            cert.serialNumber = "01" + randomBytes(19).toString("hex"); // 1 octet = 8 bits = 1 byte = 2 hex chars (https://advancedweb.hu/how-to-generate-an-https-certificate-with-node-forge/)
+            cert.validity.notBefore = new Date();
+            cert.validity.notAfter = new Date();
+            cert.validity.notAfter.setFullYear(new Date().getFullYear() + 1); // one year validity
+
+            const SSL_OPTIONS: Array<{
+                "name": string;
+                "value": string;
+            }> = [
+                {
+                    "name": "commonName",
+                    "value": "localhost"
+                }, {
+                    "name": "organizationName",
+                    "value": "warcraft3sounds"
+                }, {
+                    "name": "countryName",
+                    "value": "FR"
+                }, {
+                    "name": "stateOrProvinceName",
+                    "value": "France"
+                }, {
+                    "name": "localityName",
+                    "value": "Paris"
+                }, {
+                    "name": "emailAddress",
+                    "value": "svida1@free.fr"
+                }
+            ];
+
+            console.info("certificate options :", JSON.stringify(SSL_OPTIONS));
+
+            const SSL_EXTENSIONS: Array<Record<string, unknown>> = [
+                {
+                    "name": "subjectAltName",
+                    "altNames": [ // types : 2 = dns name, 6 = URI, 7 = IP
+                        {
+                            "type": 2,
+                            "value": "warcraft3sounds"
+                        }, {
+                            "type": 2,
+                            "value": "localhost"
+                        }, {
+                            "type": 7,
+                            "value": "127.0.0.1"
+                        }
+                    ]
+                }
+            ];
+
+            cert.setSubject(SSL_OPTIONS);
+            cert.setIssuer(SSL_OPTIONS);
+            cert.setExtensions(SSL_EXTENSIONS);
+
+            cert.sign(keypair.privateKey);
+
+            const pemPrivateKey: string = pki.privateKeyToPem(keypair.privateKey);
+            const pemCertificate: string = pki.certificateToPem(cert);
+
+            createSecureServer({
+                "key": pemPrivateKey,
+                "cert": pemCertificate
+            }, app);
+
+            return app;
+
+        });
 
     // run server
-    }).then((server: SecureServer | Server): void => {
+    }).then((app: Express): void => {
 
-        server.listen(CONF.get<number>("port"), (): void => {
+        app.listen(CONF.get<number>("port"), (): void => {
             console.info("started" + (CONF.get<boolean>("ssl") ? " with SSL" : ""), "on port " + CONF.get<number>("port"));
         });
 

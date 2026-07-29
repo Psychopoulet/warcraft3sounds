@@ -34,14 +34,13 @@
                 "message": "\"" + err.path + "\" not found"
             });
 
-        }
-        else {
-
-            res.status(errorCodes.INTERNAL).json({
-                "code": errorCodes.INTERNAL,
-                "message": err.message
-            });
+            return;
 
         }
+
+        res.status(errorCodes.INTERNAL).json({
+            "code": errorCodes.INTERNAL,
+            "message": err.message
+        });
 
     }

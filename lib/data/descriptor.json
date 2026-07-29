@@ -19,6 +19,7 @@
 			"get": {
 				"description": "",
 				"summary": "API Swagger",
+				"operationId": "getDescriptor",
 				"responses": {
 					"200": {
 						"description": "Everything is fine",

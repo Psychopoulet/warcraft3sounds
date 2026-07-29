@@ -143,7 +143,7 @@ export class WarcraftSoundsModel {
 
                 (ifaces[ifname] as NetworkInterfaceInfo[]).forEach((iface: NetworkInterfaceInfo): void => {
 
-                    if ("IPv4" === iface.family && false === iface.internal) {
+                    if ("IPv4" === iface.family && !iface.internal) {
 
                         result.push({
                             "address": iface.address,
@@ -224,9 +224,13 @@ export class WarcraftSoundsModel {
                 return err ? reject(err) : resolve(data);
             });
 
-        }).then((racesData: iSQLRequestResult[]): Promise<components["schemas"]["Race"] | null> => {
+        }).then((racesData: iSQLRequestResult[] | undefined): Promise<components["schemas"]["Race"] | null> => {
 
-            return !racesData || !racesData.length ? Promise.resolve(null) : new Promise((resolve: (data: components["schemas"]["Race"]) => void): void => {
+            if ("undefined" === typeof racesData || 0 >= racesData.length) {
+                return Promise.resolve(null);
+            }
+
+            return new Promise((resolve: (data: components["schemas"]["Race"]) => void): void => {
 
                 process.nextTick((): void => {
 
@@ -332,66 +336,66 @@ export class WarcraftSoundsModel {
                 return err ? reject(err) : resolve(data);
             });
 
-        }).then((characterData: iSQLRequestResult): Promise<components["schemas"]["Character"] | null> => {
+        }).then((characterData: iSQLRequestResult | undefined): Promise<components["schemas"]["Character"] | null> => {
 
-            return !characterData ? Promise.resolve(null) : Promise.resolve().then((): Promise<components["schemas"]["Character"] | null> => {
+            if (!characterData) {
+                return Promise.resolve(null);
+            }
 
-                interface iSQLActionRequestResult {
-                    "code": string;
-                    "name": string;
-                    "file": string;
-                    "type_code": string;
-                    "type_name": string;
-                }
+            interface iSQLActionRequestResult {
+                "code": string;
+                "name": string;
+                "file": string;
+                "type_code": string;
+                "type_name": string;
+            }
 
-                return new Promise((resolve: (data: iSQLActionRequestResult[]) => void, reject: (err: Error) => void): void => {
+            return new Promise((resolve: (data: iSQLActionRequestResult[]) => void, reject: (err: Error) => void): void => {
 
-                    this._db.all(
-                        " SELECT "
-                            + " actions.code, actions.name, actions.file,"
-                            + " actions_types.code AS type_code, actions_types.name AS type_name"
-                        + " FROM actions INNER JOIN actions_types ON actions_types.id = actions.k_action_type"
-                        + " WHERE actions.k_character = ?"
-                            + (notWorded ? "" : " AND \"\" != actions.name")
-                        + ";",
-                    [ characterData.id ], (err: Error | null, data: iSQLActionRequestResult[]): void => {
-                        return err ? reject(err) : resolve(data);
-                    });
+                this._db.all(
+                    " SELECT "
+                        + " actions.code, actions.name, actions.file,"
+                        + " actions_types.code AS type_code, actions_types.name AS type_name"
+                    + " FROM actions INNER JOIN actions_types ON actions_types.id = actions.k_action_type"
+                    + " WHERE actions.k_character = ?"
+                        + (notWorded ? "" : " AND \"\" != actions.name")
+                    + ";",
+                [ characterData.id ], (err: Error | null, data: iSQLActionRequestResult[]): void => {
+                    return err ? reject(err) : resolve(data);
+                });
 
-                }).then((data: iSQLActionRequestResult[]): Promise<components["schemas"]["Character"] | null> => {
+            }).then((data: iSQLActionRequestResult[]): Promise<components["schemas"]["Character"] | null> => {
 
-                    return new Promise((resolve: (data: components["schemas"]["Character"]) => void): void => {
+                return new Promise((resolve: (data: components["schemas"]["Character"]) => void): void => {
 
-                        process.nextTick((): void => {
+                    process.nextTick((): void => {
 
-                            const result: components["schemas"]["Character"] = {
-                                "code": characterData.code,
-                                "name": characterData.name,
-                                "url": "/api/races/" + codeRace + "/characters/" + code,
-                                "icon": characterData.icon,
-                                "hero": 1 === characterData.hero,
-                                "tft": 1 === characterData.tft,
-                                "actions": []
-                            };
+                        const result: components["schemas"]["Character"] = {
+                            "code": characterData.code,
+                            "name": characterData.name,
+                            "url": "/api/races/" + codeRace + "/characters/" + code,
+                            "icon": characterData.icon,
+                            "hero": 1 === characterData.hero,
+                            "tft": 1 === characterData.tft,
+                            "actions": []
+                        };
 
-                                data.forEach((action: iSQLActionRequestResult): void => {
+                            data.forEach((action: iSQLActionRequestResult): void => {
 
-                                    result.actions.push({
-                                        "code": action.code,
-                                        "name": action.name,
-                                        "file": action.file,
-                                        "url": "/public/sounds/" + action.file,
-                                        "type": {
-                                            "code": action.type_code,
-                                            "name": action.type_name
-                                        }
-                                    });
-
+                                result.actions.push({
+                                    "code": action.code,
+                                    "name": action.name,
+                                    "file": action.file,
+                                    "url": "/public/sounds/" + action.file,
+                                    "type": {
+                                        "code": action.type_code,
+                                        "name": action.type_name
+                                    }
                                 });
 
-                            resolve(result);
+                            });
 
-                        });
+                        resolve(result);
 
                     });
 
