@@ -32,7 +32,7 @@ export default function getfileStats (file: string): Promise<{
             }
 
             return resolve({
-                "exists": !stats.isFile(),
+                "exists": stats.isFile(),
                 "size": stats.size
             });
 
