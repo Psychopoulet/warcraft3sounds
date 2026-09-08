@@ -1,4 +1,5 @@
 /* eslint-disable n/no-process-exit */
+// n/no-process-exit : let main file to use process.exit() if needed
 
 // deps
 
@@ -52,6 +53,7 @@
 
     // natives
     import type { Stats } from "node:fs";
+    import type { IncomingMessage, ServerResponse } from "node:http";
 
     // externals
     import type { Express } from "express";
@@ -252,7 +254,9 @@
             createSecureServer({
                 "key": pemPrivateKey,
                 "cert": pemCertificate
-            }, app);
+            }, (req: IncomingMessage, res: ServerResponse): void => {
+                app(req, res);
+            });
 
             return app;
 

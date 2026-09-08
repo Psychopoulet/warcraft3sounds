@@ -1,3 +1,6 @@
+/* eslint-disable func-style */
+// func-style : disallow arrow functions to keep "this" context
+
 // deps
 
     // natives

@@ -1,3 +1,6 @@
+/* eslint-disable n/callback-return */
+// n/callback-return : incompatible lint rules in pathErrorGlobal
+
 // deps
 
     // externals
@@ -25,7 +28,7 @@
         console.error(err);
 
         if (res.headersSent) {
-            return next(err);
+            next(err);
         }
         else if (err instanceof error.NotFound) { // specific to express-openapi-validator
 
@@ -34,13 +37,14 @@
                 "message": "\"" + err.path + "\" not found"
             });
 
-            return;
+        }
+        else {
+
+            res.status(errorCodes.INTERNAL).json({
+                "code": errorCodes.INTERNAL,
+                "message": err.message
+            });
 
         }
-
-        res.status(errorCodes.INTERNAL).json({
-            "code": errorCodes.INTERNAL,
-            "message": err.message
-        });
 
     }
