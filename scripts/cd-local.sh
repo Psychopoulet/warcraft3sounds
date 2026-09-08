@@ -6,7 +6,20 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CERT_DIR="${ROOT}/deploy/nginx/certs"
 
-mkdir -p "${CERT_DIR}"
+# /mnt/c mkdir -p can report EEXIST while the directory is still missing (WSL 9p).
+if [[ ! -d "${CERT_DIR}" ]]; then
+    mkdir -p "${CERT_DIR}" 2>/dev/null || true
+fi
+if [[ ! -d "${CERT_DIR}" ]] && command -v powershell.exe >/dev/null 2>&1; then
+    WIN_CERT_DIR="$(wslpath -w "${CERT_DIR}" 2>/dev/null || true)"
+    if [[ -n "${WIN_CERT_DIR}" ]]; then
+        powershell.exe -NoProfile -Command "New-Item -ItemType Directory -Force -Path '${WIN_CERT_DIR}' | Out-Null"
+    fi
+fi
+if [[ ! -d "${CERT_DIR}" ]]; then
+    echo "error: cannot create ${CERT_DIR}" >&2
+    exit 1
+fi
 
 if [[ ! -f "${CERT_DIR}/fullchain.pem" || ! -f "${CERT_DIR}/privkey.pem" ]]; then
     echo "generating self-signed TLS cert for localhost (not committed)"

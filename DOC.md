@@ -247,7 +247,7 @@ Two identical app services exist so the **new** color can start while the **old*
 | File | Role |
 | --- | --- |
 | [`deploy/nginx/nginx.conf`](./deploy/nginx/nginx.conf) | Shared: `listen 443 ssl`, `proxy_pass` to `upstream backend`. Same locally and on AWS. |
-| [`deploy/nginx/upstream.conf`](./deploy/nginx/upstream.conf) | One line, e.g. `server app-blue:8000;`. **Rewritten by `deploy.sh`**, then `nginx -s reload` (keep-alive connections stay up). |
+| [`deploy/nginx/upstream.conf.example`](./deploy/nginx/upstream.conf.example) | Template (`server app-blue:8000;`). The live `upstream.conf` is **gitignored** — `deploy.sh` writes it on each deploy, then `nginx -s reload`. |
 | [`deploy/nginx/http-local.conf`](./deploy/nginx/http-local.conf) | `listen 80` → `301` to `https://127.0.0.1:8443…` (host TLS is not on 443). |
 | [`deploy/nginx/http-aws.conf`](./deploy/nginx/http-aws.conf) | `listen 80` → `301` to `https://$host…` **and** `/.well-known/acme-challenge/` for Let’s Encrypt. |
 
