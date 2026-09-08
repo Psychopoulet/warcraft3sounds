@@ -170,10 +170,10 @@
             console.info("started" + (CONF.get<boolean>("ssl") ? " with SSL" : ""), "on port " + CONF.get<number>("port"));
         });
 
-    // graceful shutdown
+    // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose)
     }).then((): void => {
 
-        process.on("SIGINT", (): void => {
+        function _handleKill (): void {
 
             const model: WarcraftSoundsModel = getModel();
 
@@ -193,7 +193,10 @@
 
             });
 
-        });
+        }
+
+        process.on("SIGINT", _handleKill);
+        process.on("SIGTERM", _handleKill);
 
     }).catch((err: Error): void => {
 
