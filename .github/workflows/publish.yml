@@ -1,6 +1,7 @@
 # Publish / version tagging — structure aligned with tests.yml
 # Creates refs/tags/<name> only when that tag is absent on origin (git ls-remote).
-# publish-npm runs only when that job actually created and pushed a new tag.
+# publish-npm (commented example) and publish-aws run only when that job
+# actually created and pushed a new tag.
 
 # ══════════════════════════════════════════════════════════════════════════════
 # METADATA
@@ -129,3 +130,110 @@ jobs:
 
   #     - name: Publish to npm
   #       run: npm publish --provenance --access public
+
+  publish-aws:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    needs: publish-tag-if-new-version
+    if: needs.publish-tag-if-new-version.outputs.tag_created == 'true'
+
+    environment: aws-production
+
+    permissions:
+      contents: read
+      id-token: write                       # OIDC to AWS (no long-lived access keys)
+
+    steps:
+
+      - name: Ensure steps to avoid vulnerabilities
+        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # curl -s https://api.github.com/repos/step-security/harden-runner/commits/v2.19.3 | jq -r .sha
+        with:
+          egress-policy: audit
+
+      - name: Setup the repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # curl -s https://api.github.com/repos/actions/checkout/commits/v6.0.2 | jq -r .sha
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Setup NodeJS v${{ env.NODE_VERSION }}
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # curl -s https://api.github.com/repos/actions/setup-node/commits/v6.4.0 | jq -r .sha
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # curl -s https://api.github.com/repos/aws-actions/configure-aws-credentials/commits/v5 | jq -r .sha
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@03f1aad4c6c7ffd436567f42f9384779290529bd # curl -s https://api.github.com/repos/aws-actions/amazon-ecr-login/commits/v2 | jq -r .sha
+
+      - name: Build and push image
+        env:
+          ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
+          ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+        run: |
+          set -euo pipefail
+          : "${ECR_REGISTRY:?}"
+          : "${ECR_REPOSITORY:?}"
+          VERSION="$(node -p "require('./package.json').version")"
+          bash ./scripts/build-image.sh "${ECR_REGISTRY}/${ECR_REPOSITORY}" "${VERSION}"
+          docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${VERSION}"
+
+      - name: Deploy on EC2 via SSM
+        env:
+          ECR_REGISTRY: ${{ vars.ECR_REGISTRY }}
+          ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+          AWS_REGION: ${{ vars.AWS_REGION }}
+          EC2_INSTANCE_ID: ${{ vars.EC2_INSTANCE_ID }}
+        run: |
+          set -euo pipefail
+          : "${ECR_REGISTRY:?}"
+          : "${ECR_REPOSITORY:?}"
+          : "${AWS_REGION:?}"
+          : "${EC2_INSTANCE_ID:?}"
+          VERSION="$(node -p "require('./package.json').version")"
+          PARAMS="$(jq -n \
+            --arg r "${ECR_REGISTRY}" \
+            --arg p "${ECR_REPOSITORY}" \
+            --arg v "${VERSION}" \
+            --arg g "${AWS_REGION}" \
+            '{commands:[
+              ("export ECR_REGISTRY="+$r),
+              ("export ECR_REPOSITORY="+$p),
+              ("export VERSION="+$v),
+              ("export AWS_REGION="+$g),
+              "bash /opt/warcraft3sounds/scripts/publish-remote.sh"
+            ]}')"
+          CMD_ID="$(aws ssm send-command \
+            --instance-ids "${EC2_INSTANCE_ID}" \
+            --document-name "AWS-RunShellScript" \
+            --comment "publish-aws ${VERSION}" \
+            --parameters "${PARAMS}" \
+            --query "Command.CommandId" \
+            --output text)"
+          aws ssm wait command-executed --command-id "${CMD_ID}" --instance-id "${EC2_INSTANCE_ID}"
+          STATUS="$(aws ssm get-command-invocation \
+            --command-id "${CMD_ID}" \
+            --instance-id "${EC2_INSTANCE_ID}" \
+            --query "Status" \
+            --output text)"
+          test "${STATUS}" = "Success"
+
+      - name: Check public HTTPS health
+        env:
+          PUBLIC_HEALTH_URL: ${{ vars.PUBLIC_HEALTH_URL }}
+        run: |
+          set -euo pipefail
+          : "${PUBLIC_HEALTH_URL:?}"
+          curl -fS "${PUBLIC_HEALTH_URL}"
