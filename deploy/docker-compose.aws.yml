@@ -1,0 +1,16 @@
+services:
+
+  nginx:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/http-aws.conf:/etc/nginx/http-listen.conf:ro
+      - ${CERTS_HOST_DIR:-/opt/warcraft3sounds/certs}:/etc/nginx/certs:ro
+      - ${ACME_WEBROOT:-/opt/warcraft3sounds/certbot}:/var/www/certbot:ro
+
+  app-blue:
+    image: ${APP_IMAGE}
+
+  app-green:
+    image: ${APP_IMAGE}
