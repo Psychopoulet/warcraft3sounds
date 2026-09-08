@@ -50,10 +50,10 @@ Overlays are **never** loaded together: `compose.sh` always uses the base file p
 
 ## How to run it locally
 
-Needs Docker Compose v2 and bash. Until the npm wrapper exists ([PLAN.md](./PLAN.md) A6):
+Needs Docker Compose v2 and bash.
 
 ```bash
-bash ./scripts/cd-local.sh
+npm run cd-local
 ```
 
 Then:
@@ -63,12 +63,12 @@ curl -kfsS https://127.0.0.1:8443/health
 # → {"status":"ok"}
 ```
 
-A second run of `cd-local.sh` (after another image build) performs a **rolling** switch (blue ↔ green).
+A second `npm run cd-local` (after another image build) performs a **rolling** switch (blue ↔ green).
 
 Stop:
 
 ```bash
-bash ./scripts/cd-local-down.sh
+npm run cd-local-down
 ```
 
 ---
