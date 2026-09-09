@@ -17,7 +17,7 @@
 
     interface iStates {
         "notWordedSounds": boolean;
-    };
+    }
 
 // component
 

@@ -18,7 +18,7 @@
     // externals
     import type { iPropsNode } from "react-bootstrap-fontawesome";
 
-	// locals
+    // locals
     import type { descriptorTypes } from "../sdk";
 
 // Props && States
@@ -163,7 +163,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
     private _renderMusics (): React.JSX.Element {
 
-        if (!this.state.race || 0 >= this.state.race?.musics.length) {
+        if (!this.state.race?.musics || 0 >= this.state.race.musics.length) {
 
             return <InputReadOnlyLabel label="Musics" value="No music found" />;
 
@@ -176,7 +176,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <option value="">--</option>
 
-                { this.state.race?.musics.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
+                { this.state.race.musics.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
                     return <option key={ content.code } value={ content.url }>{ content.name }</option>;
                 }) }
 
@@ -188,7 +188,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
     private _renderWarnings (): React.JSX.Element {
 
-        if (!this.state.race || 0 >= this.state.race?.warnings.length) {
+        if (!this.state.race?.warnings || 0 >= this.state.race.warnings.length) {
 
             return <InputReadOnlyLabel label="Warnings" value="No warning found" />;
 
@@ -201,7 +201,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <option value="">--</option>
 
-                { this.state.race?.warnings.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
+                { this.state.race.warnings.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
                     return <option key={ content.code } value={ content.url }>{ content.name }</option>;
                 }) }
 
@@ -213,7 +213,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
     private _renderActions (): React.JSX.Element[] | null {
 
-        if (!this.state.character?.actions || 0 >= this.state.character?.actions.length) {
+        if (!this.state.character?.actions || 0 >= this.state.character.actions.length) {
             return null;
         }
         else {
@@ -242,7 +242,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
     private _renderCharacters (): React.JSX.Element {
 
-        if (!this.state.race || 0 >= this.state.race?.characters.length) {
+        if (!this.state.race?.characters || 0 >= this.state.race.characters.length) {
 
             return <InputReadOnlyLabel label="Characters" value="No character found" margin-bottom={ 0 } />;
 
@@ -265,11 +265,11 @@ export default class Race extends React.Component<iProps, iStates> {
 
                         <option value="">--</option>
 
-                        { this._renderCharactersOptGroup("heroes", this.state.race?.characters.filter((character: descriptorTypes["BasicCharacter"]): boolean => {
+                        { this._renderCharactersOptGroup("heroes", this.state.race.characters.filter((character: descriptorTypes["BasicCharacter"]): boolean => {
                             return character.hero;
                         })) }
 
-                        { this._renderCharactersOptGroup("others", this.state.race?.characters.filter((character: descriptorTypes["BasicCharacter"]): boolean => {
+                        { this._renderCharactersOptGroup("others", this.state.race.characters.filter((character: descriptorTypes["BasicCharacter"]): boolean => {
                             return !character.hero;
                         })) }
 
