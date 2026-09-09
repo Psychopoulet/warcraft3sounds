@@ -14,7 +14,7 @@
     import type { Request, Response, NextFunction } from "express";
 
     // locals
-    import type { paths, components } from "../../descriptor";
+    import type { operations } from "../../descriptor";
 
 // module
 
@@ -22,7 +22,7 @@
 
         readFile(join(__dirname, "..", "..", "..", "data", "descriptor.json"), "utf-8").then((content: string): void => {
 
-            res.status(errorCodes.OK).json(JSON.parse(content) as paths["/api/descriptor"]["get"]["responses"]["200"]["content"]["application/json"]);
+            res.status(errorCodes.OK).json(JSON.parse(content) as operations["getDescriptor"]["responses"]["200"]["content"]["application/json"]);
 
         }).catch(next);
 
@@ -30,7 +30,7 @@
 
     export function pathAPIIps (req: Request, res: Response, next: NextFunction): void {
 
-        getModel().getIps().then((ips: components["schemas"]["IP"][]): void => {
+        getModel().getIps().then((ips: operations["getIPs"]["responses"]["200"]["content"]["application/json"]): void => {
 
             res.status(errorCodes.OK).json(ips);
 
@@ -40,7 +40,7 @@
 
     export function pathAPIAllRaces (req: Request, res: Response, next: NextFunction): void {
 
-        getModel().getRaces().then((races: Array<components["schemas"]["BasicRace"]>): void => {
+        getModel().getRaces().then((races: operations["getRaces"]["responses"]["200"]["content"]["application/json"]): void => {
 
             res.status(errorCodes.OK).json(races);
 
@@ -50,7 +50,7 @@
 
     export function pathAPIOneRace (req: Request, res: Response, next: NextFunction): void {
 
-        getModel().getRace(req.params.race).then((race: components["schemas"]["Race"] | null): void => {
+        getModel().getRace(req.params.race).then((race: operations["getRace"]["responses"]["200"]["content"]["application/json"] | null): void => {
 
             if (race) {
 
@@ -92,11 +92,11 @@
             req.params.race,
             req.params.character,
             notworded
-        ).then((character: components["schemas"]["Character"] | null): void => {
+        ).then((character: operations["getCharacter"]["responses"]["200"]["content"]["application/json"] | null): void => {
 
             if (character) {
 
-                res.status(errorCodes.OK).json(character as paths["/api/races/{racecode}/characters/{charactercode}"]["get"]["responses"]["200"]["content"]["application/json"]);
+                res.status(errorCodes.OK).json(character);
 
             }
             else {

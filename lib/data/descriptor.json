@@ -1,8 +1,8 @@
 {
-	"openapi": "3.0.2",
+	"openapi": "3.1.2",
 	"info": {
 		"title": "warcraft3sounds",
-		"version": "0.3.1",
+		"version": "1.0.0",
 		"description": "An api for warcraft 3 sounds",
 		"contact": {
 			"name": "Sébastien VIDAL",
@@ -19,6 +19,7 @@
 			"get": {
 				"description": "",
 				"summary": "API Swagger",
+				"operationId": "getDescriptor",
 				"responses": {
 					"200": {
 						"description": "Everything is fine",

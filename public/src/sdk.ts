@@ -1,5 +1,3 @@
-"use strict";
-
 // types & interfaces
 
     // locals
@@ -42,7 +40,7 @@ export class SDK {
 
     public getCharacter (raceCode: components["schemas"]["Race"]["code"], characterCode: components["schemas"]["Character"]["code"], notworded?: boolean): Promise<components["schemas"]["Character"]> {
 
-        return fetch("/api/races/" + raceCode + "/characters/" + characterCode + "?notworded=" + (notworded ? "true" : "false")).then((content: Response): Promise<components["schemas"]["Character"]> => {
+        return fetch("/api/races/" + raceCode + "/characters/" + characterCode + "?notworded=" + String(notworded)).then((content: Response): Promise<components["schemas"]["Character"]> => {
 
             return content.json();
 
@@ -56,9 +54,7 @@ let _sdk: SDK | null = null;
 
 export default function getSDK (): SDK {
 
-    if (null === _sdk) {
-        _sdk = new SDK();
-    }
+    _sdk ??= new SDK();
 
     return _sdk;
 

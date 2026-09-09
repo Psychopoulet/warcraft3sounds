@@ -1,12 +1,13 @@
 // deps
 
     // natives
-    import { join, extname } from "node:path";
     import { createReadStream } from "node:fs";
+    import { join, extname } from "node:path";
 
     // locals
     import errorCodes from "../../returncodes";
     import getFileStats from "../../tools/getFileStats";
+    import getSoundsDirectory from "../../tools/getSoundsDirectory";
 
 // types & interfaces
 
@@ -21,7 +22,7 @@
 export function pathSounds (req: Request, res: Response, next: NextFunction): void {
 
     const sound: paths["/public/sounds/{sound}"]["get"]["parameters"]["path"]["sound"] = req.params.sound;
-    const file: string = join(__dirname, "..", "..", "..", "..", "public", "sounds", sound);
+    const file: string = join(getSoundsDirectory(), sound);
 
     getFileStats(file).then((stats: {
         "exists": boolean;

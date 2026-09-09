@@ -1,5 +1,3 @@
-"use strict";
-
 // deps
 
     // externals
@@ -19,7 +17,7 @@
 
     interface iStates {
         "notWordedSounds": boolean;
-    };
+    }
 
 // component
 

@@ -13,7 +13,7 @@
     // main page
 
     export function pathPublicIndex (req: Request, res: Response): void {
-        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "dist", "index.html"));
+        return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "index.html"));
     }
 
     // app
