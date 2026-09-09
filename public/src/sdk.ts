@@ -1,5 +1,3 @@
-"use strict";
-
 // types & interfaces
 
     // locals
