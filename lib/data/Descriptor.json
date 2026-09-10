@@ -3,7 +3,7 @@
 	"info": {
 		"title": "warcraft3sounds",
 		"version": "1.1.0",
-		"description": "An api for warcraft 3 sounds",
+		"description": "An api for warcraft 3 sounds.",
 		"contact": {
 			"name": "Sébastien VIDAL",
 			"url": "https://github.com/Psychopoulet/warcraft3sounds/issues"
