@@ -8,16 +8,6 @@
 
 export class SDK {
 
-    public getIps (): Promise<Array<components["schemas"]["IP"]>> {
-
-        return fetch("/api/ips").then((content: Response): Promise<Array<components["schemas"]["IP"]>> => {
-
-            return content.json();
-
-        });
-
-    }
-
     public getRaces (): Promise<Array<descriptorTypes["BasicRace"]>> {
 
         return fetch("/api/races").then((content: Response): Promise<Array<descriptorTypes["BasicRace"]>> => {
