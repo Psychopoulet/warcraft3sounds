@@ -16,4 +16,5 @@ aws-credentials
 deploy/.secrets
 deploy/nginx/certs/
 deploy/nginx/upstream.conf
+deploy/nginx/runtime/upstream.conf
 deploy/current-color
