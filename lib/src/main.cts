@@ -50,7 +50,6 @@
 
     // natives
     import type { Stats } from "node:fs";
-    import type { IncomingMessage, ServerResponse } from "node:http";
 
     // externals
     import type { Express } from "express";
