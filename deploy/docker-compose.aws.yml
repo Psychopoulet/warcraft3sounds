@@ -11,6 +11,10 @@ services:
 
   app-blue:
     image: ${APP_IMAGE}
+    volumes:
+      - ${SOUNDS_HOST_DIR:-/var/lib/warcraft3sounds/sounds}:/root/warcraft3sounds/sounds:ro
 
   app-green:
     image: ${APP_IMAGE}
+    volumes:
+      - ${SOUNDS_HOST_DIR:-/var/lib/warcraft3sounds/sounds}:/root/warcraft3sounds/sounds:ro
