@@ -85,7 +85,7 @@ export default class Menu extends React.Component<iProps, iStates> {
 
                     <form className="form-inline">
 
-                        <CheckBoxPrettierLabel label={ "Include \"not worded\" sounds" }
+                        <CheckBoxPrettierLabel label={ "Intégrer les sons non traduits ('not worded')" }
                             margin-bottom={ 0 }
                             checked={ this.state.notWordedSounds } onToogle={ this._handleToogleNotWordedSounds.bind(this) }
                         />
