@@ -38,6 +38,14 @@
             });
 
         }
+        else if (err instanceof error.BadRequest) { // specific to express-openapi-validator
+
+            res.status(errorCodes.BADREQUEST).json({
+                "code": errorCodes.BADREQUEST,
+                "message": err.message
+            });
+
+        }
         else {
 
             res.status(errorCodes.INTERNAL).json({
