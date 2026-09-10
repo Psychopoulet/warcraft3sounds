@@ -39,7 +39,9 @@ export default function generateServer (): Express {
     // check OpenAPI spec
     app.use(middleware({
         "apiSpec": join(__dirname, "..", "..", "data", "Descriptor.json"),
-        "validateRequests": true, // (default)
+        "validateRequests": {
+            "allowUnknownQueryParameters": true // tracking params (fbclid, utm_*, ...)
+        },
         "validateResponses": true // false by default
     }));
 
