@@ -45,39 +45,6 @@
 			}
 		},
 
-		"/api/ips": {
-			"get": {
-				"description": "",
-				"summary": "Get server IPs",
-				"operationId": "getIPs",
-				"responses": {
-					"200": {
-						"description": "Everything is fine",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"items": {
-										"uniqueItems": true,
-										"$ref": "#/components/schemas/IP"
-									}
-								}
-							}
-						}
-					},
-					"default": {
-						"description": "An error occured",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/api/races": {
 			"get": {
 				"description": "",
@@ -464,18 +431,6 @@
 					}
 				},
 				"required": [ "code", "message" ]
-			},
-			"IP": {
-				"type": "object",
-				"properties": {
-					"address": {
-						"type": "string"
-					},
-					"name": {
-						"type": "string"
-					}
-				},
-				"required": [ "address", "name" ]
 			},
 			"BasicData": {
 				"type": "object",

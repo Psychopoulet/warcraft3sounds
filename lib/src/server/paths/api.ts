@@ -28,16 +28,6 @@
 
     }
 
-    export function pathAPIIps (req: Request, res: Response, next: NextFunction): void {
-
-        getModel().getIps().then((ips: operations["getIPs"]["responses"]["200"]["content"]["application/json"]): void => {
-
-            res.status(errorCodes.OK).json(ips);
-
-        }).catch(next);
-
-    }
-
     export function pathAPIAllRaces (req: Request, res: Response, next: NextFunction): void {
 
         getModel().getRaces().then((races: operations["getRaces"]["responses"]["200"]["content"]["application/json"]): void => {

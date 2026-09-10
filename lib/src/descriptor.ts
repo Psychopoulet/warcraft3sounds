@@ -21,23 +21,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/ips": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Get server IPs */
-        get: operations["getIPs"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/races": {
         parameters: {
             query?: never;
@@ -427,10 +410,6 @@ export interface components {
             code: string;
             message: string;
         };
-        IP: {
-            address: string;
-            name: string;
-        };
         BasicData: {
             code: string;
             name: string;
@@ -485,35 +464,6 @@ export interface operations {
                 };
                 content: {
                     "application/json": Record<string, never>;
-                };
-            };
-            /** @description An error occured */
-            default: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["Error"];
-                };
-            };
-        };
-    };
-    getIPs: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Everything is fine */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["IP"][];
                 };
             };
             /** @description An error occured */

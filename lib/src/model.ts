@@ -6,15 +6,11 @@
     // natives
     import { join } from "node:path";
     import { readFile } from "node:fs/promises";
-    import { networkInterfaces } from "node:os";
 
     // externals
     import { verbose } from "sqlite3";
 
 // types & interfaces
-
-    // natives
-    import type { NetworkInterfaceInfo } from "node:os";
 
     // externals
     import type { sqlite3, Database } from "sqlite3";
@@ -131,37 +127,6 @@ export class WarcraftSoundsModel {
             });
 
         });
-
-    }
-
-    public getIps (): Promise<Array<components["schemas"]["IP"]>> {
-
-        const result: Array<components["schemas"]["IP"]> = [];
-
-            const ifaces: NodeJS.Dict<NetworkInterfaceInfo[]> = networkInterfaces();
-
-            Object.keys(ifaces).forEach((ifname: string): void => {
-
-                let alias: number = 0;
-
-                (ifaces[ifname] as NetworkInterfaceInfo[]).forEach((iface: NetworkInterfaceInfo): void => {
-
-                    if ("IPv4" === iface.family && !iface.internal) {
-
-                        result.push({
-                            "address": iface.address,
-                            "name": 1 <= alias ? ifname + "-" + alias : ifname
-                        });
-
-                        ++alias;
-
-                    }
-
-                });
-
-            });
-
-        return Promise.resolve(result);
 
     }
 
