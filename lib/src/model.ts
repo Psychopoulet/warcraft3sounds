@@ -134,7 +134,7 @@ export class WarcraftSoundsModel {
 
         return new Promise((resolve: (data: Array<components["schemas"]["BasicRace"]>) => void, reject: (err: Error) => void): void => {
 
-            this._db.all("SELECT code, name, icon FROM races ORDER BY name;", (err: Error | null, data: Array<components["schemas"]["BasicRace"]>): void => {
+            this._db.all("SELECT code, name, icon FROM races ORDER BY id;", (err: Error | null, data: Array<components["schemas"]["BasicRace"]>): void => {
 
                 return err
                     ? reject(err)
