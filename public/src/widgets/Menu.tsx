@@ -77,22 +77,14 @@ export default class Menu extends React.Component<iProps, iStates> {
 
                 </span>
 
-                <button type="button" className="navbar-toggler navbar-toggler-right" data-bs-toggle="collapse" data-bs-target="#IPS">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                <form className="form-inline">
 
-                <div id="IPS" className="collapse navbar-collapse">
+                    <CheckBoxPrettierLabel label={ "Intégrer les sons non traduits ('not worded')" }
+                        margin-bottom={ 0 }
+                        checked={ this.state.notWordedSounds } onToogle={ this._handleToogleNotWordedSounds.bind(this) }
+                    />
 
-                    <form className="form-inline">
-
-                        <CheckBoxPrettierLabel label={ "Intégrer les sons non traduits ('not worded')" }
-                            margin-bottom={ 0 }
-                            checked={ this.state.notWordedSounds } onToogle={ this._handleToogleNotWordedSounds.bind(this) }
-                        />
-
-                    </form>
-
-                </div>
+                </form>
 
             </div>
 
