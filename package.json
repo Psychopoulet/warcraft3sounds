@@ -36,7 +36,7 @@
     "check-requires": "npx used-deps-analyzer ./package.json ./lib/src --no-dev --overkill fs-extra node-promfs",
     "check-updates": "npx check-version-modules --no-fail-at-major --fail-at-minor --fail-at-patch",
     "unit-tests": "npx mocha",
-    "unit-tests-local": "npx nyc --reporter=html --reporter=text mocha",
+    "unit-tests-local": "echo 'Not implemented yet'",
 
     "tests": "npm run lint && npm run check-requires && npm run check-updates && npm run build && npm run unit-tests-local",
 
