@@ -48,9 +48,13 @@
 
     }
 
-    export function pathAPIOneRace (req: Request, res: Response, next: NextFunction): void {
+    export function pathAPIOneRace (
+        req: Request<operations["getRace"]["parameters"]["path"]>,
+        res: Response,
+        next: NextFunction
+    ): void {
 
-        getModel().getRace(req.params.race).then((race: operations["getRace"]["responses"]["200"]["content"]["application/json"] | null): void => {
+        getModel().getRace(req.params.racecode).then((race: operations["getRace"]["responses"]["200"]["content"]["application/json"] | null): void => {
 
             if (race) {
 
@@ -59,10 +63,12 @@
             }
             else {
 
-                res.status(errorCodes.NOTFOUND).json({
-                    "code": errorCodes.NOTFOUND,
-                    "message": "Impossible to find \"" + req.params.race + "\" race"
-                });
+                const err: operations["getRace"]["responses"]["default"]["content"]["application/json"] = {
+                    "code": String(errorCodes.NOTFOUND),
+                    "message": "Impossible to find \"" + req.params.racecode + "\" race"
+                };
+
+                res.status(errorCodes.NOTFOUND).json(err);
 
             }
 
@@ -70,7 +76,11 @@
 
     }
 
-    export function pathAPIOneCharacter (req: Request, res: Response, next: NextFunction): void {
+    export function pathAPIOneCharacter (
+        req: Request<operations["getCharacter"]["parameters"]["path"]>,
+        res: Response,
+        next: NextFunction
+    ): void {
 
         let notworded: boolean = false;
 
@@ -89,8 +99,8 @@
         }
 
         getModel().getCharacter(
-            req.params.race,
-            req.params.character,
+            req.params.racecode,
+            req.params.charactercode,
             notworded
         ).then((character: operations["getCharacter"]["responses"]["200"]["content"]["application/json"] | null): void => {
 
@@ -101,10 +111,12 @@
             }
             else {
 
-                res.status(errorCodes.NOTFOUND).json({
-                    "code": errorCodes.NOTFOUND,
-                    "message": "Impossible to find \"" + req.params.character + "\" character for race \"" + req.params.race + "\""
-                });
+                const err: operations["getCharacter"]["responses"]["default"]["content"]["application/json"] = {
+                    "code": String(errorCodes.NOTFOUND),
+                    "message": "Impossible to find \"" + req.params.charactercode + "\" character for race \"" + req.params.racecode + "\""
+                };
+
+                res.status(errorCodes.NOTFOUND).json(err);
 
             }
 

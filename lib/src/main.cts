@@ -139,8 +139,8 @@
                 .get("/api/descriptor", pathAPISwagger)
                 .get("/api/ips", pathAPIIps)
                 .get("/api/races", pathAPIAllRaces)
-                .get("/api/races/:race", pathAPIOneRace)
-                .get("/api/races/:race/characters/:character", pathAPIOneCharacter);
+                .get("/api/races/:racecode", pathAPIOneRace)
+                .get("/api/races/:racecode/characters/:charactercode", pathAPIOneCharacter);
 
         // redirections
 

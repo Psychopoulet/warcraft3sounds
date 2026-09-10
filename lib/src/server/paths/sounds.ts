@@ -15,13 +15,17 @@
     import type { Request, Response, NextFunction } from "express";
 
     // locals
-    import type { paths } from "../../descriptor";
+    import type { operations } from "../../descriptor";
 
 // module
 
-export function pathSounds (req: Request, res: Response, next: NextFunction): void {
+export function pathSounds (
+    req: Request<operations["getSound"]["parameters"]["path"]>,
+    res: Response,
+    next: NextFunction
+): void {
 
-    const sound: paths["/public/sounds/{sound}"]["get"]["parameters"]["path"]["sound"] = req.params.sound;
+    const { sound } = req.params;
     const file: string = join(getSoundsDirectory(), sound);
 
     getFileStats(file).then((stats: {
@@ -41,10 +45,12 @@ export function pathSounds (req: Request, res: Response, next: NextFunction): vo
         }
         else {
 
-            res.status(errorCodes.NOTFOUND).json({
+            const err: operations["getSound"]["responses"]["default"]["content"]["application/json"] = {
                 "code": String(errorCodes.NOTFOUND),
                 "message": "Impossible to find the \"" + sound + "\" sound"
-            } as paths["/public/sounds/{sound}"]["get"]["responses"]["default"]["content"]["application/json"]);
+            };
+
+            res.status(errorCodes.NOTFOUND).json(err);
 
         }
 
