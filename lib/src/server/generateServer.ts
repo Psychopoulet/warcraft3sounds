@@ -38,7 +38,7 @@ export default function generateServer (): Express {
 
     // check OpenAPI spec
     app.use(middleware({
-        "apiSpec": join(__dirname, "..", "..", "data", "descriptor.json"),
+        "apiSpec": join(__dirname, "..", "..", "data", "Descriptor.json"),
         "validateRequests": true, // (default)
         "validateResponses": true // false by default
     }));

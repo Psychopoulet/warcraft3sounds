@@ -165,12 +165,12 @@ export default class Race extends React.Component<iProps, iStates> {
 
         if (!this.state.race?.musics || 0 >= this.state.race.musics.length) {
 
-            return <InputReadOnlyLabel label="Musics" value="No music found" />;
+            return <InputReadOnlyLabel label="Musiques" value="Aucune musique trouvée" />;
 
         }
         else {
 
-            return <SelectLabel id={ this.state.race.code + "-musics" } label="Musics"
+            return <SelectLabel id={ this.state.race.code + "-musics" } label="Musiques"
                 value={ this.state.selectedSound } onChange={ this._handleChangeSound.bind(this) }
             >
 
@@ -190,12 +190,12 @@ export default class Race extends React.Component<iProps, iStates> {
 
         if (!this.state.race?.warnings || 0 >= this.state.race.warnings.length) {
 
-            return <InputReadOnlyLabel label="Warnings" value="No warning found" />;
+            return <InputReadOnlyLabel label="Alertes" value="Aucune alerte trouvée" />;
 
         }
         else {
 
-            return <SelectLabel id={ this.state.race.code + "-warnings" } label="Warnings"
+            return <SelectLabel id={ this.state.race.code + "-warnings" } label="Alertes"
                 value={ this.state.selectedSound } onChange={ this._handleChangeSound.bind(this) }
             >
 
@@ -244,7 +244,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
         if (!this.state.race?.characters || 0 >= this.state.race.characters.length) {
 
-            return <InputReadOnlyLabel label="Characters" value="No character found" margin-bottom={ 0 } />;
+            return <InputReadOnlyLabel label="Characters" value="Aucun personnage trouvé" margin-bottom={ 0 } />;
 
         }
         else {
@@ -265,11 +265,11 @@ export default class Race extends React.Component<iProps, iStates> {
 
                         <option value="">--</option>
 
-                        { this._renderCharactersOptGroup("heroes", this.state.race.characters.filter((character: descriptorTypes["BasicCharacter"]): boolean => {
+                        { this._renderCharactersOptGroup("Héros", this.state.race.characters.filter((character: descriptorTypes["BasicCharacter"]): boolean => {
                             return character.hero;
                         })) }
 
-                        { this._renderCharactersOptGroup("others", this.state.race.characters.filter((character: descriptorTypes["BasicCharacter"]): boolean => {
+                        { this._renderCharactersOptGroup("Autres", this.state.race.characters.filter((character: descriptorTypes["BasicCharacter"]): boolean => {
                             return !character.hero;
                         })) }
 

@@ -1,22 +1,12 @@
 // types & interfaces
 
     // locals
-    import type { components } from "../../lib/src/descriptor";
+    import type { components } from "../../lib/src/Descriptor";
     export type descriptorTypes = components["schemas"];
 
 // component
 
 export class SDK {
-
-    public getIps (): Promise<Array<components["schemas"]["IP"]>> {
-
-        return fetch("/api/ips").then((content: Response): Promise<Array<components["schemas"]["IP"]>> => {
-
-            return content.json();
-
-        });
-
-    }
 
     public getRaces (): Promise<Array<descriptorTypes["BasicRace"]>> {
 

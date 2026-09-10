@@ -14,25 +14,15 @@
     import type { Request, Response, NextFunction } from "express";
 
     // locals
-    import type { operations } from "../../descriptor";
+    import type { operations } from "../../Descriptor";
 
 // module
 
     export function pathAPISwagger (req: Request, res: Response, next: NextFunction): void {
 
-        readFile(join(__dirname, "..", "..", "..", "data", "descriptor.json"), "utf-8").then((content: string): void => {
+        readFile(join(__dirname, "..", "..", "..", "data", "Descriptor.json"), "utf-8").then((content: string): void => {
 
             res.status(errorCodes.OK).json(JSON.parse(content) as operations["getDescriptor"]["responses"]["200"]["content"]["application/json"]);
-
-        }).catch(next);
-
-    }
-
-    export function pathAPIIps (req: Request, res: Response, next: NextFunction): void {
-
-        getModel().getIps().then((ips: operations["getIPs"]["responses"]["200"]["content"]["application/json"]): void => {
-
-            res.status(errorCodes.OK).json(ips);
 
         }).catch(next);
 

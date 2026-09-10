@@ -31,7 +31,6 @@
 
     import {
         pathAPISwagger,
-        pathAPIIps,
         pathAPIAllRaces,
         pathAPIOneRace,
         pathAPIOneCharacter
@@ -137,7 +136,6 @@
 
             app
                 .get("/api/descriptor", pathAPISwagger)
-                .get("/api/ips", pathAPIIps)
                 .get("/api/races", pathAPIAllRaces)
                 .get("/api/races/:racecode", pathAPIOneRace)
                 .get("/api/races/:racecode/characters/:charactercode", pathAPIOneCharacter);

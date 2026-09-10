@@ -20,5 +20,5 @@ module.exports = defineConfig([
             }
         }
     },
-    globalIgnores([ "public/src/descriptor.ts" ])
+    globalIgnores([ "public/src/Descriptor.ts" ])
 ]);

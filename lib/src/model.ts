@@ -6,21 +6,17 @@
     // natives
     import { join } from "node:path";
     import { readFile } from "node:fs/promises";
-    import { networkInterfaces } from "node:os";
 
     // externals
     import { verbose } from "sqlite3";
 
 // types & interfaces
 
-    // natives
-    import type { NetworkInterfaceInfo } from "node:os";
-
     // externals
     import type { sqlite3, Database } from "sqlite3";
 
     // locals
-    import type { components } from "./descriptor";
+    import type { components } from "./Descriptor";
 
 // consts
 
@@ -134,42 +130,11 @@ export class WarcraftSoundsModel {
 
     }
 
-    public getIps (): Promise<Array<components["schemas"]["IP"]>> {
-
-        const result: Array<components["schemas"]["IP"]> = [];
-
-            const ifaces: NodeJS.Dict<NetworkInterfaceInfo[]> = networkInterfaces();
-
-            Object.keys(ifaces).forEach((ifname: string): void => {
-
-                let alias: number = 0;
-
-                (ifaces[ifname] as NetworkInterfaceInfo[]).forEach((iface: NetworkInterfaceInfo): void => {
-
-                    if ("IPv4" === iface.family && !iface.internal) {
-
-                        result.push({
-                            "address": iface.address,
-                            "name": 1 <= alias ? ifname + "-" + alias : ifname
-                        });
-
-                        ++alias;
-
-                    }
-
-                });
-
-            });
-
-        return Promise.resolve(result);
-
-    }
-
     public getRaces (): Promise<Array<components["schemas"]["BasicRace"]>> {
 
         return new Promise((resolve: (data: Array<components["schemas"]["BasicRace"]>) => void, reject: (err: Error) => void): void => {
 
-            this._db.all("SELECT code, name, icon FROM races ORDER BY name;", (err: Error | null, data: Array<components["schemas"]["BasicRace"]>): void => {
+            this._db.all("SELECT code, name, icon FROM races ORDER BY id;", (err: Error | null, data: Array<components["schemas"]["BasicRace"]>): void => {
 
                 return err
                     ? reject(err)
