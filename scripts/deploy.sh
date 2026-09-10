@@ -12,7 +12,7 @@ DEPLOY_ENV="local"
 APP_IMAGE_NAME="warcraft3sounds"
 APP_TAG="local"
 COLOR_FILE="${COLOR_FILE:-${ROOT}/deploy/current-color}"
-UPSTREAM_FILE="${ROOT}/deploy/nginx/upstream.conf"
+UPSTREAM_FILE="${ROOT}/deploy/nginx/runtime/upstream.conf"
 HEALTH_TIMEOUT="${HEALTH_TIMEOUT:-90}"
 
 usage() {
@@ -62,11 +62,20 @@ wait_health() {
 
 write_upstream() {
     local color="$1"
+    mkdir -p "$(dirname "${UPSTREAM_FILE}")"
     printf 'server app-%s:8000;\n' "${color}" > "${UPSTREAM_FILE}"
 }
 
 reload_nginx() {
     compose exec -T nginx nginx -s reload
+}
+
+verify_nginx_health() {
+    if [[ "${DEPLOY_ENV}" == "local" ]]; then
+        curl -kfsS "https://127.0.0.1:8443/health" >/dev/null
+    else
+        curl -kfsS "https://127.0.0.1/health" >/dev/null
+    fi
 }
 
 service_running() {
@@ -75,6 +84,7 @@ service_running() {
 }
 
 mkdir -p "$(dirname "${COLOR_FILE}")"
+mkdir -p "$(dirname "${UPSTREAM_FILE}")"
 CURRENT="blue"
 if [[ -f "${COLOR_FILE}" ]]; then
     CURRENT="$(tr -d '[:space:]' < "${COLOR_FILE}")"
@@ -89,9 +99,7 @@ if ! service_running "app-${CURRENT}" && ! service_running "app-$(opposite "${CU
     compose up -d --no-deps "app-${CURRENT}"
     wait_health "app-${CURRENT}"
     compose up -d --no-deps nginx
-    if [[ "${DEPLOY_ENV}" == "local" ]]; then
-        curl -kfsS "https://127.0.0.1:8443/health" >/dev/null
-    fi
+    verify_nginx_health
     printf '%s\n' "${CURRENT}" > "${COLOR_FILE}"
     echo "bootstrap done — active=${CURRENT}"
     exit 0
@@ -104,10 +112,13 @@ compose up -d --no-deps --force-recreate "app-${NEW}"
 wait_health "app-${NEW}"
 
 write_upstream "${NEW}"
+compose up -d --no-deps nginx
 reload_nginx
-
-if [[ "${DEPLOY_ENV}" == "local" ]]; then
-    curl -kfsS "https://127.0.0.1:8443/health" >/dev/null
+if ! verify_nginx_health; then
+    echo "error: nginx /health failed after switch to ${NEW} — reverting upstream to ${CURRENT}" >&2
+    write_upstream "${CURRENT}"
+    reload_nginx
+    exit 1
 fi
 
 printf '%s\n' "${NEW}" > "${COLOR_FILE}"
