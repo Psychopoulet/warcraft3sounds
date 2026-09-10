@@ -1,6 +1,8 @@
 # warcraft3sounds
 A basic API for Warcraft 3 sounds
 
+Local / AWS deploy (Docker, nginx, blue/green, TLS): see **[DOC.md](./DOC.md)**.
+
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Psychopoulet_warcraft3sounds&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Psychopoulet_warcraft3sounds)
 [![Issues](https://img.shields.io/github/issues/Psychopoulet/warcraft3sounds.svg)](https://github.com/Psychopoulet/warcraft3sounds/issues)
 [![Pull requests](https://img.shields.io/github/issues-pr/Psychopoulet/warcraft3sounds.svg)](https://github.com/Psychopoulet/warcraft3sounds/pulls)
@@ -86,6 +88,22 @@ $ npm run start -- [--port <port>] [--ssl]
 ```
 
 Check the basic interface on http[s]://localhost [:port]
+
+### Docker deploy (local CD)
+
+Build the image, start nginx + one app color, and serve HTTPS on port 8443 (self-signed cert). Details and flowcharts: **[DOC.md](./DOC.md)**.
+
+```bash
+$ npm run cd-local
+```
+
+```bash
+$ curl -kfsS https://127.0.0.1:8443/health
+```
+
+```bash
+$ npm run cd-local-down
+```
 
 ### Thanks
 

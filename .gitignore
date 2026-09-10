@@ -5,3 +5,14 @@ lib/cjs/
 public/dist/
 public/sounds/
 node_modules/
+.env
+.env.*
+*.pem
+*.key
+id_rsa*
+.aws/
+aws-credentials
+deploy/.secrets
+deploy/nginx/certs/
+deploy/nginx/upstream.conf
+deploy/current-color
