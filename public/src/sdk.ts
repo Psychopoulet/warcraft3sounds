@@ -1,7 +1,7 @@
 // types & interfaces
 
     // locals
-    import type { components } from "../../lib/src/descriptor";
+    import type { components } from "../../lib/src/Descriptor";
     export type descriptorTypes = components["schemas"];
 
 // component

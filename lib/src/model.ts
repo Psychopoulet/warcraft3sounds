@@ -16,7 +16,7 @@
     import type { sqlite3, Database } from "sqlite3";
 
     // locals
-    import type { components } from "./descriptor";
+    import type { components } from "./Descriptor";
 
 // consts
 
