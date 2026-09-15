@@ -1,4 +1,9 @@
-const { test, expect } = require("@playwright/test");
+// deps
+
+    // externals
+    const { test, expect } = require("@playwright/test");
+
+// tests
 
 test("home loads the test seed race", async ({ page, request }) => {
 

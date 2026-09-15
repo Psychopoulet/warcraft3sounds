@@ -1,11 +1,14 @@
+/* eslint-disable n/no-process-exit */
+// n/no-process-exit : let the e2e server stop on SIGINT/SIGTERM and startup errors
+
 // deps
 
     // natives
     const { createServer } = require("node:http");
 
     // locals
-    const { createTestApp } = require("../test/helpers/http.js");
-    const { setupTestAppData, teardownTestAppData } = require("../test/helpers/model.js");
+    const { createTestApp } = require("../helpers/http.js");
+    const { setupTestAppData, teardownTestAppData } = require("../helpers/model.js");
 
 // consts
 
