@@ -16,34 +16,7 @@
     import getSoundsDirectory from "./tools/getSoundsDirectory";
 
     import generateServer from "./server/generateServer";
-
-    import {
-        pathPublicIndex,
-        pathPublicApp,
-        pathPublicAppMap,
-        pathPublicIconW3,
-        pathPublicIconTFT
-    } from "./server/paths/public";
-
-    import {
-        pathSounds
-    } from "./server/paths/sounds";
-
-    import {
-        pathAPISwagger,
-        pathAPIAllRaces,
-        pathAPIOneRace,
-        pathAPIOneCharacter
-    } from "./server/paths/api";
-
-    import {
-        redirect
-    } from "./server/paths/redirect";
-
-    import {
-        pathErrorTest,
-        pathErrorGlobal
-    } from "./server/paths/errors";
+    import registerRoutes from "./server/registerRoutes";
 
 // types & interfaces
 
@@ -119,46 +92,7 @@
 
     }).then((app: Express): Express => {
 
-        // public
-
-            app
-                .get("/public/index.html", pathPublicIndex)
-                .get("/public/bundle.min.js", pathPublicApp)
-                .get("/public/bundle.min.js.map", pathPublicAppMap)
-                .get("/public/pictures/warcraft3.png", pathPublicIconW3)
-                .get("/public/pictures/warcraft3TFT.png", pathPublicIconTFT);
-
-        // sounds
-
-            app.get("/public/sounds/:sound", pathSounds);
-
-        // api
-
-            app
-                .get("/api/descriptor", pathAPISwagger)
-                .get("/api/races", pathAPIAllRaces)
-                .get("/api/races/:racecode", pathAPIOneRace)
-                .get("/api/races/:racecode/characters/:charactercode", pathAPIOneCharacter);
-
-        // redirections
-
-            app
-                .get("/", redirect("/public/index.html"))
-                .get("/index.html", redirect("/public/index.html"))
-                .get("/public/bundle.js", redirect("/public/bundle.min.js"))
-                .get("/public/bundle.js.map", redirect("/public/bundle.min.js.map"))
-
-                .get("/favicon.ico", redirect("/public/pictures/warcraft3.png"))
-                .get("/favicon.png", redirect("/public/pictures/warcraft3.png"));
-
-        // errors
-
-            app.get("/api/err", pathErrorTest);
-
-            // catch global error
-            app.use(pathErrorGlobal);
-
-        return app;
+        return registerRoutes(app);
 
     // run server
     }).then((app: Express): void => {
