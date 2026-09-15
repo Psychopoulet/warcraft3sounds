@@ -36,9 +36,10 @@
     "check-requires": "npx used-deps-analyzer ./package.json ./lib/src --no-dev --overkill fs-extra node-promfs",
     "check-updates": "npx check-version-modules --no-fail-at-major --fail-at-minor --fail-at-patch",
     "unit-tests": "npx mocha",
+    "e2e-tests": "npx playwright test",
     "unit-tests-local": "npx nyc --reporter=html --reporter=text mocha",
 
-    "tests": "npm run lint && npm run check-requires && npm run check-updates && npm run build && npm run unit-tests-local",
+    "tests": "npm run lint && npm run check-requires && npm run check-updates && npm run build && npm run unit-tests-local && npm run e2e-tests",
 
     "start": "node ./lib/cjs/main.cjs",
 
@@ -73,6 +74,7 @@
     "sqlite3": "6.0.1"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@types/compression": "1.8.1",
     "@types/cors": "2.8.19",
     "@types/express": "5.0.6",

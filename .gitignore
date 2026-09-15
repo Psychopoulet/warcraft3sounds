@@ -7,6 +7,10 @@ lib/src/Descriptor.ts
 public/dist/
 public/sounds/
 node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
 .env
 .env.*
 *.pem
