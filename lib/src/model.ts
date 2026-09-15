@@ -18,9 +18,21 @@
     // locals
     import type { components } from "./Descriptor";
 
+    export interface iWarcraftSoundsModelOptions {
+        "storage"?: string;
+        "schemaFile"?: string;
+        "seedFiles"?: string[];
+    }
+
 // consts
 
     const SQLLite3: sqlite3 = verbose();
+
+    function _dataFile (name: string): string {
+
+        return join(__dirname, "..", "data", name);
+
+    }
 
 // module
 
@@ -31,22 +43,25 @@ export class WarcraftSoundsModel {
         // private
 
         private readonly _db: Database;
+        private readonly _schemaFile: string;
+        private readonly _seedFiles: string[];
 
     // constructor
 
-    public constructor () {
+    public constructor (options: iWarcraftSoundsModelOptions = {}) {
 
-        this._db = new SQLLite3.Database(":memory:");
+        this._db = new SQLLite3.Database("undefined" !== typeof options.storage ? options.storage : ":memory:");
+        this._schemaFile = "undefined" !== typeof options.schemaFile ? options.schemaFile : _dataFile("create.sql");
+        this._seedFiles = "undefined" !== typeof options.seedFiles
+            ? options.seedFiles
+            : [
+                _dataFile("insert.sql"),
+                _dataFile("toword.sql")
+            ];
 
     }
 
     // methods
-
-    private _dataFile (name: string): string {
-
-        return join(__dirname, "..", "data", name);
-
-    }
 
     private _sqlToQueries (content: string): string[] {
 
@@ -95,13 +110,29 @@ export class WarcraftSoundsModel {
 
     }
 
-    private _execSqlFile (name: string): Promise<void> {
+    private _execSqlFile (file: string): Promise<void> {
 
-        return readFile(this._dataFile(name), "utf-8").then((content: string): Promise<void> => {
+        return readFile(file, "utf-8").then((content: string): Promise<void> => {
 
             return this._execQueries(this._sqlToQueries(content));
 
         });
+
+    }
+
+    private _execSeedFiles (): Promise<void> {
+
+        const _exec = (i: number): Promise<void> => {
+
+            return i < this._seedFiles.length
+                ? this._execSqlFile(this._seedFiles[i]).then((): Promise<void> => {
+                    return _exec(i + 1);
+                })
+                : Promise.resolve();
+
+        };
+
+        return _exec(0);
 
     }
 
@@ -152,7 +183,7 @@ export class WarcraftSoundsModel {
 
         }).then((exists: boolean): Promise<void> => {
 
-            return exists ? Promise.resolve() : this._execSqlFile("create.sql");
+            return exists ? Promise.resolve() : this._execSqlFile(this._schemaFile);
 
         }).then((): Promise<boolean> => {
 
@@ -160,13 +191,7 @@ export class WarcraftSoundsModel {
 
         }).then((hasData: boolean): Promise<void> => {
 
-            return hasData
-                ? Promise.resolve()
-                : this._execSqlFile("insert.sql").then((): Promise<void> => {
-
-                    return this._execSqlFile("toword.sql");
-
-                });
+            return hasData ? Promise.resolve() : this._execSeedFiles();
 
         });
 
@@ -416,6 +441,12 @@ export class WarcraftSoundsModel {
 }
 
 let _model: WarcraftSoundsModel | null = null;
+
+export function setModel (model: WarcraftSoundsModel | null): void {
+
+    _model = model;
+
+}
 
 export default function getModel (): WarcraftSoundsModel {
 
