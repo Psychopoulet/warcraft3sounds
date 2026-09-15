@@ -246,88 +246,80 @@ export class WarcraftSoundsModel {
                 return err ? reject(err) : resolve(data);
             });
 
-        }).then((racesData: iSQLRequestResult[] | undefined): Promise<components["schemas"]["Race"] | null> => {
+        }).then((racesData: iSQLRequestResult[] | undefined): components["schemas"]["Race"] | null => {
 
             if ("undefined" === typeof racesData || 0 >= racesData.length) {
-                return Promise.resolve(null);
+                return null;
             }
 
-            return new Promise((resolve: (data: components["schemas"]["Race"]) => void): void => {
+            const result: components["schemas"]["Race"] = {
+                "code": code,
+                "name": racesData[0].race_name,
+                "url": "/api/races/" + code,
+                "icon": racesData[0].race_icon,
+                "characters": [],
+                "musics": [],
+                "warnings": []
+            };
 
-                process.nextTick((): void => {
+            racesData.forEach((data: iSQLRequestResult): void => {
 
-                    const result: components["schemas"]["Race"] = {
-                        "code": code,
-                        "name": racesData[0].race_name,
-                        "url": "/api/races/" + code,
-                        "icon": racesData[0].race_icon,
-                        "characters": [],
-                        "musics": [],
-                        "warnings": []
-                    };
+                if (data.character_code) {
 
-                    racesData.forEach((data: iSQLRequestResult): void => {
+                    if (-1 === result.characters.findIndex((character: components["schemas"]["BasicCharacter"]): boolean => {
+                        return character.code === data.character_code;
+                    })) {
 
-                        if (data.character_code) {
+                        result.characters.push({
+                            "code": data.character_code,
+                            "name": data.character_name,
+                            "url": "/api/races/" + code + "/characters/" + data.character_code,
+                            "icon": data.character_icon,
+                            "hero": 1 === data.character_hero,
+                            "tft": 1 === data.character_tft
+                        });
 
-                            if (-1 === result.characters.findIndex((character: components["schemas"]["BasicCharacter"]): boolean => {
-                                return character.code === data.character_code;
-                            })) {
+                    }
 
-                                result.characters.push({
-                                    "code": data.character_code,
-                                    "name": data.character_name,
-                                    "url": "/api/races/" + code + "/characters/" + data.character_code,
-                                    "icon": data.character_icon,
-                                    "hero": 1 === data.character_hero,
-                                    "tft": 1 === data.character_tft
-                                });
+                }
 
-                            }
+                if (data.music_code) {
 
-                        }
+                    if (-1 === result.musics.findIndex((music: components["schemas"]["BasicData"]): boolean => {
+                        return music.code === data.music_code;
+                    })) {
 
-                        if (data.music_code) {
+                        result.musics.push({
+                            "code": data.music_code,
+                            "name": data.music_name,
+                            "file": data.music_file,
+                            "url": "/public/sounds/" + data.music_file
+                        });
 
-                            if (-1 === result.musics.findIndex((music: components["schemas"]["BasicData"]): boolean => {
-                                return music.code === data.music_code;
-                            })) {
+                    }
 
-                                result.musics.push({
-                                    "code": data.music_code,
-                                    "name": data.music_name,
-                                    "file": data.music_file,
-                                    "url": "/public/sounds/" + data.music_file
-                                });
+                }
 
-                            }
+                if (data.warning_code) {
 
-                        }
+                    if (-1 === result.warnings.findIndex((warning: components["schemas"]["BasicData"]): boolean => {
+                        return warning.code === data.warning_code;
+                    })) {
 
-                        if (data.warning_code) {
+                        result.warnings.push({
+                            "code": data.warning_code,
+                            "name": data.warning_name,
+                            "file": data.warning_file,
+                            "url": "/public/sounds/" + data.warning_file
+                        });
 
-                            if (-1 === result.warnings.findIndex((warning: components["schemas"]["BasicData"]): boolean => {
-                                return warning.code === data.warning_code;
-                            })) {
+                    }
 
-                                result.warnings.push({
-                                    "code": data.warning_code,
-                                    "name": data.warning_name,
-                                    "file": data.warning_file,
-                                    "url": "/public/sounds/" + data.warning_file
-                                });
-
-                            }
-
-                        }
-
-                    });
-
-                    return resolve(result);
-
-                });
+                }
 
             });
+
+            return result;
 
         });
 
@@ -386,42 +378,34 @@ export class WarcraftSoundsModel {
                     return err ? reject(err) : resolve(data);
                 });
 
-            }).then((data: iSQLActionRequestResult[]): Promise<components["schemas"]["Character"] | null> => {
+            }).then((data: iSQLActionRequestResult[]): components["schemas"]["Character"] => {
 
-                return new Promise((resolve: (data: components["schemas"]["Character"]) => void): void => {
+                const result: components["schemas"]["Character"] = {
+                    "code": characterData.code,
+                    "name": characterData.name,
+                    "url": "/api/races/" + codeRace + "/characters/" + code,
+                    "icon": characterData.icon,
+                    "hero": 1 === characterData.hero,
+                    "tft": 1 === characterData.tft,
+                    "actions": []
+                };
 
-                    process.nextTick((): void => {
+                data.forEach((action: iSQLActionRequestResult): void => {
 
-                        const result: components["schemas"]["Character"] = {
-                            "code": characterData.code,
-                            "name": characterData.name,
-                            "url": "/api/races/" + codeRace + "/characters/" + code,
-                            "icon": characterData.icon,
-                            "hero": 1 === characterData.hero,
-                            "tft": 1 === characterData.tft,
-                            "actions": []
-                        };
-
-                            data.forEach((action: iSQLActionRequestResult): void => {
-
-                                result.actions.push({
-                                    "code": action.code,
-                                    "name": action.name,
-                                    "file": action.file,
-                                    "url": "/public/sounds/" + action.file,
-                                    "type": {
-                                        "code": action.type_code,
-                                        "name": action.type_name
-                                    }
-                                });
-
-                            });
-
-                        resolve(result);
-
+                    result.actions.push({
+                        "code": action.code,
+                        "name": action.name,
+                        "file": action.file,
+                        "url": "/public/sounds/" + action.file,
+                        "type": {
+                            "code": action.type_code,
+                            "name": action.type_name
+                        }
                     });
 
                 });
+
+                return result;
 
             });
 
