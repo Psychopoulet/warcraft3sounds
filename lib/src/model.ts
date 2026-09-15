@@ -42,77 +42,131 @@ export class WarcraftSoundsModel {
 
     // methods
 
+    private _dataFile (name: string): string {
+
+        return join(__dirname, "..", "data", name);
+
+    }
+
+    private _sqlToQueries (content: string): string[] {
+
+        const result: string[] = [];
+
+        content.split(";").forEach((request: string): void => {
+
+            const data: string = request
+                        .trim()
+                        .replace(/(?:\\[rn]|[\r\n]+)+/g, "\n")
+                        .replace(/\t/g, "")
+                        .split("\n")
+                        .filter((line: string): boolean => {
+                            return "" !== line.trim() && "--" !== line.substring(0, 2);
+                        })
+                        .join(" ")
+                        .trim();
+
+            if ("" !== data) {
+                result.push(data + ";");
+            }
+
+        });
+
+        return result;
+
+    }
+
+    private _execQueries (queries: string[]): Promise<void> {
+
+        const _execQuery = (i: number): Promise<void> => {
+
+            return i < queries.length ? new Promise((resolve: (value?: unknown) => void, reject: (err: Error) => void): void => {
+
+                this._db.run(queries[i], (err: Error | null): void => {
+                    return err ? reject(err) : resolve();
+                });
+
+            }).then((): Promise<void> => {
+                return _execQuery(i + 1);
+            }) : Promise.resolve();
+
+        };
+
+        return _execQuery(0);
+
+    }
+
+    private _execSqlFile (name: string): Promise<void> {
+
+        return readFile(this._dataFile(name), "utf-8").then((content: string): Promise<void> => {
+
+            return this._execQueries(this._sqlToQueries(content));
+
+        });
+
+    }
+
+    private _tableExists (name: string): Promise<boolean> {
+
+        return new Promise((resolve: (exists: boolean) => void, reject: (err: Error) => void): void => {
+
+            this._db.get(
+                "SELECT 1 AS found FROM sqlite_master WHERE type = 'table' AND name = ?;",
+                [ name ],
+                (err: Error | null, row: { "found": number } | undefined): void => {
+
+                    return err ? reject(err) : resolve(Boolean(row));
+
+                }
+            );
+
+        });
+
+    }
+
+    private _hasData (): Promise<boolean> {
+
+        return new Promise((resolve: (hasData: boolean) => void, reject: (err: Error) => void): void => {
+
+            this._db.get(
+                "SELECT COUNT(*) AS n FROM races;",
+                (err: Error | null, row: { "n": number } | undefined): void => {
+
+                    return err ? reject(err) : resolve(Boolean(row && 0 < row.n));
+
+                }
+            );
+
+        });
+
+    }
+
     public init (): Promise<void> {
 
-        // open db
         return new Promise((resolve: (value?: unknown) => void): void => {
 
             this._db.serialize(resolve);
 
-        // read file
-        }).then((): Promise<string[]> => {
+        }).then((): Promise<boolean> => {
 
-            return readFile(join(__dirname, "..", "data", "create.sql"), "utf-8").then((content: string): Promise<string> => {
+            return this._tableExists("races");
 
-                return readFile(join(__dirname, "..", "data", "toword.sql"), "utf-8").then((contenttoWord: string): string => {
+        }).then((exists: boolean): Promise<void> => {
 
-                    return content + contenttoWord;
+            return exists ? Promise.resolve() : this._execSqlFile("create.sql");
 
-                });
+        }).then((): Promise<boolean> => {
 
-            }).then((content: string): Promise<string[]> => {
+            return this._hasData();
 
-                return new Promise((resolve: (value: string[]) => void): void => {
+        }).then((hasData: boolean): Promise<void> => {
 
-                    process.nextTick((): void => {
+            return hasData
+                ? Promise.resolve()
+                : this._execSqlFile("insert.sql").then((): Promise<void> => {
 
-                        const result: string[] = [];
-
-                            content.split(";").forEach((request: string): void => {
-
-                                const data: string = request
-                                            .trim()
-                                            .replace(/(?:\\[rn]|[\r\n]+)+/g, "\n")
-                                            .replace(/\t/g, "")
-                                            .split("\n")
-                                            .filter((line: string): boolean => {
-                                                return "" !== line.trim() && "--" !== line.substring(0, 2);
-                                            })
-                                            .join(" ")
-                                            .trim();
-
-                                if ("" !== data) {
-                                    result.push(data + ";");
-                                }
-
-                            });
-
-                        resolve(result);
-
-                    });
+                    return this._execSqlFile("toword.sql");
 
                 });
-
-            });
-
-        // execute requests
-        }).then((queries: string[]): Promise<void> => {
-
-            const _execQuery = (i: number): Promise<void> => {
-
-                return i < queries.length ? new Promise((resolve: (value?: unknown) => void, reject: (err: Error) => void): void => {
-
-                    this._db.run(queries[i], (err: Error | null): void => {
-                        return err ? reject(err) : resolve();
-                    });
-
-                }).then((): Promise<void> => {
-                    return _execQuery(i + 1);
-                }) : Promise.resolve();
-
-            };
-
-            return _execQuery(0);
 
         });
 
