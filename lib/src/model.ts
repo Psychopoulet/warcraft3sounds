@@ -10,6 +10,9 @@
     // externals
     import { verbose } from "sqlite3";
 
+    // locals
+    import getConf from "./conf";
+
 // types & interfaces
 
     // externals
@@ -19,7 +22,6 @@
     import type { components } from "./Descriptor";
 
     export interface iWarcraftSoundsModelOptions {
-        "storage"?: string;
         "schemaFile"?: string;
         "seedFiles"?: string[];
     }
@@ -50,7 +52,7 @@ export class WarcraftSoundsModel {
 
     public constructor (options: iWarcraftSoundsModelOptions = {}) {
 
-        this._db = new SQLLite3.Database("undefined" !== typeof options.storage ? options.storage : ":memory:");
+        this._db = new SQLLite3.Database(getConf().get<string>("database-file"));
         this._schemaFile = "undefined" !== typeof options.schemaFile ? options.schemaFile : _dataFile("create.sql");
         this._seedFiles = "undefined" !== typeof options.seedFiles
             ? options.seedFiles

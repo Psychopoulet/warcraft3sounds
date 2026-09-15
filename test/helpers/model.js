@@ -5,6 +5,7 @@
 
     // locals
     const { WarcraftSoundsModel, setModel } = require("../../lib/cjs/model.js");
+    const getConf = require("../../lib/cjs/conf.js").default;
     const { setSoundsDirectory } = require("../../lib/cjs/tools/getSoundsDirectory.js");
 
 // consts
@@ -15,7 +16,10 @@
 
 // module
 
-    function createTestModel () {
+    function createTestModel (storage) {
+
+        getConf()
+            .set("database-file", "undefined" !== typeof storage ? storage : ":memory:");
 
         return new WarcraftSoundsModel({
             "schemaFile": SCHEMA_FILE,

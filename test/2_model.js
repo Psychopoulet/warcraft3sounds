@@ -2,6 +2,9 @@
 
     // natives
     const { equal, deepEqual, rejects } = require("node:assert");
+    const { join } = require("node:path");
+    const { mkdtemp, rm } = require("node:fs/promises");
+    const { tmpdir } = require("node:os");
 
     // locals
     const { createTestModel } = require("./helpers/model.js");
@@ -114,6 +117,28 @@ describe("model", () => {
 
             await rejects(() => {
                 return model.getRaces();
+            });
+
+        });
+
+        it("should persist data in a file across release", async () => {
+
+            const dir = await mkdtemp(join(tmpdir(), "warcraft3sounds-"));
+            const storage = join(dir, "test.sqlite");
+
+            const first = createTestModel(storage);
+            await first.init();
+            equal((await first.getRaces()).length, 1);
+            await first.release();
+
+            const second = createTestModel(storage);
+            await second.init();
+            deepEqual(await second.getRaces(), EXPECTED_RACE_LIST);
+            await second.release();
+
+            await rm(dir, {
+                "recursive": true,
+                "force": true
             });
 
         });

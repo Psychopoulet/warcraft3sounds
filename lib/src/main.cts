@@ -6,12 +6,12 @@
     // natives
     import { mkdir } from "node:fs/promises";
     import { stat } from "node:fs";
-
-    // externals
-    import ConfManager from "node-confmanager";
+    import { join, dirname } from "node:path";
+    import { homedir } from "node:os";
 
     // locals
 
+    import getConf from "./conf";
     import getModel from "./model";
     import getSoundsDirectory from "./tools/getSoundsDirectory";
 
@@ -28,10 +28,6 @@
 
     // locals
     import type { WarcraftSoundsModel } from "./model";
-
-// consts
-
-    const CONF: ConfManager = new ConfManager("test");
 
 // module
 
@@ -61,26 +57,34 @@
 
     }).then((): Promise<void> => {
 
-        CONF
-            .skeleton("port", "integer")
-            .document("port", "Port used by the server")
+        const conf = getConf();
 
-            .skeleton("ssl", "boolean")
-            .document("ssl", "Is SSL activated ?");
+        return conf.load().then((): void => {
 
-        return CONF.load().then((): void => {
-
-            CONF
-                .set("port", CONF.has("port") ? CONF.get<number>("port") : 8000)
-                .set("ssl", CONF.has("ssl") ? CONF.get<boolean>("ssl") : false);
+            conf
+                .set("port", conf.has("port") ? conf.get<number>("port") : 8000)
+                .set("ssl", conf.has("ssl") ? conf.get<boolean>("ssl") : false)
+                .set("database-file", conf.has("database-file") ? conf.get<string>("database-file") : join(homedir(), "warcraft3sounds", "warcraft3sounds.sqlite"));
 
         });
 
     }).then((): Promise<void> => {
 
-        const model: WarcraftSoundsModel = getModel();
+        const dbStorage: string = getConf().get<string>("database-file");
 
-        return model.init();
+        console.info("database :", dbStorage);
+
+        const prepareDir: Promise<string | undefined> = ":memory:" === dbStorage
+            ? Promise.resolve("")
+            : mkdir(dirname(dbStorage), {
+                "recursive": true
+            });
+
+        return prepareDir.then((): Promise<void> => {
+
+            return getModel().init();
+
+        });
 
     // generate web server
 
@@ -97,8 +101,10 @@
     // run server
     }).then((app: Express): void => {
 
-        app.listen(CONF.get<number>("port"), (): void => {
-            console.info("started" + (CONF.get<boolean>("ssl") ? " with SSL" : ""), "on port " + CONF.get<number>("port"));
+        const conf = getConf();
+
+        app.listen(conf.get<number>("port"), (): void => {
+            console.info("started" + (conf.get<boolean>("ssl") ? " with SSL" : ""), "on port " + conf.get<number>("port"));
         });
 
     // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose)
