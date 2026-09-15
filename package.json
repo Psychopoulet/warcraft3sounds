@@ -78,7 +78,7 @@
     "@types/compression": "1.8.1",
     "@types/cors": "2.8.19",
     "@types/express": "5.0.6",
-    "@types/node": "26.5.1",
+    "@types/node": "26.6.0",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "check-node-engine": "1.2.0",
