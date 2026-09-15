@@ -24,10 +24,7 @@
         redirect
     } from "./paths/redirect";
 
-    import {
-        pathErrorTest,
-        pathErrorGlobal
-    } from "./paths/errors";
+    import pathErrorGlobal from "./paths/errors";
 
 // types & interfaces
 
@@ -71,8 +68,6 @@ export default function registerRoutes (app: Express): Express {
             .get("/favicon.png", redirect("/public/pictures/warcraft3.png"));
 
     // errors
-
-        app.get("/api/err", pathErrorTest);
 
         // catch global error
         app.use(pathErrorGlobal);
