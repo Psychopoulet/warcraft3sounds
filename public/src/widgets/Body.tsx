@@ -167,7 +167,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
                     { this.state.races.map((race: descriptorTypes["BasicRace"]): React.JSX.Element => {
 
-                        return <div key={ race.code } className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                        return <div key={ race.code } className="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
 
                             <Race
                                 race={ race }
@@ -179,7 +179,7 @@ export default class Body extends React.Component<iProps, iStates> {
 
                     }) }
 
-                    <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+                    <div className="col-12 col-md-6 col-lg-4 col-xl-3 mb-3">
                         <SoundReader autoplay src={ this.state.readedSoundUrl } />
                     </div>
 

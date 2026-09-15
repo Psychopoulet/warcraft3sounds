@@ -18,11 +18,7 @@
 
 // module
 
-    export function pathErrorTest (req: Request, res: Response, next: NextFunction): void {
-        next(new Error("This is a test error"));
-    }
-
-    export function pathErrorGlobal (err: Error, req: Request, res: Response, next: NextFunction): void {
+    export default function pathErrorGlobal (err: Error, req: Request, res: Response, next: NextFunction): void {
 
         logRequest(req);
         console.error(err);
