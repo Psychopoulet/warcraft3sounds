@@ -1,5 +1,6 @@
-/* eslint-disable n/no-process-exit */
+/* eslint-disable n/no-process-exit, n/no-process-env */
 // n/no-process-exit : let main file to use process.exit() if needed
+// n/no-process-env : let main file to default NODE_ENV to "development" when it is missing
 
 // deps
 
@@ -32,6 +33,10 @@
 // module
 
     // generate conf
+
+    if ("undefined" === typeof process.env.NODE_ENV || "" === process.env.NODE_ENV) {
+        process.env.NODE_ENV = "development";
+    }
 
     const finalSoundsDir = getSoundsDirectory(); // for docker, or after first launch
 
