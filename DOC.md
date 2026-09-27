@@ -90,7 +90,7 @@ flowchart TD
     CdLocal --> Cert{"PEM present?<br/>deploy/nginx/certs/fullchain.pem<br/>deploy/nginx/certs/privkey.pem"}
     Cert -->|no| GenCert["openssl or alpine container<br/>writes gitignored certs"]
     Cert -->|yes| Build
-    GenCert --> Build["scripts/build-image.sh<br/>Dockerfile copies lib/cjs + public/dist"]
+    GenCert --> Build["scripts/build-image.sh<br/>deploy/Dockerfile copies lib/cjs + public/dist"]
     Build -->|npm or docker build fails| FailBuild(["STOP — no containers started"])
     Build -->|ok| Deploy
 
@@ -111,7 +111,7 @@ flowchart TD
 
     Running -->|no — bootstrap| BootWrite["write deploy/nginx/upstream.conf<br/>server app-CURRENT:8000"]
     BootWrite --> BootUp["compose up app-CURRENT<br/>image APP_IMAGE"]
-    BootUp --> H1{"container GET /health OK?<br/>lib/src/server/paths/health.ts<br/>Dockerfile HEALTHCHECK<br/>timeout 90s"}
+    BootUp --> H1{"container GET /health OK?<br/>lib/src/server/paths/health.ts<br/>deploy/Dockerfile HEALTHCHECK<br/>timeout 90s"}
     H1 -->|down / timeout| FailBoot(["STOP — nginx never started<br/>clients still off<br/>upstream.conf not serving"])
     H1 -->|ok| BootNx["compose up nginx<br/>nginx.conf + http-*.conf + certs"]
     BootNx --> Loc1{"local?"}
@@ -123,14 +123,14 @@ flowchart TD
 
     Running -->|yes — rolling| New["NEW = opposite of CURRENT"]
     New --> RollUp["compose up --force-recreate app-NEW<br/>old color keeps serving"]
-    RollUp --> H3{"container GET /health on app-NEW OK?<br/>health.ts + Dockerfile HEALTHCHECK"}
+    RollUp --> H3{"container GET /health on app-NEW OK?<br/>health.ts + deploy/Dockerfile HEALTHCHECK"}
     H3 -->|down / timeout| FailRoll(["STOP — upstream.conf unchanged<br/>old color still live"])
     H3 -->|ok| Switch["write upstream.conf → app-NEW<br/>nginx -s reload"]
     Switch --> Loc2{"local?"}
     Loc2 -->|yes| H4{"curl -k :8443/health via nginx"}
     Loc2 -->|prod| StopOld
     H4 -->|down| FailReload(["STOP — NEW already in upstream.conf<br/>old color not stopped yet"])
-    H4 -->|ok| StopOld["compose stop app-OLD<br/>SIGTERM — main.cts + Dockerfile STOPSIGNAL"]
+    H4 -->|ok| StopOld["compose stop app-OLD<br/>SIGTERM — main.cts + deploy/Dockerfile STOPSIGNAL"]
     StopOld --> Done
 
     Done(["SERVICE DEPLOYED<br/>client → nginx :443 → upstream.conf<br/>→ Express :8000 on the active color"])
@@ -171,7 +171,7 @@ flowchart TD
     Start["cd-local-up.sh"] --> Cert{"fullchain.pem + privkey.pem<br/>in deploy/nginx/certs?"}
     Cert -->|no| OpenSSL["openssl req -x509<br/>or Docker alpine+openssl"]
     Cert -->|yes| Build
-    OpenSSL --> Build["build-image.sh<br/>npm run build + docker build<br/>warcraft3sounds:local"]
+    OpenSSL --> Build["build-image.sh<br/>npm run build + docker build -f deploy/Dockerfile<br/>warcraft3sounds:local"]
     Build -->|build fails| FailBuild["exit ≠ 0 — no containers touched"]
     Build -->|ok| Deploy["deploy.sh --env local<br/>--image warcraft3sounds --tag local"]
     Deploy --> End["print https://127.0.0.1:8443/health"]
@@ -260,7 +260,7 @@ Each overlay mounts its HTTP snippet as `/etc/nginx/http-listen.conf`. `nginx.co
 | Script | Role | Why it is a separate file |
 | --- | --- | --- |
 | [`scripts/compose.sh`](./scripts/compose.sh) | Defines `compose()`: `docker compose -f base -f overlay`. | Avoids repeating the four flags. **Sourced**, not meant to be run alone. |
-| [`scripts/build-image.sh`](./scripts/build-image.sh) | `npm run build` then `docker build -t name:tag`. | The Dockerfile copies **already built** `lib/cjs` and `public/dist`. GitHub CD will call the same script before `docker push`. |
+| [`scripts/build-image.sh`](./scripts/build-image.sh) | `npm run build` then `docker build -f deploy/Dockerfile -t name:tag .`. | [`deploy/Dockerfile`](./deploy/Dockerfile) copies **already built** `lib/cjs` and `public/dist`. GitHub CD will call the same script before `docker push`. |
 | [`scripts/deploy.sh`](./scripts/deploy.sh) | Rolling core: read active color → start the other → poll `/health` **inside** the container → rewrite `upstream.conf` → reload nginx → local HTTPS `curl` → stop the old color. Failed `/health` → **abort**, no switch. First run = bootstrap (one color + nginx). | **One** path for local and AWS (`--env`, `--image`, `--tag`). |
 | [`scripts/cd-local-up.sh`](./scripts/cd-local-up.sh) | Dev orchestrator: self-signed cert if missing + build `warcraft3sounds:local` + `deploy.sh --env local`. | You should not have to chain three commands by hand. |
 | [`scripts/cd-local-down.sh`](./scripts/cd-local-down.sh) | `compose down`. | Stops nginx and both colors without deleting the image. |

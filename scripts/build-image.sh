@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build app artefacts then the Docker image (Dockerfile copies lib/cjs + public/dist).
+# Build app artefacts then the Docker image (deploy/Dockerfile copies lib/cjs + public/dist).
 
 set -euo pipefail
 
@@ -10,4 +10,4 @@ IMAGE="${1:-warcraft3sounds}"
 TAG="${2:-local}"
 
 npm run build
-docker build -t "${IMAGE}:${TAG}" .
+docker build -f deploy/Dockerfile -t "${IMAGE}:${TAG}" .
