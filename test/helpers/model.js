@@ -6,6 +6,7 @@
     // locals
     const { WarcraftSoundsModel, setModel } = require("../../lib/cjs/model.js");
     const getConf = require("../../lib/cjs/conf.js").default;
+    const { initLogger } = require("../../lib/cjs/tools/getLogger.js");
     const { setSoundsDirectory } = require("../../lib/cjs/tools/getSoundsDirectory.js");
 
 // consts
@@ -32,7 +33,11 @@
 
         const model = createTestModel();
 
-        return model.init().then(() => {
+        return initLogger().then(() => {
+
+            return model.init();
+
+        }).then(() => {
 
             setModel(model);
             setSoundsDirectory(SOUNDS_DIR);
