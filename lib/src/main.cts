@@ -15,7 +15,7 @@
     import getConf from "./conf";
     import getModel from "./model";
     import getSoundsDirectory from "./tools/getSoundsDirectory";
-    import getLogger from "./tools/getLogger";
+    import getLogger, { initLogger } from "./tools/getLogger";
 
     import generateServer from "./server/generateServer";
     import registerRoutes from "./server/registerRoutes";
@@ -41,9 +41,9 @@
 
     const finalSoundsDir = getSoundsDirectory(); // for docker, or after first launch
 
-    console.info("sounds directory :", finalSoundsDir);
+    initLogger().then((): Promise<boolean> => {
 
-    getLogger().then((): Promise<boolean> => {
+        getLogger().info("sounds directory : " + finalSoundsDir);
 
         return new Promise((resolve: (exists: boolean) => void): void => {
 
@@ -59,7 +59,7 @@
             return Promise.resolve("");
         }
 
-        console.info("sounds directory not found, try to create it", finalSoundsDir);
+        getLogger().info("sounds directory not found, try to create it " + finalSoundsDir);
 
         return mkdir(finalSoundsDir, {
             "recursive": true
@@ -82,7 +82,7 @@
 
         const dbStorage: string = getConf().get<string>("database-file");
 
-        console.info("database :", dbStorage);
+        getLogger().info("database : " + dbStorage);
 
         return mkdir(dirname(dbStorage), {
             "recursive": true
@@ -110,7 +110,9 @@
         const conf = getConf();
 
         app.listen(conf.get<number>("port"), (): void => {
-            console.info("started" + (conf.get<boolean>("ssl") ? " with SSL" : ""), "on port " + conf.get<number>("port"));
+
+            getLogger().info("started" + (conf.get<boolean>("ssl") ? " with SSL" : "") + " on port " + String(conf.get<number>("port")));
+
         });
 
     // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose)
@@ -126,11 +128,7 @@
 
             }).catch((err: Error): void => {
 
-                console.error("");
-                console.error("Impossible to properly end the application");
-                console.error(err);
-                console.error("");
-
+                getLogger().error("Impossible to properly end the application\n" + (err.stack ?? err.message));
                 process.exitCode = 1;
                 process.exit(1);
 
@@ -143,10 +141,14 @@
 
     }).catch((err: Error): void => {
 
-        console.error("");
-        console.error("Impossible to initiate the application");
-        console.error(err);
-        console.error("");
+        try {
+            getLogger().critical("Impossible to initiate the application\n" + (err.stack ?? err.message));
+        }
+        catch {
+
+            // the logger never started
+
+        }
 
         process.exitCode = 1;
         process.exit(1);

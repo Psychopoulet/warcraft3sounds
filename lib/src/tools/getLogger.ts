@@ -27,7 +27,8 @@
 
     const TIMESTAMP_FORMAT = "YYYY-MM-DD HH:mm:ss";
 
-    let _logger: Promise<iLogger> | null = null;
+    let _logger: iLogger | null = null;
+    let _pending: Promise<iLogger> | null = null;
 
 // module
 
@@ -131,9 +132,25 @@
 
     }
 
-export default function getLogger (): Promise<iLogger> {
+export function initLogger (): Promise<iLogger> {
 
-    _logger ??= _createLogger();
+    _pending ??= _createLogger().then((logger: iLogger): iLogger => {
+
+        _logger = logger;
+
+        return logger;
+
+    });
+
+    return _pending;
+
+}
+
+export default function getLogger (): iLogger {
+
+    if (null === _logger) {
+        throw new Error("Logger is not initialized");
+    }
 
     return _logger;
 
