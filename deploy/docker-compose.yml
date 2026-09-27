@@ -13,6 +13,7 @@ services:
 
   app-blue:
     image: warcraft3sounds
+    pull_policy: never
     container_name: warcraft3sounds-app-blue
     restart: unless-stopped
     stop_grace_period: 20s
@@ -27,6 +28,7 @@ services:
 
   app-green:
     image: warcraft3sounds
+    pull_policy: never
     container_name: warcraft3sounds-app-green
     restart: unless-stopped
     stop_grace_period: 20s
