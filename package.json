@@ -58,7 +58,7 @@
     "/public"
   ],
   "engines": {
-    "node": ">=22.23.2"
+    "node": ">=22.23.3"
   },
 
   "dependencies": {
