@@ -64,7 +64,7 @@
             conf
                 .set("port", conf.has("port") ? conf.get<number>("port") : 8000)
                 .set("ssl", conf.has("ssl") ? conf.get<boolean>("ssl") : false)
-                .set("database-file", conf.has("database-file") ? conf.get<string>("database-file") : join(homedir(), "warcraft3sounds", "warcraft3sounds.sqlite"));
+                .set("database-file", conf.has("database-file") ? conf.get<string>("database-file") : join(homedir(), "warcraft3sounds", "db", "warcraft3sounds.sqlite"));
 
         });
 
