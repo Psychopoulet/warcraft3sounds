@@ -15,6 +15,18 @@ Local / AWS deploy (Docker, nginx, blue/green, TLS): see **[DOC.md](./DOC.md)**.
 
 [![Known Vulnerabilities](https://snyk.io/test/github/Psychopoulet/warcraft3sounds/badge.svg)](https://snyk.io/test/github/Psychopoulet/warcraft3sounds)
 
+## Website
+
+If you don't want to install it locally, you can use it here :
+https://warcraft3sounds.fr/public/index.html
+
+## Equivalent
+
+You can also find theses sounds here :
+https://wowwiki.fandom.com/fr/wiki/R%C3%A9pliques_de_Warcraft_III
+
+But you cannot use them as an API
+
 ## Download
 
 ### NodeJS
