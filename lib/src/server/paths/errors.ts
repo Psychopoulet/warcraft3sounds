@@ -9,6 +9,7 @@
     // locals
     import errorCodes from "../../returncodes";
 
+    import getLogger from "../../tools/getLogger";
     import logRequest from "../../tools/logRequest";
 
 // types & interfaces
@@ -21,7 +22,7 @@
     export default function pathErrorGlobal (err: Error, req: Request, res: Response, next: NextFunction): void {
 
         logRequest(req);
-        console.error(err);
+        getLogger().error(err.stack ?? err.message);
 
         if (res.headersSent) {
             next(err);
