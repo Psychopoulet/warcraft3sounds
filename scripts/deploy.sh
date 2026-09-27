@@ -10,7 +10,7 @@ source "${ROOT}/scripts/compose.sh"
 
 DEPLOY_ENV="local"
 APP_IMAGE_NAME="warcraft3sounds"
-APP_TAG="local"
+APP_TAG=""
 COLOR_FILE="${COLOR_FILE:-${ROOT}/deploy/current-color}"
 UPSTREAM_FILE="${ROOT}/deploy/nginx/runtime/upstream.conf"
 HEALTH_TIMEOUT="${HEALTH_TIMEOUT:-90}"
@@ -36,7 +36,10 @@ if [[ "${DEPLOY_ENV}" != "local" && "${DEPLOY_ENV}" != "aws" ]]; then
 fi
 
 export DEPLOY_ENV
-export APP_IMAGE="${APP_IMAGE_NAME}:${APP_TAG}"
+
+if [[ -n "${APP_TAG}" ]]; then
+    docker tag "${APP_IMAGE_NAME}:${APP_TAG}" warcraft3sounds
+fi
 
 opposite() {
     if [[ "$1" == "blue" ]]; then
@@ -94,7 +97,7 @@ if [[ "${CURRENT}" != "blue" && "${CURRENT}" != "green" ]]; then
 fi
 
 if ! service_running "app-${CURRENT}" && ! service_running "app-$(opposite "${CURRENT}")"; then
-    echo "bootstrap: starting app-${CURRENT} (${APP_IMAGE}) + nginx"
+    echo "bootstrap: starting app-${CURRENT} (warcraft3sounds) + nginx"
     write_upstream "${CURRENT}"
     compose up -d --no-deps "app-${CURRENT}"
     wait_health "app-${CURRENT}"
@@ -106,7 +109,7 @@ if ! service_running "app-${CURRENT}" && ! service_running "app-$(opposite "${CU
 fi
 
 NEW="$(opposite "${CURRENT}")"
-echo "rolling: ${CURRENT} -> ${NEW} (${APP_IMAGE})"
+echo "rolling: ${CURRENT} -> ${NEW} (warcraft3sounds)"
 
 compose up -d --no-deps --force-recreate "app-${NEW}"
 wait_health "app-${NEW}"

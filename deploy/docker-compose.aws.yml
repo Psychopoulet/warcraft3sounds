@@ -10,7 +10,6 @@ services:
       - ${ACME_WEBROOT:-/opt/warcraft3sounds/certbot}:/var/www/certbot:ro
 
   app-blue:
-    image: ${APP_IMAGE}
     environment:
       NODE_ENV: production
       TZ: Europe/Paris
@@ -20,7 +19,6 @@ services:
       - ${SOUNDS_HOST_DIR:-/var/lib/warcraft3sounds/sounds}:/root/warcraft3sounds/sounds:ro
 
   app-green:
-    image: ${APP_IMAGE}
     environment:
       NODE_ENV: production
       TZ: Europe/Paris

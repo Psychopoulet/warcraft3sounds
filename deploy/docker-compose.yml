@@ -4,6 +4,7 @@ services:
 
   nginx:
     image: nginx:1.27-alpine
+    container_name: warcraft3sounds-nginx
     restart: unless-stopped
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -11,7 +12,8 @@ services:
     stop_grace_period: 10s
 
   app-blue:
-    image: ${APP_IMAGE}
+    image: warcraft3sounds
+    container_name: warcraft3sounds-app-blue
     restart: unless-stopped
     stop_grace_period: 20s
     expose:
@@ -24,7 +26,8 @@ services:
       start_period: 25s
 
   app-green:
-    image: ${APP_IMAGE}
+    image: warcraft3sounds
+    container_name: warcraft3sounds-app-green
     restart: unless-stopped
     stop_grace_period: 20s
     expose:
@@ -35,3 +38,7 @@ services:
       timeout: 3s
       retries: 12
       start_period: 25s
+
+networks:
+  default:
+    name: warcraft3sounds-network

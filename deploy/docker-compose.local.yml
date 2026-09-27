@@ -9,13 +9,11 @@ services:
       - ./nginx/certs:/etc/nginx/certs:ro
 
   app-blue:
-    image: warcraft3sounds:local
     volumes:
       - ${DB_HOST_DIR:-./db}:/root/warcraft3sounds/db
       - ${SOUNDS_HOST_DIR:-../public/sounds}:/root/warcraft3sounds/sounds:ro
 
   app-green:
-    image: warcraft3sounds:local
     volumes:
       - ${DB_HOST_DIR:-./db}:/root/warcraft3sounds/db
       - ${SOUNDS_HOST_DIR:-../public/sounds}:/root/warcraft3sounds/sounds:ro

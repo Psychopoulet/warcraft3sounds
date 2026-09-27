@@ -42,7 +42,7 @@ The two arrows out of `upstream.conf` are exclusive: nginx points at **blue XOR 
 | Host ports | **8000→80**, **8443→443** | **80→80**, **443→443** |
 | HTTP | redirect to `https://127.0.0.1:8443` | redirect to `https://$host` + ACME |
 | Certificate | self-signed under `deploy/nginx/certs/` (gitignored) | Let’s Encrypt under `/opt/warcraft3sounds/certs` |
-| Image | `warcraft3sounds:local` | `${ECR}/warcraft3sounds:<version>` |
+| Image | `warcraft3sounds` | `warcraft3sounds` (ECR image tagged to this name) |
 
 Overlays are **never** loaded together: `compose.sh` always uses the base file plus **one** overlay.
 
@@ -171,9 +171,9 @@ flowchart TD
     Start["cd-local-up.sh"] --> Cert{"fullchain.pem + privkey.pem<br/>in deploy/nginx/certs?"}
     Cert -->|no| OpenSSL["openssl req -x509<br/>or Docker alpine+openssl"]
     Cert -->|yes| Build
-    OpenSSL --> Build["build-image.sh<br/>npm run build + docker build -f deploy/Dockerfile<br/>warcraft3sounds:local"]
+    OpenSSL --> Build["build-image.sh<br/>npm run build + docker build -f deploy/Dockerfile<br/>warcraft3sounds"]
     Build -->|build fails| FailBuild["exit ≠ 0 — no containers touched"]
-    Build -->|ok| Deploy["deploy.sh --env local<br/>--image warcraft3sounds --tag local"]
+    Build -->|ok| Deploy["deploy.sh --env local"]
     Deploy --> End["print https://127.0.0.1:8443/health"]
 ```
 
@@ -235,8 +235,8 @@ Docker Compose merges YAML. The base file says *what* runs; the overlay says *wh
 | File | Role |
 | --- | --- |
 | [`deploy/docker-compose.yml`](./deploy/docker-compose.yml) | Three services: `nginx`, `app-blue`, `app-green`. App `/health` checks, `stop_grace_period` 20s (time for `SIGTERM`). **No public app ports** — Node is only reachable on the Docker network. |
-| [`deploy/docker-compose.local.yml`](./deploy/docker-compose.local.yml) | Host ports 8000/8443, cert bind `deploy/nginx/certs/`, image `warcraft3sounds:local`, HTTP redirect to `:8443`. |
-| [`deploy/docker-compose.aws.yml`](./deploy/docker-compose.aws.yml) | Host ports 80/443, certs from `${CERTS_HOST_DIR}`, ACME webroot, image `${APP_IMAGE}`. |
+| [`deploy/docker-compose.local.yml`](./deploy/docker-compose.local.yml) | Host ports 8000/8443, cert bind `deploy/nginx/certs/`, HTTP redirect to `:8443`. Image `warcraft3sounds` comes from the base file. |
+| [`deploy/docker-compose.aws.yml`](./deploy/docker-compose.aws.yml) | Host ports 80/443, certs from `${CERTS_HOST_DIR}`, ACME webroot. Image `warcraft3sounds` comes from the base file. |
 
 Two identical app services exist so the **new** color can start while the **old** one still serves traffic.
 
@@ -262,7 +262,7 @@ Each overlay mounts its HTTP snippet as `/etc/nginx/http-listen.conf`. `nginx.co
 | [`scripts/compose.sh`](./scripts/compose.sh) | Defines `compose()`: `docker compose -f base -f overlay`. | Avoids repeating the four flags. **Sourced**, not meant to be run alone. |
 | [`scripts/build-image.sh`](./scripts/build-image.sh) | `npm run build` then `docker build -f deploy/Dockerfile -t name:tag .`. | [`deploy/Dockerfile`](./deploy/Dockerfile) copies **already built** `lib/cjs` and `public/dist`. GitHub CD will call the same script before `docker push`. |
 | [`scripts/deploy.sh`](./scripts/deploy.sh) | Rolling core: read active color → start the other → poll `/health` **inside** the container → rewrite `upstream.conf` → reload nginx → local HTTPS `curl` → stop the old color. Failed `/health` → **abort**, no switch. First run = bootstrap (one color + nginx). | **One** path for local and AWS (`--env`, `--image`, `--tag`). |
-| [`scripts/cd-local-up.sh`](./scripts/cd-local-up.sh) | Dev orchestrator: self-signed cert if missing + build `warcraft3sounds:local` + `deploy.sh --env local`. | You should not have to chain three commands by hand. |
+| [`scripts/cd-local-up.sh`](./scripts/cd-local-up.sh) | Dev orchestrator: self-signed cert if missing + build `warcraft3sounds` + `deploy.sh --env local`. | You should not have to chain three commands by hand. |
 | [`scripts/cd-local-down.sh`](./scripts/cd-local-down.sh) | `compose down`. | Stops nginx and both colors without deleting the image. |
 | [`scripts/publish-remote.sh`](./scripts/publish-remote.sh) | EC2 orchestrator: ECR login, `docker pull`, `git checkout` the version tag, `deploy.sh --env aws`. | GitHub CD does not open SSH; it will send this script via SSM. Unused locally. Color state on AWS lives **outside** the git worktree (`/opt/warcraft3sounds/state/current-color`) so `git checkout --force` cannot wipe it. |
 
