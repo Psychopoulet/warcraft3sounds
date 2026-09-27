@@ -21,7 +21,8 @@ APP_IMAGE="${ECR_REGISTRY}/${ECR_REPOSITORY}"
 docker pull "${APP_IMAGE}:${VERSION}"
 
 cd "${REPO_DIR}"
-git fetch --tags origin
+# --force: a republished version tag must replace the tag already on this host.
+git fetch --force --tags origin
 git checkout --force "${VERSION}"
 
 bash "${REPO_DIR}/scripts/deploy.sh" --env aws --image "${APP_IMAGE}" --tag "${VERSION}"
