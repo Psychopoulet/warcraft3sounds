@@ -15,6 +15,7 @@
     import getConf from "./conf";
     import getModel from "./model";
     import getSoundsDirectory from "./tools/getSoundsDirectory";
+    import getLogger from "./tools/getLogger";
 
     import generateServer from "./server/generateServer";
     import registerRoutes from "./server/registerRoutes";
@@ -42,10 +43,14 @@
 
     console.info("sounds directory :", finalSoundsDir);
 
-    new Promise((resolve: (exists: boolean) => void): void => {
+    getLogger().then((): Promise<boolean> => {
 
-        stat(finalSoundsDir, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
-            return err || !stats.isDirectory() ? resolve(false) : resolve(true);
+        return new Promise((resolve: (exists: boolean) => void): void => {
+
+            stat(finalSoundsDir, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
+                return err || !stats.isDirectory() ? resolve(false) : resolve(true);
+            });
+
         });
 
     }).then((exists: boolean): Promise<string | undefined> => {
