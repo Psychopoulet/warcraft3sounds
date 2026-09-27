@@ -82,7 +82,6 @@
     "@types/react-dom": "19.3.0",
     "check-node-engine": "1.2.0",
     "check-version-modules": "2.5.0",
-    "coveralls": "3.1.1",
     "eslint-plugin-personnallinter": "git+ssh://git@github.com/Psychopoulet/eslint-plugin-personnallinter",
     "husky": "9.1.7",
     "mocha": "12.0.2",
