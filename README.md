@@ -1,5 +1,5 @@
 # warcraft3sounds
-A basic API for Warcraft 3 sounds
+An api for warcraft 3 french sounds.
 
 Local / AWS deploy (Docker, nginx, blue/green, TLS): see **[DOC.md](./DOC.md)**.
 
@@ -14,6 +14,18 @@ Local / AWS deploy (Docker, nginx, blue/green, TLS): see **[DOC.md](./DOC.md)**.
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Psychopoulet_warcraft3sounds&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Psychopoulet_warcraft3sounds)
 
 [![Known Vulnerabilities](https://snyk.io/test/github/Psychopoulet/warcraft3sounds/badge.svg)](https://snyk.io/test/github/Psychopoulet/warcraft3sounds)
+
+## Website
+
+If you don't want to install it locally, you can use it here :
+https://warcraft3sounds.fr/public/index.html
+
+## Equivalent
+
+You can also find theses sounds here :
+https://wowwiki.fandom.com/fr/wiki/R%C3%A9pliques_de_Warcraft_III
+
+But you cannot use them as an API
 
 ## Download
 
@@ -94,7 +106,7 @@ Check the basic interface on http[s]://localhost [:port]
 Build the image, start nginx + one app color, and serve HTTPS on port 8443 (self-signed cert). Details and flowcharts: **[DOC.md](./DOC.md)**.
 
 ```bash
-$ npm run cd-local
+$ npm run docker-local-start
 ```
 
 ```bash
@@ -102,7 +114,7 @@ $ curl -kfsS https://127.0.0.1:8443/health
 ```
 
 ```bash
-$ npm run cd-local-down
+$ npm run docker-local-stop
 ```
 
 ### Thanks

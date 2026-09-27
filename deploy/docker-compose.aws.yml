@@ -10,13 +10,19 @@ services:
       - ${ACME_WEBROOT:-/opt/warcraft3sounds/certbot}:/var/www/certbot:ro
 
   app-blue:
-    image: ${APP_IMAGE}
+    environment:
+      NODE_ENV: production
+      TZ: Europe/Paris
     volumes:
-      - ${DB_HOST_DIR:-/var/lib/warcraft3sounds/db}:/root/warcraft3sounds
+      - ${DB_HOST_DIR:-/var/lib/warcraft3sounds/db}:/root/warcraft3sounds/db
+      - ${LOGS_HOST_DIR:-/var/lib/warcraft3sounds/logs}:/root/warcraft3sounds/logs
       - ${SOUNDS_HOST_DIR:-/var/lib/warcraft3sounds/sounds}:/root/warcraft3sounds/sounds:ro
 
   app-green:
-    image: ${APP_IMAGE}
+    environment:
+      NODE_ENV: production
+      TZ: Europe/Paris
     volumes:
-      - ${DB_HOST_DIR:-/var/lib/warcraft3sounds/db}:/root/warcraft3sounds
+      - ${DB_HOST_DIR:-/var/lib/warcraft3sounds/db}:/root/warcraft3sounds/db
+      - ${LOGS_HOST_DIR:-/var/lib/warcraft3sounds/logs}:/root/warcraft3sounds/logs
       - ${SOUNDS_HOST_DIR:-/var/lib/warcraft3sounds/sounds}:/root/warcraft3sounds/sounds:ro

@@ -2,6 +2,7 @@
 
     // locals
     import errorCodes from "../../returncodes";
+    import getLogger from "../../tools/getLogger";
     import logRequest from "../../tools/logRequest";
 
     // types & interfaces
@@ -16,7 +17,7 @@
         return function pathRedirection (req: Request, res: Response): void {
 
             logRequest(req);
-            console.error("Redirected to", path);
+            getLogger().info("Redirected to " + path);
 
             res.set("location", path);
             res.status(errorCodes.REDIRECT).send("Redirected to \"" + path + "\"");

@@ -1,5 +1,6 @@
-/* eslint-disable n/no-process-exit */
+/* eslint-disable n/no-process-exit, n/no-process-env */
 // n/no-process-exit : let main file to use process.exit() if needed
+// n/no-process-env : let main file to default NODE_ENV to "development" when it is missing
 
 // deps
 
@@ -14,6 +15,7 @@
     import getConf from "./conf";
     import getModel from "./model";
     import getSoundsDirectory from "./tools/getSoundsDirectory";
+    import getLogger, { initLogger } from "./tools/getLogger";
 
     import generateServer from "./server/generateServer";
     import registerRoutes from "./server/registerRoutes";
@@ -33,14 +35,22 @@
 
     // generate conf
 
+    if ("undefined" === typeof process.env.NODE_ENV || "" === process.env.NODE_ENV) {
+        process.env.NODE_ENV = "development";
+    }
+
     const finalSoundsDir = getSoundsDirectory(); // for docker, or after first launch
 
-    console.info("sounds directory :", finalSoundsDir);
+    initLogger().then((): Promise<boolean> => {
 
-    new Promise((resolve: (exists: boolean) => void): void => {
+        getLogger().info("sounds directory : " + finalSoundsDir);
 
-        stat(finalSoundsDir, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
-            return err || !stats.isDirectory() ? resolve(false) : resolve(true);
+        return new Promise((resolve: (exists: boolean) => void): void => {
+
+            stat(finalSoundsDir, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
+                return err || !stats.isDirectory() ? resolve(false) : resolve(true);
+            });
+
         });
 
     }).then((exists: boolean): Promise<string | undefined> => {
@@ -49,7 +59,7 @@
             return Promise.resolve("");
         }
 
-        console.info("sounds directory not found, try to create it", finalSoundsDir);
+        getLogger().info("sounds directory not found, try to create it " + finalSoundsDir);
 
         return mkdir(finalSoundsDir, {
             "recursive": true
@@ -64,7 +74,7 @@
             conf
                 .set("port", conf.has("port") ? conf.get<number>("port") : 8000)
                 .set("ssl", conf.has("ssl") ? conf.get<boolean>("ssl") : false)
-                .set("database-file", conf.has("database-file") ? conf.get<string>("database-file") : join(homedir(), "warcraft3sounds", "warcraft3sounds.sqlite"));
+                .set("database-file", join(homedir(), "warcraft3sounds", "db", "warcraft3sounds.sqlite"));
 
         });
 
@@ -72,15 +82,11 @@
 
         const dbStorage: string = getConf().get<string>("database-file");
 
-        console.info("database :", dbStorage);
+        getLogger().info("database : " + dbStorage);
 
-        const prepareDir: Promise<string | undefined> = ":memory:" === dbStorage
-            ? Promise.resolve("")
-            : mkdir(dirname(dbStorage), {
-                "recursive": true
-            });
-
-        return prepareDir.then((): Promise<void> => {
+        return mkdir(dirname(dbStorage), {
+            "recursive": true
+        }).then((): Promise<void> => {
 
             return getModel().init();
 
@@ -104,7 +110,9 @@
         const conf = getConf();
 
         app.listen(conf.get<number>("port"), (): void => {
-            console.info("started" + (conf.get<boolean>("ssl") ? " with SSL" : ""), "on port " + conf.get<number>("port"));
+
+            getLogger().info("started" + (conf.get<boolean>("ssl") ? " with SSL" : "") + " on port " + String(conf.get<number>("port")));
+
         });
 
     // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose)
@@ -120,11 +128,7 @@
 
             }).catch((err: Error): void => {
 
-                console.error("");
-                console.error("Impossible to properly end the application");
-                console.error(err);
-                console.error("");
-
+                getLogger().error("Impossible to properly end the application\n" + (err.stack ?? err.message));
                 process.exitCode = 1;
                 process.exit(1);
 
@@ -137,10 +141,14 @@
 
     }).catch((err: Error): void => {
 
-        console.error("");
-        console.error("Impossible to initiate the application");
-        console.error(err);
-        console.error("");
+        try {
+            getLogger().critical("Impossible to initiate the application\n" + (err.stack ?? err.message));
+        }
+        catch {
+
+            // the logger never started
+
+        }
 
         process.exitCode = 1;
         process.exit(1);
