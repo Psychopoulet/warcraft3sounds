@@ -94,7 +94,7 @@ Check the basic interface on http[s]://localhost [:port]
 Build the image, start nginx + one app color, and serve HTTPS on port 8443 (self-signed cert). Details and flowcharts: **[DOC.md](./DOC.md)**.
 
 ```bash
-$ npm run cd-local
+$ npm run docker-local-start
 ```
 
 ```bash
@@ -102,7 +102,7 @@ $ curl -kfsS https://127.0.0.1:8443/health
 ```
 
 ```bash
-$ npm run cd-local-down
+$ npm run docker-local-stop
 ```
 
 ### Thanks

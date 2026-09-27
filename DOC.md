@@ -53,7 +53,7 @@ Overlays are **never** loaded together: `compose.sh` always uses the base file p
 Needs Docker Compose v2 and bash.
 
 ```bash
-npm run cd-local
+npm run docker-local-start
 ```
 
 Then:
@@ -63,12 +63,12 @@ curl -kfsS https://127.0.0.1:8443/health
 # → {"status":"ok"}
 ```
 
-A second `npm run cd-local` (after another image build) performs a **rolling** switch (blue ↔ green).
+A second `npm run docker-local-start` (after another image build) performs a **rolling** switch (blue ↔ green).
 
 Stop:
 
 ```bash
-npm run cd-local-down
+npm run docker-local-stop
 ```
 
 ---
@@ -84,7 +84,7 @@ flowchart TD
     Start(["START DEPLOY"])
     Start --> Who{"Who launches?"}
 
-    Who -->|"developer on a laptop"| CdLocal["scripts/cd-local.sh"]
+    Who -->|"developer on a laptop"| CdLocal["scripts/cd-local-up.sh"]
     Who -->|"GitHub Actions + SSM on EC2<br/>publish.yml when A7 exists"| Remote["scripts/publish-remote.sh"]
 
     CdLocal --> Cert{"PEM present?<br/>deploy/nginx/certs/fullchain.pem<br/>deploy/nginx/certs/privkey.pem"}
@@ -145,7 +145,7 @@ Tear-down (not on this path): `scripts/cd-local-down.sh` → `compose.sh` → `d
 ```mermaid
 flowchart TD
     subgraph local [Local machine]
-        Dev[Developer] --> CdLocal["bash scripts/cd-local.sh"]
+        Dev[Developer] --> CdLocal["bash scripts/cd-local-up.sh"]
         Dev --> CdDown["bash scripts/cd-local-down.sh"]
         CdDown --> ComposeDown["compose.sh → docker compose down"]
     end
@@ -164,11 +164,11 @@ flowchart TD
     Remote --> DeployAws["scripts/deploy.sh --env aws"]
 ```
 
-### 2. `cd-local.sh` route
+### 2. `cd-local-up.sh` route
 
 ```mermaid
 flowchart TD
-    Start["cd-local.sh"] --> Cert{"fullchain.pem + privkey.pem<br/>in deploy/nginx/certs?"}
+    Start["cd-local-up.sh"] --> Cert{"fullchain.pem + privkey.pem<br/>in deploy/nginx/certs?"}
     Cert -->|no| OpenSSL["openssl req -x509<br/>or Docker alpine+openssl"]
     Cert -->|yes| Build
     OpenSSL --> Build["build-image.sh<br/>npm run build + docker build<br/>warcraft3sounds:local"]
@@ -262,7 +262,7 @@ Each overlay mounts its HTTP snippet as `/etc/nginx/http-listen.conf`. `nginx.co
 | [`scripts/compose.sh`](./scripts/compose.sh) | Defines `compose()`: `docker compose -f base -f overlay`. | Avoids repeating the four flags. **Sourced**, not meant to be run alone. |
 | [`scripts/build-image.sh`](./scripts/build-image.sh) | `npm run build` then `docker build -t name:tag`. | The Dockerfile copies **already built** `lib/cjs` and `public/dist`. GitHub CD will call the same script before `docker push`. |
 | [`scripts/deploy.sh`](./scripts/deploy.sh) | Rolling core: read active color → start the other → poll `/health` **inside** the container → rewrite `upstream.conf` → reload nginx → local HTTPS `curl` → stop the old color. Failed `/health` → **abort**, no switch. First run = bootstrap (one color + nginx). | **One** path for local and AWS (`--env`, `--image`, `--tag`). |
-| [`scripts/cd-local.sh`](./scripts/cd-local.sh) | Dev orchestrator: self-signed cert if missing + build `warcraft3sounds:local` + `deploy.sh --env local`. | You should not have to chain three commands by hand. |
+| [`scripts/cd-local-up.sh`](./scripts/cd-local-up.sh) | Dev orchestrator: self-signed cert if missing + build `warcraft3sounds:local` + `deploy.sh --env local`. | You should not have to chain three commands by hand. |
 | [`scripts/cd-local-down.sh`](./scripts/cd-local-down.sh) | `compose down`. | Stops nginx and both colors without deleting the image. |
 | [`scripts/publish-remote.sh`](./scripts/publish-remote.sh) | EC2 orchestrator: ECR login, `docker pull`, `git checkout` the version tag, `deploy.sh --env aws`. | GitHub CD does not open SSH; it will send this script via SSM. Unused locally. Color state on AWS lives **outside** the git worktree (`/opt/warcraft3sounds/state/current-color`) so `git checkout --force` cannot wipe it. |
 

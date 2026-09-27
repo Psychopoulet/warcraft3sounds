@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Shared docker compose invocation (local | aws). Sourced by deploy / cd-local.
+# Shared docker compose invocation (local | aws). Sourced by deploy / cd-local-up.
 
 set -euo pipefail
 

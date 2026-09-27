@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Blue/green: start the idle color, wait /health, reload nginx, stop the old color.
-# Used by cd-local and by publish-aws (SSM) — same script.
+# Used by cd-local-up and by publish-aws (SSM) — same script.
 
 set -euo pipefail
 
