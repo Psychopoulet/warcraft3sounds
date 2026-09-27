@@ -177,6 +177,7 @@ jobs:
               ("export ECR_REPOSITORY="+$p),
               ("export VERSION="+$v),
               ("export AWS_REGION="+$g),
+              "git -C /opt/warcraft3sounds fetch --force --tags origin",
               "bash /opt/warcraft3sounds/scripts/publish-remote.sh"
             ]}')"
           CMD_ID="$(aws ssm send-command \
