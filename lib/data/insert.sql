@@ -893,7 +893,7 @@ INSERT INTO actions (k_character, k_action_type, code, name, file) VALUES
 (113, 4, 'yes2', 'Très bien', 'ShandrisYes2.wav'),
 (113, 4, 'yes3', 'Aucun problème', 'ShandrisYes3.wav'),
 (113, 5, 'attack1', 'Ils ne sauront jamais ce qui les a frappés', 'ShandrisYesAttack1.wav'),
-(113, 5, 'attack2', 'Celui-là est à moi !', 'ShandrisYesAttack2.wav'),
+(113, 5, 'attack2', 'Celui-là est pour moi.', 'ShandrisYesAttack2.wav'),
 (113, 5, 'attack3', 'Pas de pitié', 'ShandrisYesAttack3.wav'),
 (113, 6, 'fun1', 'Que puis-je pour vous ?', 'ShandrisPissed1.wav'),
 (113, 6, 'fun2', 'Arrêtez de me chatouiller !', 'ShandrisPissed2.wav'),

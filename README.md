@@ -1,5 +1,5 @@
 # warcraft3sounds
-A basic API for Warcraft 3 sounds
+An api for warcraft 3 french sounds.
 
 Local / AWS deploy (Docker, nginx, blue/green, TLS): see **[DOC.md](./DOC.md)**.
 
