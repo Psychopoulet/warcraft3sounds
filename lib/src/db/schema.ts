@@ -1,6 +1,7 @@
 // deps
 
     // externals
+    import { relations } from "drizzle-orm";
     import { integer, sqliteTable, text, unique } from "drizzle-orm/sqlite-core";
 
 // module
@@ -109,5 +110,64 @@ export const actions = sqliteTable("actions", {
 }, (table) => {
 
     return [ unique().on(table.k_character, table.k_action_type, table.code) ];
+
+});
+
+export const racesRelations = relations(races, ({ many }) => {
+
+    return {
+        "characters": many(characters),
+        "musics": many(musics),
+        "warnings": many(warnings)
+    };
+
+});
+
+export const musicsRelations = relations(musics, ({ one }) => {
+
+    return {
+        "race": one(races, {
+            "fields": [ musics.k_race ],
+            "references": [ races.id ]
+        })
+    };
+
+});
+
+export const warningsRelations = relations(warnings, ({ one }) => {
+
+    return {
+        "race": one(races, {
+            "fields": [ warnings.k_race ],
+            "references": [ races.id ]
+        })
+    };
+
+});
+
+export const charactersRelations = relations(characters, ({ many, one }) => {
+
+    return {
+        "race": one(races, {
+            "fields": [ characters.k_race ],
+            "references": [ races.id ]
+        }),
+        "actions": many(actions)
+    };
+
+});
+
+export const actionsRelations = relations(actions, ({ one }) => {
+
+    return {
+        "character": one(characters, {
+            "fields": [ actions.k_character ],
+            "references": [ characters.id ]
+        }),
+        "type": one(actionsTypes, {
+            "fields": [ actions.k_action_type ],
+            "references": [ actionsTypes.id ]
+        })
+    };
 
 });

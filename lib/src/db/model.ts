@@ -11,6 +11,7 @@
 
     // locals
     import getConf from "../conf";
+    import * as schema from "./schema";
 
 // types & interfaces
 
@@ -42,7 +43,7 @@ export class WarcraftSoundsModel {
         // private
 
         private readonly _sqlite: SqliteDatabase.Database;
-        private readonly _db: BetterSQLite3Database;
+        private readonly _db: BetterSQLite3Database<typeof schema>;
         private readonly _schemaFile: string;
         private readonly _seedFiles: string[];
 
@@ -51,7 +52,9 @@ export class WarcraftSoundsModel {
     public constructor (options: iWarcraftSoundsModelOptions = {}) {
 
         this._sqlite = new SqliteDatabase(getConf().get<string>("database-file"));
-        this._db = drizzle(this._sqlite);
+        this._db = drizzle(this._sqlite, {
+            "schema": schema
+        });
         this._schemaFile = "undefined" !== typeof options.schemaFile ? options.schemaFile : _dataFile("create.sql");
         this._seedFiles = "undefined" !== typeof options.seedFiles
             ? options.seedFiles
