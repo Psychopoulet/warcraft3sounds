@@ -4,7 +4,7 @@
     const { join } = require("node:path");
 
     // locals
-    const { WarcraftSoundsModel, setModel } = require("../../lib/cjs/model.js");
+    const { WarcraftSoundsModel, setModel } = require("../../lib/cjs/db/model.js");
     const getConf = require("../../lib/cjs/conf.js").default;
     const { initLogger } = require("../../lib/cjs/tools/getLogger.js");
     const { setSoundsDirectory } = require("../../lib/cjs/tools/getSoundsDirectory.js");

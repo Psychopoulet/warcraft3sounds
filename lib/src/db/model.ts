@@ -10,7 +10,7 @@
     import { drizzle } from "drizzle-orm/better-sqlite3";
 
     // locals
-    import getConf from "./conf";
+    import getConf from "../conf";
 
 // types & interfaces
 
@@ -18,7 +18,7 @@
     import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 
     // locals
-    import type { components } from "./Descriptor";
+    import type { components } from "../Descriptor";
 
     export interface iWarcraftSoundsModelOptions {
         "schemaFile"?: string;
@@ -29,7 +29,7 @@
 
     function _dataFile (name: string): string {
 
-        return join(__dirname, "..", "data", name);
+        return join(__dirname, "..", "..", "data", name);
 
     }
 

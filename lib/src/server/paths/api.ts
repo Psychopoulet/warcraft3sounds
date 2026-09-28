@@ -6,7 +6,7 @@
 
     // locals
     import errorCodes from "../../returncodes";
-    import getModel from "../../model";
+    import getModel from "../../db/model";
 
 // types & interfaces
 
