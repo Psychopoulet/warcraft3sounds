@@ -1,6 +1,3 @@
-/* eslint-disable func-style */
-// func-style : disallow arrow functions to keep "this" context
-
 // deps
 
     // natives
@@ -8,7 +5,9 @@
     import { readFile } from "node:fs/promises";
 
     // externals
-    import { verbose } from "sqlite3";
+    import SqliteDatabase from "better-sqlite3";
+    import { sql } from "drizzle-orm";
+    import { drizzle } from "drizzle-orm/better-sqlite3";
 
     // locals
     import getConf from "./conf";
@@ -16,7 +15,7 @@
 // types & interfaces
 
     // externals
-    import type { sqlite3, Database } from "sqlite3";
+    import type { BetterSQLite3Database } from "drizzle-orm/better-sqlite3";
 
     // locals
     import type { components } from "./Descriptor";
@@ -27,8 +26,6 @@
     }
 
 // consts
-
-    const SQLLite3: sqlite3 = verbose();
 
     function _dataFile (name: string): string {
 
@@ -44,7 +41,8 @@ export class WarcraftSoundsModel {
 
         // private
 
-        private readonly _db: Database;
+        private readonly _sqlite: SqliteDatabase.Database;
+        private readonly _db: BetterSQLite3Database;
         private readonly _schemaFile: string;
         private readonly _seedFiles: string[];
 
@@ -52,7 +50,8 @@ export class WarcraftSoundsModel {
 
     public constructor (options: iWarcraftSoundsModelOptions = {}) {
 
-        this._db = new SQLLite3.Database(getConf().get<string>("database-file"));
+        this._sqlite = new SqliteDatabase(getConf().get<string>("database-file"));
+        this._db = drizzle(this._sqlite);
         this._schemaFile = "undefined" !== typeof options.schemaFile ? options.schemaFile : _dataFile("create.sql");
         this._seedFiles = "undefined" !== typeof options.seedFiles
             ? options.seedFiles
@@ -65,58 +64,11 @@ export class WarcraftSoundsModel {
 
     // methods
 
-    private _sqlToQueries (content: string): string[] {
-
-        const result: string[] = [];
-
-        content.split(";").forEach((request: string): void => {
-
-            const data: string = request
-                        .trim()
-                        .replace(/(?:\\[rn]|[\r\n]+)+/g, "\n")
-                        .replace(/\t/g, "")
-                        .split("\n")
-                        .filter((line: string): boolean => {
-                            return "" !== line.trim() && "--" !== line.substring(0, 2);
-                        })
-                        .join(" ")
-                        .trim();
-
-            if ("" !== data) {
-                result.push(data + ";");
-            }
-
-        });
-
-        return result;
-
-    }
-
-    private _execQueries (queries: string[]): Promise<void> {
-
-        const _execQuery = (i: number): Promise<void> => {
-
-            return i < queries.length ? new Promise((resolve: (value?: unknown) => void, reject: (err: Error) => void): void => {
-
-                this._db.run(queries[i], (err: Error | null): void => {
-                    return err ? reject(err) : resolve();
-                });
-
-            }).then((): Promise<void> => {
-                return _execQuery(i + 1);
-            }) : Promise.resolve();
-
-        };
-
-        return _execQuery(0);
-
-    }
-
     private _execSqlFile (file: string): Promise<void> {
 
-        return readFile(file, "utf-8").then((content: string): Promise<void> => {
+        return readFile(file, "utf-8").then((content: string): void => {
 
-            return this._execQueries(this._sqlToQueries(content));
+            this._sqlite.exec(content);
 
         });
 
@@ -142,15 +94,20 @@ export class WarcraftSoundsModel {
 
         return new Promise((resolve: (exists: boolean) => void, reject: (err: Error) => void): void => {
 
-            this._db.get(
-                "SELECT 1 AS found FROM sqlite_master WHERE type = 'table' AND name = ?;",
-                [ name ],
-                (err: Error | null, row: { "found": number } | undefined): void => {
+            try {
 
-                    return err ? reject(err) : resolve(Boolean(row));
+                const row: { "found": number } | undefined = this._db.get<{ "found": number }>(
+                    sql `SELECT 1 AS found FROM sqlite_master WHERE type = 'table' AND name = ${name}`
+                );
 
-                }
-            );
+                resolve(Boolean(row));
+
+            }
+            catch (err: unknown) {
+
+                reject(err instanceof Error ? err : new Error(String(err)));
+
+            }
 
         });
 
@@ -160,14 +117,20 @@ export class WarcraftSoundsModel {
 
         return new Promise((resolve: (hasData: boolean) => void, reject: (err: Error) => void): void => {
 
-            this._db.get(
-                "SELECT COUNT(*) AS n FROM races;",
-                (err: Error | null, row: { "n": number } | undefined): void => {
+            try {
 
-                    return err ? reject(err) : resolve(Boolean(row && 0 < row.n));
+                const row: { "n": number } | undefined = this._db.get<{ "n": number }>(
+                    sql `SELECT COUNT(*) AS n FROM races;`
+                );
 
-                }
-            );
+                resolve(0 < row.n);
+
+            }
+            catch (err: unknown) {
+
+                reject(err instanceof Error ? err : new Error(String(err)));
+
+            }
 
         });
 
@@ -175,15 +138,7 @@ export class WarcraftSoundsModel {
 
     public init (): Promise<void> {
 
-        return new Promise((resolve: (value?: unknown) => void): void => {
-
-            this._db.serialize(resolve);
-
-        }).then((): Promise<boolean> => {
-
-            return this._tableExists("races");
-
-        }).then((exists: boolean): Promise<void> => {
+        return this._tableExists("races").then((exists: boolean): Promise<void> => {
 
             return exists ? Promise.resolve() : this._execSqlFile(this._schemaFile);
 
@@ -203,9 +158,17 @@ export class WarcraftSoundsModel {
 
         return new Promise((resolve: () => void, reject: (err: Error) => void): void => {
 
-            this._db.close((err: Error | null): void => {
-                return err ? reject(err) : resolve();
-            });
+            try {
+
+                this._sqlite.close();
+                resolve();
+
+            }
+            catch (err: unknown) {
+
+                reject(err instanceof Error ? err : new Error(String(err)));
+
+            }
 
         });
 
@@ -215,21 +178,28 @@ export class WarcraftSoundsModel {
 
         return new Promise((resolve: (data: Array<components["schemas"]["BasicRace"]>) => void, reject: (err: Error) => void): void => {
 
-            this._db.all("SELECT code, name, icon FROM races ORDER BY id;", (err: Error | null, data: Array<components["schemas"]["BasicRace"]>): void => {
+            try {
 
-                return err
-                    ? reject(err)
-                    : resolve(data.map((race): components["schemas"]["BasicRace"] => {
+                const data: Array<components["schemas"]["BasicRace"]> = this._sqlite.prepare<[], components["schemas"]["BasicRace"]>(
+                    "SELECT code, name, icon FROM races ORDER BY id;"
+                ).all();
 
-                        return {
-                            ...race,
-                            "url": "/api/races/" + race.code,
-                            "icon": race.icon
-                        };
+                resolve(data.map((race): components["schemas"]["BasicRace"] => {
 
-                    }));
+                    return {
+                        ...race,
+                        "url": "/api/races/" + race.code,
+                        "icon": race.icon
+                    };
 
-            });
+                }));
+
+            }
+            catch (err: unknown) {
+
+                reject(err instanceof Error ? err : new Error(String(err)));
+
+            }
 
         });
 
@@ -257,21 +227,28 @@ export class WarcraftSoundsModel {
 
         return new Promise((resolve: (data: iSQLRequestResult[]) => void, reject: (err: Error) => void) => {
 
-            this._db.all(
-                " SELECT"
-                    + " races.id AS race_id, races.code AS race_code, races.name AS race_name, races.icon AS race_icon,"
-                    + " characters.code AS character_code, characters.name AS character_name, characters.icon AS character_icon, characters.hero AS character_hero, characters.tft AS character_tft,"
-                    + " musics.code AS music_code, musics.name AS music_name, musics.file AS music_file,"
-                    + " warnings.code AS warning_code, warnings.name AS warning_name, warnings.file AS warning_file"
-                + " FROM races"
-                    + " LEFT JOIN characters ON characters.k_race = races.id"
-                    + " LEFT JOIN musics ON musics.k_race = races.id"
-                    + " LEFT JOIN warnings ON warnings.k_race = races.id"
-                + " WHERE races.code = ?"
-                + " ORDER BY races.name, characters.name, musics.name, warnings.name;",
-            [ code ], (err: Error | null, data: iSQLRequestResult[]): void => {
-                return err ? reject(err) : resolve(data);
-            });
+            try {
+
+                resolve(this._sqlite.prepare<[ string ], iSQLRequestResult>(
+                    " SELECT"
+                        + " races.id AS race_id, races.code AS race_code, races.name AS race_name, races.icon AS race_icon,"
+                        + " characters.code AS character_code, characters.name AS character_name, characters.icon AS character_icon, characters.hero AS character_hero, characters.tft AS character_tft,"
+                        + " musics.code AS music_code, musics.name AS music_name, musics.file AS music_file,"
+                        + " warnings.code AS warning_code, warnings.name AS warning_name, warnings.file AS warning_file"
+                    + " FROM races"
+                        + " LEFT JOIN characters ON characters.k_race = races.id"
+                        + " LEFT JOIN musics ON musics.k_race = races.id"
+                        + " LEFT JOIN warnings ON warnings.k_race = races.id"
+                    + " WHERE races.code = ?"
+                    + " ORDER BY races.name, characters.name, musics.name, warnings.name;"
+                ).all(code));
+
+            }
+            catch (err: unknown) {
+
+                reject(err instanceof Error ? err : new Error(String(err)));
+
+            }
 
         }).then((racesData: iSQLRequestResult[] | undefined): components["schemas"]["Race"] | null => {
 
@@ -363,19 +340,26 @@ export class WarcraftSoundsModel {
             "tft": number;
         }
 
-        return new Promise((resolve: (data: iSQLRequestResult) => void, reject: (err: Error) => void) => {
+        return new Promise((resolve: (data: iSQLRequestResult | undefined) => void, reject: (err: Error) => void) => {
 
-            this._db.get(
-                " SELECT characters.id, characters.code, characters.name, characters.icon, characters.hero, characters.tft"
-                + " FROM characters"
-                    + " INNER JOIN races ON races.id = characters.k_race"
-                + " WHERE"
-                    + " races.code = ?"
-                    + " AND characters.code = ?"
-                + " ORDER BY characters.name;",
-            [ codeRace, code ], (err: Error | null, data: iSQLRequestResult): void => {
-                return err ? reject(err) : resolve(data);
-            });
+            try {
+
+                resolve(this._sqlite.prepare<[ string, string ], iSQLRequestResult>(
+                    " SELECT characters.id, characters.code, characters.name, characters.icon, characters.hero, characters.tft"
+                    + " FROM characters"
+                        + " INNER JOIN races ON races.id = characters.k_race"
+                    + " WHERE"
+                        + " races.code = ?"
+                        + " AND characters.code = ?"
+                    + " ORDER BY characters.name;"
+                ).get(codeRace, code));
+
+            }
+            catch (err: unknown) {
+
+                reject(err instanceof Error ? err : new Error(String(err)));
+
+            }
 
         }).then((characterData: iSQLRequestResult | undefined): Promise<components["schemas"]["Character"] | null> => {
 
@@ -393,17 +377,24 @@ export class WarcraftSoundsModel {
 
             return new Promise((resolve: (data: iSQLActionRequestResult[]) => void, reject: (err: Error) => void): void => {
 
-                this._db.all(
-                    " SELECT "
-                        + " actions.code, actions.name, actions.file,"
-                        + " actions_types.code AS type_code, actions_types.name AS type_name"
-                    + " FROM actions INNER JOIN actions_types ON actions_types.id = actions.k_action_type"
-                    + " WHERE actions.k_character = ?"
-                        + (notWorded ? "" : " AND \"\" != actions.name")
-                    + ";",
-                [ characterData.id ], (err: Error | null, data: iSQLActionRequestResult[]): void => {
-                    return err ? reject(err) : resolve(data);
-                });
+                try {
+
+                    resolve(this._sqlite.prepare<[ number ], iSQLActionRequestResult>(
+                        " SELECT "
+                            + " actions.code, actions.name, actions.file,"
+                            + " actions_types.code AS type_code, actions_types.name AS type_name"
+                        + " FROM actions INNER JOIN actions_types ON actions_types.id = actions.k_action_type"
+                        + " WHERE actions.k_character = ?"
+                            + (notWorded ? "" : " AND '' != actions.name")
+                        + ";"
+                    ).all(characterData.id));
+
+                }
+                catch (err: unknown) {
+
+                    reject(err instanceof Error ? err : new Error(String(err)));
+
+                }
 
             }).then((data: iSQLActionRequestResult[]): components["schemas"]["Character"] => {
 

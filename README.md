@@ -69,7 +69,7 @@ In the "warcraft3sounds" downloaded folder, execute
 $ npm install --prod
 ```
 
-> You may need to compile the sqlite3 package, if you have an error, please check [that](https://www.npmjs.com/package/node-gyp)
+> You may need to compile the better-sqlite3 package, if you have an error, please check [that](https://www.npmjs.com/package/node-gyp)
 
 ## Extract sounds
 
