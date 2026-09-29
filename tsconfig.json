@@ -26,8 +26,7 @@
 
     },
     "include": [
-        "./lib/src/main.cts",
-        "./lib/src/db/seed.ts"
+        "./lib/src/main.cts"
     ],
     "exclude": [
         "node_modules"

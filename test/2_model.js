@@ -1,13 +1,13 @@
 // deps
 
     // natives
-    const { equal, deepEqual, rejects } = require("node:assert");
+    const { equal, deepEqual, ok, rejects } = require("node:assert");
     const { join } = require("node:path");
     const { mkdtemp, rm } = require("node:fs/promises");
     const { tmpdir } = require("node:os");
 
     // locals
-    const { createTestModel } = require("./helpers/model.js");
+    const { createTestModel, createCatalogModel } = require("./helpers/model.js");
 
 // consts
 
@@ -90,6 +90,32 @@ describe("model", () => {
             await model.init();
 
             deepEqual(await model.getRaces(), EXPECTED_RACE_LIST);
+
+            await model.release();
+
+        });
+
+        it("should seed the whole catalog with Drizzle by default", async () => {
+
+            const model = createCatalogModel();
+
+            await model.init();
+
+            deepEqual((await model.getRaces()).map((race) => {
+                return race.code;
+            }), [
+                "humans", "nightelfs", "orcs", "undeads", "neutrals"
+            ]);
+
+            const humans = await model.getRace("humans");
+
+            equal(humans.musics.length, 5);
+            ok(0 < humans.characters.length);
+            ok(0 < humans.warnings.length);
+
+            const peasant = await model.getCharacter("humans", humans.characters[0].code, true);
+
+            ok(0 < peasant.actions.length);
 
             await model.release();
 
