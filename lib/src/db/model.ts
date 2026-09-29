@@ -13,6 +13,7 @@
     import getConf from "../conf";
     import checkDatabaseFile from "./checkDatabaseFile";
     import * as schema from "./schema";
+    import seed from "./seed";
 
 // types & interfaces
 
@@ -51,19 +52,15 @@ export class WarcraftSoundsModel {
 
         private _db: tDatabase | null = null;
         private readonly _schemaFile: string;
-        private readonly _seedFiles: string[];
+        // null : the catalog is seeded with Drizzle inserts
+        private readonly _seedFiles: string[] | null;
 
     // constructor
 
     public constructor (options: iWarcraftSoundsModelOptions = {}) {
 
         this._schemaFile = "undefined" !== typeof options.schemaFile ? options.schemaFile : _dataFile("create.sql");
-        this._seedFiles = "undefined" !== typeof options.seedFiles
-            ? options.seedFiles
-            : [
-                _dataFile("insert.sql"),
-                _dataFile("toword.sql")
-            ];
+        this._seedFiles = "undefined" !== typeof options.seedFiles ? options.seedFiles : null;
 
     }
 
@@ -102,9 +99,15 @@ export class WarcraftSoundsModel {
 
     }
 
-    private _execSeedFiles (): Promise<void> {
+    private _seed (): Promise<void> {
 
-        return this._seedFiles.reduce((previous: Promise<void>, file: string): Promise<void> => {
+        return null === this._seedFiles ? seed(this._getDb()) : this._execSeedFiles(this._seedFiles);
+
+    }
+
+    private _execSeedFiles (files: string[]): Promise<void> {
+
+        return files.reduce((previous: Promise<void>, file: string): Promise<void> => {
 
             return previous.then((): Promise<void> => {
                 return this._execSqlFile(file);
@@ -143,7 +146,7 @@ export class WarcraftSoundsModel {
         }
 
         if (!await this._hasData()) {
-            await this._execSeedFiles();
+            await this._seed();
         }
 
     }

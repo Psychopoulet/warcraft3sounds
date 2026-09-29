@@ -45,6 +45,16 @@
 
     }
 
+    // the model as production builds it : default schema file and default (Drizzle) seed
+    function createCatalogModel () {
+
+        getConf()
+            .set("database-file", createTemporaryStorage());
+
+        return new WarcraftSoundsModel();
+
+    }
+
     function setupTestAppData () {
 
         const model = createTestModel();
@@ -108,6 +118,7 @@ module.exports = {
     SEED_FILE,
     SOUNDS_DIR,
     createTestModel,
+    createCatalogModel,
     setupTestAppData,
     teardownTestAppData
 };
