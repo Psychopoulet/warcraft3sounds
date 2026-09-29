@@ -6,7 +6,7 @@
     import { pathToFileURL } from "node:url";
 
     // externals
-    import { asc, eq, sql } from "drizzle-orm";
+    import { and, asc, eq, ne, sql } from "drizzle-orm";
     import { drizzle } from "drizzle-orm/libsql";
 
     // locals
@@ -244,74 +244,70 @@ export class WarcraftSoundsModel {
 
     public async getCharacter (codeRace: string, code: string, notWorded: boolean = false): Promise<components["schemas"]["Character"] | null> {
 
-        interface iSQLRequestResult {
-            "id": number;
-            "code": string;
-            "name": string;
-            "icon": string;
-            "hero": number;
-            "tft": number;
-        }
+        const [ character ] = await this._getDb()
+            .select({
+                "id": schema.characters.id,
+                "code": schema.characters.code,
+                "name": schema.characters.name,
+                "icon": schema.characters.icon,
+                "hero": schema.characters.hero,
+                "tft": schema.characters.tft
+            })
+            .from(schema.characters)
+            .innerJoin(schema.races, eq(schema.races.id, schema.characters.k_race))
+            .where(and(
+                eq(schema.races.code, codeRace),
+                eq(schema.characters.code, code)
+            ))
+            .limit(1);
 
-        interface iSQLActionRequestResult {
-            "code": string;
-            "name": string;
-            "file": string;
-            "type_code": string;
-            "type_name": string;
-        }
-
-        const characters: iSQLRequestResult[] = await this._getDb().all<iSQLRequestResult>(sql `
-            SELECT characters.id, characters.code, characters.name, characters.icon, characters.hero, characters.tft
-            FROM characters
-                INNER JOIN races ON races.id = characters.k_race
-            WHERE
-                races.code = ${codeRace}
-                AND characters.code = ${code}
-            ORDER BY characters.name
-        `);
-
-        if (0 >= characters.length) {
+        if ("undefined" === typeof character) {
             return null;
         }
 
-        const [ characterData ] = characters;
+        const actions: Array<{
+            "code": string;
+            "name": string;
+            "file": string;
+            "typeCode": string;
+            "typeName": string;
+        }> = await this._getDb()
+            .select({
+                "code": schema.actions.code,
+                "name": schema.actions.name,
+                "file": schema.actions.file,
+                "typeCode": schema.actionsTypes.code,
+                "typeName": schema.actionsTypes.name
+            })
+            .from(schema.actions)
+            .innerJoin(schema.actionsTypes, eq(schema.actionsTypes.id, schema.actions.k_action_type))
+            .where(and(
+                eq(schema.actions.k_character, character.id),
+                notWorded ? sql `1 = 1` : ne(schema.actions.name, "")
+            ));
 
-        const actions: iSQLActionRequestResult[] = await this._getDb().all<iSQLActionRequestResult>(sql `
-            SELECT
-                actions.code, actions.name, actions.file,
-                actions_types.code AS type_code, actions_types.name AS type_name
-            FROM actions INNER JOIN actions_types ON actions_types.id = actions.k_action_type
-            WHERE actions.k_character = ${characterData.id}
-                ${notWorded ? sql `` : sql `AND '' != actions.name`}
-        `);
-
-        const result: components["schemas"]["Character"] = {
-            "code": characterData.code,
-            "name": characterData.name,
+        return {
+            "code": character.code,
+            "name": character.name,
             "url": "/api/races/" + codeRace + "/characters/" + code,
-            "icon": characterData.icon,
-            "hero": 1 === characterData.hero,
-            "tft": 1 === characterData.tft,
-            "actions": []
+            "icon": character.icon,
+            "hero": character.hero,
+            "tft": character.tft,
+            "actions": actions.map((action): components["schemas"]["Action"] => {
+
+                return {
+                    "code": action.code,
+                    "name": action.name,
+                    "file": action.file,
+                    "url": "/public/sounds/" + action.file,
+                    "type": {
+                        "code": action.typeCode,
+                        "name": action.typeName
+                    }
+                };
+
+            })
         };
-
-        actions.forEach((action: iSQLActionRequestResult): void => {
-
-            result.actions.push({
-                "code": action.code,
-                "name": action.name,
-                "file": action.file,
-                "url": "/public/sounds/" + action.file,
-                "type": {
-                    "code": action.type_code,
-                    "name": action.type_name
-                }
-            });
-
-        });
-
-        return result;
 
     }
 
