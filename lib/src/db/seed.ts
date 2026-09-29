@@ -22,7 +22,17 @@
         "actions": Array<typeof schema.actions.$inferInsert>;
     }
 
+    interface iSeedNotWordedData {
+        "actions": Array<typeof schema.actions.$inferInsert>;
+    }
+
 // private
+
+    async function _readSeedFile<T> (name: string): Promise<T> {
+
+        return JSON.parse(await readFile(join(__dirname, "..", "..", "data", name), "utf-8")) as T;
+
+    }
 
     // stay far under SQLite's bound-variable limit
     const _CHUNK_SIZE: number = 100;
@@ -69,11 +79,19 @@
 
 // module
 
-// insert the whole catalog from lib/data/seed.json in one atomic batch, parents before children
+// insert the whole catalog in one atomic batch, parents before children :
+// - lib/data/seed.json : every table, the actions having a name
+// - lib/data/seed-notworded.json : the actions without a name (still to be worded)
 export default async function seed (db: LibSQLDatabase<typeof schema>): Promise<void> {
 
-    const data: iSeedData = JSON.parse(await readFile(join(__dirname, "..", "..", "data", "seed.json"), "utf-8")) as iSeedData;
+    const [ data, notWorded ] = await Promise.all([
+        _readSeedFile<iSeedData>("seed.json"),
+        _readSeedFile<iSeedNotWordedData>("seed-notworded.json")
+    ]);
 
-    await db.batch(_buildQueries(db, data));
+    await db.batch(_buildQueries(db, {
+        ...data,
+        "actions": [ ...data.actions, ...notWorded.actions ]
+    }));
 
 }
