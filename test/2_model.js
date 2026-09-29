@@ -121,6 +121,30 @@ describe("model", () => {
 
         });
 
+        it("should reject init with an invalid database file", async () => {
+
+            const invalids = [
+ "", "   ", ":memory:", "file:test.sqlite", tmpdir()
+];
+
+            for (const invalid of invalids) {
+
+                const model = createTestModel(invalid);
+
+                // eslint-disable-next-line no-await-in-loop
+                await rejects(() => {
+                    return model.init();
+                }, /database-file/u);
+
+                // eslint-disable-next-line no-await-in-loop
+                await rejects(() => {
+                    return model.getRaces();
+                });
+
+            }
+
+        });
+
         it("should persist data in a file across release", async () => {
 
             const dir = await mkdtemp(join(tmpdir(), "warcraft3sounds-"));
@@ -136,9 +160,12 @@ describe("model", () => {
             deepEqual(await second.getRaces(), EXPECTED_RACE_LIST);
             await second.release();
 
+            // libsql only frees the file handle on garbage collection, so Windows can still lock the file here
             await rm(dir, {
                 "recursive": true,
                 "force": true
+            }).catch(() => {
+                return Promise.resolve();
             });
 
         });

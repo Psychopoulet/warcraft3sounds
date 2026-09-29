@@ -2,6 +2,9 @@
 
     // natives
     const { join } = require("node:path");
+    const { rmSync } = require("node:fs");
+    const { tmpdir } = require("node:os");
+    const { randomUUID } = require("node:crypto");
 
     // locals
     const { WarcraftSoundsModel, setModel } = require("../../lib/cjs/db/model.js");
@@ -15,12 +18,25 @@
     const SEED_FILE = join(__dirname, "..", "fixtures", "seed.minimal.sql");
     const SOUNDS_DIR = join(__dirname, "..", "fixtures", "sounds");
 
+    const TEMP_FILES = [];
+
 // module
+
+    // each model gets its own SQLite file : no in-memory database
+    function createTemporaryStorage () {
+
+        const file = join(tmpdir(), "warcraft3sounds-" + randomUUID() + ".sqlite");
+
+        TEMP_FILES.push(file);
+
+        return file;
+
+    }
 
     function createTestModel (storage) {
 
         getConf()
-            .set("database-file", "undefined" !== typeof storage ? storage : ":memory:");
+            .set("database-file", "undefined" !== typeof storage ? storage : createTemporaryStorage());
 
         return new WarcraftSoundsModel({
             "schemaFile": SCHEMA_FILE,
@@ -58,6 +74,34 @@
         });
 
     }
+
+// "exit" listeners must be synchronous
+// libsql only frees the file handle on garbage collection, so Windows can still lock a file here : the OS cleans the temporary directory then
+process.on("exit", () => {
+
+    TEMP_FILES.forEach((file) => {
+
+        [
+ "", "-journal", "-wal", "-shm"
+].forEach((suffix) => {
+
+            try {
+
+                // eslint-disable-next-line n/no-sync
+                rmSync(file + suffix, {
+                    "force": true
+                });
+
+            }
+            catch {
+                // nothing to do here
+            }
+
+        });
+
+    });
+
+});
 
 module.exports = {
     SCHEMA_FILE,
