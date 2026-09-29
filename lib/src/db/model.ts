@@ -6,7 +6,7 @@
     import { pathToFileURL } from "node:url";
 
     // externals
-    import { sql } from "drizzle-orm";
+    import { asc, eq, sql } from "drizzle-orm";
     import { drizzle } from "drizzle-orm/libsql";
 
     // locals
@@ -182,110 +182,63 @@ export class WarcraftSoundsModel {
 
     public async getRace (code: string): Promise<components["schemas"]["Race"] | null> {
 
-        interface iSQLRequestResult {
-            "race_id": number;
-            "race_code": string;
-            "race_name": string;
-            "race_icon": string;
-            "character_code": string;
-            "character_name": string;
-            "character_icon": string;
-            "character_hero": number;
-            "character_tft": number;
-            "music_code": string;
-            "music_name": string;
-            "music_file": string;
-            "warning_code": string;
-            "warning_name": string;
-            "warning_file": string;
-        }
+        const race = await this._getDb().query.races.findFirst({
+            "where": eq(schema.races.code, code),
+            "with": {
+                "characters": {
+                    "orderBy": asc(schema.characters.name)
+                },
+                "musics": {
+                    "orderBy": asc(schema.musics.name)
+                },
+                "warnings": {
+                    "orderBy": asc(schema.warnings.name)
+                }
+            }
+        });
 
-        const racesData: iSQLRequestResult[] = await this._getDb().all<iSQLRequestResult>(sql `
-            SELECT
-                races.id AS race_id, races.code AS race_code, races.name AS race_name, races.icon AS race_icon,
-                characters.code AS character_code, characters.name AS character_name, characters.icon AS character_icon, characters.hero AS character_hero, characters.tft AS character_tft,
-                musics.code AS music_code, musics.name AS music_name, musics.file AS music_file,
-                warnings.code AS warning_code, warnings.name AS warning_name, warnings.file AS warning_file
-            FROM races
-                LEFT JOIN characters ON characters.k_race = races.id
-                LEFT JOIN musics ON musics.k_race = races.id
-                LEFT JOIN warnings ON warnings.k_race = races.id
-            WHERE races.code = ${code}
-            ORDER BY races.name, characters.name, musics.name, warnings.name
-        `);
-
-        if (0 >= racesData.length) {
+        if ("undefined" === typeof race) {
             return null;
         }
 
-        const result: components["schemas"]["Race"] = {
-            "code": code,
-            "name": racesData[0].race_name,
-            "url": "/api/races/" + code,
-            "icon": racesData[0].race_icon,
-            "characters": [],
-            "musics": [],
-            "warnings": []
+        return {
+            "code": race.code,
+            "name": race.name,
+            "url": "/api/races/" + race.code,
+            "icon": race.icon,
+            "characters": race.characters.map((character): components["schemas"]["BasicCharacter"] => {
+
+                return {
+                    "code": character.code,
+                    "name": character.name,
+                    "url": "/api/races/" + race.code + "/characters/" + character.code,
+                    "icon": character.icon,
+                    "hero": character.hero,
+                    "tft": character.tft
+                };
+
+            }),
+            "musics": race.musics.map((music): components["schemas"]["BasicFileData"] => {
+
+                return {
+                    "code": music.code,
+                    "name": music.name,
+                    "file": music.file,
+                    "url": "/public/sounds/" + music.file
+                };
+
+            }),
+            "warnings": race.warnings.map((warning): components["schemas"]["BasicFileData"] => {
+
+                return {
+                    "code": warning.code,
+                    "name": warning.name,
+                    "file": warning.file,
+                    "url": "/public/sounds/" + warning.file
+                };
+
+            })
         };
-
-        racesData.forEach((data: iSQLRequestResult): void => {
-
-            if (data.character_code) {
-
-                if (-1 === result.characters.findIndex((character: components["schemas"]["BasicCharacter"]): boolean => {
-                    return character.code === data.character_code;
-                })) {
-
-                    result.characters.push({
-                        "code": data.character_code,
-                        "name": data.character_name,
-                        "url": "/api/races/" + code + "/characters/" + data.character_code,
-                        "icon": data.character_icon,
-                        "hero": 1 === data.character_hero,
-                        "tft": 1 === data.character_tft
-                    });
-
-                }
-
-            }
-
-            if (data.music_code) {
-
-                if (-1 === result.musics.findIndex((music: components["schemas"]["BasicData"]): boolean => {
-                    return music.code === data.music_code;
-                })) {
-
-                    result.musics.push({
-                        "code": data.music_code,
-                        "name": data.music_name,
-                        "file": data.music_file,
-                        "url": "/public/sounds/" + data.music_file
-                    });
-
-                }
-
-            }
-
-            if (data.warning_code) {
-
-                if (-1 === result.warnings.findIndex((warning: components["schemas"]["BasicData"]): boolean => {
-                    return warning.code === data.warning_code;
-                })) {
-
-                    result.warnings.push({
-                        "code": data.warning_code,
-                        "name": data.warning_name,
-                        "file": data.warning_file,
-                        "url": "/public/sounds/" + data.warning_file
-                    });
-
-                }
-
-            }
-
-        });
-
-        return result;
 
     }
 
