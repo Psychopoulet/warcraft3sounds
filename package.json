@@ -55,7 +55,10 @@
   "files": [
     "/bin",
     "/lib/cjs",
-    "/public"
+    "/lib/data",
+    "/public/dist",
+    "/public/pictures",
+    "/public/index.html"
   ],
   "engines": {
     "node": ">=22.23.3"
