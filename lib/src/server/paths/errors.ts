@@ -27,6 +27,8 @@
         if (res.headersSent) {
             next(err);
         }
+
+        // handle managed error codes
         else if (err instanceof error.NotFound) { // specific to express-openapi-validator
 
             res.status(errorCodes.NOTFOUND).json({
@@ -43,10 +45,12 @@
             });
 
         }
+
+        // InternalServerError (generic)
         else {
 
             res.status(errorCodes.INTERNAL).json({
-                "code": errorCodes.INTERNAL,
+                "code": String(errorCodes.INTERNAL),
                 "message": err.message
             });
 
