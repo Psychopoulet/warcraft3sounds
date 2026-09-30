@@ -225,25 +225,10 @@
 		},
 
 		"/": {
-			"get": {
-				"description": "",
-				"summary": "Front page",
-				"responses": {
-					"301": {
-						"description": "Redirection to /public/index.html"
-					},
-					"default": {
-						"description": "An error occured",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Error"
-								}
-							}
-						}
-					}
-				}
-			}
+			"$ref": "#/paths/~1public~1index.html"
+		},
+		"/index.html": {
+			"$ref": "#/paths/~1public~1index.html"
 		},
 		"/public/index.html": {
 			"get": {
@@ -273,6 +258,9 @@
 				}
 			}
 		},
+		"/public/bundle.js": {
+			"$ref": "#/paths/~1public~1bundle.min.js"
+		},
 		"/public/bundle.min.js": {
 			"get": {
 				"description": "",
@@ -301,6 +289,9 @@
 				}
 			}
 		},
+		"/public/bundle.js.map": {
+			"$ref": "#/paths/~1public~1bundle.min.js.map"
+		},
 		"/public/bundle.min.js.map": {
 			"get": {
 				"description": "",
@@ -328,6 +319,12 @@
 					}
 				}
 			}
+		},
+		"/favicon.ico": {
+			"$ref": "#/paths/~1public~1pictures~1warcraft3.png"
+		},
+		"/favicon.png": {
+			"$ref": "#/paths/~1public~1pictures~1warcraft3.png"
 		},
 		"/public/pictures/warcraft3.png": {
 			"get": {
