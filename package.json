@@ -1,7 +1,7 @@
 {
 
   "name": "warcraft3sounds",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "An api for warcraft 3 french sounds.",
 
   "typings": "./lib/cjs/main.d.cts",
@@ -33,7 +33,7 @@
     "build": "npm run build-back && npm run build-front",
 
     "check-node-engine": "npx check-node-engine",
-    "check-requires": "npx used-deps-analyzer ./package.json ./lib/src --no-dev --overkill fs-extra node-promfs",
+    "check-requires": "npx used-deps-analyzer ./package.json ./lib/src --no-dev --overkill fs-extra node-promfs --misscalled \"{\\\"module\\\":\\\"drizzle-orm\\\",\\\"call\\\":\\\"drizzle-orm/libsql\\\"}\" \"{\\\"module\\\":\\\"drizzle-orm\\\",\\\"call\\\":\\\"drizzle-orm/sqlite-core\\\"}\" \"{\\\"module\\\":\\\"drizzle-orm\\\",\\\"call\\\":\\\"drizzle-orm/batch\\\"}\"",
     "check-updates": "npx check-version-modules --no-fail-at-major --fail-at-minor --fail-at-patch",
     "unit-tests": "npx mocha",
     "e2e-tests": "npx playwright test",
@@ -62,13 +62,14 @@
   },
 
   "dependencies": {
+    "@libsql/client": "0.18.0",
     "compression": "1.8.2",
     "cors": "2.8.6",
+    "drizzle-orm": "0.45.3",
     "express": "5.2.1",
     "express-openapi-validator": "5.6.2",
     "helmet": "8.3.0",
     "node-confmanager": "1.15.0",
-    "sqlite3": "6.0.1",
     "winston": "3.19.0",
     "winston-daily-rotate-file": "5.0.0"
   },

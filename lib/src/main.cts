@@ -13,7 +13,7 @@
     // locals
 
     import getConf from "./conf";
-    import getModel from "./model";
+    import getModel from "./db/model";
     import getSoundsDirectory from "./tools/getSoundsDirectory";
     import getLogger, { initLogger } from "./tools/getLogger";
 
@@ -29,7 +29,7 @@
     import type { Express } from "express";
 
     // locals
-    import type { WarcraftSoundsModel } from "./model";
+    import type { WarcraftSoundsModel } from "./db/model";
 
 // module
 
@@ -94,7 +94,7 @@
 
     // generate web server
 
-    }).then((): Express => {
+    }).then((): Promise<Express> => {
 
         return generateServer();
 

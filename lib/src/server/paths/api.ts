@@ -4,9 +4,12 @@
     import { join } from "node:path";
     import { readFile } from "node:fs/promises";
 
+    // externals
+    import { error } from "express-openapi-validator";
+
     // locals
     import errorCodes from "../../returncodes";
-    import getModel from "../../model";
+    import getModel from "../../db/model";
 
 // types & interfaces
 
@@ -46,21 +49,16 @@
 
         getModel().getRace(req.params.racecode).then((race: operations["getRace"]["responses"]["200"]["content"]["application/json"] | null): void => {
 
-            if (race) {
+            if ("undefined" === typeof race || null === race) {
 
-                res.status(errorCodes.OK).json(race);
-
-            }
-            else {
-
-                const err: operations["getRace"]["responses"]["default"]["content"]["application/json"] = {
-                    "code": String(errorCodes.NOTFOUND),
+                throw new error.NotFound({
+                    "path": req.path,
                     "message": "Impossible to find \"" + req.params.racecode + "\" race"
-                };
-
-                res.status(errorCodes.NOTFOUND).json(err);
+                });
 
             }
+
+            res.status(errorCodes.OK).json(race);
 
         }).catch(next);
 
@@ -94,21 +92,16 @@
             notworded
         ).then((character: operations["getCharacter"]["responses"]["200"]["content"]["application/json"] | null): void => {
 
-            if (character) {
+            if ("undefined" === typeof character || null === character) {
 
-                res.status(errorCodes.OK).json(character);
-
-            }
-            else {
-
-                const err: operations["getCharacter"]["responses"]["default"]["content"]["application/json"] = {
-                    "code": String(errorCodes.NOTFOUND),
+                throw new error.NotFound({
+                    "path": req.path,
                     "message": "Impossible to find \"" + req.params.charactercode + "\" character for race \"" + req.params.racecode + "\""
-                };
-
-                res.status(errorCodes.NOTFOUND).json(err);
+                });
 
             }
+
+            res.status(errorCodes.OK).json(character);
 
         }).catch(next);
 

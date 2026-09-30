@@ -27,26 +27,30 @@
         if (res.headersSent) {
             next(err);
         }
+
+        // handle managed error codes
         else if (err instanceof error.NotFound) { // specific to express-openapi-validator
 
             res.status(errorCodes.NOTFOUND).json({
-                "code": errorCodes.NOTFOUND,
-                "message": "\"" + err.path + "\" not found"
+                "code": String(errorCodes.NOTFOUND),
+                "message": "not found" === err.message ? "\"" + err.path + "\" not found" : err.message
             });
 
         }
         else if (err instanceof error.BadRequest) { // specific to express-openapi-validator
 
             res.status(errorCodes.BADREQUEST).json({
-                "code": errorCodes.BADREQUEST,
+                "code": String(errorCodes.BADREQUEST),
                 "message": err.message
             });
 
         }
+
+        // InternalServerError (generic)
         else {
 
             res.status(errorCodes.INTERNAL).json({
-                "code": errorCodes.INTERNAL,
+                "code": String(errorCodes.INTERNAL),
                 "message": err.message
             });
 

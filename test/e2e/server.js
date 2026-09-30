@@ -17,9 +17,9 @@
 
 // module
 
-    setupTestAppData().then((model) => {
+    Promise.all([ setupTestAppData(), createTestApp() ]).then(([ model, app ]) => {
 
-        const server = createServer(createTestApp());
+        const server = createServer(app);
 
         function _shutdown () {
 
