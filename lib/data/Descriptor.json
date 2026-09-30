@@ -2,7 +2,7 @@
 	"openapi": "3.1.2",
 	"info": {
 		"title": "warcraft3sounds",
-		"version": "1.3.0",
+		"version": "1.3.1",
 		"description": "An api for warcraft 3 french sounds.",
 		"contact": {
 			"name": "Sébastien VIDAL",
