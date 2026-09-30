@@ -2,6 +2,7 @@
 
     // natives
     import { join } from "node:path";
+    import { readFile } from "node:fs/promises";
 
     // externals
     import express from "express";
@@ -18,9 +19,42 @@
     // externals
     import type { Express } from "express";
 
+// private
+
+    // express-openapi-validator does not support "$ref" on a path item (used for aliases like "/"),
+    // so inline those references before giving it the spec
+    async function loadSpec (file: string): Promise<unknown> {
+
+        const spec: unknown = JSON.parse(await readFile(file, "utf-8"));
+        const paths: Record<string, unknown> = spec.paths ?? {};
+
+        const resolve = (item: unknown, depth: number = 0): unknown => {
+
+            if (!item || typeof item.$ref !== "string" || !item.$ref.startsWith("#/paths/") || 10 < depth) {
+                return item;
+            }
+
+            const key: string = item.$ref.slice("#/paths/".length)
+                .replace(/~1/g, "/")
+                .replace(/~0/g, "~");
+
+            const { $ref, ...rest } = item;
+
+            return { ...resolve(paths[key], depth + 1), ...rest };
+
+        };
+
+        for (const p of Object.keys(paths)) {
+            paths[p] = resolve(paths[p]);
+        }
+
+        return spec;
+
+    }
+
 // module
 
-export default function generateServer (): Express {
+export default async function generateServer (): Promise<Express> {
 
     const app: Express = express();
 
@@ -38,7 +72,7 @@ export default function generateServer (): Express {
 
     // check OpenAPI spec
     app.use(middleware({
-        "apiSpec": join(__dirname, "..", "..", "data", "Descriptor.json"),
+        "apiSpec": await loadSpec(join(__dirname, "..", "..", "data", "Descriptor.json")),
         "validateRequests": {
             "allowUnknownQueryParameters": true // tracking params (fbclid, utm_*, ...)
         },

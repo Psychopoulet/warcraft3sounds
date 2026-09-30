@@ -94,7 +94,7 @@
 
     // generate web server
 
-    }).then((): Express => {
+    }).then((): Promise<Express> => {
 
         return generateServer();
 
