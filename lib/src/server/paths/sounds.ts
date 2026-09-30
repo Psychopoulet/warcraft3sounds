@@ -4,6 +4,9 @@
     import { createReadStream } from "node:fs";
     import { join, extname } from "node:path";
 
+    // externals
+    import { error } from "express-openapi-validator";
+
     // locals
     import errorCodes from "../../returncodes";
     import getFileStats from "../../tools/getFileStats";
@@ -33,26 +36,21 @@ export function pathSounds (
         "size": number;
     }): void => {
 
-        if (stats.exists) {
+        if (!stats.exists) {
 
-            res.status(errorCodes.OK).set({
-                "Content-Type": ".wav" === extname(file) ? "audio/wav" : "audio/mpeg",
-                "Content-Length": stats.size
+            throw new error.NotFound({
+                "path": req.path,
+                "message": "Impossible to find the \"" + sound + "\" sound"
             });
 
-            createReadStream(file).pipe(res);
-
         }
-        else {
 
-            const err: operations["getSound"]["responses"]["default"]["content"]["application/json"] = {
-                "code": String(errorCodes.NOTFOUND),
-                "message": "Impossible to find the \"" + sound + "\" sound"
-            };
+        res.status(errorCodes.OK).set({
+            "Content-Type": ".wav" === extname(file) ? "audio/wav" : "audio/mpeg",
+            "Content-Length": stats.size
+        });
 
-            res.status(errorCodes.NOTFOUND).json(err);
-
-        }
+        createReadStream(file).pipe(res);
 
     }).catch(next);
 
