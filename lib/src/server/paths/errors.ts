@@ -33,7 +33,7 @@
 
             res.status(errorCodes.NOTFOUND).json({
                 "code": String(errorCodes.NOTFOUND),
-                "message": "\"" + err.path + "\" not found"
+                "message": "not found" === err.message ? "\"" + err.path + "\" not found" : err.message
             });
 
         }

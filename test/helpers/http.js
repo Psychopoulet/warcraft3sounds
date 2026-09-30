@@ -12,7 +12,7 @@
 
     function createTestApp () {
 
-        return registerRoutes(generateServer());
+        return generateServer().then(registerRoutes);
 
     }
 
@@ -55,7 +55,7 @@
 
         return setupTestAppData().then((model) => {
 
-            return listenApp(createTestApp()).then((listening) => {
+            return createTestApp().then(listenApp).then((listening) => {
 
                 return {
                     model,
