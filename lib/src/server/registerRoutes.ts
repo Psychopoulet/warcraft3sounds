@@ -24,7 +24,7 @@
         redirect
     } from "./paths/redirect";
 
-    import pathErrorGlobal from "./paths/errors";
+    import pathErrorGlobal from "./paths/errors/pathErrorGlobal";
 
 // types & interfaces
 

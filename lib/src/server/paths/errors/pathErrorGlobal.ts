@@ -1,29 +1,23 @@
-/* eslint-disable n/callback-return */
-// n/callback-return : incompatible lint rules in pathErrorGlobal
-
 // deps
-
-    // natives
-    import { join } from "node:path";
-    import { readFile } from "node:fs/promises";
 
     // externals
     import { error } from "express-openapi-validator";
 
     // locals
-    import errorCodes from "../../returncodes";
+    import errorCodes from "../../../returncodes";
 
-    import getLogger from "../../tools/getLogger";
-    import logRequest from "../../tools/logRequest";
+    import getLogger from "../../../tools/getLogger";
+    import logRequest from "../../../tools/logRequest";
+
+    import watcher from "./tools/watcher";
 
 // types & interfaces
 
     // externals
     import type { Request, Response, NextFunction } from "express";
 
-// consts
-
-    const WATCHER_FILE = join(__dirname, "..", "..", "..", "data", "paths-watcher.json");
+    // locals
+    import type { WatcherResult } from "./tools/watcher";
 
 // module
 
@@ -38,13 +32,10 @@
         // handle managed error codes
         if (err instanceof error.NotFound) { // specific to express-openapi-validator
 
-            readFile(WATCHER_FILE, "utf-8").then((data: string): void => {
+            watcher(req.path).then((result: WatcherResult): void => {
 
-                const WATCHER: Record<string, string> = JSON.parse(data) as Record<string, string>;
-                const WATCHER_PATHS: string[] = Object.keys(WATCHER);
-
-                if (WATCHER_PATHS.includes(req.path)) {
-                    getLogger().error("INTRUSION ATTEMPT: " + req.path + "\n" + WATCHER[req.path]);
+                if (result.isSuspicious) {
+                    getLogger().error("INTRUSION ATTEMPT: \"" + req.path + "\" => " + result.description);
                 }
                 else {
                     getLogger().warning(err.message);
