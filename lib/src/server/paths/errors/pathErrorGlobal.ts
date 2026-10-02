@@ -6,6 +6,7 @@
     // locals
     import errorCodes from "../../../returncodes";
 
+    import addWatcherToCheck from "../../../tools/addWatcherToCheck";
     import getLogger from "../../../tools/getLogger";
     import logRequest from "../../../tools/logRequest";
 
@@ -38,7 +39,13 @@
                     getLogger().error("INTRUSION ATTEMPT: \"" + req.path + "\" => " + result.description);
                 }
                 else {
+
                     getLogger().warning(err.message);
+
+                    addWatcherToCheck(req.path).catch((errAdd: Error): void => {
+                        getLogger().error(errAdd.message);
+                    });
+
                 }
 
             }).catch((errFile: Error): void => {
