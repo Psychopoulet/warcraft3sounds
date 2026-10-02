@@ -153,19 +153,24 @@
 
         });
 
-    // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose)
+    // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose ; uncaught errors)
     }).then((server: Server): void => {
 
         let shuttingDown = false;
 
-        function _handleKill (): void {
+        // fatal : the unexpected error that triggers the shutdown, null for a regular stop
+        function _shutdown (fatal: Error | null): void {
 
-            // SIGINT then SIGTERM (or twice the same) : the shutdown runs only once
+            // several signals / errors : the shutdown runs only once
             if (shuttingDown) {
                 return;
             }
 
             shuttingDown = true;
+
+            if (fatal) {
+                getLogger().critical("Unexpected error, stopping the application\n" + (fatal.stack ?? fatal.message));
+            }
 
             const model: WarcraftSoundsModel = getModel();
 
@@ -188,7 +193,7 @@
             }).then((): void => {
 
                 // everything is flushed : exit explicitly, pm2 cluster keeps an IPC channel that could hold the process
-                process.exit(0);
+                process.exit(fatal ? 1 : 0);
 
             }).catch((err: Error): void => {
 
@@ -198,8 +203,21 @@
 
         }
 
-        process.on("SIGINT", _handleKill);
-        process.on("SIGTERM", _handleKill);
+        process.on("SIGINT", (): void => {
+            _shutdown(null);
+        });
+
+        process.on("SIGTERM", (): void => {
+            _shutdown(null);
+        });
+
+        process.on("uncaughtException", (err: Error): void => {
+            _shutdown(err);
+        });
+
+        process.on("unhandledRejection", (reason: unknown): void => {
+            _shutdown(reason instanceof Error ? reason : new Error(String(reason)));
+        });
 
     }).catch((err: Error): void => {
 
