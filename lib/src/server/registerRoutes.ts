@@ -6,7 +6,8 @@
         pathPublicApp,
         pathPublicAppMap,
         pathPublicIconW3,
-        pathPublicIconTFT
+        pathPublicIconTFT,
+        pathPublicRobots
     } from "./paths/public";
 
     import {
@@ -42,7 +43,8 @@ export default function registerRoutes (app: Express): Express {
             .get("/public/bundle.min.js", pathPublicApp)
             .get("/public/bundle.min.js.map", pathPublicAppMap)
             .get("/public/pictures/warcraft3.png", pathPublicIconW3)
-            .get("/public/pictures/warcraft3TFT.png", pathPublicIconTFT);
+            .get("/public/pictures/warcraft3TFT.png", pathPublicIconTFT)
+            .get("/robots.txt", pathPublicRobots);
 
     // sounds
 
