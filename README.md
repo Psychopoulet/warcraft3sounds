@@ -89,7 +89,7 @@ In the "warcraft3sounds" folder, execute
 $ npm run start
 ```
 
-Check the default basic interface http://localhost:3000
+Check the default basic interface http://localhost:8000
 
 ### With specific port
 
