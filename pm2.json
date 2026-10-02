@@ -5,7 +5,8 @@
             "script": "./lib/cjs/main.cjs",
             "instances": 2,
             "exec_mode": "cluster",
-            "autorestart": true
+            "autorestart": true,
+            "kill_timeout": 18000
         }
     ]
 }

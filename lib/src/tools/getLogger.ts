@@ -20,7 +20,8 @@
         "warning": (content: string) => void,
         "success": (content: string) => void,
         "info": (content: string) => void,
-        "debug": (content: string) => void
+        "debug": (content: string) => void,
+        "close": () => Promise<void>
     }
 
 // consts
@@ -32,7 +33,7 @@
 
 // module
 
-    function _logsDirectory (): string {
+    export function getLogsDirectory (): string {
 
         return join(homedir(), "warcraft3sounds", "logs");
 
@@ -46,6 +47,32 @@
 
     }
 
+    function _close (logger: winston.Logger): () => Promise<void> {
+
+        let closing: Promise<void> | null = null;
+
+        // safe to call several times : every call shares the same promise
+        return (): Promise<void> => {
+
+            closing ??= new Promise((resolve: () => void): void => {
+
+                if (logger.writableFinished) {
+                    resolve();
+                    return;
+                }
+
+                // "finish" : every pending log has been written to the transports
+                logger.once("finish", resolve);
+                logger.end();
+
+            });
+
+            return closing;
+
+        };
+
+    }
+
     function _toLogger (logger: winston.Logger): iLogger {
 
         return {
@@ -54,14 +81,15 @@
             "warning": _bind(logger, "warning"),
             "success": _bind(logger, "success"),
             "info": _bind(logger, "info"),
-            "debug": _bind(logger, "debug")
+            "debug": _bind(logger, "debug"),
+            "close": _close(logger)
         };
 
     }
 
     async function _fileTransport (): Promise<DailyRotateFile> {
 
-        const logsDirectory: string = _logsDirectory();
+        const logsDirectory: string = getLogsDirectory();
 
         await mkdir(logsDirectory, {
             "recursive": true
@@ -134,7 +162,22 @@
 
 export function initLogger (): Promise<iLogger> {
 
-    _pending ??= _createLogger().then((logger: iLogger): iLogger => {
+    _pending ??= _createLogger().then((created: iLogger): iLogger => {
+
+        // once closed, the ended stream must not be reachable anymore : getLogger() throws again
+        const logger: iLogger = {
+            ...created,
+            "close": (): Promise<void> => {
+
+                return created.close().then((): void => {
+
+                    _logger = null;
+                    _pending = null;
+
+                });
+
+            }
+        };
 
         _logger = logger;
 

@@ -26,6 +26,12 @@
         return res.sendFile(join(__dirname, "..", "..", "..", "..", "public", "dist", "bundle.min.js.map"));
     }
 
+    // robots
+
+    export function pathPublicRobots (req: Request, res: Response): void {
+        res.status(200).type("text/plain").send("User-agent: *\nDisallow: /\n");
+    }
+
     // pictures
 
     export function pathPublicIconW3 (req: Request, res: Response): void {

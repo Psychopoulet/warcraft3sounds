@@ -16,6 +16,7 @@
     import getModel from "./db/model";
     import getSoundsDirectory from "./tools/getSoundsDirectory";
     import getLogger, { initLogger } from "./tools/getLogger";
+    import closeServer from "./tools/closeServer";
 
     import generateServer from "./server/generateServer";
     import registerRoutes from "./server/registerRoutes";
@@ -24,14 +25,51 @@
 
     // natives
     import type { Stats } from "node:fs";
+    import type { Server } from "node:http";
 
     // externals
     import type { Express } from "express";
 
     // locals
     import type { WarcraftSoundsModel } from "./db/model";
+    import type { iLogger } from "./tools/getLogger";
+
+// consts
+
+    // ms before leaving whatever happens : above closeServer timeout, below the app stop_grace_period (20s)
+    const FORCE_EXIT_TIMEOUT = 15000;
 
 // module
+
+    // log the error, flush the logger, then exit with code 1 (startup and shutdown failures share this path)
+    function _exitOnError (level: "critical" | "error", message: string, err: Error): void {
+
+        let closing: Promise<void> = Promise.resolve();
+
+        try {
+
+            const logger: iLogger = getLogger();
+
+            logger[level](message + "\n" + (err.stack ?? err.message));
+            closing = logger.close();
+
+        }
+        catch {
+
+            // the logger never started, or is already closed
+
+        }
+
+        process.exitCode = 1;
+
+        function _exit (): void {
+            process.exit(1);
+        }
+
+        // leave even if the flush fails
+        closing.then(_exit, _exit);
+
+    }
 
     // generate conf
 
@@ -73,7 +111,6 @@
 
             conf
                 .set("port", conf.has("port") ? conf.get<number>("port") : 8000)
-                .set("ssl", conf.has("ssl") ? conf.get<boolean>("ssl") : false)
                 .set("database-file", join(homedir(), "warcraft3sounds", "db", "warcraft3sounds.sqlite"));
 
         });
@@ -105,52 +142,85 @@
         return registerRoutes(app);
 
     // run server
-    }).then((app: Express): void => {
+    }).then((app: Express): Server => {
 
         const conf = getConf();
 
-        app.listen(conf.get<number>("port"), (): void => {
+        // the handle is kept to stop accepting connections during the graceful shutdown
+        return app.listen(conf.get<number>("port"), (): void => {
 
-            getLogger().info("started" + (conf.get<boolean>("ssl") ? " with SSL" : "") + " on port " + String(conf.get<number>("port")));
+            getLogger().info("started on port " + String(conf.get<number>("port")));
 
         });
 
-    // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose)
-    }).then((): void => {
+    // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose ; uncaught errors)
+    }).then((server: Server): void => {
 
-        function _handleKill (): void {
+        let shuttingDown = false;
+
+        // fatal : the unexpected error that triggers the shutdown, null for a regular stop
+        function _shutdown (fatal: Error | null): void {
+
+            // several signals / errors : the shutdown runs only once
+            if (shuttingDown) {
+                return;
+            }
+
+            shuttingDown = true;
+
+            if (fatal) {
+                getLogger().critical("Unexpected error, stopping the application\n" + (fatal.stack ?? fatal.message));
+            }
 
             const model: WarcraftSoundsModel = getModel();
 
-            model.release().then((): void => {
+            // fallback : if a step hangs, leave before Docker's SIGKILL (stop_grace_period) without waiting for it
+            setTimeout((): void => {
+                process.exit(1);
+            }, FORCE_EXIT_TIMEOUT).unref();
 
-                process.exit(0);
+            // order matters : no more requests -> database closed -> last log -> logger flushed -> exit
+            closeServer(server).then((): Promise<void> => {
+
+                return model.release();
+
+            }).then((): Promise<void> => {
+
+                getLogger().info("application stopped");
+
+                return getLogger().close();
+
+            }).then((): void => {
+
+                // everything is flushed : exit explicitly, pm2 cluster keeps an IPC channel that could hold the process
+                process.exit(fatal ? 1 : 0);
 
             }).catch((err: Error): void => {
 
-                getLogger().error("Impossible to properly end the application\n" + (err.stack ?? err.message));
-                process.exitCode = 1;
-                process.exit(1);
+                _exitOnError("error", "Impossible to properly end the application", err);
 
             });
 
         }
 
-        process.on("SIGINT", _handleKill);
-        process.on("SIGTERM", _handleKill);
+        process.on("SIGINT", (): void => {
+            _shutdown(null);
+        });
+
+        process.on("SIGTERM", (): void => {
+            _shutdown(null);
+        });
+
+        process.on("uncaughtException", (err: Error): void => {
+            _shutdown(err);
+        });
+
+        process.on("unhandledRejection", (reason: unknown): void => {
+            _shutdown(reason instanceof Error ? reason : new Error(String(reason)));
+        });
 
     }).catch((err: Error): void => {
 
-        try {
-            getLogger().critical("Impossible to initiate the application\n" + (err.stack ?? err.message));
-        }
-        catch {
-
-            // the logger never started
-
-        }
-
-        process.exitCode = 1;
-        process.exit(1);
+        _exitOnError("critical", "Impossible to initiate the application", err);
 
     });

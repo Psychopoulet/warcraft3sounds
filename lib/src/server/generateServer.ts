@@ -72,6 +72,9 @@ export default async function generateServer (): Promise<Express> {
 
     const app: Express = express();
 
+    // trust reverse proxy (nginx, traefik...) for X-Forwarded-For
+    app.set("trust proxy", true);
+
     app
         .use(express.json())
         .use(cors())

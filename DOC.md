@@ -274,4 +274,4 @@ Local and AWS share `deploy.sh` and `nginx.conf`. Ports, cert paths, and the ima
 
 - Warcraft sound files (not in git, not in the CD, not in Compose volumes).
 - Environment files (`.env` is gitignored; no `env.example` in the repo).
-- The Node `ssl` flag in `main.cts` (self-signed inside Express). TLS is nginx-only.
+- TLS is nginx-only.
