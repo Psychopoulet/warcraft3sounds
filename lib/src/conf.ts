@@ -17,9 +17,6 @@ export default function getConf (): ConfManager {
             .skeleton("port", "integer")
             .document("port", "Port used by the server")
 
-            .skeleton("ssl", "boolean")
-            .document("ssl", "Is SSL activated ?")
-
             .skeleton("database-file", "string")
             .document("database-file", "Path to the database file");
 

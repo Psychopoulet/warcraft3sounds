@@ -91,15 +91,17 @@ $ npm run start
 
 Check the default basic interface http://localhost:3000
 
-### With specific port | ssl activated
+### With specific port
 
 In the "warcraft3sounds" folder, execute
 
 ```bash
-$ npm run start -- [--port <port>] [--ssl]
+$ npm run start -- [--port <port>]
 ```
 
-Check the basic interface on http[s]://localhost [:port]
+Check the basic interface on http://localhost[:port]
+
+> HTTPS is not handled by the Node application: TLS is terminated by nginx in the Docker deploy (see [DOC.md](./DOC.md)).
 
 ### Docker deploy (local CD)
 

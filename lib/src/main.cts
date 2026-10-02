@@ -75,7 +75,6 @@
 
             conf
                 .set("port", conf.has("port") ? conf.get<number>("port") : 8000)
-                .set("ssl", conf.has("ssl") ? conf.get<boolean>("ssl") : false)
                 .set("database-file", join(homedir(), "warcraft3sounds", "db", "warcraft3sounds.sqlite"));
 
         });
@@ -114,7 +113,7 @@
         // the handle is kept to stop accepting connections during the graceful shutdown
         return app.listen(conf.get<number>("port"), (): void => {
 
-            getLogger().info("started" + (conf.get<boolean>("ssl") ? " with SSL" : "") + " on port " + String(conf.get<number>("port")));
+            getLogger().info("started on port " + String(conf.get<number>("port")));
 
         });
 
