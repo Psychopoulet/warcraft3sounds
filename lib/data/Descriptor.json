@@ -320,6 +320,34 @@
 				}
 			}
 		},
+		"/robots.txt": {
+			"get": {
+				"description": "Disallow every access to every bot",
+				"summary": "Robots exclusion file",
+				"responses": {
+					"200": {
+						"description": "Everything is fine",
+						"content": {
+							"text/plain": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					},
+					"default": {
+						"description": "An error occured",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Error"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/favicon.ico": {
 			"$ref": "#/paths/~1public~1pictures~1warcraft3.png"
 		},
