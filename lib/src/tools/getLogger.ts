@@ -33,7 +33,7 @@
 
 // module
 
-    function _logsDirectory (): string {
+    export function getLogsDirectory (): string {
 
         return join(homedir(), "warcraft3sounds", "logs");
 
@@ -89,7 +89,7 @@
 
     async function _fileTransport (): Promise<DailyRotateFile> {
 
-        const logsDirectory: string = _logsDirectory();
+        const logsDirectory: string = getLogsDirectory();
 
         await mkdir(logsDirectory, {
             "recursive": true
