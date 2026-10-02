@@ -33,6 +33,11 @@
     // locals
     import type { WarcraftSoundsModel } from "./db/model";
 
+// consts
+
+    // ms before leaving whatever happens : above closeServer timeout, below the app stop_grace_period (20s)
+    const FORCE_EXIT_TIMEOUT = 15000;
+
 // module
 
     // generate conf
@@ -120,16 +125,38 @@
     // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose)
     }).then((server: Server): void => {
 
+        let shuttingDown = false;
+
         function _handleKill (): void {
+
+            // SIGINT then SIGTERM (or twice the same) : the shutdown runs only once
+            if (shuttingDown) {
+                return;
+            }
+
+            shuttingDown = true;
 
             const model: WarcraftSoundsModel = getModel();
 
+            // fallback : if a step hangs, leave before Docker's SIGKILL (stop_grace_period) without waiting for it
+            setTimeout((): void => {
+                process.exit(1);
+            }, FORCE_EXIT_TIMEOUT).unref();
+
+            // order matters : no more requests -> database closed -> last log -> logger flushed -> exit
             closeServer(server).then((): Promise<void> => {
 
                 return model.release();
 
+            }).then((): Promise<void> => {
+
+                getLogger().info("application stopped");
+
+                return getLogger().close();
+
             }).then((): void => {
 
+                // everything is flushed : exit explicitly, pm2 cluster keeps an IPC channel that could hold the process
                 process.exit(0);
 
             }).catch((err: Error): void => {

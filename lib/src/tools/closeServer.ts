@@ -5,7 +5,7 @@
 
 // consts
 
-    // ms to let running requests end before forcing connections to close (Docker sends SIGKILL after 10s)
+    // ms to let running requests end before forcing connections to close (must stay below the app stop_grace_period, 20s)
     const SHUTDOWN_TIMEOUT = 8000;
 
 // module
