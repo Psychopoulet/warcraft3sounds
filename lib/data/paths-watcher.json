@@ -397,7 +397,6 @@
   "/nous-contacter": "Page de contact/mentions légales inexistante: sondage de crawler, sans gravité",
   "/pages/legals": "Page de contact/mentions légales inexistante: sondage de crawler, sans gravité",
   "/pages/mentions-legales": "Page de contact/mentions légales inexistante: sondage de crawler, sans gravité",
-  "/robots.txt": "Fichier standard demandé par navigateurs/crawlers, absent: sans gravité",
   "/sitemap.xml": "Fichier standard demandé par navigateurs/crawlers, absent: sans gravité"
 
 }
