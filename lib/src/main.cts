@@ -16,6 +16,7 @@
     import getModel from "./db/model";
     import getSoundsDirectory from "./tools/getSoundsDirectory";
     import getLogger, { initLogger } from "./tools/getLogger";
+    import closeServer from "./tools/closeServer";
 
     import generateServer from "./server/generateServer";
     import registerRoutes from "./server/registerRoutes";
@@ -24,6 +25,7 @@
 
     // natives
     import type { Stats } from "node:fs";
+    import type { Server } from "node:http";
 
     // externals
     import type { Express } from "express";
@@ -105,24 +107,29 @@
         return registerRoutes(app);
 
     // run server
-    }).then((app: Express): void => {
+    }).then((app: Express): Server => {
 
         const conf = getConf();
 
-        app.listen(conf.get<number>("port"), (): void => {
+        // the handle is kept to stop accepting connections during the graceful shutdown
+        return app.listen(conf.get<number>("port"), (): void => {
 
             getLogger().info("started" + (conf.get<boolean>("ssl") ? " with SSL" : "") + " on port " + String(conf.get<number>("port")));
 
         });
 
     // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose)
-    }).then((): void => {
+    }).then((server: Server): void => {
 
         function _handleKill (): void {
 
             const model: WarcraftSoundsModel = getModel();
 
-            model.release().then((): void => {
+            closeServer(server).then((): Promise<void> => {
+
+                return model.release();
+
+            }).then((): void => {
 
                 process.exit(0);
 
