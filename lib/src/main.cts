@@ -32,6 +32,7 @@
 
     // locals
     import type { WarcraftSoundsModel } from "./db/model";
+    import type { iLogger } from "./tools/getLogger";
 
 // consts
 
@@ -39,6 +40,36 @@
     const FORCE_EXIT_TIMEOUT = 15000;
 
 // module
+
+    // log the error, flush the logger, then exit with code 1 (startup and shutdown failures share this path)
+    function _exitOnError (level: "critical" | "error", message: string, err: Error): void {
+
+        let closing: Promise<void> = Promise.resolve();
+
+        try {
+
+            const logger: iLogger = getLogger();
+
+            logger[level](message + "\n" + (err.stack ?? err.message));
+            closing = logger.close();
+
+        }
+        catch {
+
+            // the logger never started, or is already closed
+
+        }
+
+        process.exitCode = 1;
+
+        function _exit (): void {
+            process.exit(1);
+        }
+
+        // leave even if the flush fails
+        closing.then(_exit, _exit);
+
+    }
 
     // generate conf
 
@@ -161,9 +192,7 @@
 
             }).catch((err: Error): void => {
 
-                getLogger().error("Impossible to properly end the application\n" + (err.stack ?? err.message));
-                process.exitCode = 1;
-                process.exit(1);
+                _exitOnError("error", "Impossible to properly end the application", err);
 
             });
 
@@ -174,16 +203,6 @@
 
     }).catch((err: Error): void => {
 
-        try {
-            getLogger().critical("Impossible to initiate the application\n" + (err.stack ?? err.message));
-        }
-        catch {
-
-            // the logger never started
-
-        }
-
-        process.exitCode = 1;
-        process.exit(1);
+        _exitOnError("critical", "Impossible to initiate the application", err);
 
     });
