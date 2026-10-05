@@ -16,6 +16,11 @@
         "description": string;
     }
 
+    interface WatcherCategory {
+        "category": string;
+        "paths": Record<string, string>;
+    }
+
    export type WatcherResult = WatcherValidResult | WatcherInvalidResult;
 
 // consts
@@ -28,20 +33,23 @@ export default function watcher (path: string): Promise<WatcherResult> {
 
     return readFile(WATCHER_FILE, "utf-8").then((data: string): WatcherResult => {
 
-        const WATCHER: Record<string, string> = JSON.parse(data) as Record<string, string>;
-        const WATCHER_PATHS: string[] = Object.keys(WATCHER);
+        const WATCHER: WatcherCategory[] = JSON.parse(data) as WatcherCategory[];
 
-        if (!WATCHER_PATHS.includes(path)) {
+        for (const CATEGORY of WATCHER) {
 
-            return {
-                "isSuspicious": false
-            };
+            if (Object.hasOwn(CATEGORY.paths, path)) {
+
+                return {
+                    "isSuspicious": true,
+                    "description": CATEGORY.paths[path]
+                };
+
+            }
 
         }
 
         return {
-            "isSuspicious": true,
-            "description": WATCHER[path]
+            "isSuspicious": false
         };
 
     });
