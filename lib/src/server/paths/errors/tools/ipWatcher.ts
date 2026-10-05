@@ -30,11 +30,11 @@
 
 // module
 
-export default function ipWatcher (ip: string): Promise<WatcherResult> {
+export default function ipWatcher (ip: string, file: string = IP_WATCHER_FILE): Promise<WatcherResult> {
 
     const NORMALIZED: string = _normalize(ip);
 
-    return readFile(IP_WATCHER_FILE, "utf-8").then((data: string): WatcherResult => {
+    return readFile(file, "utf-8").then((data: string): WatcherResult => {
 
         const WATCHER: IpWatcherCategory[] = JSON.parse(data) as IpWatcherCategory[];
 

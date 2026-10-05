@@ -3,11 +3,12 @@
     // natives
     const { equal, deepEqual } = require("node:assert");
     const os = require("node:os");
-    const { mkdtemp, readFile, rm } = require("node:fs/promises");
+    const { mkdtemp, readFile, rm, writeFile } = require("node:fs/promises");
     const { join } = require("node:path");
 
     // locals
     const addWatcherToCheck = require("../lib/cjs/server/paths/errors/tools/addWatcherToCheck.js").default;
+    const ipWatcher = require("../lib/cjs/server/paths/errors/tools/ipWatcher.js").default;
     const { startHttpTest, stopHttpTest, requestJson } = require("./helpers/http.js");
 
 // consts
@@ -113,6 +114,61 @@ describe("watchers-to-check", () => {
             ].map(addWatcherToCheck));
 
             equal(await _readWatchers(home), "/a\n/b\n/c\n/d");
+
+        });
+
+    });
+
+    describe("ipWatcher", () => {
+
+        let file = null;
+
+        beforeEach(async () => {
+
+            file = join(home, "ip-watcher.json");
+
+            await writeFile(file, JSON.stringify([
+                {
+                    "category": "scanners",
+                    "ips": {
+                        "1.2.3.4": "known scanner"
+                    }
+                }
+            ]), "utf8");
+
+        });
+
+        it("should flag a listed IP", async () => {
+
+            deepEqual(await ipWatcher("1.2.3.4", file), {
+                "isSuspicious": true,
+                "description": "known scanner"
+            });
+
+        });
+
+        it("should not flag an unlisted IP", async () => {
+
+            deepEqual(await ipWatcher("5.6.7.8", file), {
+                "isSuspicious": false
+            });
+
+        });
+
+        it("should flag a listed IP given as an IPv4-mapped IPv6", async () => {
+
+            deepEqual(await ipWatcher("::ffff:1.2.3.4", file), {
+                "isSuspicious": true,
+                "description": "known scanner"
+            });
+
+        });
+
+        it("should not flag anything with the default (empty) list", async () => {
+
+            deepEqual(await ipWatcher("1.2.3.4"), {
+                "isSuspicious": false
+            });
 
         });
 
