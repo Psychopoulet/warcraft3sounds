@@ -23,12 +23,12 @@
 
 // private
 
-    // the IP is always recorded to be reviewed, only the path is watched
+    // a suspicious path is logged and its IPs are recorded to be reviewed, an unknown path is recorded to be reviewed
     function _watch (req: Request, err: Error): void {
 
         watcher(req.path).then((result: WatcherResult): void => {
 
-            // already flagged as suspicious, must flag the IPs
+            // the path is already known as suspicious : record the IPs that requested it
             if (result.isSuspicious) {
 
                 getLogger().error("INTRUSION ATTEMPT: \"" + req.path + "\" => " + result.description);
