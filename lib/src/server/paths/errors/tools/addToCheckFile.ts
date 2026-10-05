@@ -37,7 +37,7 @@
 
     }
 
-    async function _add (filename: string, value: string): Promise<void> {
+    async function _add (filename: string, values: string[]): Promise<void> {
 
         const directory: string = getLogsDirectory();
         const file: string = join(directory, filename);
@@ -46,20 +46,27 @@
             "recursive": true
         });
 
-        const values: Set<string> = new Set(await _read(file));
+        const vals: Set<string> = new Set(await _read(file));
 
-        values.add(value);
+        for (const value of values) {
+            vals.add(value);
+        }
 
-        await writeFile(file, [ ...values ].sort().join("\n"), "utf8");
+        await writeFile(file, [ ...vals ].sort().join("\n"), "utf8");
 
     }
 
 // module
 
-export default function addToCheckFile (filename: string, value: string): Promise<void> {
+// resolves once every write requested so far is done (a failed write is already reported to its caller)
+export function waitToCheckFiles (): Promise<void> {
+    return _queue;
+}
+
+export default function addToCheckFile (filename: string, values: string[]): Promise<void> {
 
     const result: Promise<void> = _queue.then((): Promise<void> => {
-        return _add(filename, value);
+        return _add(filename, values);
     });
 
     // a failure must not block the following calls

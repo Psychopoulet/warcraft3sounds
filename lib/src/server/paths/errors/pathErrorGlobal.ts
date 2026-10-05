@@ -8,10 +8,9 @@
 
     import getLogger from "../../../tools/getLogger";
     import logRequest from "../../../tools/logRequest";
+    import extractIps from "../../../tools/extractIps";
 
-    import addIpWatcherToCheck from "./tools/addIpWatcherToCheck";
-    import addWatcherToCheck from "./tools/addWatcherToCheck";
-    import ipWatcher from "./tools/ipWatcher";
+    import addToCheckFile from "./tools/addToCheckFile";
     import watcher from "./tools/watcher";
 
 // types & interfaces
@@ -21,6 +20,48 @@
 
     // locals
     import type { WatcherResult } from "./tools/watcher";
+
+// private
+
+    // the IP is always recorded to be reviewed, only the path is watched
+    function _watch (req: Request, err: Error): void {
+
+        watcher(req.path).then((result: WatcherResult): void => {
+
+            // already flagged as suspicious, must flag the IPs
+            if (result.isSuspicious) {
+
+                getLogger().error("INTRUSION ATTEMPT: \"" + req.path + "\" => " + result.description);
+
+                const ips: string[] = extractIps(req);
+
+                if (ips.length) {
+
+                    addToCheckFile("watchers-ips-to-check.txt", ips).catch((errAdd: Error): void => {
+                        getLogger().error(errAdd.message);
+                    });
+
+                }
+
+            }
+
+            // maybe legit (like typo), had to be flagged for review
+            else {
+
+                getLogger().warning(err.message);
+
+                addToCheckFile("watchers-paths-to-check.txt", [ req.path ]).catch((errAdd: Error): void => {
+                    getLogger().error(errAdd.message);
+                });
+
+            }
+
+        }).catch((errFile: Error): void => {
+            getLogger().error(err.message);
+            getLogger().error(errFile.message);
+        });
+
+    }
 
 // module
 
@@ -35,43 +76,7 @@
         // handle managed error codes
         if (err instanceof error.NotFound) { // specific to express-openapi-validator
 
-            watcher(req.path).then((result: WatcherResult): void => {
-
-                if (result.isSuspicious) {
-                    getLogger().error("INTRUSION ATTEMPT: \"" + req.path + "\" => " + result.description);
-                }
-                else {
-
-                    getLogger().warning(err.message);
-
-                    addWatcherToCheck(req.path).catch((errAdd: Error): void => {
-                        getLogger().error(errAdd.message);
-                    });
-
-                }
-
-            }).catch((errFile: Error): void => {
-                getLogger().error(err.message);
-                getLogger().error(errFile.message);
-            });
-
-            // a listed IP is flagged even when the path itself is not suspicious
-            ipWatcher(req.ip ?? "").then((result: WatcherResult): void => {
-
-                if (result.isSuspicious) {
-                    getLogger().error("INTRUSION ATTEMPT: IP \"" + String(req.ip) + "\" => " + result.description);
-                }
-                else if (undefined !== req.ip) {
-
-                    addIpWatcherToCheck(req.ip).catch((errAdd: Error): void => {
-                        getLogger().error(errAdd.message);
-                    });
-
-                }
-
-            }).catch((errFile: Error): void => {
-                getLogger().error(errFile.message);
-            });
+            _watch(req, err);
 
             res.status(errorCodes.NOTFOUND).json({
                 "code": String(errorCodes.NOTFOUND),

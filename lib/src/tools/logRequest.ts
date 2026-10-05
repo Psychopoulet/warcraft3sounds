@@ -4,6 +4,9 @@
     import getLogger from "./getLogger";
     import getRequestPath from "./getRequestPath";
 
+    // locals
+    import extractIps from "./extractIps";
+
 // types & interfaces
 
     // externals
@@ -19,7 +22,7 @@
 
     function _message (req: Request): string {
 
-        const parts: string[] = [ String(req.ips.length ? req.ips.join(", ") : req.ip) + " => " + getRequestPath(req) ];
+        const parts: string[] = [ extractIps(req).join(" | ") + " => " + getRequestPath(req) ];
 
         if ("object" === typeof req.query && Object.keys(req.query).length) {
             parts.push(_part("query", req.query));
