@@ -7,7 +7,7 @@
     const { join } = require("node:path");
 
     // locals
-    const addWatcherToCheck = require("../lib/cjs/tools/addWatcherToCheck.js").default;
+    const addWatcherToCheck = require("../lib/cjs/server/paths/errors/tools/addWatcherToCheck.js").default;
     const { startHttpTest, stopHttpTest, requestJson } = require("./helpers/http.js");
 
 // consts

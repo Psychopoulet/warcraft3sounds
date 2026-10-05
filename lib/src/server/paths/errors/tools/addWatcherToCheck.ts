@@ -5,7 +5,7 @@
     import { join } from "node:path";
 
     // locals
-    import { getLogsDirectory } from "./getLogger";
+    import { getLogsDirectory } from "../../../../tools/getLogger";
 
 // consts
 

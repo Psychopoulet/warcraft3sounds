@@ -6,10 +6,10 @@
     // locals
     import errorCodes from "../../../returncodes";
 
-    import addWatcherToCheck from "../../../tools/addWatcherToCheck";
     import getLogger from "../../../tools/getLogger";
     import logRequest from "../../../tools/logRequest";
 
+    import addWatcherToCheck from "./tools/addWatcherToCheck";
     import watcher from "./tools/watcher";
 
 // types & interfaces
