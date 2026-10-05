@@ -9,6 +9,7 @@
     import getLogger from "../../../tools/getLogger";
     import logRequest from "../../../tools/logRequest";
 
+    import addIpWatcherToCheck from "./tools/addIpWatcherToCheck";
     import addWatcherToCheck from "./tools/addWatcherToCheck";
     import ipWatcher from "./tools/ipWatcher";
     import watcher from "./tools/watcher";
@@ -59,6 +60,13 @@
 
                 if (result.isSuspicious) {
                     getLogger().error("INTRUSION ATTEMPT: IP \"" + String(req.ip) + "\" => " + result.description);
+                }
+                else if (undefined !== req.ip) {
+
+                    addIpWatcherToCheck(req.ip).catch((errAdd: Error): void => {
+                        getLogger().error(errAdd.message);
+                    });
+
                 }
 
             }).catch((errFile: Error): void => {
