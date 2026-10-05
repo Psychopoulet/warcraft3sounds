@@ -5,11 +5,12 @@
     import { join } from "node:path";
 
     // locals
-    import { getLogsDirectory } from "./getLogger";
+    import { getLogsDirectory } from "../../../../tools/getLogger";
 
 // consts
 
-    const FILENAME = "watchers-to-check.txt";
+    // maximum number of entries kept in one file
+    const MAX_ENTRIES: number = 1000;
 
     // calls are chained : concurrent requests must not overwrite each other's write
     let _queue: Promise<void> = Promise.resolve();
@@ -39,29 +40,43 @@
 
     }
 
-    async function _add (path: string): Promise<void> {
+    async function _add (filename: string, values: string[]): Promise<void> {
 
         const directory: string = getLogsDirectory();
-        const file: string = join(directory, FILENAME);
+        const file: string = join(directory, filename);
 
         await mkdir(directory, {
             "recursive": true
         });
 
-        const paths: Set<string> = new Set(await _read(file));
+        const entries: Set<string> = new Set(await _read(file));
 
-        paths.add(path);
+        // once the file is full, new values are dropped : a flood of distinct values cannot grow it without limit
+        for (const value of values) {
 
-        await writeFile(file, [ ...paths ].sort().join("\n"), "utf8");
+            if (MAX_ENTRIES <= entries.size) {
+                break;
+            }
+
+            entries.add(value);
+
+        }
+
+        await writeFile(file, [ ...entries ].sort().join("\n"), "utf8");
 
     }
 
 // module
 
-export default function addWatcherToCheck (path: string): Promise<void> {
+// resolves once every write requested so far is done (a failed write is already reported to its caller)
+export function waitToCheckFiles (): Promise<void> {
+    return _queue;
+}
+
+export default function addToCheckFile (filename: string, values: string[]): Promise<void> {
 
     const result: Promise<void> = _queue.then((): Promise<void> => {
-        return _add(path);
+        return _add(filename, values);
     });
 
     // a failure must not block the following calls
