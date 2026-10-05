@@ -3,13 +3,11 @@
     // natives
     const { equal, deepEqual } = require("node:assert");
     const os = require("node:os");
-    const { mkdir, mkdtemp, readFile, rm, writeFile } = require("node:fs/promises");
+    const { mkdtemp, readFile, rm } = require("node:fs/promises");
     const { join } = require("node:path");
 
     // locals
-    const addWatcherToCheck = require("../lib/cjs/server/paths/errors/tools/addWatcherToCheck.js").default;
-    const addIpWatcherToCheck = require("../lib/cjs/server/paths/errors/tools/addIpWatcherToCheck.js").default;
-    const ipWatcher = require("../lib/cjs/server/paths/errors/tools/ipWatcher.js").default;
+    const { "default": addToCheckFile, waitToCheckFiles } = require("../lib/cjs/server/paths/errors/tools/addToCheckFile.js");
     const { startHttpTest, stopHttpTest, requestJson } = require("./helpers/http.js");
 
 // consts
@@ -60,6 +58,15 @@ describe("watchers-to-check files", () => {
     const originalHomedir = os.homedir;
     let home = null;
 
+    // the previous test files record their own 404 in the background : let them finish
+    // before the home directory is replaced, or their write would land in the temporary one
+    before(async () => {
+
+        await _wait(200);
+        await waitToCheckFiles();
+
+    });
+
     // the logs directory is built from the home directory : point it to a temporary one
     beforeEach(async () => {
 
@@ -80,11 +87,11 @@ describe("watchers-to-check files", () => {
 
     });
 
-    describe("addWatcherToCheck", () => {
+    describe("addToCheckFile", () => {
 
-        it("should create the file with the path", async () => {
+        it("should create the file with the value", async () => {
 
-            await addWatcherToCheck("/a");
+            await addToCheckFile(FILENAME, [ "/a" ]);
 
             equal(await _readWatchers(home), "/a");
 
@@ -92,104 +99,42 @@ describe("watchers-to-check files", () => {
 
         it("should not add a duplicate", async () => {
 
-            await addWatcherToCheck("/a");
-            await addWatcherToCheck("/a");
+            await addToCheckFile(FILENAME, [ "/a" ]);
+            await addToCheckFile(FILENAME, [ "/a", "/a" ]);
 
             equal(await _readWatchers(home), "/a");
 
         });
 
-        it("should sort the paths alphabetically, separated by \\n", async () => {
+        it("should sort the values alphabetically, separated by \\n", async () => {
 
-            await addWatcherToCheck("/c");
-            await addWatcherToCheck("/a");
-            await addWatcherToCheck("/b");
+            await addToCheckFile(FILENAME, [ "/c" ]);
+            await addToCheckFile(FILENAME, [ "/a", "/b" ]);
 
             equal(await _readWatchers(home), "/a\n/b\n/c");
 
         });
 
-        it("should keep every path with concurrent calls", async () => {
+        it("should keep every value with concurrent calls", async () => {
 
             await Promise.all([
                 "/d", "/b", "/a", "/c", "/b"
-            ].map(addWatcherToCheck));
+            ].map((value) => {
+                return addToCheckFile(FILENAME, [ value ]);
+            }));
 
             equal(await _readWatchers(home), "/a\n/b\n/c\n/d");
 
         });
 
-    });
+        it("should record the IPs in their own file", async () => {
 
-    describe("addIpWatcherToCheck", () => {
-
-        it("should record the IPs sorted, without duplicate, in their own file", async () => {
-
-            await addIpWatcherToCheck("5.6.7.8");
-            await addIpWatcherToCheck("1.2.3.4");
-            await addIpWatcherToCheck("5.6.7.8");
+            await addToCheckFile(IP_FILENAME, [
+ "5.6.7.8", "1.2.3.4", "5.6.7.8"
+]);
 
             equal(await _readWatchers(home, IP_FILENAME), "1.2.3.4\n5.6.7.8");
             equal(await _readWatchers(home), null);
-
-        });
-
-    });
-
-    describe("ipWatcher", () => {
-
-        let file = null;
-
-        beforeEach(async () => {
-
-            file = join(home, "watchers", "ips.json");
-
-            await mkdir(join(home, "watchers"), {
-                "recursive": true
-            });
-
-            await writeFile(file, JSON.stringify([
-                {
-                    "category": "scanners",
-                    "ips": {
-                        "1.2.3.4": "known scanner"
-                    }
-                }
-            ]), "utf8");
-
-        });
-
-        it("should flag a listed IP", async () => {
-
-            deepEqual(await ipWatcher("1.2.3.4", file), {
-                "isSuspicious": true,
-                "description": "known scanner"
-            });
-
-        });
-
-        it("should not flag an unlisted IP", async () => {
-
-            deepEqual(await ipWatcher("5.6.7.8", file), {
-                "isSuspicious": false
-            });
-
-        });
-
-        it("should flag a listed IP given as an IPv4-mapped IPv6", async () => {
-
-            deepEqual(await ipWatcher("::ffff:1.2.3.4", file), {
-                "isSuspicious": true,
-                "description": "known scanner"
-            });
-
-        });
-
-        it("should not flag anything with the default (empty) list", async () => {
-
-            deepEqual(await ipWatcher("1.2.3.4"), {
-                "isSuspicious": false
-            });
 
         });
 
@@ -222,15 +167,13 @@ describe("watchers-to-check files", () => {
 
         });
 
-        it("should record the IP of a not found request", async () => {
+        it("should record the path and not the IP for an unknown path", async () => {
 
             const res = await requestJson(ctx.baseUrl, "/zz-unknown");
 
             equal(res.status, 404);
-
-            const ips = await _waitForWatchers(home, "127.0.0.1", 50, IP_FILENAME);
-
-            equal(ips.endsWith("127.0.0.1"), true);
+            equal(await _waitForWatchers(home, "/zz-unknown"), "/zz-unknown");
+            equal(await _readWatchers(home, IP_FILENAME), null);
 
         });
 
@@ -244,6 +187,19 @@ describe("watchers-to-check files", () => {
             await requestJson(ctx.baseUrl, "/zz-unknown");
 
             deepEqual(await _waitForWatchers(home, "/zz-unknown"), "/zz-unknown");
+
+        });
+
+        it("should record the IP and not the path for a suspicious path", async () => {
+
+            const res = await requestJson(ctx.baseUrl, "/.env");
+
+            equal(res.status, 404);
+
+            const ips = await _waitForWatchers(home, "127.0.0.1", 50, IP_FILENAME);
+
+            equal(ips.endsWith("127.0.0.1"), true);
+            equal(await _readWatchers(home), null);
 
         });
 
