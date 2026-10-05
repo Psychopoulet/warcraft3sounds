@@ -16,7 +16,7 @@
 
 // consts
 
-    const IP_WATCHER_FILE = join(__dirname, "..", "..", "..", "..", "..", "data", "ip-watcher.json");
+    const IP_WATCHER_FILE = join(__dirname, "..", "..", "..", "..", "..", "data", "watchers", "ips.json");
     const IPV4_MAPPED_PREFIX = "::ffff:";
 
 // private

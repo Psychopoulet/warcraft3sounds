@@ -2,7 +2,7 @@
 
 "use strict";
 
-// Lists the paths of a source that are not yet in lib/data/paths-watcher.json, sorted alphabetically.
+// Lists the paths of a source that are not yet in lib/data/watchers/paths.json, sorted alphabetically.
 //
 // usage : node extract.js <source>      (source is mandatory)
 //   source : an URL (http/https, simple GET), a file path, or raw text (paths separated by newlines, spaces or commas)
@@ -15,7 +15,7 @@
 
 // consts
 
-    const WATCHER_FILE = join(__dirname, "..", "..", "..", "lib", "data", "paths-watcher.json");
+    const WATCHER_FILE = join(__dirname, "..", "..", "..", "lib", "data", "watchers", "paths.json");
 
 // private
 

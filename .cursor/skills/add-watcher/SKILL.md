@@ -1,15 +1,15 @@
 ---
 name: add-watcher
-description: Add attack/scan paths to lib/data/paths-watcher.json (dedupe, categorize, sort, describe). Use when the user provides suspicious paths (raw text, file, or URL) to watch.
+description: Add attack/scan paths to lib/data/watchers/paths.json (dedupe, categorize, sort, describe). Use when the user provides suspicious paths (raw text, file, or URL) to watch.
 ---
 
 # add-watcher
 
-Adds paths to `lib/data/paths-watcher.json` (array of `{ "category", "paths": { "/path": "description" } }`). Dedupe, sort and writing are done by scripts: **you only classify.**
+Adds paths to `lib/data/watchers/paths.json` (array of `{ "category", "paths": { "/path": "description" } }`). Dedupe, sort and writing are done by scripts: **you only classify.**
 
 ## Token rules
 
-- **Never read `paths-watcher.json`.** Never echo input lists or the file back.
+- **Never read `paths.json`.** Never echo input lists or the file back.
 - Classify with **regex rules** (`match`) rather than listing paths one by one; list explicit `paths` only for exceptions.
 - One description per rule, not per path.
 - Final reply: max ~6 lines.

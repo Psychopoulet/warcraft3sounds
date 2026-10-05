@@ -2,7 +2,7 @@
 
 "use strict";
 
-// Applies classification rules to the pending paths and updates lib/data/paths-watcher.json.
+// Applies classification rules to the pending paths and updates lib/data/watchers/paths.json.
 //
 // usage : node apply.js <source> <rules.json> [--dry] [--clean]
 //   source   : url, file or raw text (same as extract.js, mandatory)
@@ -14,7 +14,7 @@
 const { readFileSync, writeFileSync } = require("node:fs");
 const { join } = require("node:path");
 
-const WATCHER_FILE = join(__dirname, "..", "..", "..", "lib", "data", "paths-watcher.json");
+const WATCHER_FILE = join(__dirname, "..", "..", "..", "lib", "data", "watchers", "paths.json");
 const LAST_CATEGORY = "harmless";
 const SAMPLES = 10;
 

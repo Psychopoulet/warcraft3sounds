@@ -25,7 +25,7 @@
 
 // consts
 
-    const WATCHER_FILE = join(__dirname, "..", "..", "..", "..", "..", "data", "paths-watcher.json");
+    const WATCHER_FILE = join(__dirname, "..", "..", "..", "..", "..", "data", "watchers", "paths.json");
 
 // module
 
