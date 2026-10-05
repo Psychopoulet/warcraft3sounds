@@ -3,17 +3,19 @@
     // natives
     const { equal, deepEqual } = require("node:assert");
     const os = require("node:os");
-    const { mkdtemp, readFile, rm, writeFile } = require("node:fs/promises");
+    const { mkdir, mkdtemp, readFile, rm, writeFile } = require("node:fs/promises");
     const { join } = require("node:path");
 
     // locals
     const addWatcherToCheck = require("../lib/cjs/server/paths/errors/tools/addWatcherToCheck.js").default;
+    const addIpWatcherToCheck = require("../lib/cjs/server/paths/errors/tools/addIpWatcherToCheck.js").default;
     const ipWatcher = require("../lib/cjs/server/paths/errors/tools/ipWatcher.js").default;
     const { startHttpTest, stopHttpTest, requestJson } = require("./helpers/http.js");
 
 // consts
 
-    const FILENAME = "watchers-to-check.txt";
+    const FILENAME = "watchers-paths-to-check.txt";
+    const IP_FILENAME = "watchers-ips-to-check.txt";
 
 // private
 
@@ -25,10 +27,10 @@
 
     }
 
-    async function _readWatchers (home) {
+    async function _readWatchers (home, filename = FILENAME) {
 
         try {
-            return await readFile(join(home, "warcraft3sounds", "logs", FILENAME), "utf8");
+            return await readFile(join(home, "warcraft3sounds", "logs", filename), "utf8");
         }
         catch {
             return null;
@@ -37,9 +39,9 @@
     }
 
     // the file is written after the response : wait until it satisfies the expected content
-    async function _waitForWatchers (home, expected, attempts = 50) {
+    async function _waitForWatchers (home, expected, attempts = 50, filename = FILENAME) {
 
-        const content = await _readWatchers(home);
+        const content = await _readWatchers(home, filename);
 
         if (expected === content || 0 >= attempts) {
             return content;
@@ -47,13 +49,13 @@
 
         await _wait(20);
 
-        return _waitForWatchers(home, expected, attempts - 1);
+        return _waitForWatchers(home, expected, attempts - 1, filename);
 
     }
 
 // tests
 
-describe("watchers-to-check", () => {
+describe("watchers-to-check files", () => {
 
     const originalHomedir = os.homedir;
     let home = null;
@@ -119,13 +121,32 @@ describe("watchers-to-check", () => {
 
     });
 
+    describe("addIpWatcherToCheck", () => {
+
+        it("should record the IPs sorted, without duplicate, in their own file", async () => {
+
+            await addIpWatcherToCheck("5.6.7.8");
+            await addIpWatcherToCheck("1.2.3.4");
+            await addIpWatcherToCheck("5.6.7.8");
+
+            equal(await _readWatchers(home, IP_FILENAME), "1.2.3.4\n5.6.7.8");
+            equal(await _readWatchers(home), null);
+
+        });
+
+    });
+
     describe("ipWatcher", () => {
 
         let file = null;
 
         beforeEach(async () => {
 
-            file = join(home, "ip-watcher.json");
+            file = join(home, "watchers", "ips.json");
+
+            await mkdir(join(home, "watchers"), {
+                "recursive": true
+            });
 
             await writeFile(file, JSON.stringify([
                 {
@@ -198,6 +219,18 @@ describe("watchers-to-check", () => {
 
             equal(res.status, 404);
             equal(await _waitForWatchers(home, "/zz-unknown"), "/zz-unknown");
+
+        });
+
+        it("should record the IP of a not found request", async () => {
+
+            const res = await requestJson(ctx.baseUrl, "/zz-unknown");
+
+            equal(res.status, 404);
+
+            const ips = await _waitForWatchers(home, "127.0.0.1", 50, IP_FILENAME);
+
+            equal(ips.endsWith("127.0.0.1"), true);
 
         });
 
