@@ -9,6 +9,9 @@
 
 // consts
 
+    // maximum number of entries kept in one file
+    const MAX_ENTRIES: number = 1000;
+
     // calls are chained : concurrent requests must not overwrite each other's write
     let _queue: Promise<void> = Promise.resolve();
 
@@ -48,8 +51,15 @@
 
         const vals: Set<string> = new Set(await _read(file));
 
+        // once the file is full, new values are dropped : a flood of distinct values cannot grow it without limit
         for (const value of values) {
+
+            if (MAX_ENTRIES <= vals.size) {
+                break;
+            }
+
             vals.add(value);
+
         }
 
         await writeFile(file, [ ...vals ].sort().join("\n"), "utf8");
