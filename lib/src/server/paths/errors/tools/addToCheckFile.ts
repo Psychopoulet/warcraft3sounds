@@ -49,20 +49,20 @@
             "recursive": true
         });
 
-        const vals: Set<string> = new Set(await _read(file));
+        const entries: Set<string> = new Set(await _read(file));
 
         // once the file is full, new values are dropped : a flood of distinct values cannot grow it without limit
         for (const value of values) {
 
-            if (MAX_ENTRIES <= vals.size) {
+            if (MAX_ENTRIES <= entries.size) {
                 break;
             }
 
-            vals.add(value);
+            entries.add(value);
 
         }
 
-        await writeFile(file, [ ...vals ].sort().join("\n"), "utf8");
+        await writeFile(file, [ ...entries ].sort().join("\n"), "utf8");
 
     }
 
