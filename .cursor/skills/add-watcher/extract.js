@@ -125,6 +125,15 @@ async function main () {
 
 }
 
-main().catch((err) => {
-    process.stderr.write(err.message + "\n"); process.exitCode = 1;
-});
+if (require.main === module) {
+
+    main().catch((err) => {
+        process.stderr.write(err.message + "\n"); process.exitCode = 1;
+    });
+
+}
+else {
+
+    module.exports = { extract };
+
+}

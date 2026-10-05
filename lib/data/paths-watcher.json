@@ -301,6 +301,7 @@
       "/config.yaml": "Tentative de lecture de fichiers de configuration/sources contenant des secrets",
       "/config/config.js": "Tentative de lecture de fichiers de configuration/sources contenant des secrets",
       "/config/initializers/devise.rb": "Tentative de lecture de fichiers de configuration/sources contenant des secrets",
+      "/credentials.properties": "Recherche de fichier de configuration contenant des identifiants (credentials.properties)",
       "/database.sql": "Tentative de téléchargement d'un dump de base de données",
       "/deployment-config.json": "Tentative de lecture de fichiers de configuration/sources contenant des secrets",
       "/docker-compose.yml": "Exposition de l'infrastructure et des secrets de déploiement",
@@ -575,6 +576,7 @@
   {
     "category": "harmless",
     "paths": {
+      "/ads.txt": "Recherche du fichier ads.txt (publicité, sans danger)",
       "/contact": "Page de contact/mentions légales inexistante: sondage de crawler, sans gravité",
       "/contact/": "Page de contact/mentions légales inexistante: sondage de crawler, sans gravité",
       "/contacts": "Page de contact/mentions légales inexistante: sondage de crawler, sans gravité",
