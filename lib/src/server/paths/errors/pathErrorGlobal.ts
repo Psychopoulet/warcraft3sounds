@@ -10,6 +10,7 @@
     import logRequest from "../../../tools/logRequest";
 
     import addWatcherToCheck from "./tools/addWatcherToCheck";
+    import ipWatcher from "./tools/ipWatcher";
     import watcher from "./tools/watcher";
 
 // types & interfaces
@@ -50,6 +51,17 @@
 
             }).catch((errFile: Error): void => {
                 getLogger().error(err.message);
+                getLogger().error(errFile.message);
+            });
+
+            // a listed IP is flagged even when the path itself is not suspicious
+            ipWatcher(req.ip ?? "").then((result: WatcherResult): void => {
+
+                if (result.isSuspicious) {
+                    getLogger().error("INTRUSION ATTEMPT: IP \"" + String(req.ip) + "\" => " + result.description);
+                }
+
+            }).catch((errFile: Error): void => {
                 getLogger().error(errFile.message);
             });
 
