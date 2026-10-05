@@ -8,6 +8,7 @@
 
     // locals
     const { "default": addToCheckFile, waitToCheckFiles } = require("../lib/cjs/server/paths/errors/tools/addToCheckFile.js");
+    const { "default": extractIps } = require("../lib/cjs/tools/extractIps.js");
     const { startHttpTest, stopHttpTest, requestJson } = require("./helpers/http.js");
 
 // consts
@@ -135,6 +136,72 @@ describe("watchers-to-check files", () => {
 
             equal(await _readWatchers(home, IP_FILENAME), "1.2.3.4\n5.6.7.8");
             equal(await _readWatchers(home), null);
+
+        });
+
+    });
+
+    describe("addToCheckFile limit", () => {
+
+        it("should not grow beyond the maximum number of entries", async () => {
+
+            const values = Array.from({ "length": 1100 }, (_, index) => {
+                return "/p" + String(index).padStart(4, "0");
+            });
+
+            await addToCheckFile(FILENAME, values);
+            await addToCheckFile(FILENAME, [ "/new" ]);
+
+            const lines = (await _readWatchers(home)).split("\n");
+
+            equal(1000, lines.length);
+            equal(false, lines.includes("/new"));
+
+        });
+
+    });
+
+    describe("extractIps", () => {
+
+        it("should drop values that are not IP addresses", () => {
+
+            deepEqual(extractIps({
+                "ips": [
+ "garbage", "1.2.3.4", "<script>", ""
+],
+                "ip": "not-an-ip"
+            }), [ "1.2.3.4" ]);
+
+        });
+
+        it("should merge mapped IPv6 and IPv4 in one entry", () => {
+
+            deepEqual(extractIps({
+                "ips": [ "::ffff:1.2.3.4" ],
+                "ip": "1.2.3.4"
+            }), [ "1.2.3.4" ]);
+
+        });
+
+        it("should keep real IPv6", () => {
+
+            deepEqual(extractIps({
+                "ips": [],
+                "ip": "2001:db8::1"
+            }), [ "2001:db8::1" ]);
+
+        });
+
+        it("should cap the number of IPs", () => {
+
+            const ips = Array.from({ "length": 20 }, (_, index) => {
+                return "10.0.0." + String(index + 1);
+            });
+
+            equal(5, extractIps({
+                ips,
+                "ip": ips[0]
+            }).length);
 
         });
 
