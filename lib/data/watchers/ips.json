@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "category": "cloud-abusers",
+    "ips": {
+      "35.216.110.185": "Activité abusive depuis une instance Google Cloud"
+    }
+  },
+  {
+    "category": "bruteforce",
+    "ips": {
+      "45.138.12.24": "Brute force de connexions web et attaques Apache (blocklist.de)"
+    }
+  },
+  {
+    "category": "bots",
+    "ips": {
+      "92.113.1.130": "Bot de spam signalé par CleanTalk (hébergeur Leaseweb)"
+    }
+  }
+]
