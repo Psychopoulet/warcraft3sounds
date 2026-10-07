@@ -15,7 +15,7 @@
     import { middleware } from "express-openapi-validator";
 
     // locals
-    import { pathHealth } from "./paths/health";
+    import pathHealth from "./paths/health";
 
 // types & interfaces
 
