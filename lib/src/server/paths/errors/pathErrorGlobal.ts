@@ -84,12 +84,25 @@
             });
 
         }
-        else if (err instanceof error.BadRequest) { // specific to express-openapi-validator
+
+        // specific to express-openapi-validator
+
+        else if (err instanceof error.BadRequest) {
 
             getLogger().warning(err.stack ?? err.message);
 
             res.status(errorCodes.BADREQUEST).json({
                 "code": String(errorCodes.BADREQUEST),
+                "message": err.message
+            });
+
+        }
+        else if (err instanceof error.Forbidden) {
+
+            getLogger().warning(err.message);
+
+            res.status(errorCodes.FORBIDDEN).json({
+                "code": String(errorCodes.FORBIDDEN),
                 "message": err.message
             });
 
