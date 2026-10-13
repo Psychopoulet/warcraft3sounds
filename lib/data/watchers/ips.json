@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "category": "cloud-abusers",
+    "ips": {
+      "34.52.150.124": "Web brute force and config-file hunting from Google Cloud",
+      "35.216.110.185": "Abusive activity from a Google Cloud instance"
+    }
+  },
+  {
+    "category": "bruteforce",
+    "ips": {
+      "170.64.154.153": "Web login brute force (Joomla, WordPress) from DigitalOcean",
+      "45.138.12.24": "Web login brute force and Apache attacks (blocklist.de)"
+    }
+  },
+  {
+    "category": "bots",
+    "ips": {
+      "195.63.0.94": "3xK Tech residential proxy/bot (spam and brute force)",
+      "195.63.1.181": "3xK Tech residential proxy/bot (spam and brute force)",
+      "195.63.30.134": "3xK Tech residential proxy/bot (spam and brute force)",
+      "217.181.66.155": "3xK Tech residential proxy/bot (spam and brute force)",
+      "217.181.66.191": "3xK Tech residential proxy/bot (spam and brute force)",
+      "217.181.83.124": "3xK Tech residential proxy/bot (spam and brute force)",
+      "217.181.83.128": "3xK Tech residential proxy/bot (spam and brute force)",
+      "217.181.95.104": "3xK Tech residential proxy/bot (spam and brute force)",
+      "217.181.95.124": "3xK Tech residential proxy/bot (spam and brute force)",
+      "92.113.1.130": "Spam bot reported by CleanTalk (Leaseweb host)"
+    }
+  },
+  {
+    "category": "scanners",
+    "ips": {
+      "118.26.111.94": "Port scan and SSH/FTP/MySQL probes from UCloud",
+      "135.119.19.134": "Mass scan from Azure (CMS, admin panels)",
+      "167.94.146.59": "Censys scanner",
+      "172.104.30.66": "Port scan and HTTP crawl from Linode",
+      "172.210.9.220": "Stretchoid scanner",
+      "199.165.159.41": "Shadowserver scanner",
+      "4.148.240.174": "Mass scan from Azure (CMS, admin panels)",
+      "43.128.70.35": "Mass scan from Tencent Cloud"
+    }
+  }
+]

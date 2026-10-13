@@ -15,7 +15,8 @@
     import { middleware } from "express-openapi-validator";
 
     // locals
-    import { pathHealth } from "./paths/health";
+    import pathHealth from "./paths/health";
+    import ipsBlocker from "./ipsBlocker";
 
 // types & interfaces
 
@@ -83,6 +84,9 @@ export default async function generateServer (): Promise<Express> {
             "crossOriginResourcePolicy": false
         }))
         .use(compression());
+
+    // ips blocker
+    app.use(ipsBlocker);
 
     // before OpenAPI: deploy / Docker HEALTHCHECK must not depend on the Swagger spec
     app.get("/health", pathHealth);

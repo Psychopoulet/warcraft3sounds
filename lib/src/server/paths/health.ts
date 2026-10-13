@@ -10,10 +10,10 @@
 
 // module
 
-    export function pathHealth (req: Request, res: Response): void {
+export default function pathHealth (req: Request, res: Response): void {
 
-        res.status(errorCodes.OK).json({
-            "status": "ok"
-        });
+    res.status(errorCodes.OK).json({
+        "status": "ok"
+    });
 
-    }
+}
