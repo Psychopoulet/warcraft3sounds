@@ -19,13 +19,13 @@ Adds paths to `lib/data/watchers/paths.json` (array of `{ "category", "paths": {
 1. **Get the pending paths and IPs** (already normalized, deduped, not in the JSON, sorted; paths start with `/`, IPs are bare addresses, `::ffff:` IPv4-mapped IPv6 is turned into IPv4):
    `node .cursor/skills/add-watcher/extract.js "<source>"` — the source is mandatory (fails without) and auto-detected: **URL** (simple GET), existing **file**, otherwise **raw text** (paths separated by newlines/spaces/commas). No need to fetch or read it yourself.
    - If the output is empty, reply "nothing to add" and stop.
-2. **Write `rules.json`** (temp dir, with the Write tool; use `\uXXXX` for accents):
+2. **Write `rules.json`** (temp dir, with the Write tool):
    ```json
    [
-     { "category": "webshells", "description": "Recherche de webshell/backdoor PHP déposé par un attaquant précédent", "match": "\\.php$" },
-     { "category": "product-scans", "description": "Scan nmap (détection de services HTTP)", "paths": ["/nmaplowercheck1791007888"] },
-     { "category": "scanners", "description": "Scanner de vulnérabilités connu", "type": "ips", "match": "^45\\.137\\." },
-     { "category": "bruteforce", "description": "Tentatives de brute force répétées", "type": "ips", "ips": ["203.0.113.7"] }
+     { "category": "webshells", "description": "Search for a PHP webshell/backdoor left by a previous attacker", "match": "\\.php$" },
+     { "category": "product-scans", "description": "nmap scan (HTTP service detection)", "paths": ["/nmaplowercheck1791007888"] },
+     { "category": "scanners", "description": "Known vulnerability scanner", "type": "ips", "match": "^45\\.137\\." },
+     { "category": "bruteforce", "description": "Repeated brute-force attempts", "type": "ips", "ips": ["203.0.113.7"] }
    ]
    ```
    `type` is `"paths"` (default) or `"ips"`: a rule only applies to entries of its type, with its own categories (`ips.json` has none in common with `paths.json`). First matching rule wins, so put specific rules (`paths`/`ips`, narrow regex) before broad ones.
@@ -50,4 +50,4 @@ No fixed list: pick by the attacker's behavior, e.g. `scanners` (vulnerability/p
 
 ## Descriptions
 
-French, one short sentence: target, goal, CVE if known. Style: "Tentative de...", "Scan <produit> (CVE connues)", "Recherche de...". Be specific for a known product/CVE (e.g. `Scan Atlassian Confluence (CVE-2023-22515)`). Never empty or generic. If unsure what a path targets, WebSearch rather than guess. For an IP: its behavior or owner (e.g. `Scanner Shodan`, `Scan massif de .env depuis un hébergeur`), never an invented attribution.
+English, one short sentence: target, goal, CVE if known. Style: "Attempt to...", "Scan <product> (known CVEs)", "Search for...". Be specific for a known product/CVE (e.g. `Scan Atlassian Confluence (CVE-2023-22515)`). Never empty or generic. If unsure what a path targets, WebSearch rather than guess. For an IP: its behavior or owner (e.g. `Shodan scanner`, `Mass .env scan from a hosting provider`), never an invented attribution.
