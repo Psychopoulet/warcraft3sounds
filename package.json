@@ -37,9 +37,9 @@
     "check-updates": "npx check-version-modules --no-fail-at-major --fail-at-minor --fail-at-patch",
     "unit-tests": "npx mocha",
     "e2e-tests": "npx playwright test",
-    "unit-tests-local": "npx nyc --reporter=html --reporter=text mocha",
+    "unit-tests-local": "npx c8 --reporter=html --reporter=text --all mocha",
 
-    "tests": "npm run lint && npm run check-requires && npm run check-updates && npm run build && npm run unit-tests-local && npm run e2e-tests",
+    "tests": "npm run lint && npm run check-requires && npm run check-updates && npm run build && npm run unit-tests && npm run e2e-tests",
 
     "start": "node ./lib/cjs/main.cjs",
 
@@ -84,12 +84,12 @@
     "@types/node": "26.6.5",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "c8": "12.0.0",
     "check-node-engine": "1.2.0",
     "check-version-modules": "2.5.0",
     "eslint-plugin-personnallinter": "git+ssh://git@github.com/Psychopoulet/eslint-plugin-personnallinter",
     "husky": "9.1.7",
     "mocha": "12.0.3",
-    "nyc": "18.0.0",
     "openapi-typescript": "7.13.0",
     "react": "19.3.0",
     "react-bootstrap-fontawesome": "git+ssh://git@github.com/Psychopoulet/react-bootstrap-fontawesome",
