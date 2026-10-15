@@ -192,6 +192,14 @@ describe("watchers-to-check files", () => {
 
         });
 
+        it("should return nothing when no IP is available", () => {
+
+            deepEqual(extractIps({
+                "ips": "1.2.3.4"
+            }), []);
+
+        });
+
         it("should cap the number of IPs", () => {
 
             const ips = Array.from({ "length": 20 }, (_, index) => {
