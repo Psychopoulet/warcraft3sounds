@@ -1,6 +1,6 @@
 /* eslint-disable n/no-process-exit, n/no-process-env */
-// n/no-process-exit : let main file to use process.exit() if needed
-// n/no-process-env : let main file to default NODE_ENV to "development" when it is missing
+// n/no-process-exit : let the application exit on startup and shutdown failures
+// n/no-process-env : let the application default NODE_ENV to "development" when it is missing
 
 // deps
 
@@ -39,7 +39,7 @@
     // ms before leaving whatever happens : above closeServer timeout, below the app stop_grace_period (20s)
     const FORCE_EXIT_TIMEOUT = 15000;
 
-// module
+// private
 
     // log the error, flush the logger, then exit with code 1 (startup and shutdown failures share this path)
     function _exitOnError (level: "critical" | "error", message: string, err: Error): void {
@@ -71,156 +71,173 @@
 
     }
 
-    // generate conf
+// module
 
-    if ("undefined" === typeof process.env.NODE_ENV || "" === process.env.NODE_ENV) {
-        process.env.NODE_ENV = "development";
-    }
+    export default function startApplication (): Promise<void> {
 
-    const finalSoundsDir = getSoundsDirectory(); // for docker, or after first launch
+        // generate conf
 
-    initLogger().then((): Promise<boolean> => {
-
-        getLogger().info("sounds directory : " + finalSoundsDir);
-
-        return new Promise((resolve: (exists: boolean) => void): void => {
-
-            stat(finalSoundsDir, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
-                return err || !stats.isDirectory() ? resolve(false) : resolve(true);
-            });
-
-        });
-
-    }).then((exists: boolean): Promise<string | undefined> => {
-
-        if (exists) {
-            return Promise.resolve("");
+        if ("undefined" === typeof process.env.NODE_ENV || "" === process.env.NODE_ENV) {
+            process.env.NODE_ENV = "development";
         }
 
-        getLogger().info("sounds directory not found, try to create it " + finalSoundsDir);
+        const finalSoundsDir = getSoundsDirectory(); // for docker, or after first launch
 
-        return mkdir(finalSoundsDir, {
-            "recursive": true
-        });
+        return initLogger().then((): Promise<boolean> => {
 
-    }).then((): Promise<void> => {
+            getLogger().info("sounds directory : " + finalSoundsDir);
 
-        const conf = getConf();
+            return new Promise((resolve: (exists: boolean) => void): void => {
 
-        return conf.load().then((): void => {
+                stat(finalSoundsDir, (err: NodeJS.ErrnoException | null, stats: Stats): void => {
+                    return err || !stats.isDirectory() ? resolve(false) : resolve(true);
+                });
 
-            conf
-                .set("port", conf.has("port") ? conf.get<number>("port") : 8000)
-                .set("database-file", join(homedir(), "warcraft3sounds", "db", "warcraft3sounds.sqlite"));
+            });
 
-        });
+        }).then((exists: boolean): Promise<string | undefined> => {
 
-    }).then((): Promise<void> => {
+            if (exists) {
+                return Promise.resolve("");
+            }
 
-        const dbStorage: string = getConf().get<string>("database-file");
+            getLogger().info("sounds directory not found, try to create it " + finalSoundsDir);
 
-        getLogger().info("database : " + dbStorage);
+            return mkdir(finalSoundsDir, {
+                "recursive": true
+            });
 
-        return mkdir(dirname(dbStorage), {
-            "recursive": true
         }).then((): Promise<void> => {
 
-            return getModel().init();
+            const conf = getConf();
 
-        });
+            return conf.load().then((): void => {
 
-    // generate web server
-
-    }).then((): Promise<Express> => {
-
-        return generateServer();
-
-    // generate routes
-
-    }).then((app: Express): Express => {
-
-        return registerRoutes(app);
-
-    // run server
-    }).then((app: Express): Server => {
-
-        const conf = getConf();
-
-        // the handle is kept to stop accepting connections during the graceful shutdown
-        return app.listen(conf.get<number>("port"), (): void => {
-
-            getLogger().info("started on port " + String(conf.get<number>("port")));
-
-        });
-
-    // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose ; uncaught errors)
-    }).then((server: Server): void => {
-
-        let shuttingDown = false;
-
-        // fatal : the unexpected error that triggers the shutdown, null for a regular stop
-        function _shutdown (fatal: Error | null): void {
-
-            // several signals / errors : the shutdown runs only once
-            if (shuttingDown) {
-                return;
-            }
-
-            shuttingDown = true;
-
-            if (fatal) {
-                getLogger().critical("Unexpected error, stopping the application\n" + (fatal.stack ?? fatal.message));
-            }
-
-            const model: WarcraftSoundsModel = getModel();
-
-            // fallback : if a step hangs, leave before Docker's SIGKILL (stop_grace_period) without waiting for it
-            setTimeout((): void => {
-                process.exit(1);
-            }, FORCE_EXIT_TIMEOUT).unref();
-
-            // order matters : no more requests -> database closed -> last log -> logger flushed -> exit
-            closeServer(server).then((): Promise<void> => {
-
-                return model.release();
-
-            }).then((): Promise<void> => {
-
-                getLogger().info("application stopped");
-
-                return getLogger().close();
-
-            }).then((): void => {
-
-                // everything is flushed : exit explicitly, pm2 cluster keeps an IPC channel that could hold the process
-                process.exit(fatal ? 1 : 0);
-
-            }).catch((err: Error): void => {
-
-                _exitOnError("error", "Impossible to properly end the application", err);
+                conf
+                    .set("port", conf.has("port") ? conf.get<number>("port") : 8000)
+                    .set("database-file", join(homedir(), "warcraft3sounds", "db", "warcraft3sounds.sqlite"));
 
             });
 
-        }
+        }).then((): Promise<void> => {
 
-        process.on("SIGINT", (): void => {
-            _shutdown(null);
+            const dbStorage: string = getConf().get<string>("database-file");
+
+            getLogger().info("database : " + dbStorage);
+
+            return mkdir(dirname(dbStorage), {
+                "recursive": true
+            }).then((): Promise<void> => {
+
+                return getModel().init();
+
+            });
+
+        // generate web server
+
+        }).then((): Promise<Express> => {
+
+            return generateServer();
+
+        // generate routes
+
+        }).then((app: Express): Express => {
+
+            return registerRoutes(app);
+
+        // run server
+        }).then((app: Express): Server => {
+
+            const conf = getConf();
+
+            // the handle is kept to stop accepting connections during the graceful shutdown
+            return app.listen(conf.get<number>("port"), (): void => {
+
+                getLogger().info("started on port " + String(conf.get<number>("port")));
+
+            });
+
+        // graceful shutdown (SIGINT = tty ; SIGTERM = Docker / Compose ; uncaught errors)
+        }).then((server: Server): void => {
+
+            let shuttingDown = false;
+
+            // fatal : the unexpected error that triggers the shutdown, null for a regular stop
+            function _shutdown (fatal: Error | null): void {
+
+                // several signals / errors : the shutdown runs only once
+                if (shuttingDown) {
+                    return;
+                }
+
+                shuttingDown = true;
+
+                if (fatal) {
+                    getLogger().critical("Unexpected error, stopping the application\n" + (fatal.stack ?? fatal.message));
+                }
+
+                const model: WarcraftSoundsModel = getModel();
+
+                // fallback : if a step hangs, leave before Docker's SIGKILL (stop_grace_period) without waiting for it
+                setTimeout((): void => {
+                    process.exit(1);
+                }, FORCE_EXIT_TIMEOUT).unref();
+
+                // order matters : no more requests -> database closed -> last log -> logger flushed -> exit
+                closeServer(server).then((): Promise<void> => {
+
+                    return model.release();
+
+                }).then((): Promise<void> => {
+
+                    getLogger().info("application stopped");
+
+                    return getLogger().close();
+
+                }).then((): void => {
+
+                    // everything is flushed : exit explicitly, pm2 cluster keeps an IPC channel that could hold the process
+                    process.exit(fatal ? 1 : 0);
+
+                }).catch((err: Error): void => {
+
+                    _exitOnError("error", "Impossible to properly end the application", err);
+
+                });
+
+            }
+
+            process.on("SIGINT", (): void => {
+                _shutdown(null);
+            });
+
+            process.on("SIGTERM", (): void => {
+                _shutdown(null);
+            });
+
+            process.on("uncaughtException", (err: Error): void => {
+                _shutdown(err);
+            });
+
+            process.on("unhandledRejection", (reason: unknown): void => {
+                _shutdown(reason instanceof Error ? reason : new Error(String(reason)));
+            });
+
+        }).catch((err: Error): void => {
+
+            _exitOnError("critical", "Impossible to initiate the application", err);
+
         });
 
-        process.on("SIGTERM", (): void => {
-            _shutdown(null);
+    }
+
+    // loaded by a test : export only. started as the program : boot.
+    if (require.main === module) {
+
+        startApplication().catch((): void => {
+
+            // startup and shutdown failures already exit from inside startApplication
+
         });
 
-        process.on("uncaughtException", (err: Error): void => {
-            _shutdown(err);
-        });
-
-        process.on("unhandledRejection", (reason: unknown): void => {
-            _shutdown(reason instanceof Error ? reason : new Error(String(reason)));
-        });
-
-    }).catch((err: Error): void => {
-
-        _exitOnError("critical", "Impossible to initiate the application", err);
-
-    });
+    }

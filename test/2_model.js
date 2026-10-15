@@ -3,10 +3,14 @@
     // natives
     const { equal, deepEqual, ok, rejects } = require("node:assert");
     const { join } = require("node:path");
-    const { mkdtemp, rm } = require("node:fs/promises");
+    const { mkdtemp, rm, writeFile } = require("node:fs/promises");
     const { tmpdir } = require("node:os");
 
     // locals
+    const { getTableConfig } = require("drizzle-orm/sqlite-core");
+
+    const { "default": checkDatabaseFile } = require("../lib/src/db/checkDatabaseFile.ts");
+    const schema = require("../lib/src/db/schema.ts");
     const { createTestModel, createCatalogModel } = require("./helpers/model.js");
 
 // consts
@@ -252,6 +256,69 @@ describe("model", () => {
             equal(await model.getCharacter("orcs", "peasant"), null);
 
         });
+
+    });
+
+});
+
+describe("release and database file", () => {
+
+    it("should resolve release before init", async () => {
+
+        const model = createTestModel();
+
+        await model.release();
+
+    });
+
+    it("should reject a stat error that is not a missing file", async () => {
+
+        const dir = await mkdtemp(join(tmpdir(), "warcraft3sounds-"));
+        const parent = join(dir, "not-a-directory");
+
+        await writeFile(parent, "x");
+
+        // a file parent is ENOTDIR on Linux and ENOENT on Windows : the null byte is refused on both
+        await rejects(() => {
+
+            return checkDatabaseFile(join(parent, "db.sqlite\u0000"));
+
+        }, (err) => {
+
+            return "ENOENT" !== err.code && false === err.message.includes("database-file");
+
+        });
+
+        await rm(dir, {
+            "recursive": true,
+            "force": true
+        });
+
+    });
+
+});
+
+describe("schema foreign keys", () => {
+
+    function _names (table) {
+
+        return getTableConfig(table).foreignKeys.map((key) => {
+
+            return key.getName();
+
+        });
+
+    }
+
+    it("should name each foreign key from the referenced column", () => {
+
+        deepEqual(_names(schema.musics), [ "musics_k_race_races_id_fk" ]);
+        deepEqual(_names(schema.warnings), [ "warnings_k_race_races_id_fk" ]);
+        deepEqual(_names(schema.characters), [ "characters_k_race_races_id_fk" ]);
+        deepEqual(_names(schema.actions), [
+            "actions_k_character_characters_id_fk",
+            "actions_k_action_type_actions_types_id_fk"
+        ]);
 
     });
 

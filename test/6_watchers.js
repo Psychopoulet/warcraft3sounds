@@ -7,8 +7,8 @@
     const { join } = require("node:path");
 
     // locals
-    const { "default": addToCheckFile, waitToCheckFiles } = require("../lib/cjs/server/paths/errors/tools/addToCheckFile.js");
-    const { "default": extractIps } = require("../lib/cjs/tools/extractIps.js");
+    const { "default": addToCheckFile, waitToCheckFiles } = require("../lib/src/server/paths/errors/tools/addToCheckFile.ts");
+    const { "default": extractIps } = require("../lib/src/tools/extractIps.ts");
     const { startHttpTest, stopHttpTest, requestJson } = require("./helpers/http.js");
 
 // consts
@@ -189,6 +189,14 @@ describe("watchers-to-check files", () => {
                 "ips": [],
                 "ip": "2001:db8::1"
             }), [ "2001:db8::1" ]);
+
+        });
+
+        it("should return nothing when no IP is available", () => {
+
+            deepEqual(extractIps({
+                "ips": "1.2.3.4"
+            }), []);
 
         });
 

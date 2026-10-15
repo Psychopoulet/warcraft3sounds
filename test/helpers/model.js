@@ -7,10 +7,10 @@
     const { randomUUID } = require("node:crypto");
 
     // locals
-    const { WarcraftSoundsModel, setModel } = require("../../lib/cjs/db/model.js");
-    const getConf = require("../../lib/cjs/conf.js").default;
-    const { initLogger } = require("../../lib/cjs/tools/getLogger.js");
-    const { setSoundsDirectory } = require("../../lib/cjs/tools/getSoundsDirectory.js");
+    const { WarcraftSoundsModel, setModel } = require("../../lib/src/db/model.ts");
+    const getConf = require("../../lib/src/conf.ts").default;
+    const { initLogger } = require("../../lib/src/tools/getLogger.ts");
+    const { setSoundsDirectory } = require("../../lib/src/tools/getSoundsDirectory.ts");
 
 // consts
 
