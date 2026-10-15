@@ -79,11 +79,13 @@
 
     }
 
-    function request (baseUrl, path) {
+    function request (baseUrl, path, headers) {
 
         return new Promise((resolve, reject) => {
 
-            get(baseUrl + path, (res) => {
+            get(baseUrl + path, {
+                "headers": headers || {}
+            }, (res) => {
 
                 const chunks = [];
 
@@ -107,9 +109,9 @@
 
     }
 
-    function requestJson (baseUrl, path) {
+    function requestJson (baseUrl, path, headers) {
 
-        return request(baseUrl, path).then((res) => {
+        return request(baseUrl, path, headers).then((res) => {
 
             return {
                 "status": res.status,
