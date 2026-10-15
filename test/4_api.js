@@ -8,8 +8,8 @@
     // locals
     const { startHttpTest, stopHttpTest, requestJson } = require("./helpers/http.js");
     const { createCatalogModel } = require("./helpers/model.js");
-    const { setModel } = require("../lib/cjs/db/model.js");
-    const { pathAPIOneCharacter } = require("../lib/cjs/server/paths/api.js");
+    const { setModel } = require("../lib/src/db/model.ts");
+    const { pathAPIOneCharacter } = require("../lib/src/server/paths/api.ts");
 
 // consts
 

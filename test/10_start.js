@@ -11,11 +11,11 @@
     const { join } = require("node:path");
 
     // locals
-    const { "default": getModel, setModel } = require("../lib/cjs/db/model.js");
-    const { "default": getConf } = require("../lib/cjs/conf.js");
-    const { "default": getLogger, initLogger } = require("../lib/cjs/tools/getLogger.js");
-    const { setSoundsDirectory } = require("../lib/cjs/tools/getSoundsDirectory.js");
-    const { "default": startApplication } = require("../lib/cjs/main.cjs");
+    const { "default": getModel, setModel } = require("../lib/src/db/model.ts");
+    const { "default": getConf } = require("../lib/src/conf.ts");
+    const { "default": getLogger, initLogger } = require("../lib/src/tools/getLogger.ts");
+    const { setSoundsDirectory } = require("../lib/src/tools/getSoundsDirectory.ts");
+    const { "default": startApplication } = require("../lib/src/main.cts");
 
 // consts
 
@@ -429,8 +429,10 @@ describe("application entry failures", () => {
 
         const child = spawn(process.execPath, [
             "-r",
+            join(__dirname, "register.js"),
+            "-r",
             join(__dirname, "helpers", "emit-sigterm.js"),
-            join(__dirname, "..", "lib", "cjs", "main.cjs")
+            join(__dirname, "..", "lib", "src", "main.cts")
         ], {
             "env": {
                 ...process.env,

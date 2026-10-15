@@ -9,8 +9,8 @@
     // locals
     const { getTableConfig } = require("drizzle-orm/sqlite-core");
 
-    const { "default": checkDatabaseFile } = require("../lib/cjs/db/checkDatabaseFile.js");
-    const schema = require("../lib/cjs/db/schema.js");
+    const { "default": checkDatabaseFile } = require("../lib/src/db/checkDatabaseFile.ts");
+    const schema = require("../lib/src/db/schema.ts");
     const { createTestModel, createCatalogModel } = require("./helpers/model.js");
 
 // consts

@@ -4,8 +4,8 @@
     const { createServer, get } = require("node:http");
 
     // locals
-    const generateServer = require("../../lib/cjs/server/generateServer.js").default;
-    const registerRoutes = require("../../lib/cjs/server/registerRoutes.js").default;
+    const generateServer = require("../../lib/src/server/generateServer.ts").default;
+    const registerRoutes = require("../../lib/src/server/registerRoutes.ts").default;
     const { setupTestAppData, teardownTestAppData } = require("./model.js");
 
 // module

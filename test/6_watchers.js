@@ -7,8 +7,8 @@
     const { join } = require("node:path");
 
     // locals
-    const { "default": addToCheckFile, waitToCheckFiles } = require("../lib/cjs/server/paths/errors/tools/addToCheckFile.js");
-    const { "default": extractIps } = require("../lib/cjs/tools/extractIps.js");
+    const { "default": addToCheckFile, waitToCheckFiles } = require("../lib/src/server/paths/errors/tools/addToCheckFile.ts");
+    const { "default": extractIps } = require("../lib/src/tools/extractIps.ts");
     const { startHttpTest, stopHttpTest, requestJson } = require("./helpers/http.js");
 
 // consts

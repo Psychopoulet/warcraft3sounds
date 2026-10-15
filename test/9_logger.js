@@ -14,10 +14,10 @@
     const winston = require("winston");
 
     // locals
-    const { "default": closeServer } = require("../lib/cjs/tools/closeServer.js");
-    const { "default": getLogger, initLogger } = require("../lib/cjs/tools/getLogger.js");
-    const { "default": getRequestPath } = require("../lib/cjs/tools/getRequestPath.js");
-    const { "default": logRequest } = require("../lib/cjs/tools/logRequest.js");
+    const { "default": closeServer } = require("../lib/src/tools/closeServer.ts");
+    const { "default": getLogger, initLogger } = require("../lib/src/tools/getLogger.ts");
+    const { "default": getRequestPath } = require("../lib/src/tools/getRequestPath.ts");
+    const { "default": logRequest } = require("../lib/src/tools/logRequest.ts");
 
 // consts
 

@@ -10,9 +10,9 @@
     const { error } = require("express-openapi-validator");
 
     // locals
-    const { "default": addToCheckFile, waitToCheckFiles } = require("../lib/cjs/server/paths/errors/tools/addToCheckFile.js");
-    const { "default": pathErrorGlobal } = require("../lib/cjs/server/paths/errors/pathErrorGlobal.js");
-    const { "default": getLogger, initLogger } = require("../lib/cjs/tools/getLogger.js");
+    const { "default": addToCheckFile, waitToCheckFiles } = require("../lib/src/server/paths/errors/tools/addToCheckFile.ts");
+    const { "default": pathErrorGlobal } = require("../lib/src/server/paths/errors/pathErrorGlobal.ts");
+    const { "default": getLogger, initLogger } = require("../lib/src/tools/getLogger.ts");
     const { startHttpTest, stopHttpTest, requestJson } = require("./helpers/http.js");
 
 // consts

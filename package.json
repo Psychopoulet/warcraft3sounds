@@ -35,8 +35,8 @@
     "check-node-engine": "npx check-node-engine",
     "check-requires": "npx used-deps-analyzer ./package.json ./lib/src --no-dev --overkill fs-extra node-promfs --misscalled \"{\\\"module\\\":\\\"drizzle-orm\\\",\\\"call\\\":\\\"drizzle-orm/libsql\\\"}\" \"{\\\"module\\\":\\\"drizzle-orm\\\",\\\"call\\\":\\\"drizzle-orm/sqlite-core\\\"}\" \"{\\\"module\\\":\\\"drizzle-orm\\\",\\\"call\\\":\\\"drizzle-orm/batch\\\"}\"",
     "check-updates": "npx check-version-modules --no-fail-at-major --fail-at-minor --fail-at-patch",
-    "unit-tests": "npx c8 --reporter=text-summary --all --check-coverage --statements 95 --branches 95 --functions 95 --lines 95 mocha",
-    "unit-tests-local": "npx c8 --reporter=html --reporter=text --all mocha",
+    "unit-tests": "npx c8 --reporter=text-summary --all --check-coverage --statements 95 --branches 95 --functions 95 --lines 95 mocha --require ./test/register.js",
+    "unit-tests-local": "npx c8 --reporter=html --reporter=text --all mocha --require ./test/register.js",
     "e2e-tests": "npx playwright test",
 
     "tests": "npm run lint && npm run check-requires && npm run check-updates && npm run build && npm run unit-tests-local && npm run e2e-tests",
