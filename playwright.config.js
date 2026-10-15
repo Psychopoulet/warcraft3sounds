@@ -19,7 +19,7 @@ module.exports = defineConfig({
         "browserName": "chromium"
     },
     "webServer": {
-        "command": "node ./test/e2e/server.js",
+        "command": "node -r ./test/register.js ./test/e2e/server.js",
         "url": "http://127.0.0.1:8000/health",
         "reuseExistingServer": !env.CI,
         "timeout": 60000
