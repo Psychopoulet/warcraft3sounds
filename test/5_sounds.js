@@ -11,6 +11,7 @@
 // consts
 
     const READY_WAV = join(__dirname, "fixtures", "sounds", "ready.wav");
+    const THEME_MP3 = join(__dirname, "fixtures", "sounds", "theme.mp3");
 
 // tests
 
@@ -40,6 +41,29 @@ describe("sounds", () => {
         equal(res.status, 200);
         equal(res.headers["content-type"], "audio/wav");
         deepEqual(res.body, expected);
+
+    });
+
+    it("should return the fixture mp3", async () => {
+
+        const res = await request(ctx.baseUrl, "/public/sounds/theme.mp3");
+        const expected = await readFile(THEME_MP3);
+
+        equal(res.status, 200);
+        equal(res.headers["content-type"], "audio/mpeg");
+        deepEqual(res.body, expected);
+
+    });
+
+    it("should return 404 for a directory", async () => {
+
+        const res = await requestJson(ctx.baseUrl, "/public/sounds/nested.wav");
+
+        equal(res.status, 404);
+        deepEqual(res.json, {
+            "code": "404",
+            "message": "Impossible to find the \"nested.wav\" sound"
+        });
 
     });
 
