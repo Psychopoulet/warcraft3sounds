@@ -14,6 +14,7 @@
     "category": "bruteforce",
     "ips": {
       "170.64.154.153": "Web login brute force (Joomla, WordPress) from DigitalOcean",
+      "20.207.202.183": "Web login brute force and Apache attacks from Azure",
       "45.138.12.24": "Web login brute force and Apache attacks (blocklist.de)"
     }
   },
@@ -26,11 +27,13 @@
       "195.63.0.94": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.1.181": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.1.244": "3xK Tech residential proxy/bot (spam and brute force)",
+      "195.63.19.107": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.19.150": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.22.169": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.22.202": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.23.195": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.23.239": "3xK Tech residential proxy/bot (spam and brute force)",
+      "195.63.25.160": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.25.93": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.27.81": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.29.3": "3xK Tech residential proxy/bot (spam and brute force)",
@@ -63,6 +66,7 @@
       "152.32.219.77": "Scan from a UCloud host",
       "167.94.146.53": "Censys scanner",
       "167.94.146.59": "Censys scanner",
+      "168.76.254.75": "Mass .git/config scan from Clayer Limited",
       "170.231.236.98": "Apcosys scanner",
       "172.104.30.66": "Port scan and HTTP crawl from Linode",
       "172.203.228.228": "Stretchoid scanner",
