@@ -7,7 +7,10 @@
     const { tmpdir } = require("node:os");
 
     // locals
+    const { getTableConfig } = require("drizzle-orm/sqlite-core");
+
     const { "default": checkDatabaseFile } = require("../lib/cjs/db/checkDatabaseFile.js");
+    const schema = require("../lib/cjs/db/schema.js");
     const { createTestModel, createCatalogModel } = require("./helpers/model.js");
 
 // consts
@@ -290,6 +293,32 @@ describe("release and database file", () => {
             "recursive": true,
             "force": true
         });
+
+    });
+
+});
+
+describe("schema foreign keys", () => {
+
+    function _names (table) {
+
+        return getTableConfig(table).foreignKeys.map((key) => {
+
+            return key.getName();
+
+        });
+
+    }
+
+    it("should name each foreign key from the referenced column", () => {
+
+        deepEqual(_names(schema.musics), [ "musics_k_race_races_id_fk" ]);
+        deepEqual(_names(schema.warnings), [ "warnings_k_race_races_id_fk" ]);
+        deepEqual(_names(schema.characters), [ "characters_k_race_races_id_fk" ]);
+        deepEqual(_names(schema.actions), [
+            "actions_k_character_characters_id_fk",
+            "actions_k_action_type_actions_types_id_fk"
+        ]);
 
     });
 

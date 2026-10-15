@@ -10,6 +10,9 @@
     const os = require("node:os");
     const { join } = require("node:path");
 
+    // externals
+    const winston = require("winston");
+
     // locals
     const { "default": closeServer } = require("../lib/cjs/tools/closeServer.js");
     const { "default": getLogger, initLogger } = require("../lib/cjs/tools/getLogger.js");
@@ -115,6 +118,97 @@
 
     }
 
+    function _unfinishedLogger () {
+
+        const original = winston.createLogger;
+
+        winston.createLogger = (options) => {
+
+            const created = original(options);
+
+            Object.defineProperty(created, "writableFinished", {
+                "configurable": true,
+                "get": () => {
+                    return false;
+                }
+            });
+
+            const end = created.end.bind(created);
+
+            created.end = () => {
+
+                end();
+                created.emit("finish");
+
+            };
+
+            return created;
+
+        };
+
+        return () => {
+
+            winston.createLogger = original;
+
+        };
+
+    }
+
+    function _finishedLogger () {
+
+        const original = winston.createLogger;
+
+        winston.createLogger = (options) => {
+
+            const created = original(options);
+
+            Object.defineProperty(created, "writableFinished", {
+                "configurable": true,
+                "get": () => {
+                    return true;
+                }
+            });
+
+            return created;
+
+        };
+
+        return () => {
+
+            winston.createLogger = original;
+
+        };
+
+    }
+
+    function _fireSlowTimers () {
+
+        const original = globalThis.setTimeout;
+
+        globalThis.setTimeout = (fn, delay, ...args) => {
+
+            if (8000 === delay) {
+                fn(...args);
+
+                return original(() => {
+
+                    // the real timer is cleared once close finishes
+
+                }, 0);
+            }
+
+            return original(fn, delay, ...args);
+
+        };
+
+        return () => {
+
+            globalThis.setTimeout = original;
+
+        };
+
+    }
+
     function _listen (server) {
 
         return new Promise((resolve) => {
@@ -166,6 +260,47 @@ describe("logger", () => {
 
     });
 
+    it("should wait until the log stream finishes", async () => {
+
+        os.homedir = originalHomedir;
+        process.env.NODE_ENV = "development";
+
+        const restore = _unfinishedLogger();
+
+        try {
+
+            await _closeCurrentLogger();
+            await (await initLogger()).close();
+
+        }
+        finally {
+
+            restore();
+
+        }
+
+    });
+
+    it("should close a log stream that is already finished", async () => {
+
+        process.env.NODE_ENV = "development";
+
+        const restore = _finishedLogger();
+
+        try {
+
+            await _closeCurrentLogger();
+            await (await initLogger()).close();
+
+        }
+        finally {
+
+            restore();
+
+        }
+
+    });
+
 });
 
 describe("closeServer", () => {
@@ -204,6 +339,46 @@ describe("closeServer", () => {
             return closeServer(server);
 
         }, /close failed/u);
+
+    });
+
+    it("should force connections closed when the server stays open", async () => {
+
+        let forced = false;
+        let finish = null;
+        const restore = _fireSlowTimers();
+        const server = {
+            "close": (callback) => {
+
+                finish = callback;
+
+            },
+            "closeAllConnections": () => {
+
+                forced = true;
+
+            },
+            "closeIdleConnections": () => {
+
+                // this fake has no idle connection
+
+            }
+        };
+
+        try {
+
+            const pending = closeServer(server);
+
+            equal(forced, true);
+            finish();
+            await pending;
+
+        }
+        finally {
+
+            restore();
+
+        }
 
     });
 

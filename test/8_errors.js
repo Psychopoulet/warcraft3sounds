@@ -2,7 +2,7 @@
 
     // natives
     const { equal, deepEqual, rejects } = require("node:assert");
-    const { mkdir, mkdtemp, readFile, rm } = require("node:fs/promises");
+    const { mkdir, mkdtemp, readFile, rename, rm } = require("node:fs/promises");
     const os = require("node:os");
     const { join } = require("node:path");
 
@@ -18,6 +18,7 @@
 // consts
 
     const IPS_FILE = join(__dirname, "..", "lib", "data", "watchers", "ips.json");
+    const PATHS_FILE = join(__dirname, "..", "lib", "data", "watchers", "paths.json");
     const FILENAME = "watchers-paths-to-check.txt";
     const IP_FILENAME = "watchers-ips-to-check.txt";
     const NEXT_FILENAME = "watchers-still-writes.txt";
@@ -129,6 +130,39 @@
         };
 
         return capture;
+
+    }
+
+    function _withoutStack (err) {
+
+        err.stack = null;
+
+        return err;
+
+    }
+
+    function _captureErrors () {
+
+        const logger = getLogger();
+        const original = logger.error;
+        const messages = [];
+
+        logger.error = (content) => {
+
+            messages.push(content);
+
+            return original(content);
+
+        };
+
+        return {
+            "messages": messages,
+            "restore": () => {
+
+                logger.error = original;
+
+            }
+        };
 
     }
 
@@ -305,6 +339,119 @@ describe("pathErrorGlobal", () => {
         await addToCheckFile(NEXT_FILENAME, [ "/kept" ]);
 
         equal(await _readWatchers(home, NEXT_FILENAME), "/kept");
+
+    });
+
+    it("should log a managed error that has no stack", () => {
+
+        const badRequest = _withoutStack(new error.BadRequest({
+            "path": "/bad",
+            "message": "bad input"
+        }));
+        const internal = _withoutStack(new Error("boom"));
+        const badResponse = _jsonResponse();
+        const internalResponse = _jsonResponse();
+
+        pathErrorGlobal(badRequest, _req("/bad"), badResponse, _ignore);
+        pathErrorGlobal(internal, _req("/boom"), internalResponse, _ignore);
+
+        equal(badResponse.statusCode, 400);
+        equal(badResponse.body.message, "bad input");
+        equal(internalResponse.statusCode, 500);
+        equal(internalResponse.body.message, "boom");
+
+    });
+
+    it("should keep logging when a suspicious path cannot record its IP", async () => {
+
+        const capture = _captureErrors();
+        const req = _req("/.env");
+
+        req.ip = "8.8.8.8";
+
+        try {
+
+            await mkdir(join(home, "warcraft3sounds", "logs", IP_FILENAME), {
+                "recursive": true
+            });
+
+            pathErrorGlobal(new error.NotFound({
+                "path": "/.env",
+                "message": "not found"
+            }), req, _jsonResponse(), _ignore);
+
+            equal(await _waitUntil(() => {
+                return capture.messages.some((message) => {
+                    return message.includes("EISDIR") || message.includes("EPERM");
+                });
+            }), true);
+
+        }
+        finally {
+
+            capture.restore();
+
+        }
+
+    });
+
+    it("should keep logging when an unknown path cannot be recorded", async () => {
+
+        const capture = _captureErrors();
+
+        try {
+
+            await mkdir(join(home, "warcraft3sounds", "logs", FILENAME), {
+                "recursive": true
+            });
+
+            pathErrorGlobal(new error.NotFound({
+                "path": "/zz-unknown",
+                "message": "not found"
+            }), _req("/zz-unknown"), _jsonResponse(), _ignore);
+
+            equal(await _waitUntil(() => {
+                return capture.messages.some((message) => {
+                    return message.includes("EISDIR") || message.includes("EPERM");
+                });
+            }), true);
+
+        }
+        finally {
+
+            capture.restore();
+
+        }
+
+    });
+
+    it("should log when the watcher file cannot be read", async () => {
+
+        const capture = _captureErrors();
+        const hidden = join(os.tmpdir(), "warcraft3sounds-paths-aside.json");
+
+        await rename(PATHS_FILE, hidden);
+
+        try {
+
+            pathErrorGlobal(new error.NotFound({
+                "path": "/zz-unknown",
+                "message": "not found"
+            }), _req("/zz-unknown"), _jsonResponse(), _ignore);
+
+            equal(await _waitUntil(() => {
+                return capture.messages.some((message) => {
+                    return message.includes("ENOENT");
+                });
+            }), true);
+
+        }
+        finally {
+
+            capture.restore();
+            await rename(hidden, PATHS_FILE);
+
+        }
 
     });
 

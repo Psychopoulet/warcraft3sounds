@@ -183,6 +183,13 @@ export function initLogger (): Promise<iLogger> {
 
         return logger;
 
+    }).catch((err: Error): never => {
+
+        // a failed start must not stick : the next call tries again
+        _pending = null;
+
+        throw err;
+
     });
 
     return _pending;
