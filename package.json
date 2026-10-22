@@ -39,7 +39,7 @@
     "unit-tests-local": "npx c8 --reporter=html --reporter=text --all --include \"lib/src/**/*.ts\" --include \"lib/src/**/*.cts\" --exclude \"lib/src/Descriptor.ts\" --extension .ts --extension .cts mocha --require ./test/register.js",
     "e2e-tests": "npx playwright test",
 
-    "tests": "npm run lint && npm run check-requires && npm run check-updates && npm run build && npm run unit-tests-local && npm run e2e-tests",
+    "tests": "npm run lint && npm run check-requires && npm run check-updates && npm run build && npm run unit-tests && npm run e2e-tests",
 
     "start": "node ./lib/cjs/main.cjs",
 
