@@ -4,6 +4,7 @@
 
 // Lists the paths and the IPs of a source that are not yet in lib/data/watchers/paths.json / ips.json, sorted alphabetically.
 // A line starting with "/" is a path, a line that is an IP address (v4 or v6) is an IP.
+// /public/sounds/* (a file under that directory) is a real site asset and is dropped. The bare /public/sounds path is not.
 //
 // usage : node extract.js <source>      (source is mandatory)
 //   source : an URL (http/https, simple GET), a file path, or raw text (paths and IPs separated by newlines, spaces or commas)
@@ -21,6 +22,8 @@
     const PATHS_FILE = join(DATA_DIR, "paths.json");
     const IPS_FILE = join(DATA_DIR, "ips.json");
     const IPV4_MAPPED_PREFIX = "::ffff:";
+    // served sound files (/public/sounds/<file>), never a probe; the bare directory is not one
+    const LEGIT_PATH = /^\/public\/sounds\/.+/;
 
 // private
 
@@ -130,7 +133,7 @@
         const entries = tokens.filter(Boolean).map(normalize).filter(Boolean);
 
         return {
-            "paths": [ ...new Set(entries.filter((e) => "paths" === e.type).map((e) => e.value)) ],
+            "paths": [ ...new Set(entries.filter((e) => "paths" === e.type).map((e) => e.value).filter((path) => !LEGIT_PATH.test(path.split("?")[0]))) ],
             "ips": [ ...new Set(entries.filter((e) => "ips" === e.type).map((e) => e.value)) ]
         };
 
