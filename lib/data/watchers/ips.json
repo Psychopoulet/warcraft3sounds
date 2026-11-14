@@ -6,6 +6,7 @@
       "176.120.22.240": "Scan from Proton66 hosting",
       "34.52.150.124": "Web brute force and config-file hunting from Google Cloud",
       "34.55.24.101": "Scan from a Google Cloud host",
+      "34.77.241.117": "Mass .env and AWS credential scan from Google Cloud",
       "35.216.110.185": "Abusive activity from a Google Cloud instance",
       "94.154.43.158": "Scan from Storm Industries hosting"
     }
@@ -13,7 +14,9 @@
   {
     "category": "bruteforce",
     "ips": {
+      "163.52.135.196": "Repeated web-login brute force from CV Griya Cloud Server",
       "170.64.154.153": "Web login brute force (Joomla, WordPress) from DigitalOcean",
+      "20.207.202.183": "Web login brute force and Apache attacks from Azure",
       "45.138.12.24": "Web login brute force and Apache attacks (blocklist.de)"
     }
   },
@@ -26,11 +29,13 @@
       "195.63.0.94": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.1.181": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.1.244": "3xK Tech residential proxy/bot (spam and brute force)",
+      "195.63.19.107": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.19.150": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.22.169": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.22.202": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.23.195": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.23.239": "3xK Tech residential proxy/bot (spam and brute force)",
+      "195.63.25.160": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.25.93": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.27.81": "3xK Tech residential proxy/bot (spam and brute force)",
       "195.63.29.3": "3xK Tech residential proxy/bot (spam and brute force)",
@@ -57,12 +62,15 @@
     "category": "scanners",
     "ips": {
       "118.26.111.94": "Port scan and SSH/FTP/MySQL probes from UCloud",
+      "128.79.188.11": "Wordlist sweep of contact pages from a Bouygues Telecom residential line",
       "134.33.66.210": "Stretchoid scanner",
       "135.119.19.134": "Mass scan from Azure (CMS, admin panels)",
       "135.119.92.127": "Scan from a Microsoft Azure host",
       "152.32.219.77": "Scan from a UCloud host",
       "167.94.146.53": "Censys scanner",
+      "167.94.146.57": "Censys internet-wide service scanner",
       "167.94.146.59": "Censys scanner",
+      "168.76.254.75": "Mass .git/config scan from Clayer Limited",
       "170.231.236.98": "Apcosys scanner",
       "172.104.30.66": "Port scan and HTTP crawl from Linode",
       "172.203.228.228": "Stretchoid scanner",
@@ -95,12 +103,21 @@
       "45.156.129.154": "Internet Census scanner",
       "45.156.129.155": "Internet Census scanner",
       "65.49.1.142": "Shadowserver scanner",
+      "65.49.1.24": "Shadowserver Foundation internet-wide port scanner",
       "66.132.186.187": "Censys scanner",
       "66.228.34.203": "Scan from an Akamai Linode host",
+      "67.219.17.153": "Search for exposed configuration files from Colocation America hosting",
       "74.249.178.126": "Scan from a Microsoft Azure host",
       "77.67.26.139": "Probe from a GTT Communications address",
       "8.211.162.45": "KI3 internet-measurement scanner",
       "81.19.219.242": "Infrawatch scanner"
+    }
+  },
+  {
+    "category": "webshell-probes",
+    "ips": {
+      "47.251.15.21": "Probe for Chinese admin backdoor scripts (hetong.js, check.js) on Alibaba Cloud",
+      "47.88.94.28": "Probe for Chinese admin backdoor scripts (hetong.js, check.js) on Alibaba Cloud"
     }
   }
 ]

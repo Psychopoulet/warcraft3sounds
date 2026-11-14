@@ -19,6 +19,7 @@ Adds paths to `lib/data/watchers/paths.json` (array of `{ "category", "paths": {
 1. **Get the pending paths and IPs** (already normalized, deduped, not in the JSON, sorted; paths start with `/`, IPs are bare addresses, `::ffff:` IPv4-mapped IPv6 is turned into IPv4):
    `node .cursor/skills/add-watcher/extract.js "<source>"` — the source is mandatory (fails without) and auto-detected: **URL** (simple GET), existing **file**, otherwise **raw text** (paths separated by newlines/spaces/commas). No need to fetch or read it yourself.
    - If the output is empty, reply "nothing to add" and stop.
+   - `/public/sounds/*` (a file under that directory) is a real site asset, a served sound file. `extract.js` drops those paths; never classify or add them. The bare path `/public/sounds` is not one of them.
 2. **Write `rules.json`** (temp dir, with the Write tool):
    ```json
    [
