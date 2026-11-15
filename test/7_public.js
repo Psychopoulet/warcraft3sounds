@@ -11,6 +11,8 @@
 // consts
 
     const PUBLIC = join(__dirname, "..", "public");
+    const PACKAGE_FILE = join(__dirname, "..", "package.json");
+    const BUNDLE_PATH = "/public/bundle.min.js";
 
     const REDIRECTS = [
         [ "/", "/public/index.html" ],
@@ -38,6 +40,20 @@
  "/public/pictures/warcraft3TFT.png", join(PUBLIC, "pictures", "warcraft3TFT.png"), "image/png"
 ]
     ];
+
+// private
+
+    function _bundleWithAppData (content, version, github) {
+
+        return Buffer.from(
+
+            content.toString("utf-8")
+            .replace(/--APP_VERSION--/g, version)
+            .replace(/--GITHUB_URL--/g, github)
+
+        );
+
+    }
 
 // tests
 
@@ -81,11 +97,15 @@ describe("public files and redirects", () => {
 
     it("should return the built files", async () => {
 
+        const packageFile = JSON.parse(await readFile(PACKAGE_FILE, "utf-8"));
+
         const results = await Promise.all(FILES.map(async (entry) => {
+
+            const content = await readFile(entry[1]);
 
             return {
                 "res": await request(ctx.baseUrl, entry[0]),
-                "expected": await readFile(entry[1]),
+                "expected": BUNDLE_PATH === entry[0] ? _bundleWithAppData(content, packageFile.version, packageFile.homepage) : content,
                 "type": entry[2],
                 "path": entry[0]
             };
@@ -99,6 +119,21 @@ describe("public files and redirects", () => {
             deepEqual(item.res.body, item.expected, item.path);
 
         });
+
+    });
+
+    it("should return the same bundle once app data is cached", async () => {
+
+        const packageFile = JSON.parse(await readFile(PACKAGE_FILE, "utf-8"));
+        const content = await readFile(join(PUBLIC, "dist", "bundle.min.js"));
+        const expected = _bundleWithAppData(content, packageFile.version, packageFile.homepage);
+        const first = await request(ctx.baseUrl, BUNDLE_PATH);
+        const second = await request(ctx.baseUrl, BUNDLE_PATH);
+
+        equal(first.status, 200, BUNDLE_PATH);
+        equal(second.status, 200, BUNDLE_PATH);
+        deepEqual(first.body, expected, BUNDLE_PATH);
+        deepEqual(second.body, expected, BUNDLE_PATH);
 
     });
 
