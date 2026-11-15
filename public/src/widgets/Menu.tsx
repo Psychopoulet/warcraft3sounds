@@ -77,14 +77,38 @@ export default class Menu extends React.Component<iProps, iStates> {
 
                 </span>
 
-                <form className="form-inline">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
 
-                    <CheckBoxPrettierLabel label={ "Intégrer les sons non traduits ('not worded')" }
-                        margin-bottom={ 0 }
-                        checked={ this.state.notWordedSounds } onToogle={ this._handleToogleNotWordedSounds.bind(this) }
-                    />
+                <div className="collapse navbar-collapse" id="navbarScroll">
 
-                </form>
+                    <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+
+                        <li className="nav-item">
+                            <span className="nav-link disabled" aria-disabled="true">v--APP_VERSION--</span>
+                        </li>
+
+                        <li className="nav-item">
+                            <a className="nav-link" href="/api/descriptor">API documentation</a>
+                        </li>
+
+                        <li className="nav-item">
+                            <a className="nav-link" href="--GITHUB_URL--">github</a>
+                        </li>
+
+                    </ul>
+
+                    <form className="form-inline d-flex">
+
+                        <CheckBoxPrettierLabel label={ "Intégrer les sons non traduits ('not worded')" }
+                            margin-bottom={ 0 }
+                            checked={ this.state.notWordedSounds } onToogle={ this._handleToogleNotWordedSounds.bind(this) }
+                        />
+
+                    </form>
+
+                </div>
 
             </div>
 
