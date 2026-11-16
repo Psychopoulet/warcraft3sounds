@@ -11,7 +11,8 @@
 
     const { "default": checkDatabaseFile } = require("../lib/src/db/checkDatabaseFile.ts");
     const schema = require("../lib/src/db/schema.ts");
-    const { createTestModel, createCatalogModel } = require("./helpers/model.js");
+    const { setSoundsDirectory } = require("../lib/src/tools/getSoundsDirectory.ts");
+    const { createTestModel, createCatalogModel, SOUNDS_DIR } = require("./helpers/model.js");
 
 // consts
 
@@ -47,6 +48,7 @@
                 "code": "theme1",
                 "name": "Thème 1",
                 "file": "theme.mp3",
+                "exists": true,
                 "url": "/public/sounds/theme.mp3"
             }
         ],
@@ -55,6 +57,7 @@
                 "code": "townattack",
                 "name": "Notre ville est assiégée",
                 "file": "warning.wav",
+                "exists": false,
                 "url": "/public/sounds/warning.wav"
             }
         ]
@@ -72,6 +75,7 @@
                 "code": "ready1",
                 "name": "Prêt !",
                 "file": "ready.wav",
+                "exists": true,
                 "url": "/public/sounds/ready.wav",
                 "type": {
                     "code": "ready",
@@ -208,12 +212,15 @@ describe("model", () => {
 
         before(async () => {
 
+            setSoundsDirectory(SOUNDS_DIR);
             model = createTestModel();
             await model.init();
 
         });
 
         after(async () => {
+
+            setSoundsDirectory(null);
 
             if (model) {
                 await model.release();
@@ -254,6 +261,28 @@ describe("model", () => {
         it("should return null for a character on an unknown race", async () => {
 
             equal(await model.getCharacter("orcs", "peasant"), null);
+
+        });
+
+        it("should mark every file missing when the sounds directory is absent", async () => {
+
+            setSoundsDirectory(join(SOUNDS_DIR, "missing"));
+
+            try {
+
+                const race = await model.getRace("humans");
+                const character = await model.getCharacter("humans", "peasant");
+
+                equal(race.musics[0].exists, false);
+                equal(race.warnings[0].exists, false);
+                equal(character.actions[0].exists, false);
+
+            }
+            finally {
+
+                setSoundsDirectory(SOUNDS_DIR);
+
+            }
 
         });
 

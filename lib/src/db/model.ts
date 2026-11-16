@@ -2,7 +2,7 @@
 
     // natives
     import { join, resolve } from "node:path";
-    import { readFile } from "node:fs/promises";
+    import { readdir, readFile } from "node:fs/promises";
     import { pathToFileURL } from "node:url";
 
     // externals
@@ -11,6 +11,7 @@
 
     // locals
     import getConf from "../conf";
+    import getSoundsDirectory from "../tools/getSoundsDirectory";
     import checkDatabaseFile from "./checkDatabaseFile";
     import * as schema from "./schema";
     import seed from "./seed";
@@ -39,6 +40,31 @@
     function _dataFile (name: string): string {
 
         return join(__dirname, "..", "..", "data", name);
+
+    }
+
+    // a missing directory means none of the catalog files are present
+    function _soundNames (): Promise<Set<string>> {
+
+        return readdir(getSoundsDirectory(), {
+            "withFileTypes": true
+        }).then((entries): Set<string> => {
+
+            return new Set(entries.filter((entry): boolean => {
+
+                return entry.isFile();
+
+            }).map((entry): string => {
+
+                return entry.name;
+
+            }));
+
+        }).catch((): Set<string> => {
+
+            return new Set();
+
+        });
 
     }
 
@@ -204,6 +230,8 @@ export class WarcraftSoundsModel {
             return null;
         }
 
+        const names: Set<string> = await _soundNames();
+
         return {
             "code": race.code,
             "name": race.name,
@@ -227,6 +255,7 @@ export class WarcraftSoundsModel {
                     "code": music.code,
                     "name": music.name,
                     "file": music.file,
+                    "exists": names.has(music.file),
                     "url": "/public/sounds/" + music.file
                 };
 
@@ -237,6 +266,7 @@ export class WarcraftSoundsModel {
                     "code": warning.code,
                     "name": warning.name,
                     "file": warning.file,
+                    "exists": names.has(warning.file),
                     "url": "/public/sounds/" + warning.file
                 };
 
@@ -289,6 +319,8 @@ export class WarcraftSoundsModel {
                 notWorded ? sql `1 = 1` : ne(schema.actions.name, "")
             ));
 
+        const names: Set<string> = await _soundNames();
+
         return {
             "code": character.code,
             "name": character.name,
@@ -302,6 +334,7 @@ export class WarcraftSoundsModel {
                     "code": action.code,
                     "name": action.name,
                     "file": action.file,
+                    "exists": names.has(action.file),
                     "url": "/public/sounds/" + action.file,
                     "type": {
                         "code": action.typeCode,

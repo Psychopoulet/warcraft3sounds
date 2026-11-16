@@ -468,9 +468,12 @@
 						"properties": {
 							"file": {
 								"type": "string"
+							},
+							"exists": {
+								"type": "boolean"
 							}
 						},
-						"required": [ "file" ]
+						"required": [ "file", "exists" ]
 					}
 				]
 			},

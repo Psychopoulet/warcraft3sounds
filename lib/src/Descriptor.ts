@@ -385,6 +385,7 @@ export interface components {
         };
         BasicFileData: components["schemas"]["BasicDataWithUrl"] & {
             file: string;
+            exists: boolean;
         };
         BasicRace: components["schemas"]["BasicDataWithUrl"] & {
             icon: string;

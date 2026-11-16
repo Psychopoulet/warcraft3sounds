@@ -40,6 +40,7 @@
                 "code": "theme1",
                 "name": "Thème 1",
                 "file": "theme.mp3",
+                "exists": true,
                 "url": "/public/sounds/theme.mp3"
             }
         ],
@@ -48,6 +49,7 @@
                 "code": "townattack",
                 "name": "Notre ville est assiégée",
                 "file": "warning.wav",
+                "exists": false,
                 "url": "/public/sounds/warning.wav"
             }
         ]
