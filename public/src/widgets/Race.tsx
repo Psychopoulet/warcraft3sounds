@@ -38,6 +38,10 @@
         "onChangeSound": (url: string) => void;
     }
 
+// consts
+
+    const ICON_SIZE: number = 25;
+
 // component
 
 export default class Race extends React.Component<iProps, iStates> {
@@ -178,8 +182,8 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <option value="">--</option>
 
-                { this.state.race.musics.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
-                    return <option key={ content.code } value={ content.url }>{ content.name }</option>;
+                { this.state.race.musics.map((content: descriptorTypes["BasicFileData"]): React.JSX.Element => {
+                    return <option key={ content.code } value={ content.url }>{ !content.exists && "❌ " }{ content.name }</option>;
                 }) }
 
             </SelectLabel>;
@@ -203,8 +207,8 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <option value="">--</option>
 
-                { this.state.race.warnings.map((content: descriptorTypes["BasicDataWithUrl"]): React.JSX.Element => {
-                    return <option key={ content.code } value={ content.url }>{ content.name }</option>;
+                { this.state.race.warnings.map((content: descriptorTypes["BasicFileData"]): React.JSX.Element => {
+                    return <option key={ content.code } value={ content.url }>{ !content.exists && "❌ " }{ content.name }</option>;
                 }) }
 
             </SelectLabel>;
@@ -231,7 +235,7 @@ export default class Race extends React.Component<iProps, iStates> {
                     { this.state.character?.actions.filter((action: descriptorTypes["Action"]): boolean => {
                         return action.type.code === actionName;
                     }).map((content: descriptorTypes["Action"]): React.JSX.Element => {
-                        return <option key={ content.code } value={ content.url }>{ content.name }</option>;
+                        return <option key={ content.code } value={ content.url }>{ !content.exists && "❌ " }{ content.name }</option>;
                     }) }
 
                 </optgroup>;
@@ -258,7 +262,7 @@ export default class Race extends React.Component<iProps, iStates> {
                 <div className="input-group">
 
                     { this.state.character && 0 < this.state.character.icon.length ? <span className="input-group-text">
-                        <Image src={ this.state.character.icon } height={ 25 } width={ 25 } />
+                        <Image src={ this.state.character.icon } height={ ICON_SIZE } width={ ICON_SIZE } />
                     </span> : undefined}
 
                     <Select id={ this.state.race.code + "-characters" }
@@ -318,7 +322,7 @@ export default class Race extends React.Component<iProps, iStates> {
             }).map((character: descriptorTypes["BasicCharacter"]): React.JSX.Element => {
 
                 return <option key={ character.code } value={ character.code }>
-                    { character.tft ? "[TFT] " : undefined }{ character.name }
+                    { character.tft && "[TFT] " }{ character.name }
                 </option>;
 
             }) }
@@ -342,7 +346,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
                 <h5 className="m-0">{ this.props.race.name }</h5>
 
-                <Image src={ this.state.race.icon } height={ 20 } width={ 20 } />
+                <Image src={ this.state.race.icon } height={ ICON_SIZE } width={ ICON_SIZE } />
 
             </CardHeader>;
 
