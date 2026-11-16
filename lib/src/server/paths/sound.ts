@@ -22,7 +22,7 @@
 
 // module
 
-export function pathSounds (
+export default function pathSound (
     req: Request<operations["getSound"]["parameters"]["path"]>,
     res: Response,
     next: NextFunction

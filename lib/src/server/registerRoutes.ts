@@ -10,9 +10,7 @@
         pathPublicRobots
     } from "./paths/public";
 
-    import {
-        pathSounds
-    } from "./paths/sounds";
+    import pathSound from "./paths/sound";
 
     import {
         pathAPISwagger,
@@ -48,7 +46,7 @@ export default function registerRoutes (app: Express): Express {
 
     // sounds
 
-        app.get("/public/sounds/:sound", pathSounds);
+        app.get("/public/sounds/:sound", pathSound);
 
     // api
 
