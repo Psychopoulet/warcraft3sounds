@@ -11,6 +11,7 @@
     } from "react-bootstrap-fontawesome";
 
     // locals
+    import { NotWordedSoundsContext } from "../NotWordedSounds";
     import getSDK from "../sdk";
 
 // types & interfaces
@@ -34,7 +35,6 @@
 
     interface iProps extends iPropsNode {
         "race": descriptorTypes["BasicRace"];
-        "notWordedSounds": boolean;
         "onChangeSound": (url: string) => void;
     }
 
@@ -45,6 +45,8 @@ export default class Race extends React.Component<iProps, iStates> {
     // name
 
         public static displayName: string = "Race";
+        public static contextType: typeof NotWordedSoundsContext = NotWordedSoundsContext;
+        public declare context: React.ContextType<typeof NotWordedSoundsContext>;
 
     // constructor
 
@@ -136,7 +138,7 @@ export default class Race extends React.Component<iProps, iStates> {
 
         if ("" !== value) {
 
-            getSDK().getCharacter(this.props.race.code, value, this.props.notWordedSounds).then((character: descriptorTypes["Character"]): void => {
+            getSDK().getCharacter(this.props.race.code, value, this.context.notWordedSounds).then((character: descriptorTypes["Character"]): void => {
 
                 this.setState({
                     "loadingCharacter": false,

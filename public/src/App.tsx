@@ -5,6 +5,7 @@
     import React from "react";
 
     // internals
+    import { NotWordedSoundsProvider } from "./NotWordedSounds";
     import WarningLicence from "./widgets/WarningLicence";
     import Menu from "./widgets/Menu";
     import Body from "./widgets/Body";
@@ -17,7 +18,6 @@
 // Props && States
 
     interface iStates {
-        "notWordedSounds": boolean;
         "licenceWarningOpened": boolean;
     }
 
@@ -38,21 +38,12 @@ export default class App extends React.Component<iPropsNode, iStates> {
         // states
 
         this.state = {
-            "notWordedSounds": false,
             "licenceWarningOpened": true
         };
 
     }
 
     // events
-
-    private _handleToogleNotWordedSounds (newValue: boolean): void {
-
-        this.setState({
-            "notWordedSounds": newValue
-        });
-
-    }
 
     private _handleCloseLicenceWarning (): void {
 
@@ -70,8 +61,12 @@ export default class App extends React.Component<iPropsNode, iStates> {
 
             { this.state.licenceWarningOpened && <WarningLicence onClose={ this._handleCloseLicenceWarning.bind(this) } /> }
 
-            <Menu onToogleNotWordedSounds={ this._handleToogleNotWordedSounds.bind(this) } />
-            <Body notWordedSounds={ this.state.notWordedSounds } />
+            <NotWordedSoundsProvider>
+
+                <Menu />
+                <Body />
+
+            </NotWordedSoundsProvider>
 
         </>;
 

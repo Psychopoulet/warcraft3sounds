@@ -23,19 +23,14 @@
 // Props && States
 
     interface iStates {
-        "notWordedSounds": boolean;
         "loading": boolean;
         "races": Array<descriptorTypes["BasicRace"]>;
         "readedSoundUrl": string;
     }
 
-    interface iProps extends iPropsNode {
-        "notWordedSounds": boolean;
-    }
-
 // component
 
-export default class Body extends React.Component<iProps, iStates> {
+export default class Body extends React.Component<iPropsNode, iStates> {
 
     // name
 
@@ -43,14 +38,13 @@ export default class Body extends React.Component<iProps, iStates> {
 
     // constructor
 
-    public constructor (props: iProps) {
+    public constructor (props: iPropsNode) {
 
         super(props);
 
         // states
 
         this.state = {
-            "notWordedSounds": props.notWordedSounds,
             "loading": true,
             "races": [],
             "readedSoundUrl": ""
@@ -69,21 +63,6 @@ export default class Body extends React.Component<iProps, iStates> {
         this.setState({
             "races": []
         });
-
-    }
-
-    public static getDerivedStateFromProps (props: iProps, state: iStates): iStates | null {
-
-        if (props.notWordedSounds !== state.notWordedSounds) {
-
-            return {
-                ...state,
-                "notWordedSounds": props.notWordedSounds
-            };
-
-        }
-
-        return null;
 
     }
 
@@ -171,7 +150,6 @@ export default class Body extends React.Component<iProps, iStates> {
 
                             <Race
                                 race={ race }
-                                notWordedSounds={ this.state.notWordedSounds }
                                 onChangeSound={ this._handleChangeSound.bind(this) }
                             />
 

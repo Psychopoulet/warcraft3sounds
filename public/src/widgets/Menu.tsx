@@ -4,42 +4,23 @@
     import React from "react";
     import { Image, CheckBoxPrettierLabel } from "react-bootstrap-fontawesome";
 
+    // locals
+    import { NotWordedSoundsContext } from "../NotWordedSounds";
+
 // types & interfaces
 
     // externals
     import type { iPropsNode } from "react-bootstrap-fontawesome";
 
-// Props && States
-
-    interface iStates {
-        "notWordedSounds": boolean;
-    }
-
-    interface iProps extends iPropsNode {
-        "onToogleNotWordedSounds": (newVal: boolean) => void;
-    }
-
 // component
 
-export default class Menu extends React.Component<iProps, iStates> {
+export default class Menu extends React.Component<iPropsNode> {
 
     // name
 
         public static displayName: string = "Menu";
-
-    // constructor
-
-    public constructor (props: iProps) {
-
-        super(props);
-
-        // states
-
-        this.state = {
-            "notWordedSounds": false
-        };
-
-    }
+        public static contextType: typeof NotWordedSoundsContext = NotWordedSoundsContext;
+        public declare context: React.ContextType<typeof NotWordedSoundsContext>;
 
     // events
 
@@ -47,17 +28,11 @@ export default class Menu extends React.Component<iProps, iStates> {
 
         const value: boolean = e.target.checked;
 
-        if (value === this.state.notWordedSounds) {
+        if (value === this.context.notWordedSounds) {
             return;
         }
 
-        this.setState({
-            "notWordedSounds": value
-        });
-
-        if ("function" === typeof this.props.onToogleNotWordedSounds) {
-            this.props.onToogleNotWordedSounds(value);
-        }
+        this.context.setNotWordedSounds(value);
 
     }
 
@@ -103,7 +78,7 @@ export default class Menu extends React.Component<iProps, iStates> {
 
                         <CheckBoxPrettierLabel label={ "Intégrer les sons non traduits ('not worded')" }
                             margin-bottom={ 0 }
-                            checked={ this.state.notWordedSounds } onToogle={ this._handleToogleNotWordedSounds.bind(this) }
+                            checked={ this.context.notWordedSounds } onToogle={ this._handleToogleNotWordedSounds.bind(this) }
                         />
 
                     </form>
