@@ -3,11 +3,6 @@
 
         {"k_character":216,"k_action_type":5,"code":"attack1","name":"","file":"ThrallYesAttack1.wav"},
 
-        {"k_character":114,"k_action_type":2,"code":"warcry1","name":"","file":"SylvanasWarcry1.wav"},
-        {"k_character":114,"k_action_type":3,"code":"what1","name":"","file":"SylvanasWhat1.wav"},
-        {"k_character":114,"k_action_type":3,"code":"what2","name":"","file":"SylvanasWhat2.wav"},
-        {"k_character":114,"k_action_type":3,"code":"what3","name":"","file":"SylvanasWhat3.wav"},
-        {"k_character":114,"k_action_type":3,"code":"what4","name":"","file":"SylvanasWhat4.wav"},
         {"k_character":115,"k_action_type":2,"code":"warcry1","name":"","file":"TyrandeWarcry1.wav"},
         {"k_character":115,"k_action_type":3,"code":"what1","name":"","file":"TyrandeWhat1.wav"},
         {"k_character":115,"k_action_type":3,"code":"what2","name":"","file":"TyrandeWhat2.wav"},
