@@ -1069,7 +1069,7 @@
         {"k_character":406,"k_action_type":3,"code":"what2","name":"Je vous aiderai","file":"DarkRangerWhat2.wav"},
         {"k_character":406,"k_action_type":3,"code":"what3","name":"Dirigez mon courroux","file":"DarkRangerWhat3.wav"},
         {"k_character":406,"k_action_type":3,"code":"what4","name":"Que les vivants se terrent","file":"DarkRangerWhat4.wav"},
-        {"k_character":406,"k_action_type":3,"code":"what4","name":"Mettez fin à mon tourment","file":"DarkRangerWhat5.wav"},
+        {"k_character":406,"k_action_type":3,"code":"what5","name":"Mettez fin à mon tourment","file":"DarkRangerWhat5.wav"},
         {"k_character":406,"k_action_type":4,"code":"yes1","name":"Si tel est votre souhait","file":"DarkRangerYes1.wav"},
         {"k_character":406,"k_action_type":4,"code":"yes2","name":"Si vous me l'ordonnez","file":"DarkRangerYes2.wav"},
         {"k_character":406,"k_action_type":4,"code":"yes3","name":"J'y vais","file":"DarkRangerYes3.wav"},
