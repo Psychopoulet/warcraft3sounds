@@ -1,5 +1,8 @@
 {
     "actions": [
+
+        {"k_character":216,"k_action_type":5,"code":"attack1","name":"","file":"ThrallYesAttack1.wav"},
+
         {"k_character":114,"k_action_type":2,"code":"warcry1","name":"","file":"SylvanasWarcry1.wav"},
         {"k_character":114,"k_action_type":3,"code":"what1","name":"","file":"SylvanasWhat1.wav"},
         {"k_character":114,"k_action_type":3,"code":"what2","name":"","file":"SylvanasWhat2.wav"},
@@ -159,19 +162,6 @@
         {"k_character":215,"k_action_type":5,"code":"attack2","name":"","file":"GromYesAttack2.wav"},
         {"k_character":215,"k_action_type":5,"code":"attack3","name":"","file":"GromYesAttack3.wav"},
         {"k_character":215,"k_action_type":5,"code":"attack4","name":"","file":"GromYesAttack4.wav"},
-        {"k_character":216,"k_action_type":2,"code":"warcry1","name":"","file":"ThrallWarcry1.wav"},
-        {"k_character":216,"k_action_type":3,"code":"what1","name":"","file":"ThrallWhat1.wav"},
-        {"k_character":216,"k_action_type":3,"code":"what2","name":"","file":"ThrallWhat2.wav"},
-        {"k_character":216,"k_action_type":3,"code":"what3","name":"","file":"ThrallWhat3.wav"},
-        {"k_character":216,"k_action_type":3,"code":"what4","name":"","file":"ThrallWhat4.wav"},
-        {"k_character":216,"k_action_type":4,"code":"yes1","name":"","file":"ThrallYes1.wav"},
-        {"k_character":216,"k_action_type":4,"code":"yes2","name":"","file":"ThrallYes2.wav"},
-        {"k_character":216,"k_action_type":4,"code":"yes3","name":"","file":"ThrallYes3.wav"},
-        {"k_character":216,"k_action_type":4,"code":"yes4","name":"","file":"ThrallYes4.wav"},
-        {"k_character":216,"k_action_type":5,"code":"attack1","name":"","file":"ThrallYesAttack1.wav"},
-        {"k_character":216,"k_action_type":5,"code":"attack2","name":"","file":"ThrallYesAttack2.wav"},
-        {"k_character":216,"k_action_type":5,"code":"attack3","name":"","file":"ThrallYesAttack3.wav"},
-        {"k_character":216,"k_action_type":5,"code":"attack4","name":"","file":"ThrallYesAttack4.wav"},
         {"k_character":217,"k_action_type":1,"code":"ready1","name":"","file":"WarlordReady1.wav"},
         {"k_character":217,"k_action_type":2,"code":"warcry1","name":"","file":"WarlordWarcry1.wav"},
         {"k_character":217,"k_action_type":3,"code":"what1","name":"","file":"WarlordWhat1.wav"},
